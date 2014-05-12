@@ -17,6 +17,9 @@ namespace Altman.UICore.Control_ShellManager
             InitComboBox_ScriptType();
 
             _shellManager = new ShellManager();
+
+            this.button_Add.Enabled = true;
+            this.button_Alter.Enabled = false;
         }
 
         public FormEditWebshell(ShellStruct shellStructArray)
@@ -26,31 +29,23 @@ namespace Altman.UICore.Control_ShellManager
 
             _shellManager = new ShellManager();
 
-            if (shellStructArray == null)
-            {
-                this.button_Add.Enabled = true;
-                this.button_Alter.Enabled = false;
-            }
-            else
-            {
-                this.button_Add.Enabled = false;
-                this.button_Alter.Enabled = true;
-                this.Id = shellStructArray.Id;
-                this.textBox_TargetID.Text = shellStructArray.TargetId;
-                this.comboBox_TargetLevel.Text = shellStructArray.TargetLevel;
+            this.button_Add.Enabled = false;
+            this.button_Alter.Enabled = true;
+            this.Id = shellStructArray.Id;
+            this.textBox_TargetID.Text = shellStructArray.TargetId;
+            this.comboBox_TargetLevel.Text = shellStructArray.TargetLevel;
 
-                this.textBox_ShellPath.Text = shellStructArray.ShellUrl;
-                this.textBox_ShellPass.Text = shellStructArray.ShellPwd;
+            this.textBox_ShellPath.Text = shellStructArray.ShellUrl;
+            this.textBox_ShellPass.Text = shellStructArray.ShellPwd;
 
-                this.richTextBox_Setting.Text = shellStructArray.ShellExtraSetting;
+            this.richTextBox_Setting.Text = shellStructArray.ShellExtraSetting;
 
-                this.textBox_Remark.Text = shellStructArray.Remark;
+            this.textBox_Remark.Text = shellStructArray.Remark;
 
-                this.comboBox_ScritpType.Text = shellStructArray.ShellType;
-                this.comboBox_ServerCoding.Text = shellStructArray.ServerCoding;
-                this.comboBox_WebCoding.Text = shellStructArray.WebCoding;
-                this.comboBox_Area.Text = shellStructArray.Area;
-            }
+            this.comboBox_ScritpType.Text = shellStructArray.ShellType;
+            this.comboBox_ServerCoding.Text = shellStructArray.ServerCoding;
+            this.comboBox_WebCoding.Text = shellStructArray.WebCoding;
+            this.comboBox_Area.Text = shellStructArray.Area;
         }
 
         private void button_Add_Click(object sender, EventArgs e)
@@ -111,7 +106,7 @@ namespace Altman.UICore.Control_ShellManager
             shellStruct.AddTime = time;
 
 
-            _shellManager.Update(int.Parse(shellStruct.Id), shellStruct);         
+            _shellManager.Update(int.Parse(shellStruct.Id), shellStruct);
             OnWebshellChange(EventArgs.Empty);
             this.Close();
         }

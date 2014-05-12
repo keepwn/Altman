@@ -33,7 +33,7 @@ namespace MyFirstPlugin
             get { return _hostService; }
         }
 
-        public UserControl GetUi(ShellBasicData data)
+        public UserControl GetUi(ShellStruct data)
         {
              return _userControl = new MyFirstPlugin(_hostService,data);
         }

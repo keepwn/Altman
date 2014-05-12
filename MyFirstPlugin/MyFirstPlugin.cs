@@ -15,25 +15,26 @@ namespace MyFirstPlugin
     public partial class MyFirstPlugin : UserControl
     {
         private HostService _host;
-        private ShellBasicData _shellBasicData;
-        public MyFirstPlugin(HostService host,ShellBasicData data)
+        private ShellStruct _shellData;
+        public MyFirstPlugin(HostService host, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
             _host = host;
-            _shellBasicData = data;
+            _shellData = data;
 
-            ShowShellTypeDataInLable(_shellBasicData);
+            ShowShellTypeDataInLable(_shellData);
         }
 
-        private void ShowShellTypeDataInLable(ShellBasicData data)
+        private void ShowShellTypeDataInLable(ShellStruct data)
         {
-            lbl_shellBasicData.Text = "[ShellUrl]:" + data.ShellUrl + "\n";
-            lbl_shellBasicData.Text += "[ShellPwd]:" + data.ShellPwd + "\n";
-            lbl_shellBasicData.Text += "[ShellType]:" + data.ShellType + "\n";
-            lbl_shellBasicData.Text += "[ShellCoding]:" + data.ShellCoding + "\n";
-            lbl_shellBasicData.Text += "[ShellTimeOut]:" + data.ShellTimeOut + "\n";    
+            lbl_shellData.Text = "[ShellUrl]:" + data.ShellUrl + "\n";
+            lbl_shellData.Text += "[ShellPwd]:" + data.ShellPwd + "\n";
+            lbl_shellData.Text += "[ShellType]:" + data.ShellType + "\n";
+            lbl_shellData.Text += "[ServerCoding]:" + data.ServerCoding + "\n";
+            lbl_shellData.Text += "[TimeOut]:" + data.TimeOut+ "\n";
+            lbl_shellData.Text += "[ShellExtraSetting]:" + data.ShellExtraSetting + "\n";
         }
 
         private void btn_showMsgInStatus_Click(object sender, EventArgs e)

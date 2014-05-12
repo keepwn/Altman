@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_shellBasicData = new System.Windows.Forms.Label();
+            this.lbl_shellData = new System.Windows.Forms.Label();
             this.btn_showMsgInStatus = new System.Windows.Forms.Button();
             this.tbx_msg = new System.Windows.Forms.TextBox();
             this.tbx_messagBox = new System.Windows.Forms.TextBox();
@@ -37,14 +37,14 @@
             this.tbx_tabPageName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // lbl_shellBasicData
+            // lbl_shellData
             // 
-            this.lbl_shellBasicData.AutoSize = true;
-            this.lbl_shellBasicData.Location = new System.Drawing.Point(24, 16);
-            this.lbl_shellBasicData.Name = "lbl_shellBasicData";
-            this.lbl_shellBasicData.Size = new System.Drawing.Size(89, 12);
-            this.lbl_shellBasicData.TabIndex = 0;
-            this.lbl_shellBasicData.Text = "ShellBasicData";
+            this.lbl_shellData.AutoSize = true;
+            this.lbl_shellData.Location = new System.Drawing.Point(24, 16);
+            this.lbl_shellData.Name = "lbl_shellData";
+            this.lbl_shellData.Size = new System.Drawing.Size(59, 12);
+            this.lbl_shellData.TabIndex = 0;
+            this.lbl_shellData.Text = "ShellData";
             // 
             // btn_showMsgInStatus
             // 
@@ -108,7 +108,7 @@
             this.Controls.Add(this.tbx_messagBox);
             this.Controls.Add(this.tbx_msg);
             this.Controls.Add(this.btn_showMsgInStatus);
-            this.Controls.Add(this.lbl_shellBasicData);
+            this.Controls.Add(this.lbl_shellData);
             this.Name = "MyFirstPlugin";
             this.Size = new System.Drawing.Size(485, 323);
             this.ResumeLayout(false);
@@ -118,7 +118,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lbl_shellBasicData;
+        private System.Windows.Forms.Label lbl_shellData;
         private System.Windows.Forms.Button btn_showMsgInStatus;
         private System.Windows.Forms.TextBox tbx_msg;
         private System.Windows.Forms.TextBox tbx_messagBox;

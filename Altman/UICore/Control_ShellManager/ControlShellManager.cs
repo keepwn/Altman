@@ -53,15 +53,10 @@ namespace Altman.UICore.Control_ShellManager
                 {
                     IPlugin plugin = item.Tag as IPlugin;
 
-                    ShellStruct shellStruct = lv_shell.SelectedItems[0].Tag as ShellStruct;
-                    string oneShellPath = shellStruct.ShellUrl;
-                    string oneShellPass = shellStruct.ShellPwd;
-                    string oneShellScritpType = shellStruct.ShellType;
-                    string oneShellCoding = shellStruct.ServerCoding;
-                    ShellBasicData data = new ShellBasicData(oneShellPath, oneShellPass, oneShellScritpType,
-                        oneShellCoding, 8000);
+                    ShellStruct shellStruct = (ShellStruct) lv_shell.SelectedItems[0].Tag;
+                    shellStruct.TimeOut = 8000;
 
-                    UserControl view = plugin.GetUi(data);
+                    UserControl view = plugin.GetUi(shellStruct);
                     //创建新的tab标签
                     TabCore.CreateNewTabPage(plugin.PluginAttribute.Title, view);
                 }
@@ -208,7 +203,7 @@ namespace Altman.UICore.Control_ShellManager
 
         private void item_add_Click(object sender, EventArgs e)
         {
-            FormEditWebshell editwebshell = new FormEditWebshell(null);
+            FormEditWebshell editwebshell = new FormEditWebshell();
             editwebshell.WebshellWatchEvent += OnWebshellChange;
             editwebshell.Show();
         }
@@ -217,7 +212,7 @@ namespace Altman.UICore.Control_ShellManager
         {
             if (lv_shell.SelectedItems.Count > 0)
             {
-                ShellStruct shellStruct = lv_shell.SelectedItems[0].Tag as ShellStruct;
+                ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
                 //ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
 
                 FormEditWebshell editwebshell = new FormEditWebshell(shellStruct);
@@ -230,7 +225,7 @@ namespace Altman.UICore.Control_ShellManager
         {
             if (lv_shell.SelectedItems.Count > 0)
             {
-                int id=int.Parse((lv_shell.SelectedItems[0].Tag as ShellStruct).Id);
+                int id = int.Parse(((ShellStruct)lv_shell.SelectedItems[0].Tag).Id);
                 _shellManager.Delete(id);
                 LoadWebshellData();
             }

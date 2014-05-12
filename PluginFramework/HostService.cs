@@ -17,7 +17,7 @@ namespace PluginFramework
         /// <summary>
         /// 发送命令(ShellBasicData,funcName,params,result)
         /// </summary>
-        public Func<ShellBasicData,string, string[], byte[]> SubmitCommand { get; set; }
+        public Func<ShellStruct,string, string[], byte[]> SubmitCommand { get; set; }
 
     }
 }

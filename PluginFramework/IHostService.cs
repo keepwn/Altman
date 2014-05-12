@@ -13,6 +13,6 @@ namespace PluginFramework
         Action<string> ShowMsgInAppDialog { get; set; }
         Action<string,UserControl> CreateNewTabPage { get; set; }
 
-        Func<ShellBasicData,string, string[], byte[]> SubmitCommand { get; set; }
+        Func<ShellStruct, string, string[], byte[]> SubmitCommand { get; set; }
     }
 }

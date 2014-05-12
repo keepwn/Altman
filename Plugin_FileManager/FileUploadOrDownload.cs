@@ -14,16 +14,16 @@ namespace Plugin_FileManager
     public class FileUploadOrDownload
     {
         private HostService _hostService;
-        private ShellBasicData _shellBasicData;
+        private ShellStruct _shellData;
 
         private string _sourceFilePath;
         private string _targetFilePath;
         private BackgroundWorker _backgroundWorker;
 
-        public FileUploadOrDownload(HostService hostService, ShellBasicData shellBasicData, string sourceFilePath, string targetFilePath)
+        public FileUploadOrDownload(HostService hostService, ShellStruct shellData, string sourceFilePath, string targetFilePath)
         {
             _hostService = hostService;
-            _shellBasicData = shellBasicData;
+            _shellData = shellData;
             _sourceFilePath = sourceFilePath;
             _targetFilePath = targetFilePath;
         }
@@ -132,8 +132,8 @@ namespace Plugin_FileManager
         {
             string[] par = e.Argument as string[];
 
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "DownloadFileCode", new string[] { par[0]});
-            byte[] fileBytes= ResultMatch.MatchResultToFile(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DownloadFileCode", new string[] { par[0]});
+            byte[] fileBytes = ResultMatch.MatchResultToFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             e.Result = SaveFile(par[1], fileBytes);
         }
         private void download_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -176,8 +176,8 @@ namespace Plugin_FileManager
         private void upload_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "UploadFileCode", par);
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "UploadFileCode", par);
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void upload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

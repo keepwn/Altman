@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_DbManager", "Plugin_DbManager\Plugin_DbManager.csproj", "{70100E00-8921-4B78-9EEA-5326F8D0352E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -188,6 +190,16 @@ Global
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Release|x86.ActiveCfg = Release|x86
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Release|x86.Build.0 = Release|x86
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

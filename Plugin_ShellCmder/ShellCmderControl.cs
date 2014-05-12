@@ -18,19 +18,19 @@ namespace Plugin_ShellCmder
     public partial class ShellCmderControl : UserControl
     {
         private HostService _hostService;
-        private ShellCmder _shellCmder;    
-        private ShellBasicData _shellBasicData;
+        private ShellCmder _shellCmder;
+        private ShellStruct _shellData;
         private InternalCommand _internalCommand;
 
         private bool _isWin;
         private string _currentDir;
 
-        public ShellCmderControl(HostService hostService,ShellBasicData data)
+        public ShellCmderControl(HostService hostService,ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
             this._hostService = hostService;
-            this._shellBasicData = data;
+            this._shellData = data;
 
             shellTextBox_Cmder.CommandEntered+=shellTextBox_Cmder_CommandEntered;
             shellTextBox_Cmder.Prompt = "SECTools";
@@ -56,7 +56,7 @@ namespace Plugin_ShellCmder
             try
             {
                 //初始化ShellCmder
-                _shellCmder = new ShellCmder(_hostService,_shellBasicData);
+                _shellCmder = new ShellCmder(_hostService,_shellData);
                 //初始化内部命令
                 _internalCommand = new InternalCommand(shellTextBox_Cmder, _shellCmder);
                 //获取系统信息

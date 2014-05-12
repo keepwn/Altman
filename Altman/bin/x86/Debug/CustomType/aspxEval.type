@@ -8,7 +8,7 @@
   <MainCodeSetting>
 	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
     <item><![CDATA[Response.Write("->|");
-var err:Exception;
+var err;
 try
 {
 	var item=Request.Item["$funcCode$"];

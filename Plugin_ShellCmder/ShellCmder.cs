@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Altman.Common.AltData;
 using Altman.ModelCore;
 using PluginFramework;
@@ -9,48 +10,48 @@ namespace Plugin_ShellCmder
     public class ShellCmder
     {
         private HostService _host;
-        private ShellBasicData _shellBasicData;
+        private ShellStruct _shellData;
 
         #region 属性
         public string ShellUrl
         {
-            get { return this._shellBasicData.ShellUrl; }
-            set { this._shellBasicData.ShellUrl = value; }
+            get { return this._shellData.ShellUrl; }
+            set { this._shellData.ShellUrl = value; }
         }
         public string ShellPwd
         {
-            get { return this._shellBasicData.ShellPwd; }
-            set { this._shellBasicData.ShellPwd = value; }
+            get { return this._shellData.ShellPwd; }
+            set { this._shellData.ShellPwd = value; }
         }
         public string ShellType
         {
-            get { return this._shellBasicData.ShellType; }
-            set { this._shellBasicData.ShellType = value; }
+            get { return this._shellData.ShellType; }
+            set { this._shellData.ShellType = value; }
         }
         public string ShellCoding
         {
-            get { return this._shellBasicData.ShellCoding; }
-            set { this._shellBasicData.ShellCoding = value; }
+            get { return this._shellData.WebCoding; }
+            set { this._shellData.WebCoding = value; }
         }
         public int ShellTimeOut
         {
-            get { return this._shellBasicData.ShellTimeOut; }
-            set { this._shellBasicData.ShellTimeOut = value; }
+            get { return this._shellData.TimeOut; }
+            set { this._shellData.TimeOut = value; }
         }
         #endregion
 
-        public ShellCmder(HostService host,ShellBasicData data)
+        public ShellCmder(HostService host,ShellStruct data)
         {
             this._host = host;
-            this._shellBasicData = data;
+            this._shellData = data;
         }
 
         public OsInfo GetSysInfo()
         {
             if (_host.SubmitCommand != null)
             {
-                byte[] resultBytes = _host.SubmitCommand(_shellBasicData, "SysInfoCode", null);
-                return ResultMatch.MatchResultToOsInfo(resultBytes, _shellBasicData.Encoding);
+                byte[] resultBytes = _host.SubmitCommand(_shellData, "SysInfoCode", null);
+                return ResultMatch.MatchResultToOsInfo(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             }
             else
             {
@@ -72,8 +73,8 @@ namespace Plugin_ShellCmder
 
             if (_host.SubmitCommand != null)
             {
-                byte[] resultBytes = _host.SubmitCommand(_shellBasicData,"ExecuteCommandCode", new string[] {cmdPath, combineCommand});
-                return ResultMatch.MatchResultToCmdResult(resultBytes, _shellBasicData.Encoding);
+                byte[] resultBytes = _host.SubmitCommand(_shellData,"ExecuteCommandCode", new string[] {cmdPath, combineCommand});
+                return ResultMatch.MatchResultToCmdResult(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             }
             else
             {

@@ -131,7 +131,7 @@ namespace Altman
 
 
         #region 插件与宿主绑定的事件或方法
-        byte[] SubmitCommand(ShellBasicData data, string funcName, string[] param)
+        byte[] SubmitCommand(ShellStruct data, string funcName, string[] param)
         {
             CustomShellType shellType = CustomShellTypeProvider.GetShellType(data.ShellType);
             CustomCommandCode customCommandCode = new CustomCommandCode(shellType, data.ShellPwd);
@@ -139,7 +139,7 @@ namespace Altman
             HttpClient httpClient = new HttpClient();
             return httpClient.SubmitCommandByPost(data.ShellUrl, commandCode);
         }
-        byte[] SubmitCommand(ShellBasicData data,
+        byte[] SubmitCommand(ShellStruct data,
                                 string funcName, string[] param,
                                 bool isBindUploadProgressChangedEvent,
                                 bool isBindDownloadProgressChangedEvent)

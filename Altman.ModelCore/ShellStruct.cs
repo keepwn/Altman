@@ -1,6 +1,6 @@
 ﻿namespace Altman.ModelCore
 {
-    public class ShellStruct
+    public struct ShellStruct
     {
         public string Id { get; set; }//保留字段
         public string TargetId { get; set; }
@@ -14,6 +14,7 @@
         public string ServerCoding { get; set; }
         public string WebCoding { get; set; }
 
+        public int TimeOut { get; set; }
 
         public string Area { get; set; }     
         public string Remark { get; set; }

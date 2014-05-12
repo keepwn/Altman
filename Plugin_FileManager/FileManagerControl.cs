@@ -14,7 +14,7 @@ namespace Plugin_FileManager
     public partial class FileManagerControl : UserControl
     {
         private HostService _hostService;
-        private ShellBasicData _shellBasicData;
+        private ShellStruct _shellData;
 
         private FileManagerService _fileManager;
 
@@ -23,7 +23,7 @@ namespace Plugin_FileManager
         private string _sourceCopyPath;  //用于文件复制
         private string _sourceCopyName;  //用于文件复制
 
-        public FileManagerControl(HostService hostService,ShellBasicData data)
+        public FileManagerControl(HostService hostService, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -36,9 +36,9 @@ namespace Plugin_FileManager
             rightMenu_FileManager.Opening += rightMenu_FileManager_Opening;
 
             this._hostService = hostService;
-            this._shellBasicData = data;
+            this._shellData = data;
 
-            _fileManager = new FileManagerService(_hostService, _shellBasicData);
+            _fileManager = new FileManagerService(_hostService, _shellData);
             _fileManager.GetWwwRootPathCompletedToDo += fileManager_GetWwwRootPathCompletedToDo;
             _fileManager.DeleteFileOrDirCompletedToDo += fileManager_DeleteFileOrDirCompletedToDo;
             _fileManager.GetFileTreeCompletedToDo += fileManager_GetFileTreeCompletedToDo;
@@ -228,11 +228,11 @@ namespace Plugin_FileManager
                 //    trafficManager = new FormTrafficManager();
                 //}
                 //ControlProgressBar progressBar = ShowProgressBar(true, sourceFilePath, targetFilePath);
-                //FileUploadOrDownload upload = new FileUploadOrDownload(_shellBasicData, sourceFilePath, targetFilePath);
+                //FileUploadOrDownload upload = new FileUploadOrDownload(_shellData, sourceFilePath, targetFilePath);
                 //upload.UploadFileProgressChangedToDo += upload_UploadFileProgressChangedToDo;
                 //upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
                 //upload.StartToUploadFile();
-                FileUploadOrDownload upload = new FileUploadOrDownload(_hostService, _shellBasicData, sourceFilePath, targetFilePath);
+                FileUploadOrDownload upload = new FileUploadOrDownload(_hostService, _shellData, sourceFilePath, targetFilePath);
                 upload.UploadFileProgressChangedToDo += upload_UploadFileProgressChangedToDo;
                 upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
                 upload.StartToUploadFile();
@@ -307,11 +307,11 @@ namespace Plugin_FileManager
                 //    trafficManager = new FormTrafficManager();
                 //}
                 //ControlProgressBar progressBar = ShowProgressBar(false, sourceFilePath, targetFilePath);
-                //FileUploadOrDownload download = new FileUploadOrDownload(_shellBasicData, sourceFilePath, targetFilePath);
+                //FileUploadOrDownload download = new FileUploadOrDownload(_shellData, sourceFilePath, targetFilePath);
                 //download.DownloadFileProgressChangedToDo += download_DownloadFileProgressChangedToDo;
                 //download.DownloadFileCompletedToDo+=download_DownloadFileCompletedToDo;
                 //download.StartToDownloadFile();
-                FileUploadOrDownload download = new FileUploadOrDownload(_hostService, _shellBasicData, sourceFilePath, targetFilePath);
+                FileUploadOrDownload download = new FileUploadOrDownload(_hostService, _shellData, sourceFilePath, targetFilePath);
                 download.DownloadFileProgressChangedToDo+=download_DownloadFileProgressChangedToDo;
                 download.DownloadFileCompletedToDo+=download_DownloadFileCompletedToDo;
                 download.StartToDownloadFile();
@@ -848,7 +848,7 @@ namespace Plugin_FileManager
             if (status == SelectedItemsStatus.IsFile)
             {
                 string webFile = GetSelectedPathInListView(false);
-                UserControl fileEditer = new FileEditerControl(_hostService, _shellBasicData, webFile,true);
+                UserControl fileEditer = new FileEditerControl(_hostService, _shellData, webFile,true);
                 _hostService.CreateNewTabPage("FileEdit", fileEditer);
             }
         }
@@ -932,7 +932,7 @@ namespace Plugin_FileManager
             if (status == SelectedItemsStatus.NoSelected)
             {
                 string newFile = GetSelectedDirPathInDirTree() + "NewFile.txt";
-                UserControl fileEditer = new FileEditerControl(_hostService,_shellBasicData,newFile,false);
+                UserControl fileEditer = new FileEditerControl(_hostService,_shellData,newFile,false);
                 _hostService.CreateNewTabPage("FileEdit", fileEditer);
             }
         }

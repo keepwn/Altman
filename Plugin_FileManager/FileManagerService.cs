@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 using Altman.Common.AltData;
 using Altman.ModelCore;
 using PluginFramework;
@@ -10,11 +11,11 @@ namespace Plugin_FileManager
     public class FileManagerService
     {
         private HostService _hostService;
-        private ShellBasicData _shellBasicData;
-        public FileManagerService(HostService hostService,ShellBasicData data)
+        private ShellStruct _shellData;
+        public FileManagerService(HostService hostService, ShellStruct data)
         {
             this._hostService = hostService;
-            this._shellBasicData = data;
+            this._shellData = data;
         }
 
         #region 获取wwwroot路径
@@ -34,8 +35,8 @@ namespace Plugin_FileManager
         }
         private void getWwwRootPath_DoWork(object sender, DoWorkEventArgs e)
         {
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "WwwRootPathCode", null);
-            e.Result = ResultMatch.MatchResultToOsDisk(resultBytes,_shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "WwwRootPathCode", null);
+            e.Result = ResultMatch.MatchResultToOsDisk(resultBytes,Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void getWwwRootPath_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -65,8 +66,8 @@ namespace Plugin_FileManager
         private void getFileTree_DoWork(object sender, DoWorkEventArgs e)
         {
             string dirPath = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "FileTreeCode", new string[] { dirPath });
-            e.Result = ResultMatch.MatchResultToOsFile(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "FileTreeCode", new string[] { dirPath });
+            e.Result = ResultMatch.MatchResultToOsFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void getFileTree_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -97,8 +98,8 @@ namespace Plugin_FileManager
         private void readFile_DoWork(object sender, DoWorkEventArgs e)
         {
             string filePath = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "ReadFileCode", new string[] { filePath });
-            e.Result = ResultMatch.MatchResultToString(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "ReadFileCode", new string[] { filePath });
+            e.Result = ResultMatch.MatchResultToString(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void readFile_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -128,8 +129,8 @@ namespace Plugin_FileManager
         private void writeFile_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "WriteFileCode", par);
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "WriteFileCode", par);
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void writeFile_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -158,8 +159,8 @@ namespace Plugin_FileManager
         private void deleteFileOrDir_DoWork(object sender, DoWorkEventArgs e)
         {
             string fileOrDirPath = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "DeleteFileOrDirCode", new string[] { fileOrDirPath });
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DeleteFileOrDirCode", new string[] { fileOrDirPath });
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void deleteFileOrDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -187,8 +188,8 @@ namespace Plugin_FileManager
         private void copyFileOrDir_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "CopyFileOrDirCode", par);
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "CopyFileOrDirCode", par);
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void copyFileOrDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -217,8 +218,8 @@ namespace Plugin_FileManager
         private void renameFileOrDir_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "RenameFileOrDirCode", par);
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "RenameFileOrDirCode", par);
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void renameFileOrDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -247,8 +248,8 @@ namespace Plugin_FileManager
         private void createDir_DoWork(object sender, DoWorkEventArgs e)
         {
             string dirPath = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "CreateDirCode", new string[] { dirPath });
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "CreateDirCode", new string[] { dirPath });
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void createDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -278,8 +279,8 @@ namespace Plugin_FileManager
         private void modifyFileOrDirTime_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "ModifyFileOrDirTimeCode", par);
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "ModifyFileOrDirTimeCode", par);
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void modifyFileOrDirTime_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -309,8 +310,8 @@ namespace Plugin_FileManager
         {
             string[] par = e.Argument as string[];
 
-            byte[] resultBytes = _hostService.SubmitCommand(_shellBasicData, "WgetCode", par);
-            e.Result = ResultMatch.MatchResultToBool(resultBytes, _shellBasicData.Encoding);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "WgetCode", par);
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void wget_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

@@ -74,15 +74,6 @@ namespace Altman
             _tabControl.TabPages.Add(newTabpage);
             _tabControl.SelectTab(newTabpage);
         }
-        public static void CreateNewTabPage(string name, UserControl userControl, ShellBasicData data)
-        {
-            //create new tabpage
-            TabPage newTabpage = new TabPage(name);
-            newTabpage.Name = name;
-            newTabpage.Controls.Add(userControl);
-            _dicTagPageControl.Add(name, userControl);
-            _dicTagPage.Add(name, newTabpage);
-        }
 
 
         /**

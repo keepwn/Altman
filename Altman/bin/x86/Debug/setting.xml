@@ -19,7 +19,7 @@
     <key name="Referer" />
   </HttpHeader>
   <Policy>
-    <isParamRandom>1</isParamRandom>
+    <isParamRandom>0</isParamRandom>
   </Policy>
   <Proxy>
     <type>2</type>

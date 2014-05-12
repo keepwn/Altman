@@ -13,6 +13,6 @@ namespace PluginFramework
 
         IPluginAttribute PluginAttribute { get; }
         IHostService HostService { get; }
-        UserControl GetUi(ShellBasicData data);
+        UserControl GetUi(ShellStruct data);
     }
 }

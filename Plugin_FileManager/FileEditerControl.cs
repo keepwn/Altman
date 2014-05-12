@@ -12,17 +12,17 @@ namespace Plugin_FileManager
         private FileManagerService _fileManager;
 
         private HostService _hostService;
-        private ShellBasicData _shellBasicData;
+        private ShellStruct _shellData;
 
 
-        public FileEditerControl(HostService hostService, ShellBasicData data, string filePath, bool autoLoadContent)
+        public FileEditerControl(HostService hostService, ShellStruct data, string filePath, bool autoLoadContent)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
             this._hostService = hostService;
-            this._shellBasicData = data;
-            _fileManager = new FileManagerService(_hostService, _shellBasicData);
+            this._shellData = data;
+            _fileManager = new FileManagerService(_hostService, _shellData);
             _fileManager.ReadFileCompletedToDo += fileManager_LoadFileContentCompletedToDo;
             _fileManager.WriteFileCompletedToDo += fileManager_SaveFileCompletedToDo;
 

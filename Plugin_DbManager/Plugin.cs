@@ -3,8 +3,9 @@ using System.Windows.Forms;
 using Altman.ModelCore;
 using PluginFramework;
 
-namespace Plugin_FileManager
+namespace Plugin_DbManager
 {
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     [Export(typeof(IPlugin))]
     public class Plugin : IPlugin
     {
@@ -30,7 +31,7 @@ namespace Plugin_FileManager
 
         public UserControl GetUi(ShellStruct data)
         {
-            return _userControl = new FileManagerControl(_hostService, data);
+            return _userControl = new DbManagerControl(_hostService, data);
         }
 
         public void Dispose()
