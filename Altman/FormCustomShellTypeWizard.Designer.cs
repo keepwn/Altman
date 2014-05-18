@@ -100,7 +100,7 @@
             this.groupBox1.Size = new System.Drawing.Size(420, 218);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "MainCode";
+            this.groupBox1.Text = "MainCodeSetting";
             // 
             // tb_MainCode
             // 
@@ -314,7 +314,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(514, 294);
             this.tabPage3.TabIndex = 1;
-            this.tabPage3.Text = "MainCode Definition";
+            this.tabPage3.Text = "MainCodeSetting Definition";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4

@@ -94,15 +94,15 @@ namespace Altman.LogicCore.New
         }
 
         private BasicSettingStruct _basicSetting;
-        private MainCodeSettingStruct _mainCode;
+        private MainCodeSettingStruct _mainCodeSetting;
         private Dictionary<string, FuncCodeSettingStruct> _funcCodeSettingStructContainer;
         public BasicSettingStruct BasicSetting
         {
             get { return _basicSetting; }
         }
-        public MainCodeSettingStruct MainCode
+        public MainCodeSettingStruct MainCodeSetting
         {
-            get { return _mainCode; }
+            get { return _mainCodeSetting; }
         }
         public Dictionary<string, FuncCodeSettingStruct> FuncCodeSettingStructContainer
         {
@@ -113,21 +113,21 @@ namespace Altman.LogicCore.New
 
         #region 构造函数
         public CustomShellType(BasicSettingStruct basicSetting,
-                               MainCodeSettingStruct mainCode)
+                               MainCodeSettingStruct mainCodeSetting)
         {
             _shellTypeName = basicSetting.ShellTypeName;
             _basicSetting = basicSetting;
-            _mainCode = mainCode;
+            _mainCodeSetting = mainCodeSetting;
             _funcCodeSettingStructContainer = new Dictionary<string, FuncCodeSettingStruct>();
         }
 
         public CustomShellType(BasicSettingStruct basicSetting, 
-                               MainCodeSettingStruct mainCode,
+                               MainCodeSettingStruct mainCodeSetting,
                                Dictionary<string, FuncCodeSettingStruct> funcCodeSettingStructContainer)
         {
             _shellTypeName = basicSetting.ShellTypeName;
             _basicSetting = basicSetting;
-            _mainCode = mainCode;
+            _mainCodeSetting = mainCodeSetting;
             _funcCodeSettingStructContainer = funcCodeSettingStructContainer ?? new Dictionary<string, FuncCodeSettingStruct>();
         }
         #endregion

@@ -269,8 +269,8 @@ namespace Altman
             //全部通过检查，则保存
             CustomShellType.MainCodeSettingStruct mainCode = new CustomShellType.MainCodeSettingStruct();
             mainCode.Item = code;
-            //mainCode.FuncCodeLocation = location;
-            //mainCode.FuncCodeEncryMode = encryMode;
+            //MainCodeSetting.FuncCodeLocation = location;
+            //MainCodeSetting.FuncCodeEncryMode = encryMode;
 
             //保存到全局变量
             _mainCode = mainCode;

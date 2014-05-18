@@ -25,28 +25,31 @@ namespace Plugin_DbManager
         /// </summary>
         private DataTable ConvertStrToDataTable(string str)
         {
-            List<string> list = str.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
+            List<string> list = str.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
             DataTable table = new DataTable();
-            //Columns
-            string[] columns = list[0].Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string c in columns)
+
+            //如果返回的结果中没有匹配的话，返回空DataTable
+            if (list.Count > 0)
             {
-                table.Columns.Add(c);
-            }
-            //Rows
-            list.RemoveAt(0);//第一行为column，故移除
-            foreach (string l in list)
-            {
-                string[] cols = l.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string c in cols)
+                //Columns
+                string[] columns = list[0].Split(new string[] { "\t|\t" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string c in columns)
                 {
-                    table.Rows.Add(c);
+                    table.Columns.Add(c);
+                }
+                //Rows
+                list.RemoveAt(0); //第一行为column，故移除
+                foreach (string l in list)
+                {
+                    string[] cols = l.Split(new string[] { "\t|\t" }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string c in cols)
+                    {
+                        table.Rows.Add(c);
+                    }
                 }
             }
             return table;
         }
-
-
 
         private void RunBackground(DoWorkEventHandler doWork, object argument, RunWorkerCompletedEventHandler runWorkerCompleted)
         {
@@ -58,7 +61,6 @@ namespace Plugin_DbManager
             }
         }
 
-
         #region 获取数据库名
         public event EventHandler<RunWorkerCompletedEventArgs> GetDbNameCompletedToDo;
         public void GetDbName(string connStr)
@@ -68,10 +70,10 @@ namespace Plugin_DbManager
         private void getDdName_DoWork(object sender, DoWorkEventArgs e)
         {
             string par = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetDbName_OLEDB", new string[] { par });
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetDbName", new string[] { par });
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
-            string[] dbs = tmp.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] dbs = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
             e.Result = dbs;
         }
         private void getDbName_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -93,11 +95,11 @@ namespace Plugin_DbManager
         private void getDdTableName_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetTableName_OLEDB", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetTableName", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
-            string[] dbs = tmp.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            e.Result = dbs;
+            string[] tables = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            e.Result = tables;
         }
         private void getBdTableName_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -118,23 +120,66 @@ namespace Plugin_DbManager
         private void getColumnType_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetColumnType_OLEDB", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetColumnType", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
-            string[] columns = tmp.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            string[] res = new string[columns.Length];
-            for (int i = 0; i < columns.Length; i++)
-            {
-                //将a\tb变形为a（b）
-                res[i] = columns[i].Replace("\t", "(")+")";
-            }
-            e.Result = res;
+            string[] columns = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            e.Result = columns;
         }
         private void getColumnType_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (GetColumnTypeCompletedToDo != null)
             {
                 GetColumnTypeCompletedToDo(null, e);
+            }
+        }
+        #endregion
+
+        #region ExecuteReader
+        public event EventHandler<RunWorkerCompletedEventArgs> ExecuteReaderCompletedToDo;
+
+        public void ExecuteReader(string connStr, string dbName, string sqlStr)
+        {
+            RunBackground(executeReader_DoWork, new string[] { connStr, dbName, sqlStr }, executeReader_RunWorkerCompleted);
+        }
+        private void executeReader_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string[] par = e.Argument as string[];
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "ExecuteReader", par);
+            string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
+
+            e.Result = ConvertStrToDataTable(tmp);
+        }
+        private void executeReader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (ExecuteReaderCompletedToDo != null)
+            {
+                ExecuteReaderCompletedToDo(null, e);
+            }
+        }
+        #endregion
+
+
+        #region ExecuteNonQuery
+        public event EventHandler<RunWorkerCompletedEventArgs> ExecuteNonQueryCompletedToDo;
+
+        public void ExecuteNonQuery(string connStr, string dbName, string sqlStr)
+        {
+            RunBackground(executeNonQuery_DoWork, new string[] { connStr, dbName, sqlStr }, executeNonQuery_RunWorkerCompleted);
+        }
+        private void executeNonQuery_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string[] par = e.Argument as string[];
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "ExecuteNonQuery", par);
+            string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
+
+            e.Result = ConvertStrToDataTable(tmp);
+        }
+        private void executeNonQuery_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (ExecuteNonQueryCompletedToDo != null)
+            {
+                ExecuteNonQueryCompletedToDo(null, e);
             }
         }
         #endregion

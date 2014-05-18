@@ -98,7 +98,8 @@ namespace Altman.LogicCore.New
                 {
                     //string newguid = Guid.NewGuid().ToString().Substring(0, 2);
                     string newguid = GetRandomStr(1);
-                    while (_randomParam.ContainsValue(newguid))
+                    //新的uid不能等于pass且，不与已经产生的uid相同
+                    while (newguid == _pass || _randomParam.ContainsValue(newguid))
                     {
                         newguid = GetRandomStr(1);
                     }
@@ -122,9 +123,9 @@ namespace Altman.LogicCore.New
         {
             DataCombine dataCombine = new DataCombine();
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            //MainCode
+            //MainCodeSetting
             string mainCodeString =
-                FillParams(customShellType.MainCode.Item, customShellType.MainCode.FuncCodeParam);
+                FillParams(customShellType.MainCodeSetting.Item, customShellType.MainCodeSetting.FuncCodeParam);
 
             NameValueCollection mainCodeItem = new NameValueCollection
             {
@@ -143,7 +144,7 @@ namespace Altman.LogicCore.New
                 funcCodeString = funcCode.Item;
             }
             //判断是否随机参数
-            string funcParamName = customShellType.MainCode.FuncCodeParam.Name;
+            string funcParamName = customShellType.MainCodeSetting.FuncCodeParam.Name;
             if (GlobalSetting.IsParamRandom)
             {
                 string newguid = _randomParam[funcParamName];
@@ -151,9 +152,9 @@ namespace Altman.LogicCore.New
             }
             NameValueCollection funcCodeItem = new NameValueCollection
             {
-                {funcParamName, EncryItem(customShellType.MainCode.FuncCodeParam.EncryMode, funcCodeString)}
+                {funcParamName, EncryItem(customShellType.MainCodeSetting.FuncCodeParam.EncryMode, funcCodeString)}
             };
-            AddItemToDic(dic, customShellType.MainCode.FuncCodeParam.Location, dataCombine.CombineToStr(funcCodeItem));
+            AddItemToDic(dic, customShellType.MainCodeSetting.FuncCodeParam.Location, dataCombine.CombineToStr(funcCodeItem));
             //FunParma
             if (parmas != null && parmas.Length > 0)
             {

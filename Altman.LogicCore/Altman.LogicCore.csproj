@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="New\CustomDbTypeProvider.cs" />
     <Compile Include="New\CustomShellTypeXmlHandle.cs" />
     <Compile Include="New\CustomCommandCode.cs" />
     <Compile Include="New\InitWorker.cs" />

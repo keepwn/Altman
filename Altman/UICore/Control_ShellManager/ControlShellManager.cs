@@ -37,14 +37,14 @@ namespace Altman.UICore.Control_ShellManager
                 //添加到Tsmi_Plugins中
                 ToolStripMenuItem pluginItem = new ToolStripMenuItem();
                 pluginItem.Name = title;
-                pluginItem.Text = title;         
+                pluginItem.Text = title;
                 pluginItem.Click += pluginItem_Click;
                 pluginItem.Tag = plugin;
                 rightMenu_Webshell.Items.Add(pluginItem);
             }
         }
 
-        void pluginItem_Click(object sender, EventArgs e)
+        private void pluginItem_Click(object sender, EventArgs e)
         {
             if (lv_shell.SelectedItems.Count > 0)
             {
