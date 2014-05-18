@@ -67,8 +67,17 @@ namespace Altman.LogicCore.New
             }
             return ShellTypeStyleContainer[shellTypeName];
         }
-        public static void AddFuncCode(string shellTypeName, CustomShellType.FuncCodeSettingStruct funcCode)
+        public static void AddFuncCode(string shellTypeXpath, CustomShellType.FuncCodeSettingStruct funcCode)
         {
+            //分解shellTypeXpath，将"aspx/cmder"分解为aspx和cmder
+            string[] xpath = shellTypeXpath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string shellTypeName = xpath[0];
+            string nodeName = string.Empty;
+            if (xpath.Length > 1)
+            {
+                nodeName = xpath[1];
+            }
+
             CustomShellType shellType = GetShellType(shellTypeName);
             if (shellType != null)
             {
@@ -76,7 +85,7 @@ namespace Altman.LogicCore.New
                                                                     funcCode.Type,
                                                                     funcCode.Item,
                                                                     funcCode.FuncParams);
-                shellType.AddFuncCodeSettingStruct(tmp);
+                shellType.AddFuncCodeSettingStruct(nodeName, tmp);
             }
         }
 

@@ -291,7 +291,7 @@ namespace Altman.LogicCore.New
         }
         private static CustomShellType.ParamStruct ReadParamNode(XmlNode child)
         {
-            CustomShellType.ParamStruct par;
+            CustomShellType.ParamStruct par=new CustomShellType.ParamStruct();
             par.Name = child.InnerText;
             par.Location = child.Attributes["location"].Value;
             string encrymode = child.Attributes["encrymode"].Value;

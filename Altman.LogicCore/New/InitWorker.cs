@@ -42,11 +42,16 @@ namespace Altman.LogicCore.New
                 //将func注册到CustomShellType
                 foreach (CustomShellType.FuncCodeSettingStruct func in funcCodeList)
                 {
-                    //获取func的类型，允许多类型，以英文逗号分隔，如"aspx1,aspx2"
+                    /***
+                     * 获取func的类型
+                     * 类型为xpath形式，如"aspx/shellcmder"
+                     * 允许多个类型，以英文逗号分隔，如"aspx/shellcmder,aspx1/shell"
+                     * 如果xpath只有一级，如"aspx"，则默认对应到"aspx/default"
+                     */
                     string[] types = func.Type.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string type in types)
+                    foreach (string typeXpath in types)
                     {
-                        CustomShellTypeProvider.AddFuncCode(type, func);
+                        CustomShellTypeProvider.AddFuncCode(typeXpath, func);
                     }
                 }           
             }

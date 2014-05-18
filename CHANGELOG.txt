@@ -1,3 +1,14 @@
+->2014.05.19
+1.修改了customShellType容器的注册方法,以树节点方式注册、访问FuncCode。默认FuncCode注册到default。（2014.05.18）
+2.添加了aspxEval_Db.func和phpEval_Db.func。（2014.05.19）
+3.数据库插件中，实现php的mysql，aspx的mssql_oledb，注册方式为aspxEval/mssql_oledb和phpEval/mysql。（2014.05.19）
+
+
+->2014.05.18
+1.修复了开启随机参数名后，未判断pass是否和随机参数名相等的bug（2014.05.13）
+2.添加了数据库插件,描绘了数据库界面，和增加了一些类（2014.05.18）
+
+
 ->2014.05.12
 1.创建了分支feature-DbManager（2014.05.11）
 2.修改了插件接口，将shellBaseType换成ShellStruct（2014.05.11）

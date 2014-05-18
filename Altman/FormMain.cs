@@ -131,22 +131,22 @@ namespace Altman
 
 
         #region 插件与宿主绑定的事件或方法
-        byte[] SubmitCommand(ShellStruct data, string funcName, string[] param)
+        byte[] SubmitCommand(ShellStruct data, string funcNameXpath, string[] param)
         {
             CustomShellType shellType = CustomShellTypeProvider.GetShellType(data.ShellType);
             CustomCommandCode customCommandCode = new CustomCommandCode(shellType, data.ShellPwd);
-            Dictionary<string, string> commandCode = customCommandCode.GetCode(funcName, param);
+            Dictionary<string, string> commandCode = customCommandCode.GetCode(funcNameXpath, param);
             HttpClient httpClient = new HttpClient();
             return httpClient.SubmitCommandByPost(data.ShellUrl, commandCode);
         }
         byte[] SubmitCommand(ShellStruct data,
-                                string funcName, string[] param,
+                                string funcNameXpath, string[] param,
                                 bool isBindUploadProgressChangedEvent,
                                 bool isBindDownloadProgressChangedEvent)
         {
             CustomShellType shellType = CustomShellTypeProvider.GetShellType(data.ShellType);
             CustomCommandCode customCommandCode = new CustomCommandCode(shellType, data.ShellPwd);
-            Dictionary<string, string> commandCode = customCommandCode.GetCode(funcName, param);
+            Dictionary<string, string> commandCode = customCommandCode.GetCode(funcNameXpath, param);
             HttpClient httpClient = new HttpClient();
             //if (isBindUploadProgressChangedEvent)
             //    httpClient.UploadFileProgressChangedToDo += httpClient_UploadFileProgressChangedToDo;

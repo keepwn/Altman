@@ -14,10 +14,12 @@ namespace Plugin_DbManager
     {
         private HostService _hostService;
         private ShellStruct _shellData;
-        public DbManagerService(HostService hostService, ShellStruct data)
+        private string _dbType;
+        public DbManagerService(HostService hostService, ShellStruct data,string dbType)
         {
             this._hostService = hostService;
             this._shellData = data;
+            this._dbType = dbType;
         }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace Plugin_DbManager
             }
         }
 
-        #region 获取数据库名
+        #region GetDbName
         public event EventHandler<RunWorkerCompletedEventArgs> GetDbNameCompletedToDo;
         public void GetDbName(string connStr)
         {
@@ -70,7 +72,7 @@ namespace Plugin_DbManager
         private void getDdName_DoWork(object sender, DoWorkEventArgs e)
         {
             string par = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetDbName", new string[] { par });
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, _dbType+"/GetDbName", new string[] { par });
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] dbs = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -85,7 +87,7 @@ namespace Plugin_DbManager
         }
         #endregion
 
-        #region 获取数据库表名
+        #region GetTableName
         public event EventHandler<RunWorkerCompletedEventArgs> GetDbTableNameCompletedToDo;
 
         public void GetTableName(string connStr,string dbName)
@@ -95,7 +97,7 @@ namespace Plugin_DbManager
         private void getDdTableName_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetTableName", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, _dbType+"/GetTableName", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] tables = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -110,7 +112,7 @@ namespace Plugin_DbManager
         }
         #endregion
 
-        #region 获取字段类型
+        #region GetColumnType
         public event EventHandler<RunWorkerCompletedEventArgs> GetColumnTypeCompletedToDo;
 
         public void GetColumnType(string connStr, string dbName,string columnName)
@@ -120,7 +122,7 @@ namespace Plugin_DbManager
         private void getColumnType_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "GetColumnType", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, _dbType+"/GetColumnType", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] columns = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -145,7 +147,7 @@ namespace Plugin_DbManager
         private void executeReader_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "ExecuteReader", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, _dbType + "/ExecuteReader", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             e.Result = ConvertStrToDataTable(tmp);
@@ -159,7 +161,6 @@ namespace Plugin_DbManager
         }
         #endregion
 
-
         #region ExecuteNonQuery
         public event EventHandler<RunWorkerCompletedEventArgs> ExecuteNonQueryCompletedToDo;
 
@@ -170,7 +171,7 @@ namespace Plugin_DbManager
         private void executeNonQuery_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "ExecuteNonQuery", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, _dbType + "/ExecuteNonQuery", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             e.Result = ConvertStrToDataTable(tmp);

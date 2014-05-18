@@ -19,6 +19,7 @@ namespace Plugin_DbManager
         private ShellStruct _shellData;
 
         private DbManagerService dbManagerService;
+        private XmlNode node = null;
         public DbManagerControl(HostService hostService, ShellStruct data)
         {
             InitializeComponent();
@@ -27,15 +28,18 @@ namespace Plugin_DbManager
             _hostService = hostService;
             _shellData = data;
 
+            //初始化ExtraSettingXml
+            InitExtraSettingXml();
+
             //绑定事件
-            dbManagerService = new DbManagerService(_hostService, _shellData);
+            dbManagerService = new DbManagerService(_hostService, _shellData, GetDbType());
             dbManagerService.GetDbNameCompletedToDo += dbManagerService_GetDbNameCompletedToDo;
             dbManagerService.GetDbTableNameCompletedToDo += dbManagerService_GetTableNameCompletedToDo;
             dbManagerService.GetColumnTypeCompletedToDo += dbManagerService_GetColumnTypeCompletedToDo;
             dbManagerService.ExecuteReaderCompletedToDo += dbManagerService_ExecuteReaderCompletedToDo;
             dbManagerService.ExecuteNonQueryCompletedToDo += dbManagerService_ExecuteNonQueryCompletedToDo;
             
-            treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;
+            treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;           
 
             //获取数据库
             //dbManagerService.GetDbName(_shellData.ShellExtraSetting);
@@ -51,11 +55,9 @@ namespace Plugin_DbManager
             }
             else if (e.Result is DataTable)
             {
-
                 dataGridView_result.DataSource = e.Result;
             }
         }
-
         private void dbManagerService_ExecuteReaderCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -274,43 +276,60 @@ namespace Plugin_DbManager
              *  <language></language>
              * </connection>
              */
-            
         }
 
-        private string GetConnStr()
+        
+        private void InitExtraSettingXml()
         {
             //创建ExtraSetting节点
-            XmlNode node = new XmlDocument().CreateElement("ExtraSetting");
+            node = new XmlDocument().CreateElement("ExtraSetting");
             node.InnerXml = _shellData.ShellExtraSetting;
-
-            //获取type
-            string scriptType = _shellData.ShellType;
-
-            if (scriptType.StartsWith("php"))
-            {
-                string host = string.Empty;
-                string user = string.Empty;
-                string pass = string.Empty;
-                string language = string.Empty;
-                XmlNode hostNode = node.SelectSingleNode("/connection/host");
-                if (hostNode != null) host = hostNode.InnerText;
-                XmlNode userNode = node.SelectSingleNode("/connection/user");
-                if (userNode != null) user = userNode.InnerText;
-                XmlNode passNode = node.SelectSingleNode("/connection/pass");
-                if (passNode != null) pass = passNode.InnerText;
-                XmlNode lanNode = node.SelectSingleNode("/connection/language");
-                if (lanNode != null) language = lanNode.InnerText;
-
-                return string.Format("{0};{1};{2};{3};", host, user, pass, language);
+        }
+        private string GetDbType()
+        {
+            string type = string.Empty;
+            if (node != null)
+            {              
+                XmlNode typeNode = node.SelectSingleNode("/connection/type");
+                if (typeNode != null)
+                    type = typeNode.InnerText;              
             }
-            else
+            return type;
+        }
+        private string GetConnStr()
+        {
+            string conn = string.Empty;
+            if (node != null)
             {
-                string conn = string.Empty;
-                XmlNode connNode = node.SelectSingleNode("ExtraSetting/connection/conn");
-                if (connNode != null) conn = connNode.InnerText;
+                //获取type
+                string scriptType = _shellData.ShellType;
 
-                return conn;
+                if (scriptType.StartsWith("php"))
+                {
+                    string host = string.Empty;
+                    string user = string.Empty;
+                    string pass = string.Empty;
+                    string language = string.Empty;
+                    XmlNode hostNode = node.SelectSingleNode("/connection/host");
+                    if (hostNode != null) host = hostNode.InnerText;
+                    XmlNode userNode = node.SelectSingleNode("/connection/user");
+                    if (userNode != null) user = userNode.InnerText;
+                    XmlNode passNode = node.SelectSingleNode("/connection/pass");
+                    if (passNode != null) pass = passNode.InnerText;
+                    XmlNode lanNode = node.SelectSingleNode("/connection/language");
+                    if (lanNode != null) language = lanNode.InnerText;
+
+                    conn = string.Format("{0};{1};{2};{3};", host, user, pass, language);
+                }
+                else
+                {
+
+                    XmlNode connNode = node.SelectSingleNode("/connection/conn");
+                    if (connNode != null) 
+                        conn = connNode.InnerText;
+                }
             }
+            return conn;           
         }
     }
 }

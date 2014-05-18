@@ -185,82 +185,22 @@ namespace Altman.LogicCore.New
         }
 
 
-        public Dictionary<string, string> GetCode(string funcCodeName, string[] parmas)
+        public Dictionary<string, string> GetCode(string funcCodeNameXpath, string[] parmas)
         {
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct(funcCodeName), parmas);
-        }
-
-        public Dictionary<string, string> GetWwwRootPathCode()
-        {
-            //string[] parmas = new string[] { dirPath };
-            return GetCode(_customShellType, _coding, _customShellType.GetFuncCodeSettingStruct("WWWRootPathCode"), null);
-        }
-        public Dictionary<string, string> GetFileTreeCode(string dirPath)
-        {
-            string[] parmas = new string[] { dirPath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("FileTreeCode"), parmas);
-        }
-        public Dictionary<string, string> GetReadFileCode(string filePath)
-        {
-            string[] parmas = new string[] { filePath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("ReadFileCode"), parmas);
-        }
-        public Dictionary<string, string> GetWriteFileCode(string filePath, string fileContext)
-        {
-            string[] parmas = new string[] { filePath, fileContext };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("WriteFileCode"), parmas);
-        }
-        public Dictionary<string, string> GetDeleteFileOrDirCode(string fileOrDirPath)
-        {
-            string[] parmas = new string[] { fileOrDirPath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("DeleteFileOrDirCode"), parmas);
-        }
-        public Dictionary<string, string> GetDownloadFileCode(string filePath)
-        {
-            string[] parmas = new string[] { filePath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("DownloadFileCode"), parmas);
-        }
-        public Dictionary<string, string> GetUploadFileCode(string saveFilePath, string fileHexContext)
-        {
-            string[] parmas = new string[] { saveFilePath, fileHexContext };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("UploadFileCode"), parmas);
-        }
-        public Dictionary<string, string> GetCopyFileOrDirCode(string sourceFilePath, string targetFilePath)
-        {
-            string[] parmas = new string[] { sourceFilePath, targetFilePath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("CopyFileOrDirCode"), parmas);
-        }
-        public Dictionary<string, string> GetRenameFileOrDirCode(string oldName, string newName)
-        {
-            string[] parmas = new string[] { oldName, newName };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("RenameFileOrDirCode"), parmas);
-        }
-        public Dictionary<string, string> GetCreateDirCode(string dirPath)
-        {
-            string[] parmas = new string[] { dirPath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("CreateDirCode"), parmas);
-        }
-        public Dictionary<string, string> GetModifyFileOrDirTimeCode(string fileOrDirPath, string aTime)
-        {
-            string[] parmas = new string[] { fileOrDirPath, aTime };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("ModifyFileOrDirTimeCode"), parmas);
-        }
-        public Dictionary<string, string> GetWgetCode(string urlPath, string saveFilePath)
-        {
-            string[] parmas = new string[] { urlPath, saveFilePath };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("WgetCode"), parmas);
-        }
-
-
-        //shellcmder
-        public Dictionary<string, string> GetSysInfoCode()
-        {
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("SysInfoCode"), null);
-        }
-        public Dictionary<string, string> GetExecuteCommandCode(string cmdPath, string command)
-        {
-            string[] parmas = new string[] { cmdPath, command };
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct("ExecuteCommandCode"), parmas);
+            //分解funcCodeNameXpath，将"cmder/exec"分解为cmder和exec
+            string[] xpath = funcCodeNameXpath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string nodeName = string.Empty;
+            string funcCodeName = string.Empty;
+            if (xpath.Length > 1)
+            {
+                nodeName = xpath[0];
+                funcCodeName = xpath[1];
+            }
+            else
+            {
+                funcCodeName = xpath[0];
+            }
+            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct(nodeName,funcCodeName), parmas);
         }
     }
 }

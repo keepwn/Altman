@@ -46,11 +46,16 @@ namespace Altman.LogicCore.New
                 EncryMode = encryMode;
             }
         }
-        public struct BasicSettingStruct
+        public class BasicSettingStruct
         {
             public string ShellTypeName;
             public string ServiceExample;
             public ParamStruct MainCodeParam;
+
+            public BasicSettingStruct()
+            {
+            }
+
             public BasicSettingStruct(string shellTypeName, string serviceExample, ParamStruct mainCodeParam)
             {
                 this.ShellTypeName = shellTypeName;
@@ -58,22 +63,32 @@ namespace Altman.LogicCore.New
                 this.MainCodeParam = mainCodeParam;
             }
         }
-        public struct MainCodeSettingStruct
+        public class MainCodeSettingStruct
         {
             public string Item;
             public ParamStruct FuncCodeParam;
+
+            public MainCodeSettingStruct()
+            {
+            }
+
             public MainCodeSettingStruct(string item, ParamStruct funcCodeParam)
             {
                 this.Item = item;
                 this.FuncCodeParam = funcCodeParam;
             }
         }
-        public struct FuncCodeSettingStruct
+        public class FuncCodeSettingStruct
         {
             public string Name;
             public string Type;
             public string Item;
             public List<ParamStruct> FuncParams;
+
+            public FuncCodeSettingStruct()
+            {
+
+            }
             public FuncCodeSettingStruct(string funcName, string funcType, string funcItem, List<ParamStruct> funcParams)
             {
                 this.Name = funcName;
@@ -95,7 +110,7 @@ namespace Altman.LogicCore.New
 
         private BasicSettingStruct _basicSetting;
         private MainCodeSettingStruct _mainCodeSetting;
-        private Dictionary<string, FuncCodeSettingStruct> _funcCodeSettingStructContainer;
+        private Dictionary<string, Dictionary<string, FuncCodeSettingStruct>> _funcCodeSettingListContainer;
         public BasicSettingStruct BasicSetting
         {
             get { return _basicSetting; }
@@ -104,11 +119,11 @@ namespace Altman.LogicCore.New
         {
             get { return _mainCodeSetting; }
         }
-        public Dictionary<string, FuncCodeSettingStruct> FuncCodeSettingStructContainer
-        {
-            get { return _funcCodeSettingStructContainer; }
-        }
 
+        public Dictionary<string, Dictionary<string, FuncCodeSettingStruct>> FuncCodeSettingListContainer
+        {
+            get { return _funcCodeSettingListContainer; } 
+        }
         #endregion
 
         #region 构造函数
@@ -118,45 +133,81 @@ namespace Altman.LogicCore.New
             _shellTypeName = basicSetting.ShellTypeName;
             _basicSetting = basicSetting;
             _mainCodeSetting = mainCodeSetting;
-            _funcCodeSettingStructContainer = new Dictionary<string, FuncCodeSettingStruct>();
+            _funcCodeSettingListContainer = new Dictionary<string, Dictionary<string, FuncCodeSettingStruct>>
+            {
+                //初始化default子节点
+                {"default", new Dictionary<string, FuncCodeSettingStruct>()}
+            };
         }
 
         public CustomShellType(BasicSettingStruct basicSetting, 
                                MainCodeSettingStruct mainCodeSetting,
-                               Dictionary<string, FuncCodeSettingStruct> funcCodeSettingStructContainer)
+                               Dictionary<string, Dictionary<string, FuncCodeSettingStruct>> funcCodeSettingListContainer)
         {
             _shellTypeName = basicSetting.ShellTypeName;
             _basicSetting = basicSetting;
             _mainCodeSetting = mainCodeSetting;
-            _funcCodeSettingStructContainer = funcCodeSettingStructContainer ?? new Dictionary<string, FuncCodeSettingStruct>();
+            _funcCodeSettingListContainer = funcCodeSettingListContainer ?? new Dictionary<string, Dictionary<string, FuncCodeSettingStruct>>
+            {
+                //初始化default子节点
+                {"default", new Dictionary<string, FuncCodeSettingStruct>()}
+            }; ;
         }
         #endregion
 
-        public void AddFuncCodeSettingStruct(FuncCodeSettingStruct funcCodeSettingStruct)
+
+        private void AddFuncCodeNode(string nodeName)
         {
-            //检查基本字段Name是否被设置
-            if (string.IsNullOrEmpty(funcCodeSettingStruct.Name))
-            {
-                throw new Exception("funcCode的Name字段为空");
-            }
-            //检查funcCodeSettingStruct是否被已经存储
-            if (_funcCodeSettingStructContainer.ContainsKey(funcCodeSettingStruct.Name))
-            {
-                throw new Exception("方法" + funcCodeSettingStruct.Name + "已经被注册");
-            }
-            //存储
-            _funcCodeSettingStructContainer.Add(funcCodeSettingStruct.Name, funcCodeSettingStruct);
+            _funcCodeSettingListContainer.Add(nodeName, new Dictionary<string, FuncCodeSettingStruct>());
         }
 
-        public FuncCodeSettingStruct GetFuncCodeSettingStruct(string funcCodeSettingStructName)
+        public void AddFuncCodeSettingStruct(string nodeName, FuncCodeSettingStruct funcCodeSettingStruct)
         {
-            //检查funcCodeSettingStructName是否存在
-            if (!_funcCodeSettingStructContainer.ContainsKey(funcCodeSettingStructName))
+            //如果nodeName为空，默认赋值为default
+            if (string.IsNullOrWhiteSpace(nodeName))
             {
-                throw new Exception(funcCodeSettingStructName + "未被注册");
+                nodeName = "default";
             }
-            //获取funcCodeSettingStruct
-            return _funcCodeSettingStructContainer[funcCodeSettingStructName];
+            //检查nodeName节点是否已经存在
+            if (!_funcCodeSettingListContainer.ContainsKey(nodeName))
+            {
+                AddFuncCodeNode(nodeName);
+
+                //注册到funcCodeName子节点
+                _funcCodeSettingListContainer[nodeName].Add(funcCodeSettingStruct.Name, funcCodeSettingStruct);
+            }
+            else
+            {
+                //检查funcCodeName子节点是否被已经注册
+                if (_funcCodeSettingListContainer[nodeName].ContainsKey(funcCodeSettingStruct.Name))
+                {
+                    throw new Exception("FuncCode " + funcCodeSettingStruct.Name + " has been registered");
+                }
+                //注册到funcCodeName子节点
+                _funcCodeSettingListContainer[nodeName].Add(funcCodeSettingStruct.Name, funcCodeSettingStruct);
+            }
+        }
+
+        public FuncCodeSettingStruct GetFuncCodeSettingStruct(string nodeName, string funcCodeSettingStructName)
+        {
+            //如果nodeName为空，默认赋值为default
+            if (string.IsNullOrWhiteSpace(nodeName))
+            {
+                nodeName = "default";
+            }
+
+            //检查nodeName节点是否已经存在
+            if (_funcCodeSettingListContainer.ContainsKey(nodeName))
+            {
+                //检查funcCodeName子节点是否被已经注册
+                if (_funcCodeSettingListContainer[nodeName].ContainsKey(funcCodeSettingStructName))
+                {
+                    //获取funcCodeSettingStruct
+                    return _funcCodeSettingListContainer[nodeName][funcCodeSettingStructName];
+                }
+            }
+            //其他情况均为未注册
+            throw new Exception(nodeName+"/"+funcCodeSettingStructName + " hasn't been registered");         
         }
     }
 }
