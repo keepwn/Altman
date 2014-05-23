@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Altman.LogicCore.New
+namespace Altman.LogicCore
 {
     public static class CustomShellTypeProvider
     {
@@ -63,31 +63,9 @@ namespace Altman.LogicCore.New
         {
             if (!ShellTypeStyleContainer.ContainsKey(shellTypeName))
             {
-                throw new Exception("发生错误，未注册" + shellTypeName + "类型");
+                throw new Exception(string.Format("ShellType:[{0}] hasn't been registered", shellTypeName));
             }
             return ShellTypeStyleContainer[shellTypeName];
         }
-        public static void AddFuncCode(string shellTypeXpath, CustomShellType.FuncCodeSettingStruct funcCode)
-        {
-            //分解shellTypeXpath，将"aspx/cmder"分解为aspx和cmder
-            string[] xpath = shellTypeXpath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            string shellTypeName = xpath[0];
-            string nodeName = string.Empty;
-            if (xpath.Length > 1)
-            {
-                nodeName = xpath[1];
-            }
-
-            CustomShellType shellType = GetShellType(shellTypeName);
-            if (shellType != null)
-            {
-                var tmp = new CustomShellType.FuncCodeSettingStruct(funcCode.Name,
-                                                                    funcCode.Type,
-                                                                    funcCode.Item,
-                                                                    funcCode.FuncParams);
-                shellType.AddFuncCodeSettingStruct(nodeName, tmp);
-            }
-        }
-
     }
 }

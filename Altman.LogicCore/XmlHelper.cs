@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Altman.LogicCore.New
+namespace Altman.LogicCore
 {
     public class XmlHelper
     {

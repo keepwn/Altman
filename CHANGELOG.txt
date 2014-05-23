@@ -1,3 +1,10 @@
+->Altman 2.0.4
+1.修改了customShellType类，在FuncCode中添加path，表示绑定的节点路径。（2014.05.23）
+2.修改了customShellType类，添加了方法树FuncTreeNode，可以以xpath（/cmder/systeminfo）方式访问。（2014.05.23）
+3.修改了customshelltypexmlhandle中customShellType配置文件的读取。（2014.05.23）
+4.根据前几条变化，更新了已有customShellType配置文件。（2014.05.23）
+
+
 ->2014.05.19
 1.修改了customShellType容器的注册方法,以树节点方式注册、访问FuncCode。默认FuncCode注册到default。（2014.05.18）
 2.添加了aspxEval_Db.func和phpEval_Db.func。（2014.05.19）

@@ -46,6 +46,9 @@ namespace Altman.UICore.Control_ShellManager
             this.comboBox_ServerCoding.Text = shellStructArray.ServerCoding;
             this.comboBox_WebCoding.Text = shellStructArray.WebCoding;
             this.comboBox_Area.Text = shellStructArray.Area;
+
+            comboBox_types_init();
+            comboBox_items_init();
         }
 
         private void button_Add_Click(object sender, EventArgs e)
@@ -129,6 +132,33 @@ namespace Altman.UICore.Control_ShellManager
             foreach (string type in InitUI.GetCustomShellTypeNameList())
             {
                 comboBox_ScritpType.Items.Add(type);
+            }
+        }
+
+        private void comboBox_types_init()
+        {
+            string[] types = {"PostData", "DbConnStr"};
+            comboBox_types.Items.AddRange(types);
+        }
+
+        private void comboBox_items_init()
+        {
+            string[] items =
+            {
+                @"<type>access_oledb</type><conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn>",
+                @"<type>mssql_oledb</type><conn>Provider=sqloledb;User ID=sa;Password=passwd;Initial Catalog=master;Data Source=(local);</conn>",
+                @"<type>oracle_oledb</type><conn>Provider=OraOLEDB.Oracle; Data Source=MyOracleDB; User Id=user; Password=passwd;</conn>",
+                @"<type>mysql_oledb</type><conn>Provider=MySQLProv; Data Source=mydb; User Id=user; Password=passwd;</conn>"
+            };
+            //comboBox_items.Items.AddRange(items);
+        }
+
+
+        private void comboBox_types_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_types.Text == "DbConnStr")
+            {
+                comboBox_items.Items.AddRange(InitUI.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
             }
         }
     }

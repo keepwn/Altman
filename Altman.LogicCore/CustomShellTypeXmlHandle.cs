@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace Altman.LogicCore.New
+namespace Altman.LogicCore
 {
     public class CustomShellTypeXmlHandle
     {
@@ -13,9 +12,9 @@ namespace Altman.LogicCore.New
         /// </summary>
         public static void WriteXml(string shellTypeName,
                                     string basePathDir,
-                                    CustomShellType.BasicSettingStruct basicSetting,
-                                    CustomShellType.MainCodeSettingStruct mainCode,
-                                    List<CustomShellType.FuncCodeSettingStruct> funcCodeList)
+                                    CustomShellType.Basic basicSetting,
+                                    CustomShellType.MainCode mainCode,
+                                    List<CustomShellType.FuncCode> funcCodeList)
         {
             XmlTextWriter xmlWriter = null;
             string filename = string.Format(basePathDir + "{0}", shellTypeName);
@@ -25,10 +24,10 @@ namespace Altman.LogicCore.New
                 xmlWriter.Formatting = Formatting.Indented;
                 xmlWriter.WriteStartDocument();
 
-                xmlWriter.WriteStartElement("CustomShellType");
+                xmlWriter.WriteStartElement("customShellType");
                 {
                     //BasicSetting
-                    xmlWriter.WriteStartElement("BasicSetting");
+                    xmlWriter.WriteStartElement("basicSetting");
                     {
                         xmlWriter.WriteStartElement("name");
                         xmlWriter.WriteString(shellTypeName.Substring(0, shellTypeName.Length - 4));
@@ -38,7 +37,7 @@ namespace Altman.LogicCore.New
                         xmlWriter.WriteCData(basicSetting.ServiceExample);
                         xmlWriter.WriteEndElement();
 
-                        xmlWriter.WriteStartElement("MainCodeParam");
+                        xmlWriter.WriteStartElement("mainCodeParam");
                         {
                             xmlWriter.WriteStartAttribute("location");
                             xmlWriter.WriteString(basicSetting.MainCodeParam.Location);
@@ -55,9 +54,9 @@ namespace Altman.LogicCore.New
                     xmlWriter.WriteEndElement();
 
                     //MainCodeSetting
-                    xmlWriter.WriteStartElement("MainCodeSetting");
+                    xmlWriter.WriteStartElement("mainCodeSetting");
                     {
-                        xmlWriter.WriteStartElement("FuncCodeParam");
+                        xmlWriter.WriteStartElement("funcCodeParam");
                         {
                             xmlWriter.WriteStartAttribute("location");
                             xmlWriter.WriteString(mainCode.FuncCodeParam.Location);
@@ -78,11 +77,11 @@ namespace Altman.LogicCore.New
                     xmlWriter.WriteEndElement();
 
                     //FuncCodeSetting
-                    xmlWriter.WriteStartElement("FuncCodeSetting");
+                    xmlWriter.WriteStartElement("funcCodeSetting");
                     {
-                        foreach (CustomShellType.FuncCodeSettingStruct func in funcCodeList)
+                        foreach (CustomShellType.FuncCode func in funcCodeList)
                         {
-                            xmlWriter.WriteStartElement("Func");
+                            xmlWriter.WriteStartElement("func");
                             {
                                 xmlWriter.WriteStartElement("name");
                                 xmlWriter.WriteString(func.Name);
@@ -131,28 +130,28 @@ namespace Altman.LogicCore.New
         /// </summary>
         public static void ReadXml(string fileName,
                                    string basePathDir,
-                                   ref CustomShellType.BasicSettingStruct basicSetting,
-                                   ref CustomShellType.MainCodeSettingStruct mainCode,
-                                   ref List<CustomShellType.FuncCodeSettingStruct> funcCodeList)
+                                   ref CustomShellType.Basic basicSetting,
+                                   ref CustomShellType.MainCode mainCode,
+                                   ref List<CustomShellType.FuncCode> funcCodeList)
         {
             string filePath = basePathDir + fileName;
             try
             {
                 XmlDocument xml = new XmlDocument(); //初始化一个xml实例
                 xml.Load(filePath); //导入指定xml文件
-                XmlNode root = xml.SelectSingleNode("/CustomShellType"); //指定一个节点
+                XmlNode root = xml.SelectSingleNode("/customShellType"); //指定一个节点
                 XmlNodeList childlist = root.ChildNodes; //获取节点下所有直接子节点
                 foreach (XmlNode child in childlist)
                 {
-                    if (child.Name == "BasicSetting")
+                    if (child.Name == "basicSetting")
                     {
                         basicSetting = ReadBasicSettingNode(child);
                     }
-                    else if (child.Name == "MainCodeSetting")
+                    else if (child.Name == "mainCodeSetting")
                     {
                         mainCode = ReadMainCodeSettingNode(child);
                     }
-                    else if (child.Name == "FuncCodeSetting")
+                    else if (child.Name == "funcCodeSetting")
                     {
                         funcCodeList = ReadFuncCodeSettingNode(child);
                     }
@@ -166,23 +165,23 @@ namespace Altman.LogicCore.New
 
         public static void ReadXml(string fileName,
                                    string basePathDir,
-                                   ref CustomShellType.BasicSettingStruct basicSetting,
-                                   ref CustomShellType.MainCodeSettingStruct mainCode)
+                                   ref CustomShellType.Basic basicSetting,
+                                   ref CustomShellType.MainCode mainCode)
         {
             string filePath = basePathDir + fileName;
             try
             {
                 XmlDocument xml = new XmlDocument(); //初始化一个xml实例
                 xml.Load(filePath); //导入指定xml文件
-                XmlNode root = xml.SelectSingleNode("/CustomShellType"); //指定一个节点
+                XmlNode root = xml.SelectSingleNode("/customShellType"); //指定一个节点
                 XmlNodeList childlist = root.ChildNodes; //获取节点下所有直接子节点
                 foreach (XmlNode child in childlist)
                 {
-                    if (child.Name == "BasicSetting")
+                    if (child.Name == "basicSetting")
                     {
                         basicSetting = ReadBasicSettingNode(child);
                     }
-                    else if (child.Name == "MainCodeSetting")
+                    else if (child.Name == "mainCodeSetting")
                     {
                         mainCode = ReadMainCodeSettingNode(child);
                     }
@@ -196,18 +195,18 @@ namespace Altman.LogicCore.New
 
         public static void ReadXml(string fileName,
                            string basePathDir,
-                           ref List<CustomShellType.FuncCodeSettingStruct> funcCodeList)
+                           ref List<CustomShellType.FuncCode> funcCodeList)
         {
             string filePath = basePathDir + fileName;
             try
             {
                 XmlDocument xml = new XmlDocument(); //初始化一个xml实例
                 xml.Load(filePath); //导入指定xml文件
-                XmlNode root = xml.SelectSingleNode("/CustomShellType"); //指定一个节点
+                XmlNode root = xml.SelectSingleNode("/customShellType"); //指定一个节点
                 XmlNodeList childlist = root.ChildNodes; //获取节点下所有直接子节点
                 foreach (XmlNode child in childlist)
                 {
-                    if (child.Name == "FuncCodeSetting")
+                    if (child.Name == "funcCodeSetting")
                     {
                         funcCodeList = ReadFuncCodeSettingNode(child);
                     }
@@ -219,9 +218,34 @@ namespace Altman.LogicCore.New
             }
         }
 
-        private static CustomShellType.BasicSettingStruct ReadBasicSettingNode(XmlNode child)
+        public static void ReadXml(string fileName,
+                   string basePathDir,
+                   ref List<CustomShellType.TreeInfo> infoList)
         {
-            CustomShellType.BasicSettingStruct basicSetting = new CustomShellType.BasicSettingStruct();
+            string filePath = basePathDir + fileName;
+            try
+            {
+                XmlDocument xml = new XmlDocument(); //初始化一个xml实例
+                xml.Load(filePath); //导入指定xml文件
+                XmlNode root = xml.SelectSingleNode("/customShellType"); //指定一个节点
+                XmlNodeList childlist = root.ChildNodes; //获取节点下所有直接子节点
+                foreach (XmlNode child in childlist)
+                {
+                    if (child.Name == "funcTreeInfo")
+                    {
+                        infoList = ReadTreeInfoNode(child);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private static CustomShellType.Basic ReadBasicSettingNode(XmlNode child)
+        {
+            CustomShellType.Basic basicSetting = new CustomShellType.Basic();
             foreach (XmlNode c in child.ChildNodes)
             {
                 if (c.Name == "name")
@@ -239,9 +263,9 @@ namespace Altman.LogicCore.New
             }
             return basicSetting;
         }
-        private static CustomShellType.MainCodeSettingStruct ReadMainCodeSettingNode(XmlNode child)
+        private static CustomShellType.MainCode ReadMainCodeSettingNode(XmlNode child)
         {
-            CustomShellType.MainCodeSettingStruct mainCode = new CustomShellType.MainCodeSettingStruct();
+            CustomShellType.MainCode mainCode = new CustomShellType.MainCode();
             foreach (XmlNode c in child.ChildNodes)
             {
                 if (c.Name == "item")
@@ -255,14 +279,14 @@ namespace Altman.LogicCore.New
             }
             return mainCode;
         }
-        private static List<CustomShellType.FuncCodeSettingStruct> ReadFuncCodeSettingNode(XmlNode child)
+        private static List<CustomShellType.FuncCode> ReadFuncCodeSettingNode(XmlNode child)
         {
-            List<CustomShellType.FuncCodeSettingStruct> funcCodeList = new List<CustomShellType.FuncCodeSettingStruct>();
+            List<CustomShellType.FuncCode> funcCodeList = new List<CustomShellType.FuncCode>();
             foreach (XmlNode c in child.ChildNodes)
             {
-                if (c.Name == "Func")
+                if (c.Name == "func")
                 {
-                    CustomShellType.FuncCodeSettingStruct funcCode = new CustomShellType.FuncCodeSettingStruct();
+                    CustomShellType.FuncCode funcCode = new CustomShellType.FuncCode();
                     //初始化一下Parmas
                     funcCode.FuncParams = new List<CustomShellType.ParamStruct>();
                     foreach (XmlNode cc in c.ChildNodes)
@@ -274,6 +298,10 @@ namespace Altman.LogicCore.New
                         else if (cc.Name == "type")
                         {
                             funcCode.Type = cc.InnerText;
+                        }
+                        else if (cc.Name == "path")
+                        {
+                            funcCode.Path = cc.InnerText;
                         }
                         else if (cc.Name == "item")
                         {
@@ -289,13 +317,41 @@ namespace Altman.LogicCore.New
             }
             return funcCodeList;
         }
+        private static List<CustomShellType.TreeInfo> ReadTreeInfoNode(XmlNode child)
+        {
+            var infoList = new List<CustomShellType.TreeInfo>();
+            foreach (XmlNode c in child.ChildNodes)
+            {
+                if (c.Name == "node")
+                {
+                    var info = new CustomShellType.TreeInfo();
+                    foreach (XmlNode cc in c.ChildNodes)
+                    {
+                        if (cc.Name == "path")
+                        {
+                            info.Path = cc.InnerText;
+                        }
+                        else if (cc.Name == "type")
+                        {
+                            info.Type = cc.InnerText;
+                        }
+                        else if (cc.Name == "info")
+                        {
+                            info.Info = cc.InnerText;
+                        }
+                    }
+                    infoList.Add(info);
+                }
+            }
+            return infoList;
+        }
         private static CustomShellType.ParamStruct ReadParamNode(XmlNode child)
         {
             CustomShellType.ParamStruct par=new CustomShellType.ParamStruct();
             par.Name = child.InnerText;
             par.Location = child.Attributes["location"].Value;
             string encrymode = child.Attributes["encrymode"].Value;
-            par.EncryMode = (CustomShellType.EncryMode)Enum.Parse(typeof(CustomShellType.EncryMode), encrymode);
+            par.EncryMode = (EncryMode)Enum.Parse(typeof(EncryMode), encrymode);
             return par;
         }
     }

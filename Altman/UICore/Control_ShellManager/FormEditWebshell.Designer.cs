@@ -49,6 +49,11 @@
             this.richTextBox_Setting = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox_WebCoding = new System.Windows.Forms.ComboBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBox_types = new System.Windows.Forms.ComboBox();
+            this.comboBox_items = new System.Windows.Forms.ComboBox();
+            this.btn_insert = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -116,14 +121,14 @@
             // comboBox_ScritpType
             // 
             this.comboBox_ScritpType.FormattingEnabled = true;
-            this.comboBox_ScritpType.Location = new System.Drawing.Point(44, 197);
+            this.comboBox_ScritpType.Location = new System.Drawing.Point(44, 266);
             this.comboBox_ScritpType.Name = "comboBox_ScritpType";
             this.comboBox_ScritpType.Size = new System.Drawing.Size(138, 20);
             this.comboBox_ScritpType.TabIndex = 11;
             // 
             // button_Add
             // 
-            this.button_Add.Location = new System.Drawing.Point(371, 227);
+            this.button_Add.Location = new System.Drawing.Point(371, 296);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(46, 23);
             this.button_Add.TabIndex = 12;
@@ -137,7 +142,7 @@
             this.comboBox_ServerCoding.Items.AddRange(new object[] {
             "UTF-8",
             "GB2312"});
-            this.comboBox_ServerCoding.Location = new System.Drawing.Point(257, 197);
+            this.comboBox_ServerCoding.Location = new System.Drawing.Point(257, 266);
             this.comboBox_ServerCoding.Name = "comboBox_ServerCoding";
             this.comboBox_ServerCoding.Size = new System.Drawing.Size(75, 20);
             this.comboBox_ServerCoding.TabIndex = 14;
@@ -166,7 +171,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(0, 164);
+            this.label12.Location = new System.Drawing.Point(0, 233);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(47, 12);
             this.label12.TabIndex = 25;
@@ -174,7 +179,7 @@
             // 
             // button_Alter
             // 
-            this.button_Alter.Location = new System.Drawing.Point(423, 227);
+            this.button_Alter.Location = new System.Drawing.Point(423, 296);
             this.button_Alter.Name = "button_Alter";
             this.button_Alter.Size = new System.Drawing.Size(46, 23);
             this.button_Alter.TabIndex = 27;
@@ -184,7 +189,7 @@
             // 
             // textBox_Remark
             // 
-            this.textBox_Remark.Location = new System.Drawing.Point(44, 164);
+            this.textBox_Remark.Location = new System.Drawing.Point(44, 233);
             this.textBox_Remark.Name = "textBox_Remark";
             this.textBox_Remark.Size = new System.Drawing.Size(425, 21);
             this.textBox_Remark.TabIndex = 28;
@@ -192,7 +197,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(188, 200);
+            this.label7.Location = new System.Drawing.Point(188, 269);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 12);
             this.label7.TabIndex = 13;
@@ -201,7 +206,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(0, 200);
+            this.label6.Location = new System.Drawing.Point(0, 269);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 12);
             this.label6.TabIndex = 10;
@@ -218,16 +223,18 @@
             // 
             // richTextBox_Setting
             // 
-            this.richTextBox_Setting.Location = new System.Drawing.Point(44, 63);
+            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox_Setting, 3);
+            this.richTextBox_Setting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox_Setting.Location = new System.Drawing.Point(3, 32);
             this.richTextBox_Setting.Name = "richTextBox_Setting";
-            this.richTextBox_Setting.Size = new System.Drawing.Size(425, 95);
+            this.richTextBox_Setting.Size = new System.Drawing.Size(419, 126);
             this.richTextBox_Setting.TabIndex = 30;
             this.richTextBox_Setting.Text = "";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(338, 200);
+            this.label5.Location = new System.Drawing.Point(338, 269);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 13;
@@ -239,17 +246,61 @@
             this.comboBox_WebCoding.Items.AddRange(new object[] {
             "UTF-8",
             "GB2312"});
-            this.comboBox_WebCoding.Location = new System.Drawing.Point(394, 197);
+            this.comboBox_WebCoding.Location = new System.Drawing.Point(394, 266);
             this.comboBox_WebCoding.Name = "comboBox_WebCoding";
             this.comboBox_WebCoding.Size = new System.Drawing.Size(75, 20);
             this.comboBox_WebCoding.TabIndex = 14;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.richTextBox_Setting, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox_types, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox_items, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btn_insert, 2, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(44, 66);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 161);
+            this.tableLayoutPanel1.TabIndex = 31;
+            // 
+            // comboBox_types
+            // 
+            this.comboBox_types.FormattingEnabled = true;
+            this.comboBox_types.Location = new System.Drawing.Point(3, 3);
+            this.comboBox_types.Name = "comboBox_types";
+            this.comboBox_types.Size = new System.Drawing.Size(115, 20);
+            this.comboBox_types.TabIndex = 31;
+            this.comboBox_types.SelectedIndexChanged += new System.EventHandler(this.comboBox_types_SelectedIndexChanged);
+            // 
+            // comboBox_items
+            // 
+            this.comboBox_items.FormattingEnabled = true;
+            this.comboBox_items.Location = new System.Drawing.Point(124, 3);
+            this.comboBox_items.Name = "comboBox_items";
+            this.comboBox_items.Size = new System.Drawing.Size(217, 20);
+            this.comboBox_items.TabIndex = 32;
+            // 
+            // btn_insert
+            // 
+            this.btn_insert.Location = new System.Drawing.Point(347, 3);
+            this.btn_insert.Name = "btn_insert";
+            this.btn_insert.Size = new System.Drawing.Size(75, 23);
+            this.btn_insert.TabIndex = 33;
+            this.btn_insert.Text = "插入";
+            this.btn_insert.UseVisualStyleBackColor = true;
             // 
             // FormEditWebshell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 256);
-            this.Controls.Add(this.richTextBox_Setting);
+            this.ClientSize = new System.Drawing.Size(475, 327);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox_Remark);
             this.Controls.Add(this.button_Alter);
@@ -276,6 +327,7 @@
             this.Name = "FormEditWebshell";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormEditWebshell";
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,5 +356,9 @@
         private System.Windows.Forms.RichTextBox richTextBox_Setting;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox_WebCoding;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ComboBox comboBox_types;
+        private System.Windows.Forms.ComboBox comboBox_items;
+        private System.Windows.Forms.Button btn_insert;
     }
 }

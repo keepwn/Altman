@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-using Altman.LogicCore.New;
+using Altman.LogicCore;
 
 namespace Altman
 {
@@ -17,9 +17,9 @@ namespace Altman
         private readonly string _basePathDir = Application.StartupPath + "/CustomType/";
         private string _selectedXmlFileName = "";
 
-        private CustomShellType.BasicSettingStruct _basicSetting;
-        private CustomShellType.MainCodeSettingStruct _mainCode;
-        private List<CustomShellType.FuncCodeSettingStruct> _funcCodeList;
+        private CustomShellType.Basic _basicSetting;
+        private CustomShellType.MainCode _mainCode;
+        private List<CustomShellType.FuncCode> _funcCodeList;
         public FormCustomShellTypeWizard()
         {
             InitializeComponent();
@@ -38,11 +38,11 @@ namespace Altman
             //==界面初始化funcpage
 
             //添加元素到cb中
-            foreach (var it in Enum.GetValues(typeof(CustomShellType.FuncCodeName)))
+            foreach (var it in Enum.GetValues(typeof(CustomShellType.FuncCode)))
             {
                 cb_Name.Items.Add(it.ToString());
             }
-            foreach (var it in Enum.GetValues(typeof(CustomShellType.EncryMode)))
+            foreach (var it in Enum.GetValues(typeof(EncryMode)))
             {
                 cb_ParmaEncry.Items.Add(it.ToString());
             }
@@ -145,9 +145,9 @@ namespace Altman
         /// </summary>
         private void InitData()
         {
-            _basicSetting = new CustomShellType.BasicSettingStruct();
-            _mainCode = new CustomShellType.MainCodeSettingStruct();
-            _funcCodeList = new List<CustomShellType.FuncCodeSettingStruct>();
+            _basicSetting = new CustomShellType.Basic();
+            _mainCode = new CustomShellType.MainCode();
+            _funcCodeList = new List<CustomShellType.FuncCode>();
         }
         /// <summary>
         /// 载入xml文件列表
@@ -198,10 +198,10 @@ namespace Altman
                 throw new Exception(msg);
             }
             //检查encry字段的正确性
-            CustomShellType.EncryMode encryMode;
+            EncryMode encryMode;
             try
             {
-                encryMode = (CustomShellType.EncryMode)Enum.Parse(typeof(CustomShellType.EncryMode), mainEncry);
+                encryMode = (EncryMode)Enum.Parse(typeof(EncryMode), mainEncry);
             }
             catch
             {
@@ -255,10 +255,10 @@ namespace Altman
                 throw new Exception(msg);
             }
             //检查encry字段的正确性
-            CustomShellType.EncryMode encryMode;
+            EncryMode encryMode;
             try
             {
-                encryMode = (CustomShellType.EncryMode)Enum.Parse(typeof(CustomShellType.EncryMode), encry);
+                encryMode = (EncryMode)Enum.Parse(typeof(EncryMode), encry);
             }
             catch
             {
@@ -267,7 +267,7 @@ namespace Altman
             }
 
             //全部通过检查，则保存
-            CustomShellType.MainCodeSettingStruct mainCode = new CustomShellType.MainCodeSettingStruct();
+            CustomShellType.MainCode mainCode = new CustomShellType.MainCode();
             mainCode.Item = code;
             //MainCodeSetting.FuncCodeLocation = location;
             //MainCodeSetting.FuncCodeEncryMode = encryMode;
@@ -337,10 +337,10 @@ namespace Altman
                 return;
             }
             //检查encry字段的正确性
-            CustomShellType.EncryMode encryMode;
+            EncryMode encryMode;
             try
             {
-                encryMode = (CustomShellType.EncryMode)Enum.Parse(typeof(CustomShellType.EncryMode), encry);
+                encryMode = (EncryMode)Enum.Parse(typeof(EncryMode), encry);
             }
             catch
             {
@@ -349,7 +349,7 @@ namespace Altman
             }
 
             //全部通过检查，则保存
-            CustomShellType.FuncCodeSettingStruct funcCode = new CustomShellType.FuncCodeSettingStruct();
+            CustomShellType.FuncCode funcCode = new CustomShellType.FuncCode();
             funcCode.Name = name;
             funcCode.Item = code;
             //funcCode.FuncParmaLocation = location;
@@ -379,7 +379,7 @@ namespace Altman
             if (lv_Func.SelectedItems.Count > 0)
             {
                 ListViewItem item = lv_Func.SelectedItems[0];
-                CustomShellType.FuncCodeSettingStruct funcCode = (CustomShellType.FuncCodeSettingStruct)item.Tag;
+                CustomShellType.FuncCode funcCode = (CustomShellType.FuncCode)item.Tag;
 
                 //将列表中数据重新载入控件中
                 cb_Name.Text = item.Text.Trim();
@@ -402,7 +402,7 @@ namespace Altman
             {
                 if (_funcCodeList != null && _funcCodeList.Count > 0)
                 {
-                    foreach (CustomShellType.FuncCodeSettingStruct funcCode in _funcCodeList)
+                    foreach (CustomShellType.FuncCode funcCode in _funcCodeList)
                     {
                         string name = funcCode.Name;
                         if (string.IsNullOrEmpty(name))
@@ -426,13 +426,13 @@ namespace Altman
         /// </summary>
         private void SaveFuncCode()
         {
-            List<CustomShellType.FuncCodeSettingStruct> funcCodeList = new List<CustomShellType.FuncCodeSettingStruct>();
+            List<CustomShellType.FuncCode> funcCodeList = new List<CustomShellType.FuncCode>();
             if (lv_Func.Items.Count > 0)
             {
                 //遍历listview
                 foreach (ListViewItem item in lv_Func.Items)
                 {
-                    CustomShellType.FuncCodeSettingStruct funcCode = (CustomShellType.FuncCodeSettingStruct)item.Tag;
+                    CustomShellType.FuncCode funcCode = (CustomShellType.FuncCode)item.Tag;
                     funcCodeList.Add(funcCode);
                 }
             }

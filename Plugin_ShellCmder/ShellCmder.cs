@@ -50,7 +50,7 @@ namespace Plugin_ShellCmder
         {
             if (_host.SubmitCommand != null)
             {
-                byte[] resultBytes = _host.SubmitCommand(_shellData, "SysInfoCode", null);
+                byte[] resultBytes = _host.SubmitCommand(_shellData, "Cmder/SysInfoCode", null);
                 return ResultMatch.MatchResultToOsInfo(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             }
             else
@@ -73,7 +73,7 @@ namespace Plugin_ShellCmder
 
             if (_host.SubmitCommand != null)
             {
-                byte[] resultBytes = _host.SubmitCommand(_shellData,"ExecuteCommandCode", new string[] {cmdPath, combineCommand});
+                byte[] resultBytes = _host.SubmitCommand(_shellData, "Cmder/ExecuteCommandCode", new string[] { cmdPath, combineCommand });
                 return ResultMatch.MatchResultToCmdResult(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             }
             else

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
 using Altman.LogicCore;
-using Altman.LogicCore.New;
 
 namespace Altman
 {
@@ -24,7 +23,16 @@ namespace Altman
 
             //test
             //XmlDocument xmlDoc = XmlHelper.ReadXml("data.xml", false,"body");
-            //XmlHelper.SaveXml("data1.xml", xmlDoc,true, "body");            
+            //XmlHelper.SaveXml("data1.xml", xmlDoc,true, "body");
+          
+            //test
+            FuncTreeNode root = new FuncTreeNode("root");
+            root.AddNode("A");
+            FuncTreeNode d =root.AddNodes("/a/b/c/d");
+            string dpath = d.FullPath;
+            FuncTreeNode find_a = root.FindNode("a");
+            FuncTreeNode find_c = root.FindNodes("a/b/c");
+            FuncTreeNode find_d = root.FindNodes("a");
         }
     }
 }

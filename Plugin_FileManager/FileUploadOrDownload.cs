@@ -132,7 +132,7 @@ namespace Plugin_FileManager
         {
             string[] par = e.Argument as string[];
 
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DownloadFileCode", new string[] { par[0]});
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
             byte[] fileBytes = ResultMatch.MatchResultToFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             e.Result = SaveFile(par[1], fileBytes);
         }
@@ -176,7 +176,7 @@ namespace Plugin_FileManager
         private void upload_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "UploadFileCode", par);
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "FileManager/UploadFileCode", par);
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void upload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

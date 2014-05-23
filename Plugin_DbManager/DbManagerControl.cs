@@ -289,7 +289,7 @@ namespace Plugin_DbManager
         {
             string type = string.Empty;
             if (node != null)
-            {              
+            {
                 XmlNode typeNode = node.SelectSingleNode("/connection/type");
                 if (typeNode != null)
                     type = typeNode.InnerText;              

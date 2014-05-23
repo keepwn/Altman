@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using Altman.Common.AltData;
 using Altman.Setting;
 
-namespace Altman.LogicCore.New
+namespace Altman.LogicCore
 {
     public class CustomCommandCode
     {
@@ -37,17 +36,17 @@ namespace Altman.LogicCore.New
                 dic.Add(key, value);
             }
         }
-        private string EncryItem(CustomShellType.EncryMode mode, string item)
+        private string EncryItem(EncryMode mode, string item)
         {
-            if (mode == CustomShellType.EncryMode.None)
+            if (mode == EncryMode.None)
             {
                 return item;
             }
-            else if (mode == CustomShellType.EncryMode.Base64)
+            else if (mode == EncryMode.Base64)
             {
                 return DataConvert.StrToBase64(item, 1);
             }
-            else if (mode == CustomShellType.EncryMode.Hex)
+            else if (mode == EncryMode.Hex)
             {
                 return DataConvert.StrToHex(item);
             }
@@ -118,7 +117,7 @@ namespace Altman.LogicCore.New
 
         private Dictionary<string, string> GetCode(CustomShellType customShellType,
                                                    string pass,
-                                                   CustomShellType.FuncCodeSettingStruct funcCode,
+                                                   CustomShellType.FuncCode funcCode,
                                                    string[] parmas)
         {
             DataCombine dataCombine = new DataCombine();
@@ -188,19 +187,12 @@ namespace Altman.LogicCore.New
         public Dictionary<string, string> GetCode(string funcCodeNameXpath, string[] parmas)
         {
             //分解funcCodeNameXpath，将"cmder/exec"分解为cmder和exec
-            string[] xpath = funcCodeNameXpath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            string nodeName = string.Empty;
-            string funcCodeName = string.Empty;
-            if (xpath.Length > 1)
-            {
-                nodeName = xpath[0];
-                funcCodeName = xpath[1];
-            }
-            else
-            {
-                funcCodeName = xpath[0];
-            }
-            return GetCode(_customShellType, _pass, _customShellType.GetFuncCodeSettingStruct(nodeName,funcCodeName), parmas);
+            List<string> list = new List<string>(funcCodeNameXpath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries));
+            string funcCodeName = list[list.Count-1];
+
+            list.RemoveAt(list.Count-1);
+            string path = string.Join("/", list);
+            return GetCode(_customShellType, _pass, _customShellType.GetFuncCode(path, funcCodeName), parmas);
         }
     }
 }

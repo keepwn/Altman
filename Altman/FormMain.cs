@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Altman.LogicCore.New;
+using Altman.LogicCore;
 using Altman.ModelCore;
 using Altman.WebCore;
 using PluginFramework;
@@ -72,6 +72,15 @@ namespace Altman
                 plugin.HostService.SubmitCommand = SubmitCommand;
                 //ucplugin.Func.OnSubmit += Func_OnSubmit;
             }
+
+
+            //test
+            TreeNode treeNodeRoot2;
+            treeNodeRoot2 = InitUI.GetCustomShellTypeTree();
+            treeNodeRoot2.Name = "ShellType";
+            treeNodeRoot2.Text = "ShellType";
+            this.treeView_func.Nodes.AddRange(new TreeNode[] { treeNodeRoot2 });
+            
         }
 
         #region MEF处理
@@ -131,7 +140,14 @@ namespace Altman
 
 
         #region 插件与宿主绑定的事件或方法
-        byte[] SubmitCommand(ShellStruct data, string funcNameXpath, string[] param)
+        /// <summary>
+        /// 提交命令
+        /// </summary>
+        /// <param name="data">shellstruct数据</param>
+        /// <param name="funcNameXpath">xpath表示的方法名（/cmder/readfile）</param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        private byte[] SubmitCommand(ShellStruct data, string funcNameXpath, string[] param)
         {
             CustomShellType shellType = CustomShellTypeProvider.GetShellType(data.ShellType);
             CustomCommandCode customCommandCode = new CustomCommandCode(shellType, data.ShellPwd);
@@ -139,7 +155,7 @@ namespace Altman
             HttpClient httpClient = new HttpClient();
             return httpClient.SubmitCommandByPost(data.ShellUrl, commandCode);
         }
-        byte[] SubmitCommand(ShellStruct data,
+        private byte[] SubmitCommand(ShellStruct data,
                                 string funcNameXpath, string[] param,
                                 bool isBindUploadProgressChangedEvent,
                                 bool isBindDownloadProgressChangedEvent)
