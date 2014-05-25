@@ -19,7 +19,7 @@ namespace Plugin_DbManager
         private ShellStruct _shellData;
 
         private DbManagerService dbManagerService;
-        private XmlNode node = null;
+        private XmlNode _node = null;
         public DbManagerControl(HostService hostService, ShellStruct data)
         {
             InitializeComponent();
@@ -47,6 +47,7 @@ namespace Plugin_DbManager
             dbManagerService.GetDbName(GetConnStr());
         }
 
+        #region Event
         private void dbManagerService_ExecuteNonQueryCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -134,6 +135,8 @@ namespace Plugin_DbManager
                 }
             }
         }
+
+        #endregion
 
         private void RefreshRootInDbTree(bool isSuccess)
         {
@@ -232,7 +235,7 @@ namespace Plugin_DbManager
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripButton_run_Click(object sender, EventArgs e)
         {
             string sql = tbx_sql.Text;
             if (string.IsNullOrWhiteSpace(sql))
@@ -282,15 +285,15 @@ namespace Plugin_DbManager
         private void InitExtraSettingXml()
         {
             //创建ExtraSetting节点
-            node = new XmlDocument().CreateElement("ExtraSetting");
-            node.InnerXml = _shellData.ShellExtraSetting;
+            _node = new XmlDocument().CreateElement("ExtraSetting");
+            _node.InnerXml = _shellData.ShellExtraSetting;
         }
         private string GetDbType()
         {
             string type = string.Empty;
-            if (node != null)
+            if (_node != null)
             {
-                XmlNode typeNode = node.SelectSingleNode("/connection/type");
+                XmlNode typeNode = _node.SelectSingleNode("/connection/type");
                 if (typeNode != null)
                     type = typeNode.InnerText;              
             }
@@ -299,7 +302,7 @@ namespace Plugin_DbManager
         private string GetConnStr()
         {
             string conn = string.Empty;
-            if (node != null)
+            if (_node != null)
             {
                 //获取type
                 string scriptType = _shellData.ShellType;
@@ -310,13 +313,13 @@ namespace Plugin_DbManager
                     string user = string.Empty;
                     string pass = string.Empty;
                     string language = string.Empty;
-                    XmlNode hostNode = node.SelectSingleNode("/connection/host");
+                    XmlNode hostNode = _node.SelectSingleNode("/connection/host");
                     if (hostNode != null) host = hostNode.InnerText;
-                    XmlNode userNode = node.SelectSingleNode("/connection/user");
+                    XmlNode userNode = _node.SelectSingleNode("/connection/user");
                     if (userNode != null) user = userNode.InnerText;
-                    XmlNode passNode = node.SelectSingleNode("/connection/pass");
+                    XmlNode passNode = _node.SelectSingleNode("/connection/pass");
                     if (passNode != null) pass = passNode.InnerText;
-                    XmlNode lanNode = node.SelectSingleNode("/connection/language");
+                    XmlNode lanNode = _node.SelectSingleNode("/connection/language");
                     if (lanNode != null) language = lanNode.InnerText;
 
                     conn = string.Format("{0};{1};{2};{3};", host, user, pass, language);
@@ -324,7 +327,7 @@ namespace Plugin_DbManager
                 else
                 {
 
-                    XmlNode connNode = node.SelectSingleNode("/connection/conn");
+                    XmlNode connNode = _node.SelectSingleNode("/connection/conn");
                     if (connNode != null) 
                         conn = connNode.InnerText;
                 }

@@ -40,7 +40,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox_dbs = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_run = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -148,6 +148,7 @@
             this.dataGridView_result.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_result.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_result.Name = "dataGridView_result";
+            this.dataGridView_result.RowHeadersWidth = 60;
             this.dataGridView_result.Size = new System.Drawing.Size(366, 191);
             this.dataGridView_result.TabIndex = 0;
             // 
@@ -156,7 +157,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox_dbs,
             this.toolStripSeparator1,
-            this.toolStripButton1,
+            this.toolStripButton_run,
             this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(2, 2);
             this.toolStrip1.Name = "toolStrip1";
@@ -175,14 +176,14 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton1
+            // toolStripButton_run
             // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(47, 22);
-            this.toolStripButton1.Text = "run";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripButton_run.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_run.Image")));
+            this.toolStripButton_run.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_run.Name = "toolStripButton_run";
+            this.toolStripButton_run.Size = new System.Drawing.Size(47, 22);
+            this.toolStripButton_run.Text = "run";
+            this.toolStripButton_run.Click += new System.EventHandler(this.toolStripButton_run_Click);
             // 
             // toolStripButton2
             // 
@@ -223,7 +224,7 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_run;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TreeView treeView_Dbs;

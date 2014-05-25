@@ -38,28 +38,29 @@ namespace Altman
             return CustomShellTypeProvider.ShellTypeStyleContainer[shellTypeName].FuncTreeRoot.Nodes["db"].Nodes.Keys.ToArray();
         }
 
+
+        public static TreeNode GetTreeNodeNodes(FuncTreeNode node)
+        {
+            TreeNode tree = new TreeNode(node.Name);
+            foreach (var func in node.Funcs.Keys)
+            {
+                tree.Nodes.Add(func);
+            }
+            if (node.Nodes.Count > 0)
+            {
+                foreach (var child in node.Nodes)
+                {
+                    tree.Nodes.Add(GetTreeNodeNodes(child.Value));
+                }
+            }
+            return tree;
+        }
         public static TreeNode GetCustomShellTypeTree()
         {
             TreeNode tree = new TreeNode();
             foreach (var shelltype in CustomShellTypeProvider.ShellTypeStyleContainer)
             {
-                TreeNode tmp = tree.Nodes.Add(shelltype.Key);
-                foreach (var func in shelltype.Value.FuncTreeRoot.Funcs)
-                {
-                    tmp.Nodes.Add(func.Key);
-                }
-                foreach (var func in shelltype.Value.FuncTreeRoot.Nodes)
-                {
-                    TreeNode t = tmp.Nodes.Add(func.Key);
-                    foreach (var i in func.Value.Nodes)
-                    {
-                        TreeNode m = t.Nodes.Add(i.Key);
-                        foreach (var a in i.Value.Funcs)
-                        {
-                            m.Nodes.Add(a.Key);
-                        }
-                    }
-                }
+                tree.Nodes.Add(GetTreeNodeNodes(shelltype.Value.FuncTreeRoot));
             }
             return tree;
         }

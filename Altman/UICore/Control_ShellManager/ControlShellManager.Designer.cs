@@ -72,21 +72,21 @@ namespace Altman.UICore.Control_ShellManager
             // 
             this.item_add.Name = "item_add";
             this.item_add.Size = new System.Drawing.Size(152, 22);
-            this.item_add.Text = "添加";
+            this.item_add.Text = "Add";
             this.item_add.Click += new System.EventHandler(this.item_add_Click);
             // 
             // item_alter
             // 
             this.item_alter.Name = "item_alter";
             this.item_alter.Size = new System.Drawing.Size(152, 22);
-            this.item_alter.Text = "修改";
+            this.item_alter.Text = "Edit";
             this.item_alter.Click += new System.EventHandler(this.item_alter_Click);
             // 
             // item_del
             // 
             this.item_del.Name = "item_del";
             this.item_del.Size = new System.Drawing.Size(152, 22);
-            this.item_del.Text = "删除";
+            this.item_del.Text = "Delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // toolStripSeparator2

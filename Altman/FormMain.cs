@@ -32,7 +32,7 @@ namespace Altman
             tabControl1.DoubleClick += tabControl1_DoubleClick;
             //设置版本号标签靠右
             toolStripStatusLabel_productVersion.Alignment = ToolStripItemAlignment.Right;
-            toolStripStatusLabel_productVersion.Text = "Version:" + Application.ProductVersion;
+            toolStripStatusLabel_productVersion.Text = "Author:KeePwn Version:" + Application.ProductVersion;
 
             TabCore.Init(this, this.tabControl1);
             //TabCore.Init(this, this.customTabControl1);
@@ -263,13 +263,15 @@ namespace Altman
             lisenting.Show();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutMe_Click(object sender, EventArgs e)
         {
             string msg = "本程序只用于测试，仅供安全学习、研究所用，\n" +
                          "请勿用于非法用途，否则造成的一切后果自负。\n" +
                          "                                              by keepwn";
 
-            MessageBox.Show(msg, "About Altman", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(msg, "About Altman", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AboutBox about = new AboutBox();
+            about.ShowDialog();
         }
 
     }

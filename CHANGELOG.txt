@@ -1,3 +1,8 @@
+->Altman 2.0.5
+1.明确了免责条款（2014.05.25）
+2.完善了主程序界面（插件按钮、方法树，关于）（2014.05.25）
+3.数据库插件中，实现了asp的mssql方法（2014.05.24）
+
 ->Altman 2.0.4
 1.修改了customShellType类，在FuncCode中添加path，表示绑定的节点路径。（2014.05.23）
 2.修改了customShellType类，添加了方法树FuncTreeNode，可以以xpath（/cmder/systeminfo）方式访问。（2014.05.23）

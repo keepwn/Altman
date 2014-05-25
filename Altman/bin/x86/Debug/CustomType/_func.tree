@@ -12,6 +12,11 @@
 		<info><![CDATA[]]></info>
 	</node>
 	<node>
+		<path>/DbManager/mssql</path>
+		<type>aspEval,aspEval_Cookie</type>
+		<info><![CDATA[<connection><type>access_oledb</type><conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn></connection>]]></info>
+	</node>
+	<node>
 		<path>/DbManager/access_oledb</path>
 		<type>aspxEval</type>
 		<info><![CDATA[<connection><type>access_oledb</type><conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn></connection>]]></info>

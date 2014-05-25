@@ -14,7 +14,7 @@
   </UserAgent>
   <HttpHeader>
     <key name="Accept">*/*</key>
-    <key name="Accept-Encoding">gzip,deflate</key>
+    <key name="Accept-Encoding">deflate</key>
     <key name="Accept-language">en-us</key>
     <key name="Referer" />
   </HttpHeader>
