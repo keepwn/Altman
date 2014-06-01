@@ -35,11 +35,25 @@ namespace Altman
         /// <returns></returns>
         public static string[] GetDbNodeFuncCodeNameList(string shellTypeName)
         {
-            return CustomShellTypeProvider.ShellTypeStyleContainer[shellTypeName].FuncTreeRoot.Nodes["db"].Nodes.Keys.ToArray();
+            List<string> funcCodeNameList = new List<string>();
+            if (CustomShellTypeProvider.ShellTypeStyleContainer.ContainsKey(shellTypeName))
+            {
+                CustomShellType shelltype = CustomShellTypeProvider.ShellTypeStyleContainer[shellTypeName];
+                FuncTreeNode dbNode = shelltype.FuncTreeRoot.FindNodes("/DbManager");
+                foreach (var child in dbNode.Nodes)
+                {
+                    funcCodeNameList.Add(child.Value.Info);
+                }
+            }
+            return funcCodeNameList.ToArray();
         }
 
-
-        public static TreeNode GetTreeNodeNodes(FuncTreeNode node)
+        /// <summary>
+        /// 显示树节点
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static TreeNode GetTreeNodes(FuncTreeNode node)
         {
             TreeNode tree = new TreeNode(node.Name);
             foreach (var func in node.Funcs.Keys)
@@ -50,7 +64,7 @@ namespace Altman
             {
                 foreach (var child in node.Nodes)
                 {
-                    tree.Nodes.Add(GetTreeNodeNodes(child.Value));
+                    tree.Nodes.Add(GetTreeNodes(child.Value));
                 }
             }
             return tree;
@@ -60,7 +74,7 @@ namespace Altman
             TreeNode tree = new TreeNode();
             foreach (var shelltype in CustomShellTypeProvider.ShellTypeStyleContainer)
             {
-                tree.Nodes.Add(GetTreeNodeNodes(shelltype.Value.FuncTreeRoot));
+                tree.Nodes.Add(GetTreeNodes(shelltype.Value.FuncTreeRoot));
             }
             return tree;
         }

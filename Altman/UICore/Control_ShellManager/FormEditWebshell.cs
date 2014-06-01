@@ -14,23 +14,26 @@ namespace Altman.UICore.Control_ShellManager
         public FormEditWebshell()
         {
             InitializeComponent();
-            InitComboBox_ScriptType();
+            ComboBox_ScriptType_Init();
 
             _shellManager = new ShellManager();
 
             this.button_Add.Enabled = true;
             this.button_Alter.Enabled = false;
+
+            comboBox_IniType_Init();
         }
 
         public FormEditWebshell(ShellStruct shellStructArray)
         {
             InitializeComponent();
-            InitComboBox_ScriptType();
+            ComboBox_ScriptType_Init();
 
             _shellManager = new ShellManager();
 
             this.button_Add.Enabled = false;
             this.button_Alter.Enabled = true;
+
             this.Id = shellStructArray.Id;
             this.textBox_TargetID.Text = shellStructArray.TargetId;
             this.comboBox_TargetLevel.Text = shellStructArray.TargetLevel;
@@ -47,8 +50,7 @@ namespace Altman.UICore.Control_ShellManager
             this.comboBox_WebCoding.Text = shellStructArray.WebCoding;
             this.comboBox_Area.Text = shellStructArray.Area;
 
-            comboBox_types_init();
-            comboBox_items_init();
+            comboBox_IniType_Init();
         }
 
         private void button_Add_Click(object sender, EventArgs e)
@@ -126,7 +128,7 @@ namespace Altman.UICore.Control_ShellManager
         /// <summary>
         /// 初始化可选择的脚本类型
         /// </summary>
-        private void InitComboBox_ScriptType()
+        private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
             foreach (string type in InitUI.GetCustomShellTypeNameList())
@@ -134,32 +136,42 @@ namespace Altman.UICore.Control_ShellManager
                 comboBox_ScritpType.Items.Add(type);
             }
         }
-
-        private void comboBox_types_init()
+        /// <summary>
+        /// 初始化可选择的配置类型
+        /// </summary>
+        private void comboBox_IniType_Init()
         {
-            string[] types = {"PostData", "DbConnStr"};
-            comboBox_types.Items.AddRange(types);
+            string[] types = { "DbConnStr", "PostData"};
+            comboBox_IniType.Items.AddRange(types);
         }
-
-        private void comboBox_items_init()
+        /// <summary>
+        /// 选择配置类型事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBox_IniType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] items =
+            comboBox_Items.Items.Clear();
+            //如果选择了数据库连接配置类型
+            if (comboBox_IniType.Text == "DbConnStr")
             {
-                @"<type>access_oledb</type><conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn>",
-                @"<type>mssql_oledb</type><conn>Provider=sqloledb;User ID=sa;Password=passwd;Initial Catalog=master;Data Source=(local);</conn>",
-                @"<type>oracle_oledb</type><conn>Provider=OraOLEDB.Oracle; Data Source=MyOracleDB; User Id=user; Password=passwd;</conn>",
-                @"<type>mysql_oledb</type><conn>Provider=MySQLProv; Data Source=mydb; User Id=user; Password=passwd;</conn>"
-            };
-            //comboBox_items.Items.AddRange(items);
-        }
-
-
-        private void comboBox_types_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBox_types.Text == "DbConnStr")
-            {
-                comboBox_items.Items.AddRange(InitUI.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
+                comboBox_Items.Items.AddRange(InitUI.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
             }
+        }
+
+        private void btn_insert_Click(object sender, EventArgs e)
+        {
+            string selectedStr = comboBox_Items.Text;
+            if (string.IsNullOrEmpty(selectedStr))
+            {
+                MessageBox.Show("please select one firstly");
+            }
+            else
+            {
+                richTextBox_Setting.AppendText("\r\n");
+                richTextBox_Setting.AppendText(selectedStr);
+            }
+
         }
     }
 }

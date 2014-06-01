@@ -126,14 +126,15 @@ namespace Altman.LogicCore
         }
         #endregion
 
-        public void AddFuncTreeNode(string nodeXpath)
+        public FuncTreeNode AddFuncTreeNode(string nodeXpath)
         {
             FuncTreeNode tmp = _funcTreeRoot.FindNodes(nodeXpath);
             //如果节点不存在
             if (tmp == null)
             {
-                _funcTreeRoot.AddNodes(nodeXpath);
+                return _funcTreeRoot.AddNodes(nodeXpath);
             }
+            return tmp;
         }
 
         public void AddFuncCode(string nodeXpath, FuncCode funcCode)

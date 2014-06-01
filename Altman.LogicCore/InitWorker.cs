@@ -50,7 +50,8 @@ namespace Altman.LogicCore
                     foreach (string type in types)
                     {
                         CustomShellType shellType = CustomShellTypeProvider.GetShellType(type);
-                        shellType.AddFuncTreeNode(info.Path);
+                        FuncTreeNode node = shellType.AddFuncTreeNode(info.Path);
+                        node.Info = info.Info;
                     }
                 }
             }

@@ -33,30 +33,33 @@ namespace Plugin_DbManager
 
             //绑定事件
             dbManagerService = new DbManagerService(_hostService, _shellData, GetDbType());
+            dbManagerService.ConnectDbCompletedToDo += dbManagerService_ConnectDbCompletedToDo;
             dbManagerService.GetDbNameCompletedToDo += dbManagerService_GetDbNameCompletedToDo;
             dbManagerService.GetDbTableNameCompletedToDo += dbManagerService_GetTableNameCompletedToDo;
             dbManagerService.GetColumnTypeCompletedToDo += dbManagerService_GetColumnTypeCompletedToDo;
             dbManagerService.ExecuteReaderCompletedToDo += dbManagerService_ExecuteReaderCompletedToDo;
             dbManagerService.ExecuteNonQueryCompletedToDo += dbManagerService_ExecuteNonQueryCompletedToDo;
             
-            treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;           
+            treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;
 
-            //获取数据库
-            //dbManagerService.GetDbName(_shellData.ShellExtraSetting);
-
-            dbManagerService.GetDbName(GetConnStr());
+            RefreshServerStatus(false);
+            //连接数据库
+            dbManagerService.ConnectDb(GetConnStr());
         }
 
-        #region Event
+        #region ServiceCompletedToDo
         private void dbManagerService_ExecuteNonQueryCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
                 _hostService.ShowMsgInStatusBar(e.Error.Message);
+                ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is DataTable)
             {
                 dataGridView_result.DataSource = e.Result;
+
+                ShowMsgInStatusBar((e.Result as DataTable).Rows[0][0].ToString());
             }
         }
         private void dbManagerService_ExecuteReaderCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
@@ -64,17 +67,24 @@ namespace Plugin_DbManager
             if (e.Error != null)
             {
                 _hostService.ShowMsgInStatusBar(e.Error.Message);
+                ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is DataTable)
             {
                 dataGridView_result.DataSource = e.Result;
+
+                ShowMsgInStatusBar(string.Format("{0} rows", (e.Result as DataTable).Rows.Count));
             }
         }
         private void dbManagerService_GetColumnTypeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                _hostService.ShowMsgInStatusBar(e.Error.Message);
+                ShowMsgInStatusBar(e.Error.Message);
+
+                //更改table为失败的图标
+                treeView_Dbs.SelectedNode.ImageIndex = 4;
+                treeView_Dbs.SelectedNode.SelectedImageIndex = 4;
             }
             else if (e.Result is string[])
             {
@@ -83,19 +93,18 @@ namespace Plugin_DbManager
                 {
                     RefreshColumnsInDbTree(columns, treeView_Dbs.SelectedNode);
                 }
-                else
-                {
-                    //更改table为失败的图标
-                    treeView_Dbs.SelectedNode.ImageIndex = 4;
-                    treeView_Dbs.SelectedNode.SelectedImageIndex = 4;
-                }
+                ShowMsgInStatusBar(string.Format("{0} columns", columns.Length));
             }
         }
         private void dbManagerService_GetTableNameCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                _hostService.ShowMsgInStatusBar(e.Error.Message);
+                ShowMsgInStatusBar(e.Error.Message);
+
+                //更改db为失败的图标
+                treeView_Dbs.SelectedNode.ImageIndex = 1;
+                treeView_Dbs.SelectedNode.SelectedImageIndex = 1;
             }
             else if (e.Result is string[])
             {
@@ -104,19 +113,14 @@ namespace Plugin_DbManager
                 {
                     RefreshTablesInDbTree(tables, treeView_Dbs.SelectedNode);
                 }
-                else
-                {
-                    //更改db为失败的图标
-                    treeView_Dbs.SelectedNode.ImageIndex = 1;
-                    treeView_Dbs.SelectedNode.SelectedImageIndex = 1;
-                }
+                ShowMsgInStatusBar(string.Format("{0} tables", tables.Length));
             }
         }
         private void dbManagerService_GetDbNameCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                _hostService.ShowMsgInStatusBar(e.Error.Message);
+                ShowMsgInStatusBar(e.Error.Message);
                 //更改root为失败的图标
                 RefreshRootInDbTree(false);
             }
@@ -128,8 +132,28 @@ namespace Plugin_DbManager
                     RefreshRootInDbTree(true);
                     RefreshDbsInDbTree(dbs, treeView_Dbs.Nodes[0]);
                 }
+                ShowMsgInStatusBar(string.Format("{0} databases", dbs.Length));
+            }
+        }
+        private void dbManagerService_ConnectDbCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                ShowMsgInStatusBar(e.Error.Message);
+                //更改root为失败的图标
+                RefreshRootInDbTree(false);
+            }
+            else if (e.Result is bool)
+            {
+                if ((bool)e.Result)
+                {
+                    ShowMsgInStatusBar("Connect Successed");
+                    RefreshServerStatus(true);
+                    RefreshRootInDbTree(true);
+                }
                 else
                 {
+                    ShowMsgInStatusBar("Connect Failed");
                     //更改root为失败的图标
                     RefreshRootInDbTree(false);
                 }
@@ -138,6 +162,20 @@ namespace Plugin_DbManager
 
         #endregion
 
+        #region Refresh UI
+        private void RefreshServerStatus(bool isConnected)
+        {
+            if (isConnected)
+            {
+                toolStripButton_connect.Enabled = false;
+                toolStripButton_disconnect.Enabled = true;
+            }
+            else
+            {
+                toolStripButton_connect.Enabled = true;
+                toolStripButton_disconnect.Enabled = false;
+            }
+        }
         private void RefreshRootInDbTree(bool isSuccess)
         {
             treeView_Dbs.Nodes.Clear();
@@ -150,7 +188,6 @@ namespace Plugin_DbManager
             };
             treeView_Dbs.Nodes.Add(node);
         }
-
         private void RefreshDbsInDbTree(string[] dbs, TreeNode selected)
         {
             selected.Nodes.Clear();
@@ -168,7 +205,6 @@ namespace Plugin_DbManager
             toolStripComboBox_dbs.Items.Clear();
             toolStripComboBox_dbs.Items.AddRange(dbs);
         }
-
         private void RefreshTablesInDbTree(string[] tables, TreeNode selected)
         {
             selected.Nodes.Clear();
@@ -183,7 +219,6 @@ namespace Plugin_DbManager
             }
             selected.Expand();
         }
-
         private void RefreshColumnsInDbTree(string[] columns, TreeNode selected)
         {
             selected.Nodes.Clear();
@@ -198,7 +233,9 @@ namespace Plugin_DbManager
             }
             selected.Expand();
         }
+        #endregion
 
+        #region treeView_Dbs Event
         private void treeView_Dbs_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             string name = treeView_Dbs.SelectedNode.Text;
@@ -213,7 +250,7 @@ namespace Plugin_DbManager
                 else if (type == "db")
                 {
                     //dbManagerService.GetTableName(_shellData.ShellExtraSetting, name);
-                    dbManagerService.GetTableName(GetConnStr(),name);
+                    dbManagerService.GetTableName(GetConnStr(), name);
                 }
                 else if (type == "table")
                 {
@@ -224,7 +261,6 @@ namespace Plugin_DbManager
                 }
             }
         }
-
         private void treeView_Dbs_AfterSelect(object sender, TreeViewEventArgs e)
         {
             int index = treeView_Dbs.SelectedNode.Index;
@@ -234,54 +270,9 @@ namespace Plugin_DbManager
                 toolStripComboBox_dbs.SelectedIndex = index;
             }
         }
-
-        private void toolStripButton_run_Click(object sender, EventArgs e)
-        {
-            string sql = tbx_sql.Text;
-            if (string.IsNullOrWhiteSpace(sql))
-            {
-                MessageBox.Show("查询语句不能为空");
-            }
-            else if (toolStripComboBox_dbs.SelectedIndex == -1)
-            {
-                MessageBox.Show("请选择数据库");
-            }
-            else
-            {
-                //执行前先清空之前结果
-                dataGridView_result.DataSource = null;
-
-                string dbName = (string)toolStripComboBox_dbs.SelectedItem;
-                //dbManagerService.ExecuteReader(_shellData.ShellExtraSetting, dbName, sql);
+        #endregion
 
 
-                if (sql.ToLower().StartsWith("select"))
-                {
-                    dbManagerService.ExecuteReader(GetConnStr(), dbName, sql);
-                }
-                else
-                {
-                    dbManagerService.ExecuteNonQuery(GetConnStr(), dbName, sql);
-                }
-                
-            }
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            /**
-             * <connection>
-             *  <type></type>
-             *  <conn></conn>
-             *  <host></host>
-             *  <user></user>
-             *  <pass></pass>
-             *  <language></language>
-             * </connection>
-             */
-        }
-
-        
         private void InitExtraSettingXml()
         {
             //创建ExtraSetting节点
@@ -333,6 +324,74 @@ namespace Plugin_DbManager
                 }
             }
             return conn;           
+        }
+        private void ShowMsgInStatusBar(string msg)
+        {
+            _hostService.ShowMsgInStatusBar(msg);
+        }
+
+        /// <summary>
+        /// 连接数据库
+        /// </summary>
+        private void toolStripButton_connect_Click(object sender, EventArgs e)
+        {
+            dbManagerService.ConnectDb(GetConnStr());
+        }
+        /// <summary>
+        /// 断开数据库
+        /// </summary>
+        private void toolStripButton_disconnect_Click(object sender, EventArgs e)
+        {
+            RefreshServerStatus(false);
+            RefreshRootInDbTree(false);
+        }
+        /// <summary>
+        /// 执行sql语句
+        /// </summary>
+        private void toolStripButton_run_Click(object sender, EventArgs e)
+        {
+            string sql = tbx_sql.Text;
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                MessageBox.Show("查询语句不能为空");
+            }
+            else if (toolStripComboBox_dbs.SelectedIndex == -1)
+            {
+                MessageBox.Show("请选择数据库");
+            }
+            else
+            {
+                //执行前先清空之前结果
+                dataGridView_result.DataSource = null;
+
+                string dbName = (string)toolStripComboBox_dbs.Text;
+                //dbManagerService.ExecuteReader(_shellData.ShellExtraSetting, dbName, sql);
+
+
+                if (sql.ToLower().StartsWith("select"))
+                {
+                    dbManagerService.ExecuteReader(GetConnStr(), dbName, sql);
+                }
+                else
+                {
+                    dbManagerService.ExecuteNonQuery(GetConnStr(), dbName, sql);
+                }
+
+            }
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            /**
+             * <connection>
+             *  <type></type>
+             *  <conn></conn>
+             *  <host></host>
+             *  <user></user>
+             *  <pass></pass>
+             *  <language></language>
+             * </connection>
+             */
         }
     }
 }

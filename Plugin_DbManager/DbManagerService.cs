@@ -27,14 +27,14 @@ namespace Plugin_DbManager
         /// </summary>
         private DataTable ConvertStrToDataTable(string str)
         {
-            List<string> list = str.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
+            List<string> list = str.TrimEnd(new char[] { '\r', '\n' }).Split(new string[] { "\r\n" }, StringSplitOptions.None).ToList<string>();
             DataTable table = new DataTable();
 
             //如果返回的结果中没有匹配的话，返回空DataTable
             if (list.Count > 0)
             {
                 //Columns
-                string[] columns = list[0].Split(new string[] { "\t|\t" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] columns = list[0].TrimEnd(new char[] { '\t','|' }).Split(new string[] { "\t|\t" }, StringSplitOptions.None);
                 foreach (string c in columns)
                 {
                     table.Columns.Add(c);
@@ -43,11 +43,8 @@ namespace Plugin_DbManager
                 list.RemoveAt(0); //第一行为column，故移除
                 foreach (string l in list)
                 {
-                    string[] cols = l.Split(new string[] { "\t|\t" }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string c in cols)
-                    {
-                        table.Rows.Add(c);
-                    }
+                    string[] cols = l.TrimEnd(new char[] { '\t','|' }).Split(new string[] { "\t|\t" }, StringSplitOptions.None);
+                    table.Rows.Add(cols);
                 }
             }
             return table;
@@ -62,6 +59,28 @@ namespace Plugin_DbManager
                 backgroundWorker.RunWorkerAsync(argument);
             }
         }
+
+        #region ConnectDb
+        public event EventHandler<RunWorkerCompletedEventArgs> ConnectDbCompletedToDo;
+        public void ConnectDb(string connStr)
+        {
+            RunBackground(connectDb_DoWork, connStr, connectDb_RunWorkerCompleted);
+        }
+        private void connectDb_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string par = e.Argument as string;
+            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ConnectDb", new string[] { par });
+
+            e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
+        }
+        private void connectDb_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (ConnectDbCompletedToDo != null)
+            {
+                ConnectDbCompletedToDo(null, e);
+            }
+        }
+        #endregion
 
         #region GetDbName
         public event EventHandler<RunWorkerCompletedEventArgs> GetDbNameCompletedToDo;

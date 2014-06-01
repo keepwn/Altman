@@ -42,6 +42,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_run = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_connect = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_disconnect = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -148,13 +150,15 @@
             this.dataGridView_result.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_result.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_result.Name = "dataGridView_result";
-            this.dataGridView_result.RowHeadersWidth = 60;
+            this.dataGridView_result.RowHeadersWidth = 40;
             this.dataGridView_result.Size = new System.Drawing.Size(366, 191);
             this.dataGridView_result.TabIndex = 0;
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton_connect,
+            this.toolStripButton_disconnect,
             this.toolStripComboBox_dbs,
             this.toolStripSeparator1,
             this.toolStripButton_run,
@@ -181,8 +185,8 @@
             this.toolStripButton_run.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_run.Image")));
             this.toolStripButton_run.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_run.Name = "toolStripButton_run";
-            this.toolStripButton_run.Size = new System.Drawing.Size(47, 22);
-            this.toolStripButton_run.Text = "run";
+            this.toolStripButton_run.Size = new System.Drawing.Size(50, 22);
+            this.toolStripButton_run.Text = "Run";
             this.toolStripButton_run.Click += new System.EventHandler(this.toolStripButton_run_Click);
             // 
             // toolStripButton2
@@ -194,6 +198,26 @@
             this.toolStripButton2.Size = new System.Drawing.Size(89, 22);
             this.toolStripButton2.Text = "ShowConnStr";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton_connect
+            // 
+            this.toolStripButton_connect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_connect.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_connect.Image")));
+            this.toolStripButton_connect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_connect.Name = "toolStripButton_connect";
+            this.toolStripButton_connect.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_connect.Text = "Connect";
+            this.toolStripButton_connect.Click += new System.EventHandler(this.toolStripButton_connect_Click);
+            // 
+            // toolStripButton_disconnect
+            // 
+            this.toolStripButton_disconnect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_disconnect.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_disconnect.Image")));
+            this.toolStripButton_disconnect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_disconnect.Name = "toolStripButton_disconnect";
+            this.toolStripButton_disconnect.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_disconnect.Text = "Disconnect";
+            this.toolStripButton_disconnect.Click += new System.EventHandler(this.toolStripButton_disconnect_Click);
             // 
             // DbManagerControl
             // 
@@ -234,5 +258,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_dbs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton_connect;
+        private System.Windows.Forms.ToolStripButton toolStripButton_disconnect;
     }
 }
