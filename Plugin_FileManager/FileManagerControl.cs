@@ -28,9 +28,9 @@ namespace Plugin_FileManager
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
             treeView_Dirs.AfterSelect += treeView_File_AfterSelect;
-            listView_File.DragEnter+=listView_File_DragEnter;
-            listView_File.DragDrop+=listView_File_DragDrop;
-            listView_File.DoubleClick+=listView_File_DoubleClick;
+            listView_File.DragEnter += listView_File_DragEnter;
+            listView_File.DragDrop += listView_File_DragDrop;
+            listView_File.DoubleClick += listView_File_DoubleClick;
             listView_File.AfterEditSubItem += listView_File_AfterEditSubItem;
             listView_File.EditSubItemCompleted += listView_File_EditSubItemCompleted;
             rightMenu_FileManager.Opening += rightMenu_FileManager_Opening;
@@ -237,7 +237,7 @@ namespace Plugin_FileManager
                 upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
                 upload.StartToUploadFile();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -256,7 +256,7 @@ namespace Plugin_FileManager
             }
             else if (e.Result is bool)
             {
-                if (!(bool) e.Result)
+                if (!(bool)e.Result)
                 {
                     MessageBox.Show("上传失败");
                 }
@@ -312,8 +312,8 @@ namespace Plugin_FileManager
                 //download.DownloadFileCompletedToDo+=download_DownloadFileCompletedToDo;
                 //download.StartToDownloadFile();
                 FileUploadOrDownload download = new FileUploadOrDownload(_hostService, _shellData, sourceFilePath, targetFilePath);
-                download.DownloadFileProgressChangedToDo+=download_DownloadFileProgressChangedToDo;
-                download.DownloadFileCompletedToDo+=download_DownloadFileCompletedToDo;
+                download.DownloadFileProgressChangedToDo += download_DownloadFileProgressChangedToDo;
+                download.DownloadFileCompletedToDo += download_DownloadFileCompletedToDo;
                 download.StartToDownloadFile();
             }
             catch (Exception e)
@@ -338,7 +338,7 @@ namespace Plugin_FileManager
                 MessageBox.Show("下载成功");
             }
         }
-        
+
         /// <summary>
         /// 刷新文件列表
         /// </summary>
@@ -711,7 +711,7 @@ namespace Plugin_FileManager
                     ////打开设置界面
                     _selectDirInTree = GetSelectedDirPathInDirTree();
                     string dirName = e.Label;
-                    string dirFullPath =Path.Combine(_selectDirInTree,dirName);
+                    string dirFullPath = Path.Combine(_selectDirInTree, dirName);
                     _fileManager.CreateDir(dirFullPath);
                     break;
                 default:
@@ -737,7 +737,7 @@ namespace Plugin_FileManager
                 rightMenu_FileManager.Items["item_edit"].Visible = false;
                 rightMenu_FileManager.Items["item_copy"].Visible = false;
                 rightMenu_FileManager.Items["item_paste"].Visible = true;
-                rightMenu_FileManager.Items["item_paste"].Enabled = string.IsNullOrEmpty(_sourceCopyPath)? false : true;
+                rightMenu_FileManager.Items["item_paste"].Enabled = string.IsNullOrEmpty(_sourceCopyPath) ? false : true;
                 rightMenu_FileManager.Items["item_rename"].Visible = false;
                 rightMenu_FileManager.Items["item_modifyTime"].Visible = false;
                 rightMenu_FileManager.Items["item_add"].Visible = true;
@@ -745,9 +745,9 @@ namespace Plugin_FileManager
             else if (status == SelectedItemsStatus.IsDir)
             {
                 rightMenu_FileManager.Items["item_refresh"].Visible = true;
-                rightMenu_FileManager.Items["item_upload"].Visible = false;
+                rightMenu_FileManager.Items["item_upload"].Visible = true;
                 rightMenu_FileManager.Items["item_download"].Visible = false;
-                rightMenu_FileManager.Items["item_downloadToServer"].Visible = false;
+                rightMenu_FileManager.Items["item_downloadToServer"].Visible = true;
                 rightMenu_FileManager.Items["item_del"].Visible = true;
                 rightMenu_FileManager.Items["item_edit"].Visible = false;
                 rightMenu_FileManager.Items["item_copy"].Visible = true;
@@ -759,9 +759,9 @@ namespace Plugin_FileManager
             else if (status == SelectedItemsStatus.IsFile)
             {
                 rightMenu_FileManager.Items["item_refresh"].Visible = true;
-                rightMenu_FileManager.Items["item_upload"].Visible = false;
+                rightMenu_FileManager.Items["item_upload"].Visible = true;
                 rightMenu_FileManager.Items["item_download"].Visible = true;
-                rightMenu_FileManager.Items["item_downloadToServer"].Visible = false;
+                rightMenu_FileManager.Items["item_downloadToServer"].Visible = true;
                 rightMenu_FileManager.Items["item_del"].Visible = true;
                 rightMenu_FileManager.Items["item_edit"].Visible = true;
                 rightMenu_FileManager.Items["item_copy"].Visible = true;
@@ -848,7 +848,7 @@ namespace Plugin_FileManager
             if (status == SelectedItemsStatus.IsFile)
             {
                 string webFile = GetSelectedPathInListView(false);
-                UserControl fileEditer = new FileEditerControl(_hostService, _shellData, webFile,true);
+                UserControl fileEditer = new FileEditerControl(_hostService, _shellData, webFile, true);
                 _hostService.CreateNewTabPage("FileEdit", fileEditer);
             }
         }
@@ -860,7 +860,7 @@ namespace Plugin_FileManager
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
             if (status != SelectedItemsStatus.NoSelected)
             {
-                listView_File.EditSubItem(listView_File.SelectedItems[0],0,"rename",false);
+                listView_File.EditSubItem(listView_File.SelectedItems[0], 0, "rename", false);
             }
         }
         /// <summary>
@@ -871,7 +871,7 @@ namespace Plugin_FileManager
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
             if (status != SelectedItemsStatus.NoSelected)
             {
-                listView_File.EditSubItem(listView_File.SelectedItems[0],1,"modifyTime",false);
+                listView_File.EditSubItem(listView_File.SelectedItems[0], 1, "modifyTime", false);
             }
         }
         /// <summary>
@@ -882,7 +882,7 @@ namespace Plugin_FileManager
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
             if (status == SelectedItemsStatus.IsDir)
             {
-                _sourceCopyPath = GetSelectedPathInListView(true);          
+                _sourceCopyPath = GetSelectedPathInListView(true);
             }
             else if (status == SelectedItemsStatus.IsFile)
             {
@@ -914,14 +914,11 @@ namespace Plugin_FileManager
         private void item_createDir_Click(object sender, EventArgs e)
         {
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
-            if (status == SelectedItemsStatus.NoSelected)
-            {
-                string time=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                string[] subItems = new string[]{ "NewFolder", time, "0", "0777" };
-                ListViewItem item = new ListViewItem(subItems,1);
-                listView_File.Items.Add(item);
-                listView_File.EditSubItem(item,0,"createDir",true);
-            }
+            string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string[] subItems = new string[] { "NewFolder", time, "0", "0777" };
+            ListViewItem item = new ListViewItem(subItems, 1);
+            listView_File.Items.Add(item);
+            listView_File.EditSubItem(item, 0, "createDir", true);
         }
         /// <summary>
         /// 右键菜单创建文件事件
@@ -929,12 +926,9 @@ namespace Plugin_FileManager
         private void item_createFile_Click(object sender, EventArgs e)
         {
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
-            if (status == SelectedItemsStatus.NoSelected)
-            {
-                string newFile = GetSelectedDirPathInDirTree() + "NewFile.txt";
-                UserControl fileEditer = new FileEditerControl(_hostService,_shellData,newFile,false);
-                _hostService.CreateNewTabPage("FileEdit", fileEditer);
-            }
+            string newFile = GetSelectedDirPathInDirTree() + "NewFile.txt";
+            UserControl fileEditer = new FileEditerControl(_hostService, _shellData, newFile, false);
+            _hostService.CreateNewTabPage("FileEdit", fileEditer);
         }
         /// <summary>
         /// 右键菜单下载文件到远程服务器
@@ -943,20 +937,17 @@ namespace Plugin_FileManager
         {
             //FormWget
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
-            if (status == SelectedItemsStatus.NoSelected)
+            //打开设置界面
+            _selectDirInTree = GetSelectedDirPathInDirTree();
+            FormWget formWget = new FormWget(_selectDirInTree);
+            formWget.ShowDialog();
+            if (formWget.DialogResult == DialogResult.Yes)
             {
-                //打开设置界面
-                _selectDirInTree = GetSelectedDirPathInDirTree();
-                FormWget formWget = new FormWget(_selectDirInTree);
-                formWget.ShowDialog();
-                if (formWget.DialogResult == DialogResult.Yes)
-                {
-                    string urlPath = formWget.UrlPath;
-                    string savePath = formWget.SavePath;
-                    formWget.Close();
+                string urlPath = formWget.UrlPath;
+                string savePath = formWget.SavePath;
+                formWget.Close();
 
-                    _fileManager.Wget(urlPath, savePath);
-                }
+                _fileManager.Wget(urlPath, savePath);
             }
         }
 

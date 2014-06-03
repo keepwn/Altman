@@ -36,7 +36,7 @@ namespace Plugin_FileManager
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView_Dirs = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.listView_File = new ListViewPlus();
+            this.listView_File = new Controls.ListViewPlus();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -181,13 +181,13 @@ namespace Plugin_FileManager
             this.item_add});
             this.rightMenu_FileManager.Name = "rightMenu_FileManager";
             this.rightMenu_FileManager.ShowImageMargin = false;
-            this.rightMenu_FileManager.Size = new System.Drawing.Size(148, 258);
+            this.rightMenu_FileManager.Size = new System.Drawing.Size(166, 280);
             // 
             // item_refresh
             // 
             this.item_refresh.Name = "item_refresh";
-            this.item_refresh.Size = new System.Drawing.Size(147, 22);
-            this.item_refresh.Text = "刷新";
+            this.item_refresh.Size = new System.Drawing.Size(165, 22);
+            this.item_refresh.Text = "refresh";
             this.item_refresh.Click += new System.EventHandler(this.item_refresh_Click);
             // 
             // toolStripSeparator1
@@ -198,22 +198,22 @@ namespace Plugin_FileManager
             // item_upload
             // 
             this.item_upload.Name = "item_upload";
-            this.item_upload.Size = new System.Drawing.Size(147, 22);
-            this.item_upload.Text = "上传文件";
+            this.item_upload.Size = new System.Drawing.Size(165, 22);
+            this.item_upload.Text = "upload";
             this.item_upload.Click += new System.EventHandler(this.item_upload_Click);
             // 
             // item_download
             // 
             this.item_download.Name = "item_download";
-            this.item_download.Size = new System.Drawing.Size(147, 22);
-            this.item_download.Text = "下载文件";
+            this.item_download.Size = new System.Drawing.Size(165, 22);
+            this.item_download.Text = "download";
             this.item_download.Click += new System.EventHandler(this.item_download_Click);
             // 
             // item_downloadToServer
             // 
             this.item_downloadToServer.Name = "item_downloadToServer";
-            this.item_downloadToServer.Size = new System.Drawing.Size(147, 22);
-            this.item_downloadToServer.Text = "下载文件到服务器";
+            this.item_downloadToServer.Size = new System.Drawing.Size(165, 22);
+            this.item_downloadToServer.Text = "download to server";
             this.item_downloadToServer.Click += new System.EventHandler(this.item_downloadToServer_Click);
             // 
             // toolStripSeparator2
@@ -224,43 +224,43 @@ namespace Plugin_FileManager
             // item_del
             // 
             this.item_del.Name = "item_del";
-            this.item_del.Size = new System.Drawing.Size(147, 22);
-            this.item_del.Text = "删除";
+            this.item_del.Size = new System.Drawing.Size(165, 22);
+            this.item_del.Text = "delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // item_edit
             // 
             this.item_edit.Name = "item_edit";
-            this.item_edit.Size = new System.Drawing.Size(147, 22);
-            this.item_edit.Text = "编辑";
+            this.item_edit.Size = new System.Drawing.Size(165, 22);
+            this.item_edit.Text = "edit";
             this.item_edit.Click += new System.EventHandler(this.item_edit_Click);
             // 
             // item_copy
             // 
             this.item_copy.Name = "item_copy";
-            this.item_copy.Size = new System.Drawing.Size(147, 22);
-            this.item_copy.Text = "复制";
+            this.item_copy.Size = new System.Drawing.Size(165, 22);
+            this.item_copy.Text = "copy";
             this.item_copy.Click += new System.EventHandler(this.item_copy_Click);
             // 
             // item_paste
             // 
             this.item_paste.Name = "item_paste";
-            this.item_paste.Size = new System.Drawing.Size(147, 22);
-            this.item_paste.Text = "粘贴";
+            this.item_paste.Size = new System.Drawing.Size(165, 22);
+            this.item_paste.Text = "paste";
             this.item_paste.Click += new System.EventHandler(this.item_paste_Click);
             // 
             // item_rename
             // 
             this.item_rename.Name = "item_rename";
-            this.item_rename.Size = new System.Drawing.Size(147, 22);
-            this.item_rename.Text = "重命名";
+            this.item_rename.Size = new System.Drawing.Size(165, 22);
+            this.item_rename.Text = "rename";
             this.item_rename.Click += new System.EventHandler(this.item_rename_Click);
             // 
             // item_modifyTime
             // 
             this.item_modifyTime.Name = "item_modifyTime";
-            this.item_modifyTime.Size = new System.Drawing.Size(147, 22);
-            this.item_modifyTime.Text = "修改时间";
+            this.item_modifyTime.Size = new System.Drawing.Size(165, 22);
+            this.item_modifyTime.Text = "modify time";
             this.item_modifyTime.Click += new System.EventHandler(this.item_modifyTime_Click);
             // 
             // item_add
@@ -269,21 +269,21 @@ namespace Plugin_FileManager
             this.item_createFile,
             this.item_createDir});
             this.item_add.Name = "item_add";
-            this.item_add.Size = new System.Drawing.Size(147, 22);
-            this.item_add.Text = "新建";
+            this.item_add.Size = new System.Drawing.Size(165, 22);
+            this.item_add.Text = "add";
             // 
             // item_createFile
             // 
             this.item_createFile.Name = "item_createFile";
-            this.item_createFile.Size = new System.Drawing.Size(112, 22);
-            this.item_createFile.Text = "文件";
+            this.item_createFile.Size = new System.Drawing.Size(152, 22);
+            this.item_createFile.Text = "file";
             this.item_createFile.Click += new System.EventHandler(this.item_createFile_Click);
             // 
             // item_createDir
             // 
             this.item_createDir.Name = "item_createDir";
-            this.item_createDir.Size = new System.Drawing.Size(112, 22);
-            this.item_createDir.Text = "文件夹";
+            this.item_createDir.Size = new System.Drawing.Size(152, 22);
+            this.item_createDir.Text = "dir";
             this.item_createDir.Click += new System.EventHandler(this.item_createDir_Click);
             // 
             // button_readFile
@@ -294,7 +294,7 @@ namespace Plugin_FileManager
             this.button_readFile.Name = "button_readFile";
             this.button_readFile.Size = new System.Drawing.Size(54, 23);
             this.button_readFile.TabIndex = 1;
-            this.button_readFile.Text = "读取";
+            this.button_readFile.Text = "Dir";
             this.button_readFile.UseVisualStyleBackColor = true;
             // 
             // textBox_url

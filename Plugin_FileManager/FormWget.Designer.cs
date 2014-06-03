@@ -64,9 +64,9 @@
             // 
             this.button_wget.Location = new System.Drawing.Point(243, 11);
             this.button_wget.Name = "button_wget";
-            this.button_wget.Size = new System.Drawing.Size(41, 51);
+            this.button_wget.Size = new System.Drawing.Size(42, 51);
             this.button_wget.TabIndex = 9;
-            this.button_wget.Text = "下载";
+            this.button_wget.Text = "Wget";
             this.button_wget.UseVisualStyleBackColor = true;
             this.button_wget.Click += new System.EventHandler(this.button_wget_Click);
             // 
@@ -81,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 76);
+            this.ClientSize = new System.Drawing.Size(293, 76);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_wget);
             this.Controls.Add(this.textBox_save);
@@ -92,7 +92,7 @@
             this.Name = "FormWget";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "下载远程文件到服务器";
+            this.Text = "Wget";
             this.ResumeLayout(false);
             this.PerformLayout();
 
