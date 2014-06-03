@@ -291,5 +291,10 @@ namespace Altman
             InitUI.InitGlobalSetting();
         }
 
+        private void Tsmi_docs_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.StartupPath + "//help.chm");
+        }
+
     }
 }
