@@ -1,3 +1,8 @@
+->Altman 2.0.8
+1.在主窗口添加了Altman Docs按钮，打开帮助文档。（2014.06.03）
+2.文件管理插件中，使新建文件/文件夹功能全局可用（2014.06.03）
+
+
 ->Altman 2.0.7
 1.在主窗口添加了help按钮，包括about和developer mode选项（开发者模式可用于插件测试）（2014.06.02）
 4.添加menu菜单，提供reload shelltype和reload setting（2014.06.03）

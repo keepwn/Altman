@@ -221,7 +221,8 @@
 
 Copy $(SolutionDir)CHANGELOG.txt $(SolutionDir)Altman\bin\x86\Debug\
 Copy $(SolutionDir)LICENSE $(SolutionDir)Altman\bin\x86\Debug\
-Copy $(SolutionDir)README.md $(SolutionDir)Altman\bin\x86\Debug\</PostBuildEvent>
+Copy $(SolutionDir)README.md $(SolutionDir)Altman\bin\x86\Debug\
+Copy $(SolutionDir)help.chm $(SolutionDir)Altman\bin\x86\Debug\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

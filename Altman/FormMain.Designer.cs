@@ -38,6 +38,9 @@ namespace Altman
             this.label1 = new System.Windows.Forms.Label();
             this.label_logo = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.Tsmi_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_ReloadShellType = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_ReloadSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Setting = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Plugins = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Wizard = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,9 +53,7 @@ namespace Altman
             this.toolStripStatusLabel_showMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_productVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Tsmi_Menu = new System.Windows.Forms.ToolStripMenuItem();
-            this.Tsmi_ReloadShellType = new System.Windows.Forms.ToolStripMenuItem();
-            this.Tsmi_ReloadSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_docs = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -158,6 +159,29 @@ namespace Altman
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // Tsmi_Menu
+            // 
+            this.Tsmi_Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_ReloadShellType,
+            this.Tsmi_ReloadSetting});
+            this.Tsmi_Menu.Name = "Tsmi_Menu";
+            this.Tsmi_Menu.Size = new System.Drawing.Size(53, 24);
+            this.Tsmi_Menu.Text = "Menu";
+            // 
+            // Tsmi_ReloadShellType
+            // 
+            this.Tsmi_ReloadShellType.Name = "Tsmi_ReloadShellType";
+            this.Tsmi_ReloadShellType.Size = new System.Drawing.Size(176, 22);
+            this.Tsmi_ReloadShellType.Text = "Reload ShellType";
+            this.Tsmi_ReloadShellType.Click += new System.EventHandler(this.Tsmi_ReloadShellType_Click);
+            // 
+            // Tsmi_ReloadSetting
+            // 
+            this.Tsmi_ReloadSetting.Name = "Tsmi_ReloadSetting";
+            this.Tsmi_ReloadSetting.Size = new System.Drawing.Size(176, 22);
+            this.Tsmi_ReloadSetting.Text = "Reload Setting";
+            this.Tsmi_ReloadSetting.Click += new System.EventHandler(this.Tsmi_ReloadSetting_Click);
+            // 
             // Tsmi_Setting
             // 
             this.Tsmi_Setting.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -191,8 +215,9 @@ namespace Altman
             // Tsmi_Help
             // 
             this.Tsmi_Help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_developerMode,
             this.Tsmi_about,
-            this.Tsmi_developerMode});
+            this.Tsmi_docs});
             this.Tsmi_Help.Name = "Tsmi_Help";
             this.Tsmi_Help.Size = new System.Drawing.Size(47, 24);
             this.Tsmi_Help.Text = "Help";
@@ -258,28 +283,12 @@ namespace Altman
             this.tableLayoutPanel1.Size = new System.Drawing.Size(827, 507);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
-            // Tsmi_Menu
+            // Tsmi_docs
             // 
-            this.Tsmi_Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Tsmi_ReloadShellType,
-            this.Tsmi_ReloadSetting});
-            this.Tsmi_Menu.Name = "Tsmi_Menu";
-            this.Tsmi_Menu.Size = new System.Drawing.Size(53, 24);
-            this.Tsmi_Menu.Text = "Menu";
-            // 
-            // Tsmi_ReloadShellType
-            // 
-            this.Tsmi_ReloadShellType.Name = "Tsmi_ReloadShellType";
-            this.Tsmi_ReloadShellType.Size = new System.Drawing.Size(176, 22);
-            this.Tsmi_ReloadShellType.Text = "Reload ShellType";
-            this.Tsmi_ReloadShellType.Click += new System.EventHandler(this.Tsmi_ReloadShellType_Click);
-            // 
-            // Tsmi_ReloadSetting
-            // 
-            this.Tsmi_ReloadSetting.Name = "Tsmi_ReloadSetting";
-            this.Tsmi_ReloadSetting.Size = new System.Drawing.Size(176, 22);
-            this.Tsmi_ReloadSetting.Text = "Reload Setting";
-            this.Tsmi_ReloadSetting.Click += new System.EventHandler(this.Tsmi_ReloadSetting_Click);
+            this.Tsmi_docs.Name = "Tsmi_docs";
+            this.Tsmi_docs.Size = new System.Drawing.Size(175, 22);
+            this.Tsmi_docs.Text = "Altman Docs";
+            this.Tsmi_docs.Click += new System.EventHandler(this.Tsmi_docs_Click);
             // 
             // FormMain
             // 
@@ -334,6 +343,7 @@ namespace Altman
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Menu;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_ReloadShellType;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_ReloadSetting;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_docs;
     }
 }
 
