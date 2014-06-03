@@ -379,19 +379,5 @@ namespace Plugin_DbManager
 
             }
         }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            /**
-             * <connection>
-             *  <type></type>
-             *  <conn></conn>
-             *  <host></host>
-             *  <user></user>
-             *  <pass></pass>
-             *  <language></language>
-             * </connection>
-             */
-        }
     }
 }

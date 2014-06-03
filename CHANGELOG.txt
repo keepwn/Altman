@@ -1,3 +1,11 @@
+->Altman 2.0.7
+1.在主窗口添加了help按钮，包括about和developer mode选项（开发者模式可用于插件测试）（2014.06.02）
+4.添加menu菜单，提供reload shelltype和reload setting（2014.06.03）
+5.暂时屏蔽卸载插件功能（2014.06.03）
+2.数据库插件中，实现了asp的access（2014.06.02）
+3.数据库插件中，实现了php的sqlsrv（2014.06.03）
+
+
 ->Altman 2.0.6
 1.修复了数据库插件DataGridView显示的一个bug（2014.05.26）
 2.修复了读取.func时未设置info信息的bug（2014.05.31）
@@ -6,10 +14,12 @@
 5.数据库插件中，添加了ShowMsgInStatusBar方法，将结果显示在StatusBar上（2014.06.01）
 6.数据库插件中，实现了aspx的access_oldb（2014.06.01）
 
+
 ->Altman 2.0.5
 1.明确了免责条款（2014.05.25）
 2.完善了主程序界面（插件按钮、方法树，关于）（2014.05.25）
 3.数据库插件中，实现了asp的mssql方法（2014.05.24）
+
 
 ->Altman 2.0.4
 1.修改了customShellType类，在FuncCode中添加path，表示绑定的节点路径。（2014.05.23）

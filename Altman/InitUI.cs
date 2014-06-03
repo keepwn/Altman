@@ -11,14 +11,28 @@ namespace Altman
     {
         public static void InitCustomShellType()
         {
-            //初始化CustomShellType
-            InitWorker.RegisterCustomShellType();
+            try
+            {
+                //初始化CustomShellType
+                InitWorker.RegisterCustomShellType();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public static void InitGlobalSetting()
         {
-            //初始化GlobalSetting
-            InitWorker.InitGlobalSetting();
+            try
+            {
+                //初始化GlobalSetting
+                InitWorker.InitGlobalSetting();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }       
         }
 
         /// <summary>

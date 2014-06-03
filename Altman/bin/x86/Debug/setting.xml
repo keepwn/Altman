@@ -22,7 +22,7 @@
     <isParamRandom>1</isParamRandom>
   </Policy>
   <Proxy>
-    <type>2</type>
+    <type>0</type>
     <customProxy address="127.0.0.1" port="9999" user="" password="" domain="" />
   </Proxy>
 </AltmanSetting>

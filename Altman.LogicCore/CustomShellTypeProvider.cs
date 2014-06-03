@@ -67,5 +67,9 @@ namespace Altman.LogicCore
             }
             return ShellTypeStyleContainer[shellTypeName];
         }
+        public static void Clear()
+        {
+            _shellTypeStyleContainer.Clear();
+        }
     }
 }

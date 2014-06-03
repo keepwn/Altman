@@ -185,7 +185,6 @@ catch(ex)
 	throw new Exception(ex.ToString());
 }]]></item>
     </func>
-
     <func>
       <name>GetDbName</name>
 	  <type>aspxEval</type>

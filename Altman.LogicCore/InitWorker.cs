@@ -14,6 +14,9 @@ namespace Altman.LogicCore
         /// </summary>
         public static void RegisterCustomShellType()
         {
+            //清空CustomShellTypeProvider
+            CustomShellTypeProvider.Clear();
+
             //读取shelltype列表（.type）
             List<string> typeList = XmlHelper.LoadXMlList(CustomShellTypePath, "type");
             //1.注册CustomShellType

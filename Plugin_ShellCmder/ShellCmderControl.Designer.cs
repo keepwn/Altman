@@ -40,26 +40,26 @@ namespace Plugin_ShellCmder
             this.shellTextBox_Cmder.BackColor = System.Drawing.Color.Black;
             this.shellTextBox_Cmder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.shellTextBox_Cmder.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.shellTextBox_Cmder.ForeColor = System.Drawing.Color.LawnGreen;
+            this.shellTextBox_Cmder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.shellTextBox_Cmder.IsWin = true;
             this.shellTextBox_Cmder.Location = new System.Drawing.Point(0, 0);
             this.shellTextBox_Cmder.MaxLength = 0;
             this.shellTextBox_Cmder.Multiline = true;
             this.shellTextBox_Cmder.Name = "shellTextBox_Cmder";
-            this.shellTextBox_Cmder.Prompt = ">>> >>> >>> > > > > ";
+            this.shellTextBox_Cmder.Prompt = ">>> >>> >>> > > > > > > ";
             this.shellTextBox_Cmder.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.shellTextBox_Cmder.ShellTextBackColor = System.Drawing.Color.Black;
             this.shellTextBox_Cmder.ShellTextFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.shellTextBox_Cmder.ShellTextForeColor = System.Drawing.Color.LawnGreen;
+            this.shellTextBox_Cmder.ShellTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.shellTextBox_Cmder.Size = new System.Drawing.Size(544, 293);
             this.shellTextBox_Cmder.TabIndex = 0;
             // 
-            // Plugin_ShellCmder
+            // ShellCmderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.shellTextBox_Cmder);
-            this.Name = "Plugin_ShellCmder";
+            this.Name = "ShellCmderControl";
             this.Size = new System.Drawing.Size(544, 293);
             this.ResumeLayout(false);
             this.PerformLayout();

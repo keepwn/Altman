@@ -32,7 +32,7 @@ namespace Altman
             tabControl1.DoubleClick += tabControl1_DoubleClick;
             //设置版本号标签靠右
             toolStripStatusLabel_productVersion.Alignment = ToolStripItemAlignment.Right;
-            toolStripStatusLabel_productVersion.Text = "Author:KeePwn Version:" + Application.ProductVersion;
+            toolStripStatusLabel_productVersion.Text = string.Format("Version:{0}@KeePwn",Application.ProductVersion);
 
             TabCore.Init(this, this.tabControl1);
             //TabCore.Init(this, this.customTabControl1);
@@ -185,21 +185,22 @@ namespace Altman
         }
         private void item_CheckedChanged(object sender, EventArgs e)
         {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
-            if (item != null && item.Checked == false)
-            {
-                IPlugin plugin = item.Tag as IPlugin;
-                if (UnLoadPlugin(plugin))
-                {
-                    //MessageBox.Show("卸载成功");
-                    Tsmi_Plugins.DropDownItems.Remove(item);
-                }
-                else
-                {
-                    MessageBox.Show("卸载失败");
-                    item.Checked = true;
-                }
-            }
+            //暂时屏蔽
+            //ToolStripMenuItem item = sender as ToolStripMenuItem;
+            //if (item != null && item.Checked == false)
+            //{
+            //    IPlugin plugin = item.Tag as IPlugin;
+            //    if (UnLoadPlugin(plugin))
+            //    {
+            //        //MessageBox.Show("卸载成功");
+            //        Tsmi_Plugins.DropDownItems.Remove(item);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("卸载失败");
+            //        item.Checked = true;
+            //    }
+            //}
         }
         #endregion
 
@@ -228,7 +229,8 @@ namespace Altman
         private void tabControl1_DoubleClick(object sender, EventArgs e)
         {
             //MessageBox.Show(tabControl1.SelectedTab.Name);
-            tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+            if (tabControl1.SelectedTab.Text != "Index" && tabControl1.SelectedTab.Text != "shellManager")
+                tabControl1.TabPages.Remove(tabControl1.SelectedTab);
         }
 
         private void treeView_func_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -263,7 +265,7 @@ namespace Altman
             lisenting.Show();
         }
 
-        private void aboutMe_Click(object sender, EventArgs e)
+        private void Tsmi_about_Click(object sender, EventArgs e)
         {
             string msg = "本程序只用于测试，仅供安全学习、研究所用，\n" +
                          "请勿用于非法用途，否则造成的一切后果自负。\n" +
@@ -272,6 +274,21 @@ namespace Altman
             //MessageBox.Show(msg, "About Altman", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AboutBox about = new AboutBox();
             about.ShowDialog();
+        }
+
+        private void Tsmi_developerMode_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = !Tsmi_developerMode.Checked;
+        }
+
+        private void Tsmi_ReloadShellType_Click(object sender, EventArgs e)
+        {
+            InitUI.InitCustomShellType();
+        }
+
+        private void Tsmi_ReloadSetting_Click(object sender, EventArgs e)
+        {
+            InitUI.InitGlobalSetting();
         }
 
     }

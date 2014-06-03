@@ -61,38 +61,38 @@ namespace Altman.UICore.Control_ShellManager
             this.item_del,
             this.toolStripSeparator2});
             this.rightMenu_Webshell.Name = "rightMenu_WebShell";
-            this.rightMenu_Webshell.Size = new System.Drawing.Size(153, 104);
+            this.rightMenu_Webshell.Size = new System.Drawing.Size(114, 82);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
             // 
             // item_add
             // 
             this.item_add.Name = "item_add";
-            this.item_add.Size = new System.Drawing.Size(152, 22);
+            this.item_add.Size = new System.Drawing.Size(113, 22);
             this.item_add.Text = "Add";
             this.item_add.Click += new System.EventHandler(this.item_add_Click);
             // 
             // item_alter
             // 
             this.item_alter.Name = "item_alter";
-            this.item_alter.Size = new System.Drawing.Size(152, 22);
+            this.item_alter.Size = new System.Drawing.Size(113, 22);
             this.item_alter.Text = "Edit";
             this.item_alter.Click += new System.EventHandler(this.item_alter_Click);
             // 
             // item_del
             // 
             this.item_del.Name = "item_del";
-            this.item_del.Size = new System.Drawing.Size(152, 22);
+            this.item_del.Size = new System.Drawing.Size(113, 22);
             this.item_del.Text = "Delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
             // 
             // lv_shell
             // 
@@ -115,7 +115,7 @@ namespace Altman.UICore.Control_ShellManager
             this.lv_shell.Location = new System.Drawing.Point(0, 0);
             this.lv_shell.MultiSelect = false;
             this.lv_shell.Name = "lv_shell";
-            this.lv_shell.Size = new System.Drawing.Size(648, 315);
+            this.lv_shell.Size = new System.Drawing.Size(847, 405);
             this.lv_shell.TabIndex = 1;
             this.lv_shell.UseCompatibleStateImageBehavior = false;
             this.lv_shell.View = System.Windows.Forms.View.Details;
@@ -133,6 +133,7 @@ namespace Altman.UICore.Control_ShellManager
             // columnHeader2
             // 
             this.columnHeader2.Text = "TargetNo";
+            this.columnHeader2.Width = 98;
             // 
             // columnHeader3
             // 
@@ -161,7 +162,7 @@ namespace Altman.UICore.Control_ShellManager
             // columnHeader9
             // 
             this.columnHeader9.Text = "Area";
-            this.columnHeader9.Width = 40;
+            this.columnHeader9.Width = 58;
             // 
             // columnHeader10
             // 
@@ -171,7 +172,7 @@ namespace Altman.UICore.Control_ShellManager
             // columnHeader11
             // 
             this.columnHeader11.Text = "AddTime";
-            this.columnHeader11.Width = 100;
+            this.columnHeader11.Width = 66;
             // 
             // ControlShellManager
             // 
@@ -179,7 +180,7 @@ namespace Altman.UICore.Control_ShellManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lv_shell);
             this.Name = "ControlShellManager";
-            this.Size = new System.Drawing.Size(648, 315);
+            this.Size = new System.Drawing.Size(847, 405);
             this.rightMenu_Webshell.ResumeLayout(false);
             this.ResumeLayout(false);
 
