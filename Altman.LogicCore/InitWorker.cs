@@ -110,7 +110,8 @@ namespace Altman.LogicCore
             GlobalSetting.Clear();
             GlobalSetting.UserAgent = setting.UserAgent;
             GlobalSetting.HttpHeader = setting.HttpHeader;
-            GlobalSetting.IsParamRandom = setting.IsIsParamRandom;
+            GlobalSetting.IsParamRandom = setting.IsParamRandom;
+            GlobalSetting.IsShowDisclaimer = setting.IsShowDisclaimer;
             GlobalSetting.Proxy = setting.Proxy;
             GlobalSetting.Setting = setting;
         }

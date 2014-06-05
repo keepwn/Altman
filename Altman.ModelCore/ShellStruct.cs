@@ -5,7 +5,7 @@
         public string Id { get; set; }//保留字段
         public string TargetId { get; set; }
         public string TargetLevel { get; set; }
-        
+        public string Status { get; set; }
 
         public string ShellUrl { get; set; }
         public string ShellPwd { get; set; }

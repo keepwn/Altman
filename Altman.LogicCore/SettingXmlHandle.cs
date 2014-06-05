@@ -79,6 +79,10 @@ namespace Altman.LogicCore
                         xmlWriter.WriteStartElement("isParamRandom");
                         xmlWriter.WriteString(Convert.ToInt32(setting.GetPolicyStruct.IsParamRandom).ToString());
                         xmlWriter.WriteEndElement();
+
+                        xmlWriter.WriteStartElement("isShowDisclaimer");
+                        xmlWriter.WriteString(Convert.ToInt32(setting.GetPolicyStruct.IsShowDisclaimer).ToString());
+                        xmlWriter.WriteEndElement();
                     }
                     xmlWriter.WriteEndElement();
 
@@ -176,7 +180,6 @@ namespace Altman.LogicCore
             {
                 throw new Exception(ex.Message);
             }
-            return null;
         }
 
 
@@ -242,6 +245,10 @@ namespace Altman.LogicCore
                 if (c.Name == "isParamRandom")
                 {
                     policy.IsParamRandom = DataConvert.StrToBool(c.InnerText);
+                }
+                if (c.Name == "isShowDisclaimer")
+                {
+                    policy.IsShowDisclaimer = DataConvert.StrToBool(c.InnerText);
                 }
             }
             return policy;

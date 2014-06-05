@@ -131,7 +131,7 @@ namespace Altman.UICore.Control_ShellManager
         private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
-            foreach (string type in InitUI.GetCustomShellTypeNameList())
+            foreach (string type in InitUi.GetCustomShellTypeNameList())
             {
                 comboBox_ScritpType.Items.Add(type);
             }
@@ -143,6 +143,8 @@ namespace Altman.UICore.Control_ShellManager
         {
             string[] types = { "DbConnStr", "PostData"};
             comboBox_IniType.Items.AddRange(types);
+            comboBox_IniType.SelectedIndex = 0;
+
         }
         /// <summary>
         /// 选择配置类型事件
@@ -155,7 +157,7 @@ namespace Altman.UICore.Control_ShellManager
             //如果选择了数据库连接配置类型
             if (comboBox_IniType.Text == "DbConnStr")
             {
-                comboBox_Items.Items.AddRange(InitUI.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
+                comboBox_Items.Items.AddRange(InitUi.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
             }
         }
 

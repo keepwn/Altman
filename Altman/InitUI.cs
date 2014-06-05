@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Altman.LogicCore;
+using Altman.Setting;
 
 namespace Altman
 {
-    public class InitUI
+    public class InitUi
     {
         public static void InitCustomShellType()
         {
@@ -32,7 +33,25 @@ namespace Altman
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }       
+            }
+        }
+
+        public static void InitWelcome()
+        {
+            try
+            {
+                //获取setting
+                Setting.Setting tmp = (Setting.Setting)GlobalSetting.Setting;
+                if (tmp.IsShowDisclaimer)
+                {
+                    Welcome w = new Welcome(tmp);
+                    w.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
@@ -92,6 +111,5 @@ namespace Altman
             }
             return tree;
         }
-
     }
 }

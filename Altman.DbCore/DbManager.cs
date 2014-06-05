@@ -40,6 +40,13 @@ namespace Altman.DbCore
             {
                 if ((string)row["TABLE_NAME"] == "shell" && (string)row["TABLE_TYPE"] == "table")
                 {
+                    //修复之前旧版数据库缺少（status）的问题
+                    DataTable old = GetDataTable();
+                    if (!old.Columns.Contains("status"))
+                    {
+                        //添加status列
+                        _sqliteHelper.ExecuteNonQuery("alter table shell add column status TEXT;", null);
+                    }
                     isAvailableDb = true;
                     break;
                 }
@@ -61,6 +68,7 @@ namespace Altman.DbCore
                 "id INTEGER PRIMARY KEY",
                 "target_id TEXT NOT NULL",
                 "target_level TEXT NOT NULL",
+                "status TEXT",
                 "shell_url TEXT NOT NULL",
                 "shell_pwd TEXT NOT NULL",
                 "shell_type TEXT NOT NULL",
@@ -97,6 +105,7 @@ namespace Altman.DbCore
                 //{"id", null},//主键自增长字段，不需要设置
                 {"target_id", model.TargetId},
                 {"target_level", model.TargetLevel},
+                {"status", model.Status},
                 {"shell_url", model.ShellUrl},
                 {"shell_pwd", model.ShellPwd},
                 {"shell_type", model.ShellType},
@@ -123,6 +132,7 @@ namespace Altman.DbCore
                 {"id", id.ToString()},
                 {"target_id", model.TargetId},
                 {"target_level", model.TargetLevel},
+                {"status", model.Status},
                 {"shell_url", model.ShellUrl},
                 {"shell_pwd", model.ShellPwd},
                 {"shell_type", model.ShellType},

@@ -144,6 +144,12 @@
       <DependentUpon>FormEditWebshell.cs</DependentUpon>
     </Compile>
     <Compile Include="TabCore.cs" />
+    <Compile Include="Welcome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Welcome.Designer.cs">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UICore\Control_ShellManager\FormEditWebshell.resx">
       <DependentUpon>FormEditWebshell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Welcome.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

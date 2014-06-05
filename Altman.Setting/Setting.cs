@@ -21,6 +21,7 @@ namespace Altman.Setting
         public struct PolicyStruct
         {
             public bool IsParamRandom;
+            public bool IsShowDisclaimer;
         }
         public struct ProxyStruct
         {
@@ -86,9 +87,15 @@ namespace Altman.Setting
             }
         }
 
-        public bool IsIsParamRandom
+        public bool IsParamRandom
         {
             get { return _policy.IsParamRandom; }
+            set { _policy.IsParamRandom = value; }
+        }
+        public bool IsShowDisclaimer
+        {
+            get { return _policy.IsShowDisclaimer; }
+            set { _policy.IsShowDisclaimer = value; }
         }
 
         public IWebProxy Proxy
@@ -124,8 +131,6 @@ namespace Altman.Setting
                 return proxy;
             }
         }
-
-
 
         public Setting(UserAgentStruct userAgent,HttpHeaderStruct httpHeader,PolicyStruct policy,ProxyStruct proxy)
         {

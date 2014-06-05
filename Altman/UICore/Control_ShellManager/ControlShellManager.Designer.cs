@@ -32,6 +32,7 @@ namespace Altman.UICore.Control_ShellManager
         {
             this.components = new System.ComponentModel.Container();
             this.rightMenu_Webshell = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.item_refreshStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.item_add = new System.Windows.Forms.ToolStripMenuItem();
             this.item_alter = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,44 +56,52 @@ namespace Altman.UICore.Control_ShellManager
             // rightMenu_Webshell
             // 
             this.rightMenu_Webshell.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.item_refreshStatus,
             this.toolStripSeparator1,
             this.item_add,
             this.item_alter,
             this.item_del,
             this.toolStripSeparator2});
             this.rightMenu_Webshell.Name = "rightMenu_WebShell";
-            this.rightMenu_Webshell.Size = new System.Drawing.Size(114, 82);
+            this.rightMenu_Webshell.Size = new System.Drawing.Size(178, 104);
+            // 
+            // item_refreshStatus
+            // 
+            this.item_refreshStatus.Name = "item_refreshStatus";
+            this.item_refreshStatus.Size = new System.Drawing.Size(177, 22);
+            this.item_refreshStatus.Text = "Refresh All Status";
+            this.item_refreshStatus.Click += new System.EventHandler(this.item_refreshStatus_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
             // 
             // item_add
             // 
             this.item_add.Name = "item_add";
-            this.item_add.Size = new System.Drawing.Size(113, 22);
+            this.item_add.Size = new System.Drawing.Size(177, 22);
             this.item_add.Text = "Add";
             this.item_add.Click += new System.EventHandler(this.item_add_Click);
             // 
             // item_alter
             // 
             this.item_alter.Name = "item_alter";
-            this.item_alter.Size = new System.Drawing.Size(113, 22);
+            this.item_alter.Size = new System.Drawing.Size(177, 22);
             this.item_alter.Text = "Edit";
             this.item_alter.Click += new System.EventHandler(this.item_alter_Click);
             // 
             // item_del
             // 
             this.item_del.Name = "item_del";
-            this.item_del.Size = new System.Drawing.Size(113, 22);
+            this.item_del.Size = new System.Drawing.Size(177, 22);
             this.item_del.Text = "Delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(174, 6);
             // 
             // lv_shell
             // 
@@ -119,6 +128,7 @@ namespace Altman.UICore.Control_ShellManager
             this.lv_shell.TabIndex = 1;
             this.lv_shell.UseCompatibleStateImageBehavior = false;
             this.lv_shell.View = System.Windows.Forms.View.Details;
+            this.lv_shell.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lv_shell_MouseDoubleClick);
             // 
             // columnHeader0
             // 
@@ -206,5 +216,6 @@ namespace Altman.UICore.Control_ShellManager
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.ListView lv_shell;
+        private ToolStripMenuItem item_refreshStatus;
     }
 }

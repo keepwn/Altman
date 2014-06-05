@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
+using Altman.Common.AltEventArgs;
 using Altman.LogicCore;
 using Altman.ModelCore;
 using PluginFramework;
@@ -58,7 +62,9 @@ namespace Altman.UICore.Control_ShellManager
 
                     UserControl view = plugin.GetUi(shellStruct);
                     //创建新的tab标签
-                    TabCore.CreateNewTabPage(plugin.PluginAttribute.Title, view);
+                    //设置标题为FileManager|TargetId
+                    string title = plugin.PluginAttribute.Title+"|"+shellStruct.TargetId;
+                    TabCore.CreateNewTabPage(title, view);
                 }
             }
         }
@@ -112,10 +118,34 @@ namespace Altman.UICore.Control_ShellManager
             this.Controls.Add(lv_shell);
         }
 
+        private ShellStruct ConvertDataRowToShellStruct(DataRow row)
+        {
+            ShellStruct shellStruct = new ShellStruct();
+
+            shellStruct.Id = row["id"].ToString();
+            shellStruct.TargetId = row["target_id"].ToString();
+            shellStruct.TargetLevel = row["target_level"].ToString();
+            shellStruct.Status = row["status"].ToString();
+
+            shellStruct.ShellUrl = row["shell_url"].ToString();
+            shellStruct.ShellPwd = row["shell_pwd"].ToString();
+            shellStruct.ShellType = row["shell_type"].ToString();
+            shellStruct.ShellExtraSetting = row["shell_extra_setting"].ToString();
+            shellStruct.ServerCoding = row["server_coding"].ToString();
+            shellStruct.WebCoding = row["web_coding"].ToString();
+
+            shellStruct.Area = row["area"].ToString();
+            shellStruct.Remark = row["remark"].ToString();
+            shellStruct.AddTime = row["add_time"].ToString();
+
+            return shellStruct;
+        }
+
+
         /// <summary>
         /// 载入webshell数据
         /// </summary>
-        public  void LoadWebshellData()
+        public void LoadWebshellData()
         {
             int num = 1;
             lv_shell.Items.Clear();
@@ -126,29 +156,13 @@ namespace Altman.UICore.Control_ShellManager
             }
             foreach (DataRow row in dataTable.Rows)
             {
-                ShellStruct shellStruct = new ShellStruct();
-
-                shellStruct.Id = row["id"].ToString();
-                shellStruct.TargetId = row["target_id"].ToString();
-                shellStruct.TargetLevel = row["target_level"].ToString();
-
-                shellStruct.ShellUrl = row["shell_url"].ToString();
-                shellStruct.ShellPwd = row["shell_pwd"].ToString();
-                shellStruct.ShellType = row["shell_type"].ToString();
-                shellStruct.ShellExtraSetting = row["shell_extra_setting"].ToString();
-                shellStruct.ServerCoding = row["server_coding"].ToString();
-                shellStruct.WebCoding = row["web_coding"].ToString();
-
-                shellStruct.Area = row["area"].ToString();
-                shellStruct.Remark = row["remark"].ToString();
-                shellStruct.AddTime = row["add_time"].ToString();
-
+                ShellStruct shellStruct = ConvertDataRowToShellStruct(row);
                 string[] items = new string[] { 
                     shellStruct.Id, 
                     num++.ToString(), 
                     shellStruct.TargetId, 
                     shellStruct.TargetLevel,
-                    "-1", 
+                    shellStruct.Status,
                     shellStruct.ShellUrl, 
                     shellStruct.ShellType,
                     shellStruct.ServerCoding, 
@@ -200,14 +214,12 @@ namespace Altman.UICore.Control_ShellManager
         {
             LoadWebshellData();
         }
-
         private void item_add_Click(object sender, EventArgs e)
         {
             FormEditWebshell editwebshell = new FormEditWebshell();
             editwebshell.WebshellWatchEvent += OnWebshellChange;
             editwebshell.Show();
         }
-
         private void item_alter_Click(object sender, EventArgs e)
         {
             if (lv_shell.SelectedItems.Count > 0)
@@ -220,7 +232,6 @@ namespace Altman.UICore.Control_ShellManager
                 editwebshell.Show();
             }
         }
-
         private void item_del_Click(object sender, EventArgs e)
         {
             if (lv_shell.SelectedItems.Count > 0)
@@ -230,7 +241,97 @@ namespace Altman.UICore.Control_ShellManager
                 LoadWebshellData();
             }
         }
-
         #endregion
+
+        #region 批量检测shell状态
+        private void item_refreshStatus_Click(object sender, EventArgs e)
+        {
+            RefreshAllStatus();
+        }
+        private void RefreshAllStatus()
+        {
+            DataTable dataTable = _shellManager.GetDataTable();
+            if (dataTable == null)
+            {
+                return;
+            }
+            foreach (ListViewItem item in lv_shell.Items)
+            {
+                Thread thread = new Thread(RefreshStatus);
+                thread.Start(item);
+            }
+        }
+        private void RefreshStatus(object listViewItem)
+        {
+            ListViewItem item = listViewItem as ListViewItem;
+            ShellStruct shellStruct = (ShellStruct)item.Tag;
+            string shellUrl = shellStruct.ShellUrl;
+
+            HttpWebRequest myRequest = null;
+            HttpWebResponse myResponse = null;
+            try
+            {
+                System.Net.ServicePointManager.DefaultConnectionLimit = 1024;
+                myRequest = (HttpWebRequest)WebRequest.Create(shellUrl);
+                myRequest.Method = "HEAD";
+                myRequest.Timeout = 5000;
+                myRequest.KeepAlive = false;
+                myRequest.UseDefaultCredentials = true;
+                myRequest.AllowAutoRedirect = false;
+                myResponse = (HttpWebResponse)myRequest.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                myResponse = (HttpWebResponse)ex.Response;
+            }
+            finally
+            {
+                if (myRequest != null)
+                    myRequest.Abort();
+                if (myResponse != null)
+                    myResponse.Close();
+            }
+            if (myResponse == null)
+            {
+                RefreshShellStatusInListView(item, "-1");
+            }
+            else
+            {
+                RefreshShellStatusInListView(item, Convert.ToInt32(myResponse.StatusCode).ToString());
+            }
+        }
+
+        public delegate void RefreshShellStatusInvoke(ListViewItem item, string status);
+        private void RefreshShellStatusInListView(ListViewItem item, string status)
+        {
+            //等待异步
+            if (this.InvokeRequired)
+            {
+                RefreshShellStatusInvoke invoke = new RefreshShellStatusInvoke(RefreshShellStatusInListView);
+                this.Invoke(invoke, new object[] { item, status });
+            }
+            else
+            {
+                item.SubItems[4].Text = status;
+
+                ShellStruct shellStruct = (ShellStruct)item.Tag;
+                shellStruct.Status = status;
+                _shellManager.Update(int.Parse(shellStruct.Id), shellStruct);
+            }
+        }
+        #endregion
+
+        private void lv_shell_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lv_shell.SelectedItems.Count == 1)
+            {
+                //如果存在FileManager插件，则双击进入FileManager
+                if (rightMenu_Webshell.Items.ContainsKey("FileManager"))
+                {
+                    ToolStripItem item = rightMenu_Webshell.Items["FileManager"];
+                    pluginItem_Click(item, null);
+                }
+            }
+        }
     }
 }

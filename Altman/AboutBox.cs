@@ -13,9 +13,9 @@ namespace Altman
         public AboutBox()
         {
             InitializeComponent();
-            this.Text = String.Format("关于 {0}", AssemblyTitle);
+            this.Text = String.Format("about {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("版本 {0}", AssemblyVersion);
+            this.labelVersion.Text = String.Format("version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
 
             string msg = 

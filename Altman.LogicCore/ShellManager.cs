@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Net;
 using Altman.DbCore;
 using Altman.ModelCore;
 
@@ -27,6 +28,7 @@ namespace Altman.LogicCore
         public event EventHandler<CompletedEventArgs> InsertCompletedToDo;
         public event EventHandler<CompletedEventArgs> UpdateCompletedToDo;
         public event EventHandler<CompletedEventArgs> GetDataTableCompletedToDo;
+        public event EventHandler<CompletedEventArgs> RefreshShellStatusCompletedToDo;
         /// <summary>
         /// 删除数据
         /// </summary>

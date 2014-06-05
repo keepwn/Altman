@@ -30,6 +30,7 @@
         {
             this.checkBox_IsParamRandom = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBox_IsShowDisclaimer = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBox_IsParamRandom
@@ -51,10 +52,21 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "发包策略";
             // 
+            // checkBox_IsShowDisclaimer
+            // 
+            this.checkBox_IsShowDisclaimer.AutoSize = true;
+            this.checkBox_IsShowDisclaimer.Location = new System.Drawing.Point(27, 134);
+            this.checkBox_IsShowDisclaimer.Name = "checkBox_IsShowDisclaimer";
+            this.checkBox_IsShowDisclaimer.Size = new System.Drawing.Size(120, 16);
+            this.checkBox_IsShowDisclaimer.TabIndex = 2;
+            this.checkBox_IsShowDisclaimer.Text = "是否显示免责声明";
+            this.checkBox_IsShowDisclaimer.UseVisualStyleBackColor = true;
+            // 
             // ControlPolicySetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBox_IsShowDisclaimer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox_IsParamRandom);
             this.Name = "ControlPolicySetting";
@@ -68,5 +80,6 @@
 
         private System.Windows.Forms.CheckBox checkBox_IsParamRandom;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBox_IsShowDisclaimer;
     }
 }

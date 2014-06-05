@@ -39,8 +39,8 @@ namespace Altman
             TabCore.CreateTabPage_ShellManager(_pluginsImport.Plugins);
 
             InitTreeView();
-            InitUI.InitCustomShellType();
-            InitUI.InitGlobalSetting();
+            InitUi.InitCustomShellType();
+            InitUi.InitGlobalSetting();
 
             TreeNode treeNodeRoot1 = new TreeNode("Plugins");
             this.treeView_func.Nodes.AddRange(new TreeNode[] { treeNodeRoot1 });
@@ -76,11 +76,14 @@ namespace Altman
 
             //test
             TreeNode treeNodeRoot2;
-            treeNodeRoot2 = InitUI.GetCustomShellTypeTree();
+            treeNodeRoot2 = InitUi.GetCustomShellTypeTree();
             treeNodeRoot2.Name = "ShellType";
             treeNodeRoot2.Text = "ShellType";
             this.treeView_func.Nodes.AddRange(new TreeNode[] { treeNodeRoot2 });
             
+
+            //显示免责声明
+            InitUi.InitWelcome();
         }
 
         #region MEF处理
@@ -228,9 +231,13 @@ namespace Altman
         #region Event
         private void tabControl1_DoubleClick(object sender, EventArgs e)
         {
-            //MessageBox.Show(tabControl1.SelectedTab.Name);
             if (tabControl1.SelectedTab.Text != "Index" && tabControl1.SelectedTab.Text != "shellManager")
+            {
+                int index = tabControl1.SelectedIndex;
                 tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                if (index - 1 >= 0)
+                    tabControl1.SelectedIndex = index - 1;
+            }
         }
 
         private void treeView_func_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -267,11 +274,6 @@ namespace Altman
 
         private void Tsmi_about_Click(object sender, EventArgs e)
         {
-            string msg = "本程序只用于测试，仅供安全学习、研究所用，\n" +
-                         "请勿用于非法用途，否则造成的一切后果自负。\n" +
-                         "                                              by keepwn";
-
-            //MessageBox.Show(msg, "About Altman", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AboutBox about = new AboutBox();
             about.ShowDialog();
         }
@@ -283,12 +285,12 @@ namespace Altman
 
         private void Tsmi_ReloadShellType_Click(object sender, EventArgs e)
         {
-            InitUI.InitCustomShellType();
+            InitUi.InitCustomShellType();
         }
 
         private void Tsmi_ReloadSetting_Click(object sender, EventArgs e)
         {
-            InitUI.InitGlobalSetting();
+            InitUi.InitGlobalSetting();
         }
 
         private void Tsmi_docs_Click(object sender, EventArgs e)

@@ -46,14 +46,14 @@ namespace Altman
             this.Tsmi_Wizard = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Listening = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_Help = new System.Windows.Forms.ToolStripMenuItem();
-            this.Tsmi_about = new System.Windows.Forms.ToolStripMenuItem();
             this.Tsmi_developerMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_about = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_docs = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_showMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_productVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Tsmi_docs = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -222,13 +222,6 @@ namespace Altman
             this.Tsmi_Help.Size = new System.Drawing.Size(47, 24);
             this.Tsmi_Help.Text = "Help";
             // 
-            // Tsmi_about
-            // 
-            this.Tsmi_about.Name = "Tsmi_about";
-            this.Tsmi_about.Size = new System.Drawing.Size(175, 22);
-            this.Tsmi_about.Text = "About Altman";
-            this.Tsmi_about.Click += new System.EventHandler(this.Tsmi_about_Click);
-            // 
             // Tsmi_developerMode
             // 
             this.Tsmi_developerMode.CheckOnClick = true;
@@ -236,6 +229,20 @@ namespace Altman
             this.Tsmi_developerMode.Size = new System.Drawing.Size(175, 22);
             this.Tsmi_developerMode.Text = "Developer Mode";
             this.Tsmi_developerMode.Click += new System.EventHandler(this.Tsmi_developerMode_Click);
+            // 
+            // Tsmi_about
+            // 
+            this.Tsmi_about.Name = "Tsmi_about";
+            this.Tsmi_about.Size = new System.Drawing.Size(175, 22);
+            this.Tsmi_about.Text = "About Altman";
+            this.Tsmi_about.Click += new System.EventHandler(this.Tsmi_about_Click);
+            // 
+            // Tsmi_docs
+            // 
+            this.Tsmi_docs.Name = "Tsmi_docs";
+            this.Tsmi_docs.Size = new System.Drawing.Size(175, 22);
+            this.Tsmi_docs.Text = "Altman Docs";
+            this.Tsmi_docs.Click += new System.EventHandler(this.Tsmi_docs_Click);
             // 
             // imageList1
             // 
@@ -283,13 +290,6 @@ namespace Altman
             this.tableLayoutPanel1.Size = new System.Drawing.Size(827, 507);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
-            // Tsmi_docs
-            // 
-            this.Tsmi_docs.Name = "Tsmi_docs";
-            this.Tsmi_docs.Size = new System.Drawing.Size(175, 22);
-            this.Tsmi_docs.Text = "Altman Docs";
-            this.Tsmi_docs.Click += new System.EventHandler(this.Tsmi_docs_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -300,7 +300,7 @@ namespace Altman
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Altman(The Webshell Tool)";
+            this.Text = "Altman(The Webmaster Tools)";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

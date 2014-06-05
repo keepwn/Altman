@@ -20,6 +20,7 @@ namespace Altman.Setting
         public static WebHeaderCollection HttpHeader = null;
         public static CookieContainer HttpCookie = null;
         public static bool IsParamRandom = false;
+        public static bool IsShowDisclaimer = true;
         public static IWebProxy Proxy = null;
         public static object Setting = null;
 

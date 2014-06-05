@@ -2,7 +2,7 @@
 
 namespace Altman.Common.AltEventArgs
 {
-    public class AltCompletedEventArgs : System.EventArgs
+    public class AltCompletedEventArgs : EventArgs
     {
         private Exception m_Error;
         private object m_Result;
