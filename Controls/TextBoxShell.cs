@@ -286,7 +286,7 @@ namespace Controls
         /// <returns></returns>
         private bool IsStartWithPromptAtCurrentLine()
         {
-            return GetCurrentLine().StartsWith(_prompt);
+            return GetCurrentLine().Trim().StartsWith(_prompt);
         }
         /// <summary>
         /// 判断插入符号是否在当前行

@@ -80,7 +80,9 @@ namespace Altman.WebCore
         public Http()
         {
             //Http协议的并发连接数
-            System.Net.ServicePointManager.DefaultConnectionLimit = 512;
+            ServicePointManager.DefaultConnectionLimit = 512;
+            //不使用100-continue
+            ServicePointManager.Expect100Continue = false;
 
             _headers = new WebHeaderCollection();
         }

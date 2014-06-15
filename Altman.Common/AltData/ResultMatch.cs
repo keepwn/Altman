@@ -142,7 +142,7 @@ namespace Altman.Common.AltData
         public static CmdResult MatchResultToCmdResult(byte[] resultBytes, Encoding encode)
         {
             string result = GetResultFromInterval(resultBytes, encode);
-            string pattern = @"(?<cmd>.*?)\[S\][\r\n|\n]+(?<curdir>.*?)[\r\n|\n]+\[E\]";
+            string pattern = @"(?<cmd>.*)\[S\]\s*(?<curdir>.*?)\s*\[E\]\s*(?<error>.*)";
             Regex regex = new Regex(pattern, RegexOptions.Singleline);
             Match m = regex.Match(result);
             if (!m.Success)
@@ -151,7 +151,8 @@ namespace Altman.Common.AltData
             }
             else
             {
-                string cmd = m.Groups["cmd"].Value;
+                //存在一种情况，错误信息会跟在[E]之后
+                string cmd = m.Groups["cmd"].Value + m.Groups["error"].Value;
                 string curdir = m.Groups["curdir"].Value;
                 CmdResult cmdResult = new CmdResult();
                 cmdResult.Result = cmd;

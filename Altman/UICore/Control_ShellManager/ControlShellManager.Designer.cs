@@ -50,6 +50,7 @@ namespace Altman.UICore.Control_ShellManager
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.item_copyServerCode = new System.Windows.Forms.ToolStripMenuItem();
             this.rightMenu_Webshell.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,51 +58,52 @@ namespace Altman.UICore.Control_ShellManager
             // 
             this.rightMenu_Webshell.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.item_refreshStatus,
+            this.item_copyServerCode,
             this.toolStripSeparator1,
             this.item_add,
             this.item_alter,
             this.item_del,
             this.toolStripSeparator2});
             this.rightMenu_Webshell.Name = "rightMenu_WebShell";
-            this.rightMenu_Webshell.Size = new System.Drawing.Size(178, 104);
+            this.rightMenu_Webshell.Size = new System.Drawing.Size(179, 148);
             // 
             // item_refreshStatus
             // 
             this.item_refreshStatus.Name = "item_refreshStatus";
-            this.item_refreshStatus.Size = new System.Drawing.Size(177, 22);
+            this.item_refreshStatus.Size = new System.Drawing.Size(178, 22);
             this.item_refreshStatus.Text = "Refresh All Status";
             this.item_refreshStatus.Click += new System.EventHandler(this.item_refreshStatus_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
             // 
             // item_add
             // 
             this.item_add.Name = "item_add";
-            this.item_add.Size = new System.Drawing.Size(177, 22);
+            this.item_add.Size = new System.Drawing.Size(178, 22);
             this.item_add.Text = "Add";
             this.item_add.Click += new System.EventHandler(this.item_add_Click);
             // 
             // item_alter
             // 
             this.item_alter.Name = "item_alter";
-            this.item_alter.Size = new System.Drawing.Size(177, 22);
+            this.item_alter.Size = new System.Drawing.Size(178, 22);
             this.item_alter.Text = "Edit";
             this.item_alter.Click += new System.EventHandler(this.item_alter_Click);
             // 
             // item_del
             // 
             this.item_del.Name = "item_del";
-            this.item_del.Size = new System.Drawing.Size(177, 22);
+            this.item_del.Size = new System.Drawing.Size(178, 22);
             this.item_del.Text = "Delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(175, 6);
             // 
             // lv_shell
             // 
@@ -184,6 +186,13 @@ namespace Altman.UICore.Control_ShellManager
             this.columnHeader11.Text = "AddTime";
             this.columnHeader11.Width = 66;
             // 
+            // item_copyServerCode
+            // 
+            this.item_copyServerCode.Name = "item_copyServerCode";
+            this.item_copyServerCode.Size = new System.Drawing.Size(178, 22);
+            this.item_copyServerCode.Text = "Copy ServerCode";
+            this.item_copyServerCode.Click += new System.EventHandler(this.item_copyServerCode_Click);
+            // 
             // ControlShellManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -217,5 +226,6 @@ namespace Altman.UICore.Control_ShellManager
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.ListView lv_shell;
         private ToolStripMenuItem item_refreshStatus;
+        private ToolStripMenuItem item_copyServerCode;
     }
 }

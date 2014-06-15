@@ -73,12 +73,25 @@ namespace Altman
             {
                 CustomShellType shelltype = CustomShellTypeProvider.ShellTypeStyleContainer[shellTypeName];
                 FuncTreeNode dbNode = shelltype.FuncTreeRoot.FindNodes("/DbManager");
-                foreach (var child in dbNode.Nodes)
+                if (dbNode != null)
                 {
-                    funcCodeNameList.Add(child.Value.Info);
+                    foreach (var child in dbNode.Nodes)
+                    {
+                        funcCodeNameList.Add(child.Value.Info);
+                    }
                 }
             }
             return funcCodeNameList.ToArray();
+        }
+
+        public static string GetCustomShellTypeServerCode(string shellTypeName)
+        {
+            if (CustomShellTypeProvider.ShellTypeStyleContainer.ContainsKey(shellTypeName))
+            {
+                CustomShellType shelltype = CustomShellTypeProvider.ShellTypeStyleContainer[shellTypeName];
+                return shelltype.BasicSetting.ServiceExample;
+            }
+            return null;
         }
 
         /// <summary>

@@ -333,5 +333,20 @@ namespace Altman.UICore.Control_ShellManager
                 }
             }
         }
+
+        private void item_copyServerCode_Click(object sender, EventArgs e)
+        {
+            if (lv_shell.SelectedItems.Count > 0)
+            {
+                ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
+                string code = InitUi.GetCustomShellTypeServerCode(shellStruct.ShellType);
+
+                if (string.IsNullOrWhiteSpace(code))
+                {
+                    MessageBox.Show("ServerCode is NUll!");
+                }
+                Clipboard.SetDataObject(code);
+            }      
+        }
     }
 }
