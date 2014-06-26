@@ -13,7 +13,7 @@ namespace Plugin_FileManager
 {
     public partial class FileManagerControl : UserControl
     {
-        private HostService _hostService;
+        private IHostService _hostService;
         private ShellStruct _shellData;
 
         private FileManagerService _fileManager;
@@ -23,7 +23,7 @@ namespace Plugin_FileManager
         private string _sourceCopyPath;  //用于文件复制
         private string _sourceCopyName;  //用于文件复制
 
-        public FileManagerControl(HostService hostService, ShellStruct data)
+        public FileManagerControl(IHostService hostService, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -849,7 +849,7 @@ namespace Plugin_FileManager
             {
                 string webFile = GetSelectedPathInListView(false);
                 UserControl fileEditer = new FileEditerControl(_hostService, _shellData, webFile, true);
-                _hostService.CreateNewTabPage("FileEdit", fileEditer);
+                _hostService.Gui.CreateNewTabPage("FileEdit", fileEditer);
             }
         }
         /// <summary>
@@ -928,7 +928,7 @@ namespace Plugin_FileManager
             SelectedItemsStatus status = GetStatusOfSelectedItemsInListView();
             string newFile = GetSelectedDirPathInDirTree() + "NewFile.txt";
             UserControl fileEditer = new FileEditerControl(_hostService, _shellData, newFile, false);
-            _hostService.CreateNewTabPage("FileEdit", fileEditer);
+            _hostService.Gui.CreateNewTabPage("FileEdit", fileEditer);
         }
         /// <summary>
         /// 右键菜单下载文件到远程服务器

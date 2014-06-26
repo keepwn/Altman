@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using PluginFramework;
 
@@ -8,9 +9,13 @@ namespace MyFirstPlugin
 {
     public class PluginAttribute : IPluginAttribute
     {
-        public string Title
+        public string Name
         {
             get { return "MyFirstPlugin"; }
+        }
+        public string FileName
+        {
+            get { return Assembly.GetExecutingAssembly().ManifestModule.Name; }
         }
         public string Group
         {
@@ -18,7 +23,7 @@ namespace MyFirstPlugin
         }
         public string Version
         {
-            get { return "1.0"; }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
         public string Author
         {

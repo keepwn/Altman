@@ -1,8 +1,8 @@
 ﻿using System.Windows.Forms;
 
-namespace Altman.UICore.Control_ShellManager
+namespace Plugin_ShellManager
 {
-    partial class ControlShellManager
+    partial class ShellManagerControl
     {
         /// <summary> 
         /// 必需的设计器变量。

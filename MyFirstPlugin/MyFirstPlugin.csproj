@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginAttribute.cs" />
+    <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>

@@ -7,7 +7,8 @@ namespace PluginFramework
 {
     public interface IPluginAttribute
     {
-        string Title { get; }
+        string Name { get; }
+        string FileName { get; }
         string Group { get; }
         string Version { get; }
         string Author { get; }

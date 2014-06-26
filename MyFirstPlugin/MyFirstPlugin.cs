@@ -14,9 +14,9 @@ namespace MyFirstPlugin
 {
     public partial class MyFirstPlugin : UserControl
     {
-        private HostService _host;
+        private IHostService _host;
         private ShellStruct _shellData;
-        public MyFirstPlugin(HostService host, ShellStruct data)
+        public MyFirstPlugin(IHostService host, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -29,27 +29,31 @@ namespace MyFirstPlugin
 
         private void ShowShellTypeDataInLable(ShellStruct data)
         {
-            lbl_shellData.Text = "[ShellUrl]:" + data.ShellUrl + "\n";
-            lbl_shellData.Text += "[ShellPwd]:" + data.ShellPwd + "\n";
-            lbl_shellData.Text += "[ShellType]:" + data.ShellType + "\n";
-            lbl_shellData.Text += "[ServerCoding]:" + data.ServerCoding + "\n";
-            lbl_shellData.Text += "[TimeOut]:" + data.TimeOut+ "\n";
-            lbl_shellData.Text += "[ShellExtraSetting]:" + data.ShellExtraSetting + "\n";
+            StringBuilder strBuilder = new StringBuilder();
+
+            strBuilder.AppendLine("[ShellUrl]:" + data.ShellUrl);
+            strBuilder.AppendLine("[ShellPwd]:" + data.ShellPwd);
+            strBuilder.AppendLine("[ShellType]:" + data.ShellType);
+            strBuilder.AppendLine("[ServerCoding]:" + data.ServerCoding);
+            strBuilder.AppendLine("[TimeOut]:" + data.TimeOut);
+            strBuilder.AppendLine("[ShellExtraSetting]:" + data.ShellExtraSetting);
+
+            tbx_shellData.Text = strBuilder.ToString();
         }
 
         private void btn_showMsgInStatus_Click(object sender, EventArgs e)
         {
-            _host.ShowMsgInStatusBar(tbx_msg.Text);
+            _host.Gui.ShowMsgInStatusBar(tbx_msg.Text);
         }
 
         private void btn_showMessageBox_Click(object sender, EventArgs e)
         {
-            _host.ShowMsgInAppDialog(tbx_messagBox.Text);
+            _host.Gui.ShowMsgInAppDialog(tbx_messagBox.Text);
         }
 
         private void btn_createNewTabPage_Click(object sender, EventArgs e)
         {
-            _host.CreateNewTabPage(tbx_tabPageName.Text,new UserControl1());
+            _host.Gui.CreateNewTabPage(tbx_tabPageName.Text,new UserControl1());
         }
     }
 }

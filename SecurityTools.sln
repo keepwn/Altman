@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman", "Altman\Altman.csproj", "{C8B447F9-E4D2-4D79-94F9-74582509E6E1}"
 EndProject
@@ -35,6 +35,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_DbManager", "Plugin_DbManager\Plugin_DbManager.csproj", "{70100E00-8921-4B78-9EEA-5326F8D0352E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_PluginManager", "Plugin_PluginManager\Plugin_PluginManager.csproj", "{3BBF7451-1844-40EA-9661-1E95D22D411F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellManager", "Plugin_ShellManager\Plugin_ShellManager.csproj", "{F813E48D-D2FD-4A58-A039-C847DE92AFC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,6 +204,26 @@ Global
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|x86.ActiveCfg = Release|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|x86.ActiveCfg = Release|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

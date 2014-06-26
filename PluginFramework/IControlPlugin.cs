@@ -9,8 +9,6 @@ namespace PluginFramework
 {
     public interface IControlPlugin : IPlugin
     {
-        //UserControl GetUi();
-
-        //UserControl GetUi(ShellStruct data);
+        UserControl GetUi(ShellStruct data);
     }
 }

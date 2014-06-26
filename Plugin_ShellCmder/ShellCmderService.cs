@@ -7,9 +7,9 @@ using PluginFramework;
 
 namespace Plugin_ShellCmder
 {
-    public class ShellCmder
+    public class ShellCmderService
     {
-        private HostService _host;
+        private IHostService _host;
         private ShellStruct _shellData;
 
         #region 属性
@@ -40,7 +40,7 @@ namespace Plugin_ShellCmder
         }
         #endregion
 
-        public ShellCmder(HostService host,ShellStruct data)
+        public ShellCmderService(IHostService host, ShellStruct data)
         {
             this._host = host;
             this._shellData = data;
@@ -48,20 +48,11 @@ namespace Plugin_ShellCmder
 
         public OsInfo GetSysInfo()
         {
-            if (_host.SubmitCommand != null)
-            {
-                byte[] resultBytes = _host.SubmitCommand(_shellData, "Cmder/SysInfoCode", null);
-                return ResultMatch.MatchResultToOsInfo(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
-            }
-            else
-            {
-                _host.ShowMsgInAppDialog("SubmitCommand未赋值");
-            }
-
-            return new OsInfo();
+            byte[] resultBytes = _host.Core.SubmitCommand(_shellData, "Cmder/SysInfoCode", null);
+            return ResultMatch.MatchResultToOsInfo(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
 
-        public CmdResult ExecuteCmd(string cmdPath, string command,string currentDir,bool isWin)
+        public CmdResult ExecuteCmd(string cmdPath, string command, string currentDir, bool isWin)
         {
             //若cmdPath未设置，则采用默认值
             if (string.IsNullOrEmpty(cmdPath))
@@ -71,16 +62,8 @@ namespace Plugin_ShellCmder
             //组合cmd命令
             string combineCommand = string.Format(isWin ? "cd /d \"{0}\"&{1}&echo [S]&cd&echo [E]" : "cd \"{0}\";{1};echo [S];pwd;echo [E]", currentDir, command);
 
-            if (_host.SubmitCommand != null)
-            {
-                byte[] resultBytes = _host.SubmitCommand(_shellData, "Cmder/ExecuteCommandCode", new string[] { cmdPath, combineCommand });
-                return ResultMatch.MatchResultToCmdResult(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
-            }
-            else
-            {
-                _host.ShowMsgInAppDialog("SubmitCommand未赋值");
-            }
-            return new CmdResult();
+            byte[] resultBytes = _host.Core.SubmitCommand(_shellData, "Cmder/ExecuteCommandCode", new string[] { cmdPath, combineCommand });
+            return ResultMatch.MatchResultToCmdResult(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
     }
 }

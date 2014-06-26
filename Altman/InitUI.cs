@@ -57,9 +57,9 @@ namespace Altman
         /// <summary>
         /// 获取CustomShellType名字列表
         /// </summary>
-        public static List<string> GetCustomShellTypeNameList()
+        public static string[] GetCustomShellTypeNameList()
         {
-            return CustomShellTypeProvider.ShellTypeStyleContainer.Keys.ToList();
+            return CustomShellTypeProvider.ShellTypeStyleContainer.Keys.ToArray();
         }
         /// <summary>
         /// 获取CustomShellType子节点的名字列表

@@ -10,9 +10,10 @@ namespace PluginFramework
 {
     public interface IPlugin : IDisposable
     {
-
         IPluginAttribute PluginAttribute { get; }
+
+        IPluginSetting PluginSetting { get; }
+
         IHostService HostService { get; }
-        UserControl GetUi(ShellStruct data);
     }
 }

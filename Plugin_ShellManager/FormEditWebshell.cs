@@ -1,35 +1,44 @@
 ﻿using System;
 using System.Windows.Forms;
-using Altman.LogicCore;
 using Altman.ModelCore;
+using PluginFramework;
 
-namespace Altman.UICore.Control_ShellManager
+namespace Plugin_ShellManager
 {
     public delegate void WebshellWatchEventHandler(object sender, EventArgs e);
 
     public partial class FormEditWebshell : Form
     {
         private string Id;
-        private ShellManager _shellManager = null;
-        public FormEditWebshell()
+
+        private IHostService _hostService;
+        private ShellManagerService _shellManagerService = null;
+        public FormEditWebshell(IHostService hostService)
         {
             InitializeComponent();
+            
+            this._hostService = hostService;
+            _shellManagerService = new ShellManagerService(_hostService);
+
+            //init
             ComboBox_ScriptType_Init();
-
-            _shellManager = new ShellManager();
-
+            
             this.button_Add.Enabled = true;
             this.button_Alter.Enabled = false;
 
             comboBox_IniType_Init();
         }
 
-        public FormEditWebshell(ShellStruct shellStructArray)
+        public FormEditWebshell(IHostService hostService, ShellStruct shellStructArray)
         {
-            InitializeComponent();
-            ComboBox_ScriptType_Init();
+            InitializeComponent();           
 
-            _shellManager = new ShellManager();
+            this._hostService = hostService;
+            _shellManagerService = new ShellManagerService(_hostService);
+
+
+            //init
+            ComboBox_ScriptType_Init();
 
             this.button_Add.Enabled = false;
             this.button_Alter.Enabled = true;
@@ -79,7 +88,7 @@ namespace Altman.UICore.Control_ShellManager
             }
             shellStruct.AddTime = time;
 
-            _shellManager.Insert(shellStruct);
+            _shellManagerService.Insert(shellStruct);
             OnWebshellChange(EventArgs.Empty);
             this.Close();
         }
@@ -111,7 +120,7 @@ namespace Altman.UICore.Control_ShellManager
             shellStruct.AddTime = time;
 
 
-            _shellManager.Update(int.Parse(shellStruct.Id), shellStruct);
+            _shellManagerService.Update(int.Parse(shellStruct.Id), shellStruct);
             OnWebshellChange(EventArgs.Empty);
             this.Close();
         }
@@ -131,7 +140,7 @@ namespace Altman.UICore.Control_ShellManager
         private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
-            foreach (string type in InitUi.GetCustomShellTypeNameList())
+            foreach (string type in _hostService.Core.GetCustomShellTypeNameList())
             {
                 comboBox_ScritpType.Items.Add(type);
             }
@@ -143,7 +152,7 @@ namespace Altman.UICore.Control_ShellManager
         {
             string[] types = { "DbConnStr", "PostData"};
             comboBox_IniType.Items.AddRange(types);
-            comboBox_IniType.SelectedIndex = 0;
+            //comboBox_IniType.SelectedIndex = 0;
 
         }
         /// <summary>
@@ -157,7 +166,7 @@ namespace Altman.UICore.Control_ShellManager
             //如果选择了数据库连接配置类型
             if (comboBox_IniType.Text == "DbConnStr")
             {
-                comboBox_Items.Items.AddRange(InitUi.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
+                comboBox_Items.Items.AddRange(_hostService.Core.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
             }
         }
 

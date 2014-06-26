@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using Altman.Common.AltEventArgs;
-using Altman.LogicCore;
 using Altman.ModelCore;
 using PluginFramework;
 
-namespace Altman.UICore.Control_ShellManager
+namespace Plugin_ShellManager
 {
-    public partial class ControlShellManager : UserControl
+    public partial class ShellManagerControl : UserControl
     {
-        private ShellManager _shellManager = null;
+        private IHostService _hostService;
+        private ShellStruct _shellData;
+        private ShellManagerService _shellManagerService = null;
 
-        public ControlShellManager(IEnumerable<IPlugin> plugins)
+        public ShellManagerControl(IHostService hostService, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -24,27 +23,35 @@ namespace Altman.UICore.Control_ShellManager
             //创建listview
             //CreateListView();
 
-            _shellManager = new ShellManager();
-            _shellManager.GetDataTableCompletedToDo += _shellManager_GetDataTableCompletedToDo;
-            _shellManager.DeleteCompletedToDo += _shellManager_DeleteCompletedToDo;
-            _shellManager.InsertCompletedToDo += _shellManager_InsertCompletedToDo;
-            _shellManager.UpdateCompletedToDo += _shellManager_UpdateCompletedToDo;
+            this._hostService = hostService;
+            this._shellData = data;
+
+            //注册事件
+            _shellManagerService = new ShellManagerService(_hostService);
+            _shellManagerService.GetDataTableCompletedToDo += ShellManagerServiceGetDataTableCompletedToDo;
+            _shellManagerService.DeleteCompletedToDo += ShellManagerServiceDeleteCompletedToDo;
+            _shellManagerService.InsertCompletedToDo += ShellManagerServiceInsertCompletedToDo;
+            _shellManagerService.UpdateCompletedToDo += ShellManagerServiceUpdateCompletedToDo;
 
             //载入shell数据
             LoadWebshellData();
 
             //添加插件到右键菜单
-            foreach (var plugin in plugins)
+            foreach (var plugin in hostService.Core.GetPlugins())
             {
-                string title = plugin.PluginAttribute.Title;
+                //IsShowInRightContext
+                if (plugin.PluginSetting.IsShowInRightContext)
+                {
+                    string title = plugin.PluginAttribute.Name;
 
-                //添加到Tsmi_Plugins中
-                ToolStripMenuItem pluginItem = new ToolStripMenuItem();
-                pluginItem.Name = title;
-                pluginItem.Text = title;
-                pluginItem.Click += pluginItem_Click;
-                pluginItem.Tag = plugin;
-                rightMenu_Webshell.Items.Add(pluginItem);
+                    //添加到Tsmi_Plugins中
+                    ToolStripMenuItem pluginItem = new ToolStripMenuItem();
+                    pluginItem.Name = title;
+                    pluginItem.Text = title;
+                    pluginItem.Click += pluginItem_Click;
+                    pluginItem.Tag = plugin;
+                    rightMenu_Webshell.Items.Add(pluginItem);
+                }           
             }
         }
 
@@ -60,11 +67,19 @@ namespace Altman.UICore.Control_ShellManager
                     ShellStruct shellStruct = (ShellStruct) lv_shell.SelectedItems[0].Tag;
                     shellStruct.TimeOut = 8000;
 
-                    UserControl view = plugin.GetUi(shellStruct);
-                    //创建新的tab标签
-                    //设置标题为FileManager|TargetId
-                    string title = plugin.PluginAttribute.Title+"|"+shellStruct.TargetId;
-                    TabCore.CreateNewTabPage(title, view);
+                    if (plugin is IControlPlugin)
+                    {
+                        UserControl view = (plugin as IControlPlugin).GetUi(shellStruct);
+                        //创建新的tab标签
+                        //设置标题为FileManager|TargetId
+                        string title = plugin.PluginAttribute.Name + "|" + shellStruct.TargetId;
+                        _hostService.Gui.CreateNewTabPage(title, view);
+                    }
+                    else if (plugin is IFormPlugin)
+                    {
+                        Form form = (plugin as IFormPlugin).GetUi(shellStruct);
+                        form.Show();
+                    }
                 }
             }
         }
@@ -149,7 +164,7 @@ namespace Altman.UICore.Control_ShellManager
         {
             int num = 1;
             lv_shell.Items.Clear();
-            DataTable dataTable = _shellManager.GetDataTable();
+            DataTable dataTable = _shellManagerService.GetDataTable();
             if (dataTable == null)
             {
                 return;
@@ -178,28 +193,28 @@ namespace Altman.UICore.Control_ShellManager
         }
 
         #region 数据获取/插入/删除/更新事件
-        private void _shellManager_UpdateCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
+        private void ShellManagerServiceUpdateCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
         {
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
         }
-        private void _shellManager_InsertCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
+        private void ShellManagerServiceInsertCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
         {
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
         }
-        private void _shellManager_DeleteCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
+        private void ShellManagerServiceDeleteCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
         {
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
         }
-        private void _shellManager_GetDataTableCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
+        private void ShellManagerServiceGetDataTableCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -216,7 +231,7 @@ namespace Altman.UICore.Control_ShellManager
         }
         private void item_add_Click(object sender, EventArgs e)
         {
-            FormEditWebshell editwebshell = new FormEditWebshell();
+            FormEditWebshell editwebshell = new FormEditWebshell(_hostService);
             editwebshell.WebshellWatchEvent += OnWebshellChange;
             editwebshell.Show();
         }
@@ -227,7 +242,7 @@ namespace Altman.UICore.Control_ShellManager
                 ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
                 //ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
 
-                FormEditWebshell editwebshell = new FormEditWebshell(shellStruct);
+                FormEditWebshell editwebshell = new FormEditWebshell(_hostService, shellStruct);
                 editwebshell.WebshellWatchEvent += OnWebshellChange;
                 editwebshell.Show();
             }
@@ -237,7 +252,7 @@ namespace Altman.UICore.Control_ShellManager
             if (lv_shell.SelectedItems.Count > 0)
             {
                 int id = int.Parse(((ShellStruct)lv_shell.SelectedItems[0].Tag).Id);
-                _shellManager.Delete(id);
+                _shellManagerService.Delete(id);
                 LoadWebshellData();
             }
         }
@@ -250,7 +265,7 @@ namespace Altman.UICore.Control_ShellManager
         }
         private void RefreshAllStatus()
         {
-            DataTable dataTable = _shellManager.GetDataTable();
+            DataTable dataTable = _shellManagerService.GetDataTable();
             if (dataTable == null)
             {
                 return;
@@ -316,7 +331,7 @@ namespace Altman.UICore.Control_ShellManager
 
                 ShellStruct shellStruct = (ShellStruct)item.Tag;
                 shellStruct.Status = status;
-                _shellManager.Update(int.Parse(shellStruct.Id), shellStruct);
+                _shellManagerService.Update(int.Parse(shellStruct.Id), shellStruct);
             }
         }
         #endregion
@@ -339,7 +354,7 @@ namespace Altman.UICore.Control_ShellManager
             if (lv_shell.SelectedItems.Count > 0)
             {
                 ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
-                string code = InitUi.GetCustomShellTypeServerCode(shellStruct.ShellType);
+                string code = _hostService.Core.GetCustomShellTypeServerCode(shellStruct.ShellType);
 
                 if (string.IsNullOrWhiteSpace(code))
                 {

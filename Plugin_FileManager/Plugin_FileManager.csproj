@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginAttribute.cs" />
+    <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

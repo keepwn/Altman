@@ -67,61 +67,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="UI\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="UI\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlPolicySetting.cs">
+    <Compile Include="UI\ControlPolicySetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlPolicySetting.Designer.cs">
+    <Compile Include="UI\ControlPolicySetting.Designer.cs">
       <DependentUpon>ControlPolicySetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlProxySetting.cs">
+    <Compile Include="UI\ControlProxySetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlProxySetting.Designer.cs">
+    <Compile Include="UI\ControlProxySetting.Designer.cs">
       <DependentUpon>ControlProxySetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlRequestHeaderSetting.cs">
+    <Compile Include="UI\ControlRequestHeaderSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlRequestHeaderSetting.Designer.cs">
+    <Compile Include="UI\ControlRequestHeaderSetting.Designer.cs">
       <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlUserAgentSetting.cs">
+    <Compile Include="UI\ControlUserAgentSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlUserAgentSetting.Designer.cs">
+    <Compile Include="UI\ControlUserAgentSetting.Designer.cs">
       <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormCustomShellTypeWizard.cs">
+    <Compile Include="CoreService.cs" />
+    <Compile Include="DbService.cs" />
+    <Compile Include="UI\FormCustomShellTypeWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCustomShellTypeWizard.Designer.cs">
+    <Compile Include="UI\FormCustomShellTypeWizard.Designer.cs">
       <DependentUpon>FormCustomShellTypeWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormGlobalSetting.cs">
+    <Compile Include="UI\FormGlobalSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormGlobalSetting.Designer.cs">
+    <Compile Include="UI\FormGlobalSetting.Designer.cs">
       <DependentUpon>FormGlobalSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormListening.cs">
+    <Compile Include="UI\FormListening.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormListening.Designer.cs">
+    <Compile Include="UI\FormListening.Designer.cs">
       <DependentUpon>FormListening.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiService.cs" />
+    <Compile Include="HostService.cs" />
     <Compile Include="InitUI.cs" />
     <Compile Include="LoadOrSaveSetting.cs" />
     <Compile Include="PluginsImport.cs" />
-    <Compile Include="FormMain.cs">
+    <Compile Include="UI\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
+    <Compile Include="UI\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -131,63 +135,45 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UICore\Control_ShellManager\ControlShellManager.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UICore\Control_ShellManager\ControlShellManager.Designer.cs">
-      <DependentUpon>ControlShellManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICore\Control_ShellManager\FormEditWebshell.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICore\Control_ShellManager\FormEditWebshell.Designer.cs">
-      <DependentUpon>FormEditWebshell.cs</DependentUpon>
-    </Compile>
     <Compile Include="TabCore.cs" />
-    <Compile Include="Welcome.cs">
+    <Compile Include="UI\Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Welcome.Designer.cs">
+    <Compile Include="UI\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutBox.resx">
+    <EmbeddedResource Include="UI\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlPolicySetting.resx">
+    <EmbeddedResource Include="UI\ControlPolicySetting.resx">
       <DependentUpon>ControlPolicySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlProxySetting.resx">
+    <EmbeddedResource Include="UI\ControlProxySetting.resx">
       <DependentUpon>ControlProxySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlRequestHeaderSetting.resx">
+    <EmbeddedResource Include="UI\ControlRequestHeaderSetting.resx">
       <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlUserAgentSetting.resx">
+    <EmbeddedResource Include="UI\ControlUserAgentSetting.resx">
       <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCustomShellTypeWizard.resx">
+    <EmbeddedResource Include="UI\FormCustomShellTypeWizard.resx">
       <DependentUpon>FormCustomShellTypeWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormGlobalSetting.resx">
+    <EmbeddedResource Include="UI\FormGlobalSetting.resx">
       <DependentUpon>FormGlobalSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormListening.resx">
+    <EmbeddedResource Include="UI\FormListening.resx">
       <DependentUpon>FormListening.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="UI\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UICore\Control_ShellManager\ControlShellManager.resx">
-      <DependentUpon>ControlShellManager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICore\Control_ShellManager\FormEditWebshell.resx">
-      <DependentUpon>FormEditWebshell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Welcome.resx">
+    <EmbeddedResource Include="UI\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -195,6 +181,10 @@
     <ProjectReference Include="..\Altman.Common\Altman.Common.csproj">
       <Project>{8204d833-0e7e-4b70-a276-a25edbaf7f7e}</Project>
       <Name>Altman.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Altman.DbCore\Altman.DbCore.csproj">
+      <Project>{9EE74A10-2A4A-4CE9-AF0C-D9DE32066303}</Project>
+      <Name>Altman.DbCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Altman.Setting\Altman.Setting.csproj">
       <Project>{50e8c0d0-7d2f-47e5-8581-c0280fbf4c1a}</Project>

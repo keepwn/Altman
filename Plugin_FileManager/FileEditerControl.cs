@@ -11,11 +11,11 @@ namespace Plugin_FileManager
     {
         private FileManagerService _fileManager;
 
-        private HostService _hostService;
+        private IHostService _hostService;
         private ShellStruct _shellData;
 
 
-        public FileEditerControl(HostService hostService, ShellStruct data, string filePath, bool autoLoadContent)
+        public FileEditerControl(IHostService hostService, ShellStruct data, string filePath, bool autoLoadContent)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;

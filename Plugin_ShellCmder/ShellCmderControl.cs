@@ -17,15 +17,15 @@ namespace Plugin_ShellCmder
 {
     public partial class ShellCmderControl : UserControl
     {
-        private HostService _hostService;
-        private ShellCmder _shellCmder;
+        private IHostService _hostService;
+        private ShellCmderService _shellCmder;
         private ShellStruct _shellData;
         private InternalCommand _internalCommand;
 
         private bool _isWin;
         private string _currentDir;
 
-        public ShellCmderControl(HostService hostService,ShellStruct data)
+        public ShellCmderControl(IHostService hostService, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -56,7 +56,7 @@ namespace Plugin_ShellCmder
             try
             {
                 //初始化ShellCmder
-                _shellCmder = new ShellCmder(_hostService,_shellData);
+                _shellCmder = new ShellCmderService(_hostService,_shellData);
                 //初始化内部命令
                 _internalCommand = new InternalCommand(shellTextBox_Cmder, _shellCmder);
                 //获取系统信息

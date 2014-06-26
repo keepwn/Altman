@@ -7,8 +7,8 @@ namespace Plugin_ShellCmder
     public class InternalCommand
     {
         private TextBoxShell shellTextBoxCmder;
-        private ShellCmder cmdshell;
-        public InternalCommand(TextBoxShell shellTextBoxCmder, ShellCmder cmdshell)
+        private ShellCmderService cmdshell;
+        public InternalCommand(TextBoxShell shellTextBoxCmder, ShellCmderService cmdshell)
         {
             this.shellTextBoxCmder = shellTextBoxCmder;
             this.cmdshell = cmdshell;

@@ -1,4 +1,4 @@
-﻿namespace Altman.UICore.Control_ShellManager
+﻿namespace Plugin_ShellManager
 {
     partial class FormEditWebshell
     {

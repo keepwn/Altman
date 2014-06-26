@@ -52,6 +52,7 @@ namespace Altman
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_showMsg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_productVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -254,8 +255,8 @@ namespace Altman
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel_showMsg,
+            this.toolStripStatusLabel1,
             this.toolStripStatusLabel_productVersion});
-            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.statusStrip1.Location = new System.Drawing.Point(0, 485);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(827, 22);
@@ -267,6 +268,13 @@ namespace Altman
             this.toolStripStatusLabel_showMsg.Name = "toolStripStatusLabel_showMsg";
             this.toolStripStatusLabel_showMsg.Size = new System.Drawing.Size(64, 17);
             this.toolStripStatusLabel_showMsg.Text = "showMsg";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(619, 17);
+            this.toolStripStatusLabel1.Spring = true;
             // 
             // toolStripStatusLabel_productVersion
             // 
@@ -335,7 +343,6 @@ namespace Altman
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Wizard;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Listening;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Help;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_showMsg;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_Plugins;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_about;
@@ -344,6 +351,8 @@ namespace Altman
         private System.Windows.Forms.ToolStripMenuItem Tsmi_ReloadShellType;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_ReloadSetting;
         private System.Windows.Forms.ToolStripMenuItem Tsmi_docs;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_showMsg;
     }
 }
 

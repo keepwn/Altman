@@ -13,14 +13,14 @@ namespace Plugin_FileManager
 {
     public class FileUploadOrDownload
     {
-        private HostService _hostService;
+        private IHostService _hostService;
         private ShellStruct _shellData;
 
         private string _sourceFilePath;
         private string _targetFilePath;
         private BackgroundWorker _backgroundWorker;
 
-        public FileUploadOrDownload(HostService hostService, ShellStruct shellData, string sourceFilePath, string targetFilePath)
+        public FileUploadOrDownload(IHostService hostService, ShellStruct shellData, string sourceFilePath, string targetFilePath)
         {
             _hostService = hostService;
             _shellData = shellData;
@@ -132,7 +132,7 @@ namespace Plugin_FileManager
         {
             string[] par = e.Argument as string[];
 
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
             byte[] fileBytes = ResultMatch.MatchResultToFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             e.Result = SaveFile(par[1], fileBytes);
         }
@@ -176,7 +176,7 @@ namespace Plugin_FileManager
         private void upload_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "FileManager/UploadFileCode", par);
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/UploadFileCode", par);
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void upload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

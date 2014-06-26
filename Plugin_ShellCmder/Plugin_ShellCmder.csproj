@@ -63,6 +63,7 @@
     <Compile Include="InternalCommand.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginAttribute.cs" />
+    <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellCmderControl.cs">
       <SubType>UserControl</SubType>
@@ -70,7 +71,7 @@
     <Compile Include="ShellCmderControl.Designer.cs">
       <DependentUpon>ShellCmderControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ShellCmder.cs" />
+    <Compile Include="ShellCmderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ShellCmderControl.resx">

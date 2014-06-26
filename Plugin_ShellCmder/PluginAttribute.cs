@@ -1,13 +1,18 @@
-﻿using System.Windows.Forms;
+﻿using System.Reflection;
+using System.Windows.Forms;
 using PluginFramework;
 
 namespace Plugin_ShellCmder
 {
     public class PluginAttribute : IPluginAttribute
     {
-        public string Title
+        public string Name
         {
             get { return "ShellCmder"; }
+        }
+        public string FileName
+        {
+            get { return Assembly.GetExecutingAssembly().ManifestModule.Name; }
         }
         public string Group
         {
@@ -15,7 +20,7 @@ namespace Plugin_ShellCmder
         }
         public string Version
         {
-            get { return Application.ProductVersion; }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
         public string Author
         {

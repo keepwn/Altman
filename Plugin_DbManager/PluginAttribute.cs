@@ -1,12 +1,17 @@
-﻿using PluginFramework;
+﻿using System.Reflection;
+using PluginFramework;
 
 namespace Plugin_DbManager
 {
     public class PluginAttribute : IPluginAttribute
     {
-        public string Title
+        public string Name
         {
             get { return "DbManager"; }
+        }
+        public string FileName
+        {
+            get { return Assembly.GetExecutingAssembly().ManifestModule.Name; }
         }
         public string Group
         {
@@ -14,7 +19,7 @@ namespace Plugin_DbManager
         }
         public string Version
         {
-            get { return "1.0"; }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
         public string Author
         {

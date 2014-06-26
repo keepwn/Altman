@@ -15,12 +15,12 @@ namespace Plugin_DbManager
 {
     public partial class DbManagerControl : UserControl
     {
-        private HostService _hostService;
+        private IHostService _hostService;
         private ShellStruct _shellData;
 
         private DbManagerService dbManagerService;
         private XmlNode _node = null;
-        public DbManagerControl(HostService hostService, ShellStruct data)
+        public DbManagerControl(IHostService hostService, ShellStruct data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -52,7 +52,7 @@ namespace Plugin_DbManager
         {
             if (e.Error != null)
             {
-                _hostService.ShowMsgInStatusBar(e.Error.Message);
+                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
                 ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is DataTable)
@@ -66,7 +66,7 @@ namespace Plugin_DbManager
         {
             if (e.Error != null)
             {
-                _hostService.ShowMsgInStatusBar(e.Error.Message);
+                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
                 ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is DataTable)
@@ -327,7 +327,7 @@ namespace Plugin_DbManager
         }
         private void ShowMsgInStatusBar(string msg)
         {
-            _hostService.ShowMsgInStatusBar(msg);
+            _hostService.Gui.ShowMsgInStatusBar(msg);
         }
 
         /// <summary>

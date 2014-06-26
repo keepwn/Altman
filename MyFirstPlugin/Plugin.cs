@@ -11,21 +11,29 @@ namespace MyFirstPlugin
 {
     [PartCreationPolicy(CreationPolicy.NonShared)]
     [Export(typeof(IPlugin))]
-    public class Plugin : IPlugin
+    public class Plugin : IControlPlugin
     {
         private UserControl _userControl;
         private PluginAttribute _pluginAttribute;
-        private HostService _hostService;
+        private IPluginSetting _pluginSetting;
+        private IHostService _hostService;
 
-        public Plugin()
+        [ImportingConstructor]
+        public Plugin([Import("IHostService")]IHostService service)
         {
             _pluginAttribute = new PluginAttribute();
-            _hostService = new HostService();
+            _pluginSetting = new PluginSetting();
+            _hostService = service;
         }
 
         public IPluginAttribute PluginAttribute
         {
             get { return _pluginAttribute; }
+        }
+
+        public IPluginSetting PluginSetting
+        {
+            get { return _pluginSetting; }
         }
 
         public IHostService HostService
@@ -35,13 +43,13 @@ namespace MyFirstPlugin
 
         public UserControl GetUi(ShellStruct data)
         {
-             return _userControl = new MyFirstPlugin(_hostService,data);
+             return _userControl = new MyFirstPlugin(_hostService,(ShellStruct)data);
         }
 
         public void Dispose()
         {
-            _userControl.Dispose();
-            MessageBox.Show("Disposed");
+            if(_userControl!=null)
+                _userControl.Dispose();
         }
     }
 }

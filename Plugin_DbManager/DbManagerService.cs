@@ -12,10 +12,10 @@ namespace Plugin_DbManager
 {
     public class DbManagerService
     {
-        private HostService _hostService;
+        private IHostService _hostService;
         private ShellStruct _shellData;
         private string _dbType;
-        public DbManagerService(HostService hostService, ShellStruct data,string dbType)
+        public DbManagerService(IHostService hostService, ShellStruct data, string dbType)
         {
             this._hostService = hostService;
             this._shellData = data;
@@ -69,7 +69,7 @@ namespace Plugin_DbManager
         private void connectDb_DoWork(object sender, DoWorkEventArgs e)
         {
             string par = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ConnectDb", new string[] { par });
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ConnectDb", new string[] { par });
 
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
@@ -91,7 +91,7 @@ namespace Plugin_DbManager
         private void getDdName_DoWork(object sender, DoWorkEventArgs e)
         {
             string par = e.Argument as string;
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetDbName", new string[] { par });
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetDbName", new string[] { par });
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] dbs = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -116,7 +116,7 @@ namespace Plugin_DbManager
         private void getDdTableName_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetTableName", par);
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetTableName", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] tables = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -141,7 +141,7 @@ namespace Plugin_DbManager
         private void getColumnType_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetColumnType", par);
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetColumnType", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] columns = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -166,7 +166,7 @@ namespace Plugin_DbManager
         private void executeReader_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteReader", par);
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteReader", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             e.Result = ConvertStrToDataTable(tmp);
@@ -190,7 +190,7 @@ namespace Plugin_DbManager
         private void executeNonQuery_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteNonQuery", par);
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteNonQuery", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             e.Result = ConvertStrToDataTable(tmp);
