@@ -20,7 +20,7 @@
   </HttpHeader>
   <Policy>
     <isParamRandom>1</isParamRandom>
-    <isShowDisclaimer>1</isShowDisclaimer>
+    <isShowDisclaimer>0</isShowDisclaimer>
   </Policy>
   <Proxy>
     <type>0</type>

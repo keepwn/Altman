@@ -9,25 +9,25 @@ namespace Altman
 {
     public class HostService : IHostService
     {
-        public ICoreInHostService Core
+        public IHostCoreService Core
         {
             get { return _core; }
         }
 
-        public IGuiInHostService Gui
+        public IHostGuiService Gui
         {
             get { return _gui; }
         }
 
-        public IDbInHostService Db
+        public IHostDbService Db
         {
             get { return _db; }
         }
 
 
-        private ICoreInHostService _core;
-        private IGuiInHostService _gui;
-        private IDbInHostService _db;
+        private IHostCoreService _core;
+        private IHostGuiService _gui;
+        private IHostDbService _db;
 
         public HostService(FormMain mainForm)
         {

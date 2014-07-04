@@ -19,13 +19,13 @@ namespace Plugin_ShellCmder
     {
         private IHostService _hostService;
         private ShellCmderService _shellCmder;
-        private ShellStruct _shellData;
+        private Shell _shellData;
         private InternalCommand _internalCommand;
 
         private bool _isWin;
         private string _currentDir;
 
-        public ShellCmderControl(IHostService hostService, ShellStruct data)
+        public ShellCmderControl(IHostService hostService, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;

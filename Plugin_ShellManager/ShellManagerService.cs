@@ -62,7 +62,7 @@ namespace Plugin_ShellManager
         /// 插入数据
         /// </summary>
         /// <param name="model"></param>
-        public void Insert(ShellStruct model)
+        public void Insert(Shell model)
         {
             Exception error = null;
             try
@@ -83,7 +83,7 @@ namespace Plugin_ShellManager
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public void Update(int id, ShellStruct model)
+        public void Update(int id, Shell model)
         {
             Exception error = null;
             try

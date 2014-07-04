@@ -37,7 +37,7 @@ namespace Plugin_DbManager
             get { return _hostService; }
         }
 
-        public UserControl GetUi(ShellStruct data)
+        public UserControl GetUi(Shell data)
         {
             return _userControl = new DbManagerControl(_hostService, data);
         }

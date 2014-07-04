@@ -13,9 +13,9 @@ namespace Plugin_DbManager
     public class DbManagerService
     {
         private IHostService _hostService;
-        private ShellStruct _shellData;
+        private Shell _shellData;
         private string _dbType;
-        public DbManagerService(IHostService hostService, ShellStruct data, string dbType)
+        public DbManagerService(IHostService hostService, Shell data, string dbType)
         {
             this._hostService = hostService;
             this._shellData = data;

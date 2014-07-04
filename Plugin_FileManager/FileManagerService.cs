@@ -11,8 +11,8 @@ namespace Plugin_FileManager
     public class FileManagerService
     {
         private IHostService _hostService;
-        private ShellStruct _shellData;
-        public FileManagerService(IHostService hostService, ShellStruct data)
+        private Shell _shellData;
+        public FileManagerService(IHostService hostService, Shell data)
         {
             this._hostService = hostService;
             this._shellData = data;

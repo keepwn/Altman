@@ -11,8 +11,13 @@ namespace Altman.WebCore
 {
     public class HttpClient
     {
+        private WebHeaderCollection _header;
         public HttpClient()
         {
+        }
+        public HttpClient(WebHeaderCollection header)
+        {
+            this._header = header;
         }
         private Http GetHttp()
         {
@@ -25,16 +30,33 @@ namespace Altman.WebCore
                 http.Cookies = GlobalSetting.HttpCookie;
             }
             //配置HttpHeader
-            if (GlobalSetting.HttpHeader != null)
+            //Shell的HttpHeader优先于全局HttpHeader
+            if (_header != null)
             {
+                foreach (string key in GlobalSetting.HttpHeader.Keys)
+                {
+                    if (_header[key]==null)
+                    {
+                        _header.Add(key, GlobalSetting.HttpHeader[key]);
+                    }
+                }
                 //由于传递过去的Headers的值可能发生变化，所以这里需要完全拷贝一份。
-                WebHeaderCollection tmpHeader = new WebHeaderCollection { GlobalSetting.HttpHeader };
+                WebHeaderCollection tmpHeader = new WebHeaderCollection { _header };
                 http.Headers = tmpHeader;
             }
+            else
+            {
+                if (GlobalSetting.HttpHeader != null)
+                {                  
+                    WebHeaderCollection tmpHeader = new WebHeaderCollection { GlobalSetting.HttpHeader };
+                    http.Headers = tmpHeader;
+                }
+            }
+
             //配置UserAgent
             if (GlobalSetting.UserAgent != null)
             {
-                int index = new Random().Next(0,GlobalSetting.UserAgent.Count);
+                int index = new Random().Next(0, GlobalSetting.UserAgent.Count);
                 http.Headers.Add(HttpRequestHeader.UserAgent, GlobalSetting.UserAgent[index]);
             }
             return http;
@@ -88,15 +110,15 @@ namespace Altman.WebCore
             }
             return postCode;
         }
-        public byte[] SubmitCommandByPost(string url, 
-                                          Dictionary<string, string> commandCode, 
-                                          bool isBindUploadProgressChangedEvent=false,
-                                          bool isBindDownloadProgressChangedEvent=false)
+        public byte[] SubmitCommandByPost(string url,
+                                          Dictionary<string, string> commandCode,
+                                          bool isBindUploadProgressChangedEvent = false,
+                                          bool isBindDownloadProgressChangedEvent = false)
         {
             Http http = GetHttp();
-            if(isBindUploadProgressChangedEvent)
+            if (isBindUploadProgressChangedEvent)
                 http.UploadProgressChanged += http_UploadProgressChanged;
-            if(isBindDownloadProgressChangedEvent)
+            if (isBindDownloadProgressChangedEvent)
                 http.DownloadProgressChanged += http_DownloadProgressChanged;
 
             string postCode = ProcessCommandCode(ref http, commandCode);

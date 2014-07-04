@@ -12,10 +12,10 @@ namespace Plugin_ShellManager
     public partial class ShellManagerControl : UserControl
     {
         private IHostService _hostService;
-        private ShellStruct _shellData;
+        private Shell _shellData;
         private ShellManagerService _shellManagerService = null;
 
-        public ShellManagerControl(IHostService hostService, ShellStruct data)
+        public ShellManagerControl(IHostService hostService, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -64,20 +64,20 @@ namespace Plugin_ShellManager
                 {
                     IPlugin plugin = item.Tag as IPlugin;
 
-                    ShellStruct shellStruct = (ShellStruct) lv_shell.SelectedItems[0].Tag;
-                    shellStruct.TimeOut = 8000;
+                    Shell shell = (Shell) lv_shell.SelectedItems[0].Tag;
+                    shell.TimeOut = 8000;
 
                     if (plugin is IControlPlugin)
                     {
-                        UserControl view = (plugin as IControlPlugin).GetUi(shellStruct);
+                        UserControl view = (plugin as IControlPlugin).GetUi(shell);
                         //创建新的tab标签
                         //设置标题为FileManager|TargetId
-                        string title = plugin.PluginAttribute.Name + "|" + shellStruct.TargetId;
+                        string title = plugin.PluginAttribute.Name + "|" + shell.TargetId;
                         _hostService.Gui.CreateNewTabPage(title, view);
                     }
                     else if (plugin is IFormPlugin)
                     {
-                        Form form = (plugin as IFormPlugin).GetUi(shellStruct);
+                        Form form = (plugin as IFormPlugin).GetUi(shell);
                         form.Show();
                     }
                 }
@@ -133,27 +133,27 @@ namespace Plugin_ShellManager
             this.Controls.Add(lv_shell);
         }
 
-        private ShellStruct ConvertDataRowToShellStruct(DataRow row)
+        private Shell ConvertDataRowToShellStruct(DataRow row)
         {
-            ShellStruct shellStruct = new ShellStruct();
+            Shell shell = new Shell();
 
-            shellStruct.Id = row["id"].ToString();
-            shellStruct.TargetId = row["target_id"].ToString();
-            shellStruct.TargetLevel = row["target_level"].ToString();
-            shellStruct.Status = row["status"].ToString();
+            shell.Id = row["id"].ToString();
+            shell.TargetId = row["target_id"].ToString();
+            shell.TargetLevel = row["target_level"].ToString();
+            shell.Status = row["status"].ToString();
 
-            shellStruct.ShellUrl = row["shell_url"].ToString();
-            shellStruct.ShellPwd = row["shell_pwd"].ToString();
-            shellStruct.ShellType = row["shell_type"].ToString();
-            shellStruct.ShellExtraSetting = row["shell_extra_setting"].ToString();
-            shellStruct.ServerCoding = row["server_coding"].ToString();
-            shellStruct.WebCoding = row["web_coding"].ToString();
+            shell.ShellUrl = row["shell_url"].ToString();
+            shell.ShellPwd = row["shell_pwd"].ToString();
+            shell.ShellType = row["shell_type"].ToString();
+            shell.ShellExtraString = row["shell_extra_setting"].ToString();
+            shell.ServerCoding = row["server_coding"].ToString();
+            shell.WebCoding = row["web_coding"].ToString();
 
-            shellStruct.Area = row["area"].ToString();
-            shellStruct.Remark = row["remark"].ToString();
-            shellStruct.AddTime = row["add_time"].ToString();
+            shell.Area = row["area"].ToString();
+            shell.Remark = row["remark"].ToString();
+            shell.AddTime = row["add_time"].ToString();
 
-            return shellStruct;
+            return shell;
         }
 
 
@@ -171,23 +171,23 @@ namespace Plugin_ShellManager
             }
             foreach (DataRow row in dataTable.Rows)
             {
-                ShellStruct shellStruct = ConvertDataRowToShellStruct(row);
+                Shell shell = ConvertDataRowToShellStruct(row);
                 string[] items = new string[] { 
-                    shellStruct.Id, 
+                    shell.Id, 
                     num++.ToString(), 
-                    shellStruct.TargetId, 
-                    shellStruct.TargetLevel,
-                    shellStruct.Status,
-                    shellStruct.ShellUrl, 
-                    shellStruct.ShellType,
-                    shellStruct.ServerCoding, 
-                    shellStruct.Area,
-                    shellStruct.Remark,
-                    shellStruct.AddTime
+                    shell.TargetId, 
+                    shell.TargetLevel,
+                    shell.Status,
+                    shell.ShellUrl, 
+                    shell.ShellType,
+                    shell.ServerCoding, 
+                    shell.Area,
+                    shell.Remark,
+                    shell.AddTime
                     };
 
                 ListViewItem viewItem = new ListViewItem(items);
-                viewItem.Tag = shellStruct;
+                viewItem.Tag = shell;
                 lv_shell.Items.Add(viewItem);
             }
         }
@@ -239,10 +239,10 @@ namespace Plugin_ShellManager
         {
             if (lv_shell.SelectedItems.Count > 0)
             {
-                ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
-                //ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
+                Shell shell = (Shell)lv_shell.SelectedItems[0].Tag;
+                //Shell Shell = (Shell)lv_shell.SelectedItems[0].Tag;
 
-                FormEditWebshell editwebshell = new FormEditWebshell(_hostService, shellStruct);
+                FormEditWebshell editwebshell = new FormEditWebshell(_hostService, shell);
                 editwebshell.WebshellWatchEvent += OnWebshellChange;
                 editwebshell.Show();
             }
@@ -251,7 +251,7 @@ namespace Plugin_ShellManager
         {
             if (lv_shell.SelectedItems.Count > 0)
             {
-                int id = int.Parse(((ShellStruct)lv_shell.SelectedItems[0].Tag).Id);
+                int id = int.Parse(((Shell)lv_shell.SelectedItems[0].Tag).Id);
                 _shellManagerService.Delete(id);
                 LoadWebshellData();
             }
@@ -279,8 +279,8 @@ namespace Plugin_ShellManager
         private void RefreshStatus(object listViewItem)
         {
             ListViewItem item = listViewItem as ListViewItem;
-            ShellStruct shellStruct = (ShellStruct)item.Tag;
-            string shellUrl = shellStruct.ShellUrl;
+            Shell shell = (Shell)item.Tag;
+            string shellUrl = shell.ShellUrl;
 
             HttpWebRequest myRequest = null;
             HttpWebResponse myResponse = null;
@@ -329,9 +329,9 @@ namespace Plugin_ShellManager
             {
                 item.SubItems[4].Text = status;
 
-                ShellStruct shellStruct = (ShellStruct)item.Tag;
-                shellStruct.Status = status;
-                _shellManagerService.Update(int.Parse(shellStruct.Id), shellStruct);
+                Shell shell = (Shell)item.Tag;
+                shell.Status = status;
+                _shellManagerService.Update(int.Parse(shell.Id), shell);
             }
         }
         #endregion
@@ -353,8 +353,8 @@ namespace Plugin_ShellManager
         {
             if (lv_shell.SelectedItems.Count > 0)
             {
-                ShellStruct shellStruct = (ShellStruct)lv_shell.SelectedItems[0].Tag;
-                string code = _hostService.Core.GetCustomShellTypeServerCode(shellStruct.ShellType);
+                Shell shell = (Shell)lv_shell.SelectedItems[0].Tag;
+                string code = _hostService.Core.GetCustomShellTypeServerCode(shell.ShellType);
 
                 if (string.IsNullOrWhiteSpace(code))
                 {

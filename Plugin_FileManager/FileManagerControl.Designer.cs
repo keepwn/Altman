@@ -57,7 +57,7 @@ namespace Plugin_FileManager
             this.item_add = new System.Windows.Forms.ToolStripMenuItem();
             this.item_createFile = new System.Windows.Forms.ToolStripMenuItem();
             this.item_createDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_readFile = new System.Windows.Forms.Button();
+            this.btn_Dir = new System.Windows.Forms.Button();
             this.textBox_url = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -73,7 +73,7 @@ namespace Plugin_FileManager
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button_readFile, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btn_Dir, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox_url, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -181,7 +181,7 @@ namespace Plugin_FileManager
             this.item_add});
             this.rightMenu_FileManager.Name = "rightMenu_FileManager";
             this.rightMenu_FileManager.ShowImageMargin = false;
-            this.rightMenu_FileManager.Size = new System.Drawing.Size(166, 280);
+            this.rightMenu_FileManager.Size = new System.Drawing.Size(166, 258);
             // 
             // item_refresh
             // 
@@ -193,7 +193,7 @@ namespace Plugin_FileManager
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
             // 
             // item_upload
             // 
@@ -219,7 +219,7 @@ namespace Plugin_FileManager
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(162, 6);
             // 
             // item_del
             // 
@@ -275,27 +275,28 @@ namespace Plugin_FileManager
             // item_createFile
             // 
             this.item_createFile.Name = "item_createFile";
-            this.item_createFile.Size = new System.Drawing.Size(152, 22);
+            this.item_createFile.Size = new System.Drawing.Size(93, 22);
             this.item_createFile.Text = "file";
             this.item_createFile.Click += new System.EventHandler(this.item_createFile_Click);
             // 
             // item_createDir
             // 
             this.item_createDir.Name = "item_createDir";
-            this.item_createDir.Size = new System.Drawing.Size(152, 22);
+            this.item_createDir.Size = new System.Drawing.Size(93, 22);
             this.item_createDir.Text = "dir";
             this.item_createDir.Click += new System.EventHandler(this.item_createDir_Click);
             // 
-            // button_readFile
+            // btn_Dir
             // 
-            this.button_readFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_Dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_readFile.Location = new System.Drawing.Point(538, 3);
-            this.button_readFile.Name = "button_readFile";
-            this.button_readFile.Size = new System.Drawing.Size(54, 23);
-            this.button_readFile.TabIndex = 1;
-            this.button_readFile.Text = "Dir";
-            this.button_readFile.UseVisualStyleBackColor = true;
+            this.btn_Dir.Location = new System.Drawing.Point(538, 3);
+            this.btn_Dir.Name = "btn_Dir";
+            this.btn_Dir.Size = new System.Drawing.Size(54, 23);
+            this.btn_Dir.TabIndex = 1;
+            this.btn_Dir.Text = "Dir";
+            this.btn_Dir.UseVisualStyleBackColor = true;
+            this.btn_Dir.Click += new System.EventHandler(this.btn_Dir_Click);
             // 
             // textBox_url
             // 
@@ -329,7 +330,7 @@ namespace Plugin_FileManager
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox textBox_url;
-        private System.Windows.Forms.Button button_readFile;
+        private System.Windows.Forms.Button btn_Dir;
         private System.Windows.Forms.TreeView treeView_Dirs;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.SplitContainer splitContainer1;

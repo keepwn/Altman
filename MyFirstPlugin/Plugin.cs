@@ -41,9 +41,9 @@ namespace MyFirstPlugin
             get { return _hostService; }
         }
 
-        public UserControl GetUi(ShellStruct data)
+        public UserControl GetUi(Shell data)
         {
-             return _userControl = new MyFirstPlugin(_hostService,(ShellStruct)data);
+             return _userControl = new MyFirstPlugin(_hostService,(Shell)data);
         }
 
         public void Dispose()

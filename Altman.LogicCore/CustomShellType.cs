@@ -143,12 +143,12 @@ namespace Altman.LogicCore
             //如果节点不存在
             if (tmp == null)
             {
-                throw new Exception(string.Format("FuncTreeNode:[{0}] has't been defined",nodeXpath));
+                throw new Exception(string.Format("FuncTreeNode:[{0}/{1}] has't been defined", _shellTypeName, nodeXpath));
             }
             //如果funcCode已经注册
             if (tmp.Funcs.ContainsKey(funcCode.Name))
             {
-                throw new Exception(string.Format("FuncCode:[{0}] has been registered", funcCode.Name));
+                throw new Exception(string.Format("FuncCode:[{0}/{1}/{2}] has been registered", _shellTypeName, nodeXpath, funcCode.Name));
             }
             else
             {
@@ -169,7 +169,7 @@ namespace Altman.LogicCore
                 }
             }
             //其他情况均为未注册
-            throw new Exception(string.Format("FuncCode:[{0}/{1}] hasn't been registered", nodeXpath, funcCodeName));
+            throw new Exception(string.Format("FuncCode:[{0}/{1}/{2}] hasn't been registered", _shellTypeName, nodeXpath, funcCodeName));
         }
     }
 }

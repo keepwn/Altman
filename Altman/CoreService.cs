@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using Altman.LogicCore;
 using Altman.ModelCore;
 using Altman.WebCore;
 using PluginFramework;
+using Shell = Altman.ModelCore.Shell;
 
 namespace Altman
 {
-    public class CoreService : ICoreInHostService
+    public class CoreService : IHostCoreService
     {
         private FormMain _mainForm;
         public CoreService(FormMain mainForm)
@@ -23,15 +25,17 @@ namespace Altman
         /// <param name="data">shellstruct数据</param>
         /// <param name="funcNameXpath">xpath表示的方法名（/cmder/readfile）</param>
         /// <param name="param"></param>
-        public byte[] SubmitCommand(ShellStruct data, string funcNameXpath, string[] param)
+        public byte[] SubmitCommand(Shell data, string funcNameXpath, string[] param)
         {
             CustomShellType shellType = CustomShellTypeProvider.GetShellType(data.ShellType);
             CustomCommandCode customCommandCode = new CustomCommandCode(shellType, data.ShellPwd);
             Dictionary<string, string> commandCode = customCommandCode.GetCode(funcNameXpath, param);
-            HttpClient httpClient = new HttpClient();
+
+            ShellExtra shellExtra = new ShellExtra(data.ShellExtraString);
+            HttpClient httpClient = new HttpClient(shellExtra.HttpHeader);
             return httpClient.SubmitCommandByPost(data.ShellUrl, commandCode);
         }
-        public byte[] SubmitCommand(ShellStruct data,
+        public byte[] SubmitCommand(Shell data,
                                 string funcNameXpath, string[] param,
                                 bool isBindUploadProgressChangedEvent,
                                 bool isBindDownloadProgressChangedEvent)
@@ -68,6 +72,16 @@ namespace Altman
                 return null;
             }
             return _mainForm.PluginsImport.Plugins;
+        }
+
+        public XmlNode GetShellHttpHeader(Shell data)
+        {
+            return ShellExtraHandle.GetHttpHeaderXml(data.ShellExtraString);
+        }
+
+        public XmlNode GetShellSqlConnection(Shell data)
+        {
+            return ShellExtraHandle.GetSqlConnectionXml(data.ShellExtraString);
         }
     }
 }

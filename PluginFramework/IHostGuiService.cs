@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace PluginFramework
 {
-    public interface IGuiInHostService
+    public interface IHostGuiService
     {
         //gui
         void ShowMsgInStatusBar(string msg);

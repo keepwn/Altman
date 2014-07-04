@@ -98,7 +98,7 @@ namespace Altman.DbCore
         /// </summary>
         /// <param name="model">shell的参数</param>
         /// <returns></returns>
-        public static bool Insert(ShellStruct model)
+        public static bool Insert(Shell model)
         {
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
@@ -109,7 +109,7 @@ namespace Altman.DbCore
                 {"shell_url", model.ShellUrl},
                 {"shell_pwd", model.ShellPwd},
                 {"shell_type", model.ShellType},
-                {"shell_extra_setting", model.ShellExtraSetting},
+                {"shell_extra_setting", model.ShellExtraString},
                 {"server_coding", model.ServerCoding},
                 {"web_coding", model.WebCoding},
                 {"area", model.Area},
@@ -125,7 +125,7 @@ namespace Altman.DbCore
         /// <param name="id">指定id号</param>
         /// <param name="model">shell参数</param>
         /// <returns></returns>
-        public static bool Update(int id, ShellStruct model)
+        public static bool Update(int id, Shell model)
         {
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
@@ -136,7 +136,7 @@ namespace Altman.DbCore
                 {"shell_url", model.ShellUrl},
                 {"shell_pwd", model.ShellPwd},
                 {"shell_type", model.ShellType},
-                {"shell_extra_setting", model.ShellExtraSetting},
+                {"shell_extra_setting", model.ShellExtraString},
                 {"server_coding", model.ServerCoding},
                 {"web_coding", model.WebCoding},
                 {"area", model.Area},

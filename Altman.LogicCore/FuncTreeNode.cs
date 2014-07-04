@@ -88,7 +88,7 @@ namespace Altman.LogicCore
             string[] paths = xpath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             if (paths.Length == 0)
             {
-                throw new Exception("无法添加根节点");
+                throw new Exception("Unable to add the root node");
             }
             int index = 0;
             FuncTreeNode tmp = this;

@@ -11,8 +11,8 @@ namespace PluginFramework
     /// </summary>
     public interface IHostService
     {
-        ICoreInHostService Core { get; }
-        IGuiInHostService Gui { get; }
-        IDbInHostService Db { get; }
+        IHostCoreService Core { get; }
+        IHostGuiService Gui { get; }
+        IHostDbService Db { get; }
     }
 }

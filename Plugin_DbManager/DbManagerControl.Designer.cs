@@ -37,12 +37,17 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tbx_sql = new System.Windows.Forms.TextBox();
             this.dataGridView_result = new System.Windows.Forms.DataGridView();
+            this.rightMenu_DataTable = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Tsmi_SaveAsCsv = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_connect = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_disconnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBox_dbs = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_run = new System.Windows.Forms.ToolStripButton();
+            this.rightMenu_TreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Tsmi_CopyName = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tsmi_ViewTable = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -53,7 +58,9 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_result)).BeginInit();
+            this.rightMenu_DataTable.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.rightMenu_TreeView.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -92,6 +99,7 @@
             // 
             // treeView_Dbs
             // 
+            this.treeView_Dbs.ContextMenuStrip = this.rightMenu_TreeView;
             this.treeView_Dbs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView_Dbs.ImageIndex = 0;
             this.treeView_Dbs.ImageList = this.imageList1;
@@ -102,6 +110,7 @@
             this.treeView_Dbs.ShowRootLines = false;
             this.treeView_Dbs.Size = new System.Drawing.Size(134, 302);
             this.treeView_Dbs.TabIndex = 0;
+            this.treeView_Dbs.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_Dbs_NodeMouseClick);
             this.treeView_Dbs.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_Dbs_NodeMouseDoubleClick);
             // 
             // imageList1
@@ -137,6 +146,7 @@
             // tbx_sql
             // 
             this.tbx_sql.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_sql.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbx_sql.Location = new System.Drawing.Point(0, 0);
             this.tbx_sql.Multiline = true;
             this.tbx_sql.Name = "tbx_sql";
@@ -145,13 +155,29 @@
             // 
             // dataGridView_result
             // 
+            this.dataGridView_result.AllowUserToAddRows = false;
             this.dataGridView_result.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_result.ContextMenuStrip = this.rightMenu_DataTable;
             this.dataGridView_result.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_result.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_result.Name = "dataGridView_result";
             this.dataGridView_result.RowHeadersWidth = 40;
             this.dataGridView_result.Size = new System.Drawing.Size(366, 191);
             this.dataGridView_result.TabIndex = 0;
+            // 
+            // rightMenu_DataTable
+            // 
+            this.rightMenu_DataTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_SaveAsCsv});
+            this.rightMenu_DataTable.Name = "rightMenu_DataTable";
+            this.rightMenu_DataTable.Size = new System.Drawing.Size(149, 26);
+            // 
+            // Tsmi_SaveAsCsv
+            // 
+            this.Tsmi_SaveAsCsv.Name = "Tsmi_SaveAsCsv";
+            this.Tsmi_SaveAsCsv.Size = new System.Drawing.Size(148, 22);
+            this.Tsmi_SaveAsCsv.Text = "Save As .Csv";
+            this.Tsmi_SaveAsCsv.Click += new System.EventHandler(this.Tsmi_SaveAsCsv_Click);
             // 
             // toolStrip1
             // 
@@ -207,6 +233,28 @@
             this.toolStripButton_run.Text = "Run";
             this.toolStripButton_run.Click += new System.EventHandler(this.toolStripButton_run_Click);
             // 
+            // rightMenu_TreeView
+            // 
+            this.rightMenu_TreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Tsmi_ViewTable,
+            this.Tsmi_CopyName});
+            this.rightMenu_TreeView.Name = "rightMenu_TreeView";
+            this.rightMenu_TreeView.Size = new System.Drawing.Size(146, 48);
+            // 
+            // Tsmi_CopyName
+            // 
+            this.Tsmi_CopyName.Name = "Tsmi_CopyName";
+            this.Tsmi_CopyName.Size = new System.Drawing.Size(152, 22);
+            this.Tsmi_CopyName.Text = "Copy Name";
+            this.Tsmi_CopyName.Click += new System.EventHandler(this.Tsmi_CopyName_Click);
+            // 
+            // Tsmi_ViewTable
+            // 
+            this.Tsmi_ViewTable.Name = "Tsmi_ViewTable";
+            this.Tsmi_ViewTable.Size = new System.Drawing.Size(152, 22);
+            this.Tsmi_ViewTable.Text = "View Table";
+            this.Tsmi_ViewTable.Click += new System.EventHandler(this.Tsmi_ViewTable_Click);
+            // 
             // DbManagerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -226,8 +274,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_result)).EndInit();
+            this.rightMenu_DataTable.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.rightMenu_TreeView.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -247,5 +297,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButton_connect;
         private System.Windows.Forms.ToolStripButton toolStripButton_disconnect;
+        private System.Windows.Forms.ContextMenuStrip rightMenu_DataTable;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_SaveAsCsv;
+        private System.Windows.Forms.ContextMenuStrip rightMenu_TreeView;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_ViewTable;
+        private System.Windows.Forms.ToolStripMenuItem Tsmi_CopyName;
     }
 }

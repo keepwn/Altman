@@ -54,7 +54,7 @@ namespace Altman.LogicCore
         /// 插入数据
         /// </summary>
         /// <param name="model"></param>
-        public void Insert(ShellStruct model)
+        public void Insert(ModelCore.Shell model)
         {
             Exception error = null;
             try
@@ -75,7 +75,7 @@ namespace Altman.LogicCore
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public void Update(int id, ShellStruct model)
+        public void Update(int id, ModelCore.Shell model)
         {
             Exception error = null;
             try

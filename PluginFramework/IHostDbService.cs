@@ -7,12 +7,12 @@ using Altman.ModelCore;
 
 namespace PluginFramework
 {
-    public interface IDbInHostService
+    public interface IHostDbService
     {
         //db
         DataTable GetDataTable();
-        void Insert(ShellStruct data);
-        void Update(int id, ShellStruct data);
+        void Insert(Shell data);
+        void Update(int id, Shell data);
         void Delete(int id);
     }
 }

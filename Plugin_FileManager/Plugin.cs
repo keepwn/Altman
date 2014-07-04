@@ -37,7 +37,7 @@ namespace Plugin_FileManager
             get { return _hostService; }
         }
 
-        public UserControl GetUi(ShellStruct data)
+        public UserControl GetUi(Shell data)
         {
             return _userControl = new FileManagerControl(_hostService, data);
         }

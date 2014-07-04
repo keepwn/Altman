@@ -39,7 +39,7 @@ namespace Plugin_ShellManager
             get { return _hostService; }
         }
 
-        public UserControl GetUi(ShellStruct data)
+        public UserControl GetUi(Shell data)
         {
             return _userControl = new ShellManagerControl(_hostService, data);
         }

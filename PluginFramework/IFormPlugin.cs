@@ -9,6 +9,6 @@ namespace PluginFramework
 {
     public interface IFormPlugin : IPlugin
     {
-        Form GetUi(ShellStruct data);
+        Form GetUi(Shell data);
     }
 }

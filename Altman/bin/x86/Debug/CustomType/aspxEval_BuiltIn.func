@@ -35,8 +35,6 @@ for(i in s)
 	P=D+s[i].Name;
 	Response.Write(s[i].Name+"\t"+T(P)+"\t"+s[i].Length+"\t-\n");
 }]]></item>
-      <funcParmaLocation>Body</funcParmaLocation>
-      <funcParmaEncryMode>Base64</funcParmaEncryMode>
     </func>
     <func>
       <name>ReadFileCode</name>

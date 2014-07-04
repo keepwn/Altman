@@ -28,7 +28,7 @@ namespace Altman.Common.AltData
                 }
                 else
                 {
-                    throw new ResponseCustomException("匹配到错误", err, result);
+                    throw new ResponseCustomException("匹配到错误", err.Trim(), result);
                 }
             }
         }

@@ -13,6 +13,7 @@ using Altman.LogicCore;
 using Altman.ModelCore;
 using Altman.WebCore;
 using PluginFramework;
+using Shell = Altman.ModelCore.Shell;
 
 namespace Altman
 {
@@ -45,7 +46,7 @@ namespace Altman
             //tabControl事件绑定
             tabControl1.DoubleClick += tabControl1_DoubleClick;
             //设置版本号
-            toolStripStatusLabel_productVersion.Text = string.Format("Version:{0}@KeePwn",Application.ProductVersion);
+            toolStripStatusLabel_productVersion.Text = string.Format("Version:{0}@KeePwn", Assembly.GetExecutingAssembly().GetName().Version);
             //tabControl初始化
             TabCore.Init(this, this.tabControl1);
            
@@ -76,7 +77,7 @@ namespace Altman
                 return;
             if (plugin is IControlPlugin)
             {
-                UserControl view = (plugin as IControlPlugin).GetUi(new ShellStruct());
+                UserControl view = (plugin as IControlPlugin).GetUi(new Shell());
                 //创建新的tab标签
                 //设置标题为FileManager|TargetId
                 string title = plugin.PluginAttribute.Name;
@@ -84,7 +85,7 @@ namespace Altman
             }
             else if (plugin is IFormPlugin)
             {
-                Form form = (plugin as IFormPlugin).GetUi(new ShellStruct());
+                Form form = (plugin as IFormPlugin).GetUi(new Shell());
                 form.Show();
             }
         }
@@ -287,13 +288,13 @@ namespace Altman
                     string title = plugin.PluginAttribute.Name;
                     if (plugin is IControlPlugin)
                     {
-                        UserControl view = (plugin as IControlPlugin).GetUi(new ShellStruct());
+                        UserControl view = (plugin as IControlPlugin).GetUi(new Shell());
                         //创建新的tab标签
                         TabCore.CreateNewTabPage(title, view);
                     }
                     else if (plugin is IFormPlugin)
                     {
-                        Form form = (plugin as IFormPlugin).GetUi(new ShellStruct());
+                        Form form = (plugin as IFormPlugin).GetUi(new Shell());
                         form.Show();
                     }
                 }

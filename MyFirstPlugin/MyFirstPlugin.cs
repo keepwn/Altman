@@ -15,8 +15,8 @@ namespace MyFirstPlugin
     public partial class MyFirstPlugin : UserControl
     {
         private IHostService _host;
-        private ShellStruct _shellData;
-        public MyFirstPlugin(IHostService host, ShellStruct data)
+        private Shell _shellData;
+        public MyFirstPlugin(IHostService host, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -27,7 +27,7 @@ namespace MyFirstPlugin
             ShowShellTypeDataInLable(_shellData);
         }
 
-        private void ShowShellTypeDataInLable(ShellStruct data)
+        private void ShowShellTypeDataInLable(Shell data)
         {
             StringBuilder strBuilder = new StringBuilder();
 
@@ -36,7 +36,7 @@ namespace MyFirstPlugin
             strBuilder.AppendLine("[ShellType]:" + data.ShellType);
             strBuilder.AppendLine("[ServerCoding]:" + data.ServerCoding);
             strBuilder.AppendLine("[TimeOut]:" + data.TimeOut);
-            strBuilder.AppendLine("[ShellExtraSetting]:" + data.ShellExtraSetting);
+            strBuilder.AppendLine("[ShellExtraString]:" + data.ShellExtraString);
 
             tbx_shellData.Text = strBuilder.ToString();
         }

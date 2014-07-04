@@ -10,8 +10,8 @@ namespace Plugin_PluginManager
     public partial class PluginManager : Form
     {
         private IHostService _hostService;
-        private ShellStruct _shellData;
-        public PluginManager(IHostService hostService, ShellStruct data)
+        private Shell _shellData;
+        public PluginManager(IHostService hostService, Shell data)
         {
             InitializeComponent();
 

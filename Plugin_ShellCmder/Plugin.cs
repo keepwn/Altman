@@ -38,7 +38,7 @@ namespace Plugin_ShellCmder
             get { return _hostService; }
         }
 
-        public UserControl GetUi(ShellStruct data)
+        public UserControl GetUi(Shell data)
         {
             return _userControl = new ShellCmderControl(_hostService, data);
         }

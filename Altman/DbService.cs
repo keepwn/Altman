@@ -9,19 +9,19 @@ using PluginFramework;
 
 namespace Altman
 {
-    public class DbService : IDbInHostService
+    public class DbService : IHostDbService
     {
         public DataTable GetDataTable()
         {
             return DbManager.GetDataTable();
         }
 
-        public void Insert(ShellStruct model)
+        public void Insert(Shell model)
         {
             DbManager.Insert(model);
         }
 
-        public void Update(int id, ShellStruct model)
+        public void Update(int id, Shell model)
         {
             DbManager.Update(id, model);
         }

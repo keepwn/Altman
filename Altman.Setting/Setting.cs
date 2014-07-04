@@ -56,7 +56,6 @@ namespace Altman.Setting
             get { return _proxy; }
         }
 
-
         public List<string> UserAgent
         {
             get

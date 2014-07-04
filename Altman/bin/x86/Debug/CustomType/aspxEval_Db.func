@@ -142,14 +142,14 @@ try
 	var t="\t|\t",n="\r\n",content="";
 	for(var i=0; i<dt.Columns.Count; i++)
     {
-		content+=dt.Columns[i].ToString()+t;
+		content+=dt.Columns[i].ColumnName+t;
 	}
 	content+=n;
 	for(var i=0; i<dt.Rows.Count; i++)
     {
         for (var j = 0; j < dt.Columns.Count; j++)
         {
-			content+=dt.Rows[i][j].ToString()+t;
+			content+=dt.Rows[i][j]+t;
         }
 		content+=n;
     }
@@ -307,14 +307,14 @@ try
 	var t="\t|\t",n="\r\n",content="";
 	for(var i=0; i<dt.Columns.Count; i++)
     {
-		content+=dt.Columns[i].ToString()+t;
+		content+=dt.Columns[i].ColumnName+t;
 	}
 	content+=n;
 	for(var i=0; i<dt.Rows.Count; i++)
     {
         for (var j = 0; j < dt.Columns.Count; j++)
         {
-			content+=dt.Rows[i][j].ToString()+t;
+			content+=dt.Rows[i][j]+t;
         }
 		content+=n;
     }

@@ -7,7 +7,7 @@ using PluginFramework;
 
 namespace Altman
 {
-    public class GuiService : IGuiInHostService
+    public class GuiService : IHostGuiService
     {
         private FormMain _mainForm;
         public GuiService(FormMain mainForm)

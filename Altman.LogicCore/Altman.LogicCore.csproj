@@ -65,6 +65,8 @@
     <Compile Include="CustomCommandCode.cs" />
     <Compile Include="FuncTreeNode.cs" />
     <Compile Include="InitWorker.cs" />
+    <Compile Include="ShellExtra.cs" />
+    <Compile Include="ShellExtraHandle.cs" />
     <Compile Include="XmlHelper.cs" />
     <Compile Include="CustomShellTypeProvider.cs" />
     <Compile Include="CustomShellType.cs" />

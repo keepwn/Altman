@@ -14,13 +14,13 @@ namespace Plugin_FileManager
     public class FileUploadOrDownload
     {
         private IHostService _hostService;
-        private ShellStruct _shellData;
+        private Shell _shellData;
 
         private string _sourceFilePath;
         private string _targetFilePath;
         private BackgroundWorker _backgroundWorker;
 
-        public FileUploadOrDownload(IHostService hostService, ShellStruct shellData, string sourceFilePath, string targetFilePath)
+        public FileUploadOrDownload(IHostService hostService, Shell shellData, string sourceFilePath, string targetFilePath)
         {
             _hostService = hostService;
             _shellData = shellData;

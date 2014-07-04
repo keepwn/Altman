@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -16,20 +17,16 @@ namespace Plugin_DbManager
     public partial class DbManagerControl : UserControl
     {
         private IHostService _hostService;
-        private ShellStruct _shellData;
+        private Shell _shellData;
 
         private DbManagerService dbManagerService;
-        private XmlNode _node = null;
-        public DbManagerControl(IHostService hostService, ShellStruct data)
+        public DbManagerControl(IHostService hostService, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
             _hostService = hostService;
             _shellData = data;
-
-            //初始化ExtraSettingXml
-            InitExtraSettingXml();
 
             //绑定事件
             dbManagerService = new DbManagerService(_hostService, _shellData, GetDbType());
@@ -41,11 +38,15 @@ namespace Plugin_DbManager
             dbManagerService.ExecuteNonQueryCompletedToDo += dbManagerService_ExecuteNonQueryCompletedToDo;
             
             treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;
+            rightMenu_TreeView.Opening += rightMenu_TreeView_Opening;
 
             RefreshServerStatus(false);
+
             //连接数据库
             dbManagerService.ConnectDb(GetConnStr());
         }
+
+
 
         #region ServiceCompletedToDo
         private void dbManagerService_ExecuteNonQueryCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
@@ -236,6 +237,10 @@ namespace Plugin_DbManager
         #endregion
 
         #region treeView_Dbs Event
+        private void treeView_Dbs_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            treeView_Dbs.SelectedNode = e.Node;
+        }
         private void treeView_Dbs_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             string name = treeView_Dbs.SelectedNode.Text;
@@ -244,18 +249,15 @@ namespace Plugin_DbManager
             {
                 if (type == "root")
                 {
-                    //dbManagerService.GetDbName(_shellData.ShellExtraSetting);
                     dbManagerService.GetDbName(GetConnStr());
                 }
                 else if (type == "db")
                 {
-                    //dbManagerService.GetTableName(_shellData.ShellExtraSetting, name);
                     dbManagerService.GetTableName(GetConnStr(), name);
                 }
                 else if (type == "table")
                 {
                     string dbname = treeView_Dbs.SelectedNode.Parent.Text;
-                    //dbManagerService.GetColumnType(_shellData.ShellExtraSetting, dbname, name);
 
                     dbManagerService.GetColumnType(GetConnStr(), dbname, name);
                 }
@@ -270,66 +272,45 @@ namespace Plugin_DbManager
                 toolStripComboBox_dbs.SelectedIndex = index;
             }
         }
+        
         #endregion
 
-
-        private void InitExtraSettingXml()
+        #region rightMenu_TreeView Event
+        private void rightMenu_TreeView_Opening(object sender, CancelEventArgs e)
         {
-            //创建ExtraSetting节点
-            _node = new XmlDocument().CreateElement("ExtraSetting");
-            _node.InnerXml = _shellData.ShellExtraSetting;
-        }
-        private string GetDbType()
-        {
-            string type = string.Empty;
-            if (_node != null)
+            if (treeView_Dbs.SelectedNode == null) return;
+            string name = treeView_Dbs.SelectedNode.Text;
+            string type = (string)(treeView_Dbs.SelectedNode.Tag ?? "");
+            if (name != "")
             {
-                XmlNode typeNode = _node.SelectSingleNode("/connection/type");
-                if (typeNode != null)
-                    type = typeNode.InnerText;              
-            }
-            return type;
-        }
-        private string GetConnStr()
-        {
-            string conn = string.Empty;
-            if (_node != null)
-            {
-                //获取type
-                string scriptType = _shellData.ShellType;
-
-                if (scriptType.StartsWith("php"))
+                if (type == "root")
                 {
-                    string host = string.Empty;
-                    string user = string.Empty;
-                    string pass = string.Empty;
-                    string language = string.Empty;
-                    XmlNode hostNode = _node.SelectSingleNode("/connection/host");
-                    if (hostNode != null) host = hostNode.InnerText;
-                    XmlNode userNode = _node.SelectSingleNode("/connection/user");
-                    if (userNode != null) user = userNode.InnerText;
-                    XmlNode passNode = _node.SelectSingleNode("/connection/pass");
-                    if (passNode != null) pass = passNode.InnerText;
-                    XmlNode lanNode = _node.SelectSingleNode("/connection/language");
-                    if (lanNode != null) language = lanNode.InnerText;
-
-                    conn = string.Format("{0};{1};{2};{3};", host, user, pass, language);
+                    rightMenu_TreeView.Items["Tsmi_ViewTable"].Visible = false;
                 }
-                else
+                else if (type == "db")
                 {
+                    rightMenu_TreeView.Items["Tsmi_ViewTable"].Visible = false;
+                }
+                else if (type == "table")
+                {
+                    rightMenu_TreeView.Items["Tsmi_ViewTable"].Visible = true;
 
-                    XmlNode connNode = _node.SelectSingleNode("/connection/conn");
-                    if (connNode != null) 
-                        conn = connNode.InnerText;
+                    string dbname = treeView_Dbs.SelectedNode.Parent.Text;
                 }
             }
-            return conn;           
         }
-        private void ShowMsgInStatusBar(string msg)
+        private void Tsmi_ViewTable_Click(object sender, EventArgs e)
         {
-            _hostService.Gui.ShowMsgInStatusBar(msg);
+            MessageBox.Show("this function is not yet implemented");
         }
+        private void Tsmi_CopyName_Click(object sender, EventArgs e)
+        {
+            if (treeView_Dbs.SelectedNode == null) return;
+            Clipboard.SetDataObject(treeView_Dbs.SelectedNode.Text);
+        }
+        #endregion
 
+        #region toolStripButton Event
         /// <summary>
         /// 连接数据库
         /// </summary>
@@ -353,11 +334,11 @@ namespace Plugin_DbManager
             string sql = tbx_sql.Text;
             if (string.IsNullOrWhiteSpace(sql))
             {
-                MessageBox.Show("查询语句不能为空");
+                MessageBox.Show("the query sql cannot be empty");
             }
             else if (toolStripComboBox_dbs.SelectedIndex == -1)
             {
-                MessageBox.Show("请选择数据库");
+                MessageBox.Show("please select one database");
             }
             else
             {
@@ -365,9 +346,6 @@ namespace Plugin_DbManager
                 dataGridView_result.DataSource = null;
 
                 string dbName = (string)toolStripComboBox_dbs.Text;
-                //dbManagerService.ExecuteReader(_shellData.ShellExtraSetting, dbName, sql);
-
-
                 if (sql.ToLower().StartsWith("select"))
                 {
                     dbManagerService.ExecuteReader(GetConnStr(), dbName, sql);
@@ -376,8 +354,114 @@ namespace Plugin_DbManager
                 {
                     dbManagerService.ExecuteNonQuery(GetConnStr(), dbName, sql);
                 }
-
             }
+        }
+        #endregion
+
+        #region rightMenu_DataTable Event
+        private void Tsmi_SaveAsCsv_Click(object sender, EventArgs e)
+        {
+            object dataSource = dataGridView_result.DataSource;
+            if (dataSource != null)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV|*.CSV";
+                if (DialogResult.OK == saveFileDialog.ShowDialog())
+                {
+                    string fileName = saveFileDialog.FileName;
+                    SaveAsCsv(dataSource as DataTable, fileName);
+                }
+            }
+        }
+        private void SaveAsCsv(DataTable dt, string fileName)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+            string data = "";
+
+            //columns name
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                data += dt.Columns[i].ColumnName;
+                if (i < dt.Columns.Count - 1)
+                {
+                    data += ",";
+                }
+            }
+            sw.WriteLine(data);
+
+            //rows data
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                data = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    data += dt.Rows[i][j].ToString();
+                    if (j < dt.Columns.Count - 1)
+                    {
+                        data += ",";
+                    }
+                }
+                sw.WriteLine(data);
+            }
+
+            sw.Close();
+            fs.Close();
+            MessageBox.Show("Save Ok!");
+        }
+        #endregion
+
+        private string GetDbType()
+        {
+            string type = string.Empty;
+            XmlNode node = _hostService.Core.GetShellSqlConnection(_shellData);
+            if (node != null)
+            {
+                XmlNode typeNode = node.SelectSingleNode("type");
+                if (typeNode != null)
+                    type = typeNode.InnerText;
+            }
+            return type;
+        }
+        private string GetConnStr()
+        {
+            string conn = string.Empty;
+            XmlNode node = _hostService.Core.GetShellSqlConnection(_shellData);
+            if (node != null)
+            {
+                //获取type
+                string scriptType = _shellData.ShellType;
+
+                if (scriptType.StartsWith("php"))
+                {
+                    string host = string.Empty;
+                    string user = string.Empty;
+                    string pass = string.Empty;
+                    string language = string.Empty;
+                    XmlNode hostNode = node.SelectSingleNode("host");
+                    if (hostNode != null) host = hostNode.InnerText;
+                    XmlNode userNode = node.SelectSingleNode("user");
+                    if (userNode != null) user = userNode.InnerText;
+                    XmlNode passNode = node.SelectSingleNode("pass");
+                    if (passNode != null) pass = passNode.InnerText;
+                    XmlNode lanNode = node.SelectSingleNode("language");
+                    if (lanNode != null) language = lanNode.InnerText;
+
+                    conn = string.Format("{0};{1};{2};{3};", host, user, pass, language);
+                }
+                else
+                {
+
+                    XmlNode connNode = node.SelectSingleNode("conn");
+                    if (connNode != null) 
+                        conn = connNode.InnerText;
+                }
+            }
+            return conn;           
+        }
+        private void ShowMsgInStatusBar(string msg)
+        {
+            _hostService.Gui.ShowMsgInStatusBar(msg);
         }
     }
 }

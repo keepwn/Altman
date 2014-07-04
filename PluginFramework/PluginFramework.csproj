@@ -58,16 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICoreInHostService.cs" />
-    <Compile Include="IDbInHostService.cs" />
-    <Compile Include="IGuiInHostService.cs" />
-    <Compile Include="IAppData.cs" />
+    <Compile Include="IHostCoreService.cs" />
+    <Compile Include="IHostDbService.cs" />
+    <Compile Include="IHostGuiService.cs" />
     <Compile Include="IHostService.cs" />
     <Compile Include="IFormPlugin.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="IPluginAttribute.cs" />
     <Compile Include="IControlPlugin.cs" />
-    <Compile Include="AppData.cs" />
     <Compile Include="IPluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

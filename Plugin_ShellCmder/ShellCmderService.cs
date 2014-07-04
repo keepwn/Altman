@@ -10,7 +10,7 @@ namespace Plugin_ShellCmder
     public class ShellCmderService
     {
         private IHostService _host;
-        private ShellStruct _shellData;
+        private Shell _shellData;
 
         #region 属性
         public string ShellUrl
@@ -40,7 +40,7 @@ namespace Plugin_ShellCmder
         }
         #endregion
 
-        public ShellCmderService(IHostService host, ShellStruct data)
+        public ShellCmderService(IHostService host, Shell data)
         {
             this._host = host;
             this._shellData = data;

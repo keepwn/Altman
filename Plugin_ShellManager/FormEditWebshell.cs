@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Xml;
 using Altman.ModelCore;
 using PluginFramework;
 
@@ -29,7 +30,7 @@ namespace Plugin_ShellManager
             comboBox_IniType_Init();
         }
 
-        public FormEditWebshell(IHostService hostService, ShellStruct shellStructArray)
+        public FormEditWebshell(IHostService hostService, Shell shellArray)
         {
             InitializeComponent();           
 
@@ -43,84 +44,90 @@ namespace Plugin_ShellManager
             this.button_Add.Enabled = false;
             this.button_Alter.Enabled = true;
 
-            this.Id = shellStructArray.Id;
-            this.textBox_TargetID.Text = shellStructArray.TargetId;
-            this.comboBox_TargetLevel.Text = shellStructArray.TargetLevel;
+            this.Id = shellArray.Id;
+            this.textBox_TargetID.Text = shellArray.TargetId;
+            this.comboBox_TargetLevel.Text = shellArray.TargetLevel;
 
-            this.textBox_ShellPath.Text = shellStructArray.ShellUrl;
-            this.textBox_ShellPass.Text = shellStructArray.ShellPwd;
+            this.textBox_ShellPath.Text = shellArray.ShellUrl;
+            this.textBox_ShellPass.Text = shellArray.ShellPwd;
 
-            this.richTextBox_Setting.Text = shellStructArray.ShellExtraSetting;
+            this.richTextBox_Setting.Text = shellArray.ShellExtraString;
 
-            this.textBox_Remark.Text = shellStructArray.Remark;
+            this.textBox_Remark.Text = shellArray.Remark;
 
-            this.comboBox_ScritpType.Text = shellStructArray.ShellType;
-            this.comboBox_ServerCoding.Text = shellStructArray.ServerCoding;
-            this.comboBox_WebCoding.Text = shellStructArray.WebCoding;
-            this.comboBox_Area.Text = shellStructArray.Area;
+            this.comboBox_ScritpType.Text = shellArray.ShellType;
+            this.comboBox_ServerCoding.Text = shellArray.ServerCoding;
+            this.comboBox_WebCoding.Text = shellArray.WebCoding;
+            this.comboBox_Area.Text = shellArray.Area;
 
             comboBox_IniType_Init();
         }
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            ShellStruct shellStruct = new ShellStruct();
+            Shell shell = new Shell();
 
-            shellStruct.Id = this.Id;
-            shellStruct.TargetId = this.textBox_TargetID.Text.Trim();
-            shellStruct.TargetLevel = this.comboBox_TargetLevel.Text.Trim();
+            shell.Id = this.Id;
+            shell.TargetId = this.textBox_TargetID.Text.Trim();
+            shell.TargetLevel = this.comboBox_TargetLevel.Text.Trim();
 
-            shellStruct.ShellUrl = this.textBox_ShellPath.Text.Trim();
-            shellStruct.ShellPwd = this.textBox_ShellPass.Text.Trim();
+            shell.ShellUrl = this.textBox_ShellPath.Text.Trim();
+            shell.ShellPwd = this.textBox_ShellPass.Text.Trim();
 
-            shellStruct.ShellExtraSetting = this.richTextBox_Setting.Text.Trim();
-            shellStruct.Remark = this.textBox_Remark.Text.Trim();
+            shell.ShellExtraString = this.richTextBox_Setting.Text.Trim();
+            shell.Remark = this.textBox_Remark.Text.Trim();
 
-            shellStruct.ShellType = this.comboBox_ScritpType.Text.Trim();
-            shellStruct.ServerCoding = this.comboBox_ServerCoding.Text.Trim();
-            shellStruct.WebCoding = this.comboBox_WebCoding.Text.Trim();
-            shellStruct.Area = this.comboBox_Area.Text.Trim();
+            shell.ShellType = this.comboBox_ScritpType.Text.Trim();
+            shell.ServerCoding = this.comboBox_ServerCoding.Text.Trim();
+            shell.WebCoding = this.comboBox_WebCoding.Text.Trim();
+            shell.Area = this.comboBox_Area.Text.Trim();
 
             string time = DateTime.Now.Date.ToShortDateString();
             if (time.Contains("/"))
             {
                 time = time.Replace("/", "-");
             }
-            shellStruct.AddTime = time;
+            shell.AddTime = time;
 
-            _shellManagerService.Insert(shellStruct);
+            //验证ExtraSettingXml是否合法
+            if (!VerifyXml(shell.ShellExtraString))
+                return;
+
+            _shellManagerService.Insert(shell);
             OnWebshellChange(EventArgs.Empty);
             this.Close();
         }
-
         private void button_Alter_Click(object sender, EventArgs e)
         {
-            ShellStruct shellStruct = new ShellStruct();
+            Shell shell = new Shell();
 
-            shellStruct.Id = this.Id;
-            shellStruct.TargetId = this.textBox_TargetID.Text.Trim();
-            shellStruct.TargetLevel = this.comboBox_TargetLevel.Text.Trim();
+            shell.Id = this.Id;
+            shell.TargetId = this.textBox_TargetID.Text.Trim();
+            shell.TargetLevel = this.comboBox_TargetLevel.Text.Trim();
 
-            shellStruct.ShellUrl = this.textBox_ShellPath.Text.Trim();
-            shellStruct.ShellPwd = this.textBox_ShellPass.Text.Trim();
+            shell.ShellUrl = this.textBox_ShellPath.Text.Trim();
+            shell.ShellPwd = this.textBox_ShellPass.Text.Trim();
 
-            shellStruct.ShellExtraSetting = this.richTextBox_Setting.Text.Trim();
-            shellStruct.Remark = this.textBox_Remark.Text.Trim();
+            shell.ShellExtraString = this.richTextBox_Setting.Text.Trim();
+            shell.Remark = this.textBox_Remark.Text.Trim();
 
-            shellStruct.ShellType = this.comboBox_ScritpType.Text.Trim();
-            shellStruct.ServerCoding = this.comboBox_ServerCoding.Text.Trim();
-            shellStruct.WebCoding = this.comboBox_WebCoding.Text.Trim();
-            shellStruct.Area = this.comboBox_Area.Text.Trim();
+            shell.ShellType = this.comboBox_ScritpType.Text.Trim();
+            shell.ServerCoding = this.comboBox_ServerCoding.Text.Trim();
+            shell.WebCoding = this.comboBox_WebCoding.Text.Trim();
+            shell.Area = this.comboBox_Area.Text.Trim();
 
             string time = DateTime.Now.Date.ToShortDateString();
             if (time.Contains("/"))
             {
                 time = time.Replace("/", "-");
             }
-            shellStruct.AddTime = time;
+            shell.AddTime = time;
 
+            //验证ExtraSettingXml是否合法
+            if (!VerifyXml(shell.ShellExtraString))
+                return;
 
-            _shellManagerService.Update(int.Parse(shellStruct.Id), shellStruct);
+            _shellManagerService.Update(int.Parse(shell.Id), shell);
             OnWebshellChange(EventArgs.Empty);
             this.Close();
         }
@@ -132,6 +139,23 @@ namespace Plugin_ShellManager
             {
                 WebshellWatchEvent(this, e);
             }
+        }
+
+        private bool VerifyXml(string xml)
+        {
+            bool isVaild = false;
+            try
+            {
+                XmlNode tmp = new XmlDocument().CreateElement("Root");
+                tmp.InnerXml = xml;
+                isVaild = true;
+            }
+            catch
+            {
+                isVaild = false;
+                MessageBox.Show("Sorry,the ini is not legal xml.Please edit the ini.");
+            }
+            return isVaild;
         }
 
         /// <summary>
