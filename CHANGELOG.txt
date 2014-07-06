@@ -1,3 +1,31 @@
+->Altman 2.1.0
+新增:
+1.插件版本升级，新增部分api（2014.06.25）
+2.新增脚本类型pythonEval（2014.06.20）
+3.实现了pythonEval的shellCmder和FileManager功能（2014.06.20）
+4.将原shellmanager功能模块提取为shellmanager插件（2014.06.24）
+5.新增插件PluginManager，用于管理插件（2014.06.26）
+6.DbManager插件中，添加了将查询结果保存csv功能（2014.06.27）
+7.DbManager插件中，添加了右键复制节点功能（2014.06.29）
+8.FileManager插件中,添加文件后缀的图标显示（2014.07.06）
+9.新增局部HttpHeader设置，可以为单个shell配置独立的HttpHeader，优先于全局HttpHeader设置（2014.07.02）
+
+
+修改:
+1.修正了在linux下状态栏版本号未右对齐的bug（2014.06.24）
+2.Host程序中，实现了以ShadowCopyFiles方式启动（2014.06.26）
+3.aspxEval_Db.func中，修复了ExecuteReader方法某些情况下发生"Object requied"的错误（2014.06.27）
+4.DbManager插件中，调大了SQL查询语句窗口的字体（2014.06.29）
+5.ShellManager插件中，编辑保存shell时，添加对ini属性的xml格式合法性的检查（2014.06.30）
+6.FileManager插件中：
+	单击刷新改为双击刷新（2014.07.01）	
+	优化了数据的显示效果（2014.07.03）
+	对代码进行了优化（2014.07.05）
+	修复了一些比较严重的bug（2014.07.05）
+	重构了FileManagerService部分代码（2014.07.05）
+	调大了列表的竖直方向的宽度（2014.07.06）
+
+
 ->Altman 2.0.10
 1.修复了某些时候会提示"417 expectation failed"的bug（感谢Charles Qin）（2014.06.11）
 2.修复了EditShell的数据库连接示例初始化未检查的bug（2014.06.15）
