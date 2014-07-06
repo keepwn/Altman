@@ -18,20 +18,22 @@ namespace Plugin_FileManager
             this._shellData = data;
         }
 
+        private void RunBackground(DoWorkEventHandler doWork, object argument, RunWorkerCompletedEventHandler runWorkerCompleted)
+        {
+            using (BackgroundWorker backgroundWorker = new BackgroundWorker())
+            {
+                backgroundWorker.DoWork += doWork;
+                backgroundWorker.RunWorkerCompleted += runWorkerCompleted;
+                backgroundWorker.RunWorkerAsync(argument);
+            }
+        }
+
+
         #region 获取wwwroot路径
         public event EventHandler<RunWorkerCompletedEventArgs> GetWwwRootPathCompletedToDo;
         public void GetWwwRootPath()
         {
-            GetWwwRootPathBackground();
-        }
-        private void GetWwwRootPathBackground()
-        {
-            using (BackgroundWorker getWwwRootPath = new BackgroundWorker())
-            {
-                getWwwRootPath.DoWork += new DoWorkEventHandler(getWwwRootPath_DoWork);
-                getWwwRootPath.RunWorkerCompleted += new RunWorkerCompletedEventHandler(getWwwRootPath_RunWorkerCompleted);
-                getWwwRootPath.RunWorkerAsync();
-            }
+            RunBackground(getWwwRootPath_DoWork, null, getWwwRootPath_RunWorkerCompleted);
         }
         private void getWwwRootPath_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -52,21 +54,12 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> GetFileTreeCompletedToDo;
         public void GetFileTree(string dirPath)
         {
-            GetFileTreeBackground(dirPath);
-        }
-        private void GetFileTreeBackground(string path)
-        {
-            using (BackgroundWorker getFileTree = new BackgroundWorker())
-            {
-                getFileTree.DoWork += new DoWorkEventHandler(getFileTree_DoWork);
-                getFileTree.RunWorkerCompleted += new RunWorkerCompletedEventHandler(getFileTree_RunWorkerCompleted);
-                getFileTree.RunWorkerAsync(path);
-            }
+            RunBackground(getFileTree_DoWork, new string[]{ dirPath }, getFileTree_RunWorkerCompleted);
         }
         private void getFileTree_DoWork(object sender, DoWorkEventArgs e)
         {
-            string dirPath = e.Argument as string;
-            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/FileTreeCode", new string[] { dirPath });
+            string[] dirPath = e.Argument as string[];
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/FileTreeCode", dirPath);
             e.Result = ResultMatch.MatchResultToOsFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void getFileTree_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -84,21 +77,12 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> ReadFileCompletedToDo;
         public void ReadFile(string filePath)
         {
-            ReadFileBackground(filePath);
-        }
-        private void ReadFileBackground(string filePath)
-        {
-            using (BackgroundWorker readFile = new BackgroundWorker())
-            {
-                readFile.DoWork += readFile_DoWork;
-                readFile.RunWorkerCompleted += readFile_RunWorkerCompleted;
-                readFile.RunWorkerAsync(filePath);
-            }
+            RunBackground(readFile_DoWork, new string[] { filePath }, readFile_RunWorkerCompleted);
         }
         private void readFile_DoWork(object sender, DoWorkEventArgs e)
         {
-            string filePath = e.Argument as string;
-            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/ReadFileCode", new string[] { filePath });
+            string[] filePath = e.Argument as string[];
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/ReadFileCode", filePath);
             e.Result = ResultMatch.MatchResultToString(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void readFile_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -115,16 +99,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> WriteFileCompletedToDo;
         public void WriteFile(string filePath, string fileData)
         {
-            WriteFileBackground(filePath, fileData);
-        }
-        private void WriteFileBackground(string filePath, string fileData)
-        {
-            using (BackgroundWorker writeFile = new BackgroundWorker())
-            {
-                writeFile.DoWork += writeFile_DoWork;
-                writeFile.RunWorkerCompleted += writeFile_RunWorkerCompleted;
-                writeFile.RunWorkerAsync(new string[] { filePath, fileData });
-            }
+            RunBackground(writeFile_DoWork, new string[] { filePath, fileData }, writeFile_RunWorkerCompleted);
         }
         private void writeFile_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -145,21 +120,12 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> DeleteFileOrDirCompletedToDo;
         public void DeleteFileOrDir(string fileOrDirPath)
         {
-            DeleteFileOrDirBackground(fileOrDirPath);
-        }
-        private void DeleteFileOrDirBackground(string fileOrDirPath)
-        {
-            using (BackgroundWorker deleteFileOrDir = new BackgroundWorker())
-            {
-                deleteFileOrDir.DoWork += deleteFileOrDir_DoWork;
-                deleteFileOrDir.RunWorkerCompleted += deleteFileOrDir_RunWorkerCompleted;
-                deleteFileOrDir.RunWorkerAsync(fileOrDirPath);
-            }
+            RunBackground(deleteFileOrDir_DoWork, new string[] { fileOrDirPath }, deleteFileOrDir_RunWorkerCompleted);
         }
         private void deleteFileOrDir_DoWork(object sender, DoWorkEventArgs e)
         {
-            string fileOrDirPath = e.Argument as string;
-            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/DeleteFileOrDirCode", new string[] { fileOrDirPath });
+            string[] fileOrDirPath = e.Argument as string[];
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/DeleteFileOrDirCode", fileOrDirPath);
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void deleteFileOrDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -174,16 +140,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> CopyFileOrDirCompletedToDo;
         public void CopyFileOrDir(string sourceFilePath, string targetFilePath)
         {
-            CopyFileOrDirBackground(sourceFilePath, targetFilePath);
-        }
-        private void CopyFileOrDirBackground(string sourceFilePath, string targetFilePath)
-        {
-            using (BackgroundWorker copyFileOrDir = new BackgroundWorker())
-            {
-                copyFileOrDir.DoWork += copyFileOrDir_DoWork;
-                copyFileOrDir.RunWorkerCompleted += copyFileOrDir_RunWorkerCompleted;
-                copyFileOrDir.RunWorkerAsync(new string[] { sourceFilePath, targetFilePath });
-            }
+            RunBackground(copyFileOrDir_DoWork, new string[] { sourceFilePath, targetFilePath }, copyFileOrDir_RunWorkerCompleted);
         }
         private void copyFileOrDir_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -204,16 +161,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> RenameFileOrDirCompletedToDo;
         public void RenameFileOrDir(string oldName, string newName)
         {
-            RenameFileOrDirBackground(oldName, newName);
-        }
-        private void RenameFileOrDirBackground(string oldName, string newName)
-        {
-            using (BackgroundWorker renameFileOrDir = new BackgroundWorker())
-            {
-                renameFileOrDir.DoWork += renameFileOrDir_DoWork;
-                renameFileOrDir.RunWorkerCompleted += renameFileOrDir_RunWorkerCompleted;
-                renameFileOrDir.RunWorkerAsync(new string[] { oldName, newName });
-            }
+            RunBackground(renameFileOrDir_DoWork, new string[] { oldName, newName }, renameFileOrDir_RunWorkerCompleted);
         }
         private void renameFileOrDir_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -234,21 +182,12 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> CreateDirCompletedToDo;
         public void CreateDir(string dirPath)
         {
-            CreateDirBackground(dirPath);
-        }
-        private void CreateDirBackground(string dirPath)
-        {
-            using (BackgroundWorker createDir = new BackgroundWorker())
-            {
-                createDir.DoWork += createDir_DoWork;
-                createDir.RunWorkerCompleted += createDir_RunWorkerCompleted;
-                createDir.RunWorkerAsync(dirPath);
-            }
+            RunBackground(createDir_DoWork, new string[] { dirPath }, createDir_RunWorkerCompleted);
         }
         private void createDir_DoWork(object sender, DoWorkEventArgs e)
         {
-            string dirPath = e.Argument as string;
-            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/CreateDirCode", new string[] { dirPath });
+            string[] dirPath = e.Argument as string[];
+            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/CreateDirCode", dirPath);
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void createDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -265,16 +204,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> ModifyFileOrDirTimeCompletedToDo;
         public void ModifyFileOrDirTime(string filePath, string aTime)
         {
-            ModifyFileOrDirTimeBackground(filePath, aTime);
-        }
-        private void ModifyFileOrDirTimeBackground(string filePath, string aTime)
-        {
-            using (BackgroundWorker modifyFileOrDirTime = new BackgroundWorker())
-            {
-                modifyFileOrDirTime.DoWork += modifyFileOrDirTime_DoWork;
-                modifyFileOrDirTime.RunWorkerCompleted += modifyFileOrDirTime_RunWorkerCompleted;
-                modifyFileOrDirTime.RunWorkerAsync(new string[] { filePath, aTime });
-            }
+            RunBackground(modifyFileOrDirTime_DoWork, new string[] { filePath, aTime }, modifyFileOrDirTime_RunWorkerCompleted);
         }
         private void modifyFileOrDirTime_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -295,16 +225,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> WgetCompletedToDo;
         public void Wget(string urlPath, string savePath)
         {
-            WgetBackground(urlPath, savePath);
-        }
-        private void WgetBackground(string urlPath, string savePath)
-        {
-            using (BackgroundWorker wget = new BackgroundWorker())
-            {
-                wget.DoWork += wget_DoWork;
-                wget.RunWorkerCompleted += wget_RunWorkerCompleted;
-                wget.RunWorkerAsync(new string[] { urlPath, savePath });
-            }
+            RunBackground(wget_DoWork, new string[] { urlPath, savePath }, wget_RunWorkerCompleted);
         }
         private void wget_DoWork(object sender, DoWorkEventArgs e)
         {

@@ -18,10 +18,6 @@ namespace Altman
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
-            ImageList ImgList = new ImageList();
-            ImgList.ImageSize = new Size(1, 25);
-            lv_header.SmallImageList = ImgList;
-
             rightMenu_Header.Opening += rightMenu_Header_Opening;
             lv_header.AfterEditSubItem += lv_header_AfterEditSubItem;
         }

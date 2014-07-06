@@ -33,6 +33,7 @@ namespace Plugin_ShellManager
             this.components = new System.ComponentModel.Container();
             this.rightMenu_Webshell = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.item_refreshStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.item_copyServerCode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.item_add = new System.Windows.Forms.ToolStripMenuItem();
             this.item_alter = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,7 +51,7 @@ namespace Plugin_ShellManager
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.item_copyServerCode = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.rightMenu_Webshell.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@ namespace Plugin_ShellManager
             this.item_del,
             this.toolStripSeparator2});
             this.rightMenu_Webshell.Name = "rightMenu_WebShell";
-            this.rightMenu_Webshell.Size = new System.Drawing.Size(179, 148);
+            this.rightMenu_Webshell.Size = new System.Drawing.Size(179, 126);
             // 
             // item_refreshStatus
             // 
@@ -73,6 +74,13 @@ namespace Plugin_ShellManager
             this.item_refreshStatus.Size = new System.Drawing.Size(178, 22);
             this.item_refreshStatus.Text = "Refresh All Status";
             this.item_refreshStatus.Click += new System.EventHandler(this.item_refreshStatus_Click);
+            // 
+            // item_copyServerCode
+            // 
+            this.item_copyServerCode.Name = "item_copyServerCode";
+            this.item_copyServerCode.Size = new System.Drawing.Size(178, 22);
+            this.item_copyServerCode.Text = "Copy ServerCode";
+            this.item_copyServerCode.Click += new System.EventHandler(this.item_copyServerCode_Click);
             // 
             // toolStripSeparator1
             // 
@@ -127,6 +135,7 @@ namespace Plugin_ShellManager
             this.lv_shell.MultiSelect = false;
             this.lv_shell.Name = "lv_shell";
             this.lv_shell.Size = new System.Drawing.Size(847, 405);
+            this.lv_shell.SmallImageList = this.imageList1;
             this.lv_shell.TabIndex = 1;
             this.lv_shell.UseCompatibleStateImageBehavior = false;
             this.lv_shell.View = System.Windows.Forms.View.Details;
@@ -186,19 +195,18 @@ namespace Plugin_ShellManager
             this.columnHeader11.Text = "AddTime";
             this.columnHeader11.Width = 66;
             // 
-            // item_copyServerCode
+            // imageList1
             // 
-            this.item_copyServerCode.Name = "item_copyServerCode";
-            this.item_copyServerCode.Size = new System.Drawing.Size(178, 22);
-            this.item_copyServerCode.Text = "Copy ServerCode";
-            this.item_copyServerCode.Click += new System.EventHandler(this.item_copyServerCode_Click);
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(1, 20);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // ControlShellManager
+            // ShellManagerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lv_shell);
-            this.Name = "ControlShellManager";
+            this.Name = "ShellManagerControl";
             this.Size = new System.Drawing.Size(847, 405);
             this.rightMenu_Webshell.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -227,5 +235,6 @@ namespace Plugin_ShellManager
         private System.Windows.Forms.ListView lv_shell;
         private ToolStripMenuItem item_refreshStatus;
         private ToolStripMenuItem item_copyServerCode;
+        private ImageList imageList1;
     }
 }

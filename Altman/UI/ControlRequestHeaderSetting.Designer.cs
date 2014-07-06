@@ -35,9 +35,10 @@ namespace Altman
             this.item_edit = new System.Windows.Forms.ToolStripMenuItem();
             this.item_add = new System.Windows.Forms.ToolStripMenuItem();
             this.item_delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.lv_header = new ListViewPlus();
+            this.lv_header = new Controls.ListViewPlus();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.rightMenu_Header.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,6 +86,7 @@ namespace Altman
             this.lv_header.MultiSelect = false;
             this.lv_header.Name = "lv_header";
             this.lv_header.Size = new System.Drawing.Size(489, 343);
+            this.lv_header.SmallImageList = this.imageList1;
             this.lv_header.TabIndex = 1;
             this.lv_header.UseCompatibleStateImageBehavior = false;
             this.lv_header.View = System.Windows.Forms.View.Details;
@@ -98,6 +100,12 @@ namespace Altman
             // 
             this.columnHeader2.Text = "Value";
             this.columnHeader2.Width = 250;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(1, 20);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // ControlRequestHeaderSetting
             // 
@@ -120,5 +128,6 @@ namespace Altman
         private ListViewPlus lv_header;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

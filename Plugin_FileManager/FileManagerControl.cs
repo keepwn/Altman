@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Altman.Common.AltData;
@@ -19,7 +21,6 @@ namespace Plugin_FileManager
 
         private FileManagerService _fileManager;
 
-        private string _selectDirInTree; //选中的文件夹
         private bool _isWin;             //是否是windows系统
         private string _sourceCopyPath;  //用于文件复制
         private string _sourceCopyName;  //用于文件复制
@@ -80,8 +81,7 @@ namespace Plugin_FileManager
                 _hostService.Gui.ShowMsgInStatusBar(msg);
                 MessageBox.Show(msg);
 
-                _selectDirInTree = CurrentDir;
-                _fileManager.GetFileTree(_selectDirInTree);
+                _fileManager.GetFileTree(GetCurrentDirPath());
             }
         }
         /// <summary>
@@ -101,8 +101,7 @@ namespace Plugin_FileManager
                     _hostService.Gui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
-                _selectDirInTree = CurrentDir;
-                _fileManager.GetFileTree(_selectDirInTree);
+                _fileManager.GetFileTree(GetCurrentDirPath());
             }
         }
         /// <summary>
@@ -122,8 +121,7 @@ namespace Plugin_FileManager
                     _hostService.Gui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
-                _selectDirInTree = CurrentDir;
-                _fileManager.GetFileTree(_selectDirInTree);
+                _fileManager.GetFileTree(GetCurrentDirPath());
             }
         }
         /// <summary>
@@ -143,8 +141,7 @@ namespace Plugin_FileManager
                     _hostService.Gui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
-                _selectDirInTree = CurrentDir;
-                _fileManager.GetFileTree(_selectDirInTree);
+                _fileManager.GetFileTree(GetCurrentDirPath());
             }
         }
         /// <summary>
@@ -164,8 +161,7 @@ namespace Plugin_FileManager
                     _hostService.Gui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
-                _selectDirInTree = CurrentDir;
-                _fileManager.GetFileTree(_selectDirInTree);
+                _fileManager.GetFileTree(GetCurrentDirPath());
             }
         }
         /// <summary>
@@ -221,9 +217,8 @@ namespace Plugin_FileManager
                 //设置路径分隔符
                 SetPathSeparator(treeView_Dirs, _isWin);
 
-                CurrentDir = shellDir;
+                SetCurrentDirPath(shellDir);
                 ShowWwwRootDir(treeView_Dirs, drives, shellDir, _isWin);
-
                 _hostService.Gui.ShowMsgInStatusBar("Connect succeed");
             }
         }
@@ -244,8 +239,7 @@ namespace Plugin_FileManager
                     _hostService.Gui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
-                _selectDirInTree = CurrentDir;
-                _fileManager.GetFileTree(_selectDirInTree);
+                _fileManager.GetFileTree(GetCurrentDirPath());
             }
         }
         /// <summary>
@@ -302,7 +296,7 @@ namespace Plugin_FileManager
                 MessageBox.Show(msg);
 
                 //ShowResultInProgressBar(true, e);
-                RefreshAllFiles(CurrentDir);
+                RefreshAllFiles(GetCurrentDirPath());
             }
         }
 
@@ -376,6 +370,14 @@ namespace Plugin_FileManager
             }
         }
 
+        /// <summary>
+        /// 刷新文件
+        /// </summary>
+        private void RefreshAllFiles(string selectedPath)
+        {
+            SetCurrentDirPath(selectedPath);
+            _fileManager.GetFileTree(GetCurrentDirPath());
+        }
 
         #endregion
 
@@ -387,14 +389,88 @@ namespace Plugin_FileManager
             IsFile = 2,
             IsMuti = 3
         }
+
+        private enum FileType
+        {
+            unknow=0,
+            //可执行文件
+            exe=10,
+            dll,
+            bat,
+            bin,
+            //压缩文件
+            zip=20,
+            rar,
+            gz,
+            tgz,
+            cab,
+            //图像文件
+            bmp=30,
+            gif,
+            jpeg,
+            jpg,      
+            png,
+            //媒体文件
+            rm=40,
+            rmvb,
+            mov,
+            mp4,
+            mpeg,
+            mpg,
+            flv,
+            swf,         
+            //文档文件
+            dat=50,
+            doc,
+            docx,
+            eml,
+            ini,
+            log,
+            mdb,
+            pdf,
+            ppt,
+            pptx,
+            psd,
+            rtf,
+            txt,
+            wps,
+            xls,
+            xlsx,
+            //语言文件        
+            asa=80,
+            asp,
+            aspx,
+            c,
+            cpp,
+            cs,
+            h,
+            htm,
+            html,
+            jar,
+            php,
+            ruby,
+            sln,
+            //其他
+            iso=100,
+            chm,
+        }
         private struct FileInfo
         {
-            public bool IsDir;
+            public string Name;
             public string FullName;
-            public FileInfo(string fullname, bool isDir)
+            public bool IsDir;
+            public FileType Type;
+            
+            public FileInfo(string name,string fullname, bool isDir,string fileType)
             {
+                Name = name;
                 FullName = fullname;
                 IsDir = isDir;
+
+                if (!Enum.TryParse<FileType>(fileType, out Type))
+                {
+                    Type = FileType.unknow;
+                }
             }
         }
         /// <summary>
@@ -404,58 +480,6 @@ namespace Plugin_FileManager
         {
             treeView.PathSeparator = isWin ? "\\" : "/";
         }
-        private void AddDrivesInDirTree(TreeView treeView, IEnumerable<string> drives)
-        {
-            //refresh
-            treeView.Nodes.Clear();
-            //load
-            foreach (string drive in drives)
-            {
-                treeView.Nodes.Add(drive, drive, 0, 0);
-            }
-        }
-        private void AddDirInDirTree(TreeView treeView, string dirFullPath, bool isWin)
-        {
-            string[] paths = dirFullPath.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
-            List<string> pathsList = new List<string>(paths);
-            TreeNode tmp = null;
-            if (!isWin)
-            {
-                //若为linux主机，直接用第一个节点赋值（根节点"/"）
-                tmp = treeView.Nodes[0];
-            }
-            else
-            {
-                //若为windows主机，数组[0]为磁盘
-                if (treeView.Nodes.ContainsKey(pathsList[0]))
-                {
-                    tmp = treeView.Nodes[pathsList[0]];
-                    pathsList.RemoveAt(0);
-                }
-                else return;
-            }
-            int index = 0;
-            while (index < pathsList.Count)
-            {
-                string tmpNodeName = pathsList[index];
-                tmp = !tmp.Nodes.ContainsKey(tmpNodeName) ? tmp.Nodes.Add(tmpNodeName, tmpNodeName, 1, 1) : tmp.Nodes[tmpNodeName];
-                index++;
-            }
-            //treeView.SelectedNode = tmp;
-            //treeView.CollapseAll();
-            //treeView.SelectedNode.Expand();
-        }
-        private void AddDirInDirTree(TreeNode selectedNode, string name)
-        {
-            if (selectedNode != null)
-            {
-                if (!selectedNode.Nodes.ContainsKey(name))
-                {
-                    selectedNode.Nodes.Add(name, name, 1, 1);
-                }
-            }
-        }
-
         private TreeNode FindDirInDirTree(TreeView treeView, string dirFullPath, bool isWin)
         {
             string[] paths = dirFullPath.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
@@ -489,6 +513,65 @@ namespace Plugin_FileManager
             }
             return tmp;
         }
+        private void AddDriveInDirTree(TreeView treeView, IEnumerable<string> drives)
+        {
+            //refresh
+            treeView.Nodes.Clear();
+            //load
+            foreach (string drive in drives)
+            {
+                treeView.Nodes.Add(drive, drive, 0, 0);
+            }
+        }
+        private TreeNode AddDirInDirTree(TreeView treeView, IEnumerable<string> dirs, string currentDir,bool isWin)
+        {
+            TreeNode selectedNode = FindDirInDirTree(treeView, currentDir, isWin);
+            if (selectedNode != null)
+            {
+                foreach (string dir in dirs)
+                {
+                    if (!selectedNode.Nodes.ContainsKey(dir))
+                        selectedNode.Nodes.Add(dir, dir, 1, 1);
+                }
+            }
+            return selectedNode;
+        }
+        private void AddDirInDirTree(TreeView treeView, string dirFullPath, bool isWin)
+        {
+            string[] paths = dirFullPath.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> pathsList = new List<string>(paths);
+            TreeNode tmp = null;
+            if (!isWin)
+            {
+                //若为linux主机，直接用第一个节点赋值（根节点"/"）
+                tmp = treeView.Nodes[0];
+            }
+            else
+            {
+                //若为windows主机，数组[0]为磁盘
+                if (treeView.Nodes.ContainsKey(pathsList[0]))
+                {
+                    tmp = treeView.Nodes[pathsList[0]];
+                    pathsList.RemoveAt(0);
+                }
+                else return;
+            }
+            int index = 0;
+            while (index < pathsList.Count)
+            {
+                string tmpNodeName = pathsList[index];
+                tmp = !tmp.Nodes.ContainsKey(tmpNodeName) ? tmp.Nodes.Add(tmpNodeName, tmpNodeName, 1, 1) : tmp.Nodes[tmpNodeName];
+                index++;
+            }
+        }
+        private void RemoveDirInDirTree(TreeView treeView, string dirFullPath, bool isWin)
+        {
+            TreeNode selectedNode = FindDirInDirTree(treeView, dirFullPath, isWin);
+            if (selectedNode != null)
+            {
+                selectedNode.Remove();
+            }
+        }
 
         private void AddDirsInListViewFile(ListViewPlus listViewFile, IEnumerable<OsFile> dirs, string parentPath)
         {
@@ -506,7 +589,7 @@ namespace Plugin_FileManager
                 item.SubItems.Add(dir.FilePerms);
                 //添加fileInfo
                 string fullName = Path.Combine(new string[] { parentPath, dirName }) + (_isWin ? "\\" : "/");
-                item.Tag = new FileInfo(fullName, true);//is dir
+                item.Tag = new FileInfo(dirName, fullName, true, FileType.unknow.ToString());//is dir
                 listViewFile.Items.Add(item);
             }
         }
@@ -514,17 +597,23 @@ namespace Plugin_FileManager
         {
             //显示files
             foreach (OsFile file in files)
-            {
+            {          
+                //fileInfo
+                string dirName = file.FileName;
+                string fullName = Path.Combine(new string[] { parentPath, dirName });
+                string type = Path.GetExtension(dirName).ToLower();
+                if (type.StartsWith("."))
+                    type = type.TrimStart('.');
+                var fileInfo = new FileInfo(dirName, fullName, false, type);//is file
                 //添加文件列表
-                ListViewItem item = new ListViewItem(file.FileName, 2);
-                //为item添加name,为查找确定key
-                item.Name = file.FileName;
+                ListViewItem item = new ListViewItem(file.FileName);
+                item.Name = dirName;//为item添加name,为查找确定key               
                 item.SubItems.Add(file.FileMTime);
                 item.SubItems.Add(file.FileSize);
                 item.SubItems.Add(file.FilePerms);
-                //添加fileInfo
-                string fullName = Path.Combine(new string[] { parentPath, item.Name });
-                item.Tag = new FileInfo(fullName, false);//is file
+                item.ImageKey = GetFileTypeInListView(fileInfo.Type);
+                item.Tag = fileInfo;
+           
                 listViewFile.Items.Add(item);
             }
         }
@@ -532,18 +621,17 @@ namespace Plugin_FileManager
         {
             //Refreash
             listViewFile.Items.Clear();
+
             //show dirs in DirTree
-            TreeNode selectedNode = FindDirInDirTree(treeView, CurrentDir, _isWin);
-            if (selectedNode == null) return;
-            foreach (OsFile dir in dirs)
-            {
-                //移除最后的'/'符号
-                string dirName = dir.FileName.Remove(dir.FileName.Length - 1, 1);
-                AddDirInDirTree(selectedNode, dirName);
-            }
+            List<string> newDirs = dirs.Select(dir => dir.FileName.Remove(dir.FileName.Length - 1, 1)).ToList();
+            string currentDir = GetCurrentDirPath();
+            TreeNode selectedNode = AddDirInDirTree(treeView_Dirs, newDirs,currentDir,_isWin);
+            if (selectedNode == null) 
+                return;
+
             //show dirs/files in ListViewFile
-            AddDirsInListViewFile(listViewFile, dirs, CurrentDir);
-            AddFilesInListViewFile(listViewFile, files, CurrentDir);
+            AddDirsInListViewFile(listViewFile, dirs, currentDir);
+            AddFilesInListViewFile(listViewFile, files, currentDir);
          
             treeView.CollapseAll();
             treeView.SelectedNode = selectedNode;
@@ -551,9 +639,9 @@ namespace Plugin_FileManager
         }
         private void ShowWwwRootDir(TreeView treeView, IEnumerable<string> drives, string wwwRootDir, bool isWin)
         {
-            AddDrivesInDirTree(treeView, drives);
+            AddDriveInDirTree(treeView, drives);
             AddDirInDirTree(treeView, wwwRootDir, isWin);
-            RefreshAllFiles(CurrentDir);
+            RefreshAllFiles(GetCurrentDirPath());
         }
 
         /// <summary>
@@ -561,7 +649,28 @@ namespace Plugin_FileManager
         /// </summary>
         private string GetCurrentDirPath()
         {
-            return CurrentDir;
+            string sep = _isWin ? "\\" : "/";
+            if (textBox_url.Text.EndsWith(sep))
+            {
+                return textBox_url.Text;
+            }
+            else
+            {
+                return textBox_url.Text + sep;
+            }
+        }
+        private void SetCurrentDirPath(string currentDir)
+        {
+            string sep = _isWin ? "\\" : "/";
+            string dir = currentDir;
+            if (dir.EndsWith(sep))
+            {
+                textBox_url.Text = dir;
+            }
+            else
+            {
+                textBox_url.Text = dir + sep;
+            }
         }
         /// <summary>
         /// 获取文件列表中被选择的文件信息
@@ -596,12 +705,23 @@ namespace Plugin_FileManager
                 return SelectedFilesStatus.IsMuti;
             }
         }
-        private SelectedFilesStatus GetFileTypeInListView(ListViewItem item)
+        private string GetFileTypeInListView(FileType type)
         {
-            SelectedFilesStatus type = (SelectedFilesStatus)item.Tag;
-            return type;
+            string tmpName = string.Format("{0}_{1}_32.ico", (int) type, type.ToString());
+            if (imageList_FileType.Images.ContainsKey(tmpName))
+            {
+                return tmpName;
+            }
+            return imageList_FileType.Images[0].ToString();
         }
 
+        #endregion
+
+        #region btn_Dir事件
+        private void btn_Dir_Click(object sender, EventArgs e)
+        {
+            RefreshAllFiles(GetCurrentDirPath());
+        }
         #endregion
 
         #region treeView_File事件
@@ -640,7 +760,7 @@ namespace Plugin_FileManager
         private void listView_File_DragDrop(object sender, DragEventArgs e)
         {
             String[] files = e.Data.GetData(DataFormats.FileDrop, false) as String[];
-            string currentDir = CurrentDir;
+            string currentDir = GetCurrentDirPath();
             foreach (string srcfile in files)
             {
                 if (Directory.Exists(srcfile))
@@ -710,6 +830,7 @@ namespace Plugin_FileManager
         /// </summary>
         private void listView_File_EditSubItemCompleted(object sender, ListViewPlus.EditSubItemEventArgs e)
         {
+            string currentDir = string.Empty;
             switch (e.UserSate)
             {
                 case "rename":
@@ -717,11 +838,11 @@ namespace Plugin_FileManager
                     //发送重命名请求
                     //oldFileName,newFileName
                     //为了安全起见，这里使用绝对路径
-                    _selectDirInTree = CurrentDir;
+                    currentDir = GetCurrentDirPath();
                     string oldFileName = e.OldLabel;
                     string newFileName = e.Label;
-                    string oldFileNameFullPath = Path.Combine(_selectDirInTree, oldFileName);
-                    string newFileNameFullPath = Path.Combine(_selectDirInTree, newFileName);
+                    string oldFileNameFullPath = Path.Combine(currentDir, oldFileName);
+                    string newFileNameFullPath = Path.Combine(currentDir, newFileName);
                     _fileManager.RenameFileOrDir(oldFileNameFullPath, newFileNameFullPath);
                     break;
                 case "modifyTime":
@@ -731,9 +852,9 @@ namespace Plugin_FileManager
                     break;
                 case "createDir":
                     ////打开设置界面
-                    _selectDirInTree = CurrentDir;
+                    currentDir = GetCurrentDirPath();
                     string dirName = e.Label;
-                    string dirFullPath = Path.Combine(_selectDirInTree, dirName);
+                    string dirFullPath = Path.Combine(currentDir, dirName);
                     _fileManager.CreateDir(dirFullPath);
                     break;
                 default:
@@ -799,7 +920,7 @@ namespace Plugin_FileManager
         /// </summary>
         private void item_refresh_Click(object sender, EventArgs e)
         {
-            string currentDirPath = CurrentDir;
+            string currentDirPath = GetCurrentDirPath();
             RefreshAllFiles(currentDirPath);
         }
         /// <summary>
@@ -816,7 +937,7 @@ namespace Plugin_FileManager
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string srcfile = openFileDialog.FileName;
-                string currentDirPath = CurrentDir;
+                string currentDirPath = GetCurrentDirPath();
                 string fileName = Path.GetFileName(srcfile);
                 string targetFilePath =Path.Combine(currentDirPath, fileName);
                 UploadFile(srcfile, targetFilePath);
@@ -855,6 +976,8 @@ namespace Plugin_FileManager
                 if (status == SelectedFilesStatus.IsDir || status == SelectedFilesStatus.IsFile)
                 {
                     string webDir = fileInfos[0].FullName;
+                    //提前删除文件夹节点，如果删除失败可能会影响(待解决)
+                    RemoveDirInDirTree(treeView_Dirs, webDir, _isWin);
                     _fileManager.DeleteFileOrDir(webDir);
                 }
             }
@@ -921,7 +1044,7 @@ namespace Plugin_FileManager
             {
                 if (_sourceCopyPath != string.Empty)
                 {
-                    string targetCopyDir = CurrentDir;
+                    string targetCopyDir = GetCurrentDirPath();
                     _fileManager.CopyFileOrDir(_sourceCopyPath, Path.Combine(targetCopyDir, _sourceCopyName));
                     //清空复制记录
                     _sourceCopyPath = string.Empty;
@@ -945,7 +1068,7 @@ namespace Plugin_FileManager
         /// </summary>
         private void item_createFile_Click(object sender, EventArgs e)
         {
-            string newFile = Path.Combine(CurrentDir, "NewFile.txt");
+            string newFile = Path.Combine(GetCurrentDirPath(), "NewFile.txt");
             UserControl fileEditer = new FileEditerControl(_hostService, _shellData, newFile, false);
             _hostService.Gui.CreateNewTabPage("FileEdit", fileEditer);
         }
@@ -955,7 +1078,7 @@ namespace Plugin_FileManager
         private void item_downloadToServer_Click(object sender, EventArgs e)
         {
             //打开设置界面
-            FormWget formWget = new FormWget(CurrentDir);
+            FormWget formWget = new FormWget(GetCurrentDirPath());
             formWget.ShowDialog();
             if (formWget.DialogResult == DialogResult.Yes)
             {
@@ -968,47 +1091,5 @@ namespace Plugin_FileManager
         }
         #endregion
 
-        /// <summary>
-        /// 刷新所有文件
-        /// </summary>
-        private void RefreshAllFiles(string selectedPath)
-        {
-            CurrentDir = selectedPath;
-            _fileManager.GetFileTree(CurrentDir);
-        }
-
-        private void btn_Dir_Click(object sender, EventArgs e)
-        {
-            RefreshAllFiles(CurrentDir);
-        }
-
-        public string CurrentDir
-        {
-            get
-            {
-                string sep = _isWin ? "\\" : "/";
-                if (textBox_url.Text.EndsWith(sep))
-                {
-                    return textBox_url.Text;
-                }
-                else
-                {
-                    return textBox_url.Text + sep;
-                }
-            }
-            set
-            {
-                string sep = _isWin ? "\\" : "/";
-                string dir = value;
-                if (dir.EndsWith(sep))
-                {
-                    textBox_url.Text = dir;
-                }
-                else
-                {
-                    textBox_url.Text = dir + sep;
-                }
-            }
-        }
     }
 }
