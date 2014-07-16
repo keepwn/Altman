@@ -1,4 +1,4 @@
-﻿namespace Altman
+﻿namespace Altman.UI
 {
     partial class ControlPolicySetting
     {

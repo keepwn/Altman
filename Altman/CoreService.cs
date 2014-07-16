@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+
 using Altman.LogicCore;
 using Altman.ModelCore;
+using Altman.UI;
 using Altman.WebCore;
-using PluginFramework;
-using Shell = Altman.ModelCore.Shell;
+using Altman.Plugins;
 
 namespace Altman
 {

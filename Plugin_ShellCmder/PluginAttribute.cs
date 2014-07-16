@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Windows.Forms;
-using PluginFramework;
+
+using Altman.Plugins;
 
 namespace Plugin_ShellCmder
 {

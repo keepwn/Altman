@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
-using PluginFramework;
+
+using Altman.Plugins;
 
 namespace Plugin_PluginManager
 {

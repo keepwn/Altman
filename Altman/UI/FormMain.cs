@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
-using System.Data;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Altman.DbCore;
-using Altman.LogicCore;
-using Altman.ModelCore;
-using Altman.WebCore;
-using PluginFramework;
-using Shell = Altman.ModelCore.Shell;
 
-namespace Altman
+using Altman.ModelCore;
+using Altman.Plugins;
+
+namespace Altman.UI
 {
     public partial class FormMain : Form
     {
@@ -218,7 +212,15 @@ namespace Altman
 
         private void Tsmi_docs_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(Application.StartupPath + "//help.chm");
+            string chm = Application.StartupPath + "//Docs//HELP.chm";
+            if (File.Exists(chm))
+            {
+                System.Diagnostics.Process.Start(chm);
+            }
+            else
+            {
+                MessageBox.Show("Not find /Docs/help.chm");
+            }
         }
         #endregion
 

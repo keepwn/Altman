@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+
 using Altman.Common.AltData;
+using Altman.Controls;
 using Altman.ModelCore;
-using Controls;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace Plugin_ShellCmder
 {

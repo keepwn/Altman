@@ -33,7 +33,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\_Build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -53,6 +53,10 @@
     <ApplicationIcon>altman.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mono.Data.Sqlite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Ext\dll\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -67,6 +71,92 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AltData\DataCombine.cs" />
+    <Compile Include="Common\AltData\DataConvert.cs" />
+    <Compile Include="Common\AltData\ResultMatch.cs" />
+    <Compile Include="Common\AltData\ResultStruct.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_CompletedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_DownloadProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_ProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_ProxyReceiveEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_UploadProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltException\CustomException.cs" />
+    <Compile Include="Common\AltException\LocalCustomException.cs" />
+    <Compile Include="Common\AltException\RequestCustomException.cs" />
+    <Compile Include="Common\AltException\ResponseCustomException.cs" />
+    <Compile Include="Controls\ListViewPlus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewPlus.Designer.cs">
+      <DependentUpon>ListViewPlus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabControl\CustomTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\NativeMethods.cs" />
+    <Compile Include="Controls\TabControl\TabStyle.cs" />
+    <Compile Include="Controls\TabControl\TabStyleProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleAngledProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleChromeProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleDefaultProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleIE8Provider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleNoneProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleRoundedProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVisualStudioProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVS2010Provider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\ThemedColors.cs" />
+    <Compile Include="Controls\TextBoxShell.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxShell.Designer.cs">
+      <DependentUpon>TextBoxShell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DbCore\AccessHelper.cs" />
+    <Compile Include="DbCore\Db.cs" />
+    <Compile Include="DbCore\DbManager.cs" />
+    <Compile Include="DbCore\SqliteHelper.cs" />
+    <Compile Include="LogicCore\CustomCommandCode.cs" />
+    <Compile Include="LogicCore\CustomShellType.cs" />
+    <Compile Include="LogicCore\CustomShellTypeProvider.cs" />
+    <Compile Include="LogicCore\CustomShellTypeXmlHandle.cs" />
+    <Compile Include="LogicCore\EncryMode.cs" />
+    <Compile Include="LogicCore\FuncTreeNode.cs" />
+    <Compile Include="LogicCore\InitWorker.cs" />
+    <Compile Include="LogicCore\SettingXmlHandle.cs" />
+    <Compile Include="LogicCore\ShellExtra.cs" />
+    <Compile Include="LogicCore\ShellExtraHandle.cs" />
+    <Compile Include="LogicCore\ShellManager.cs" />
+    <Compile Include="LogicCore\XmlHelper.cs" />
+    <Compile Include="ModelCore\Shell.cs" />
+    <Compile Include="Plugins\IControlPlugin.cs" />
+    <Compile Include="Plugins\IFormPlugin.cs" />
+    <Compile Include="Plugins\IHostCoreService.cs" />
+    <Compile Include="Plugins\IHostDbService.cs" />
+    <Compile Include="Plugins\IHostGuiService.cs" />
+    <Compile Include="Plugins\IHostService.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\IPluginAttribute.cs" />
+    <Compile Include="Plugins\IPluginSetting.cs" />
+    <Compile Include="Setting\GlobalSetting.cs" />
+    <Compile Include="Setting\Setting.cs" />
     <Compile Include="UI\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +232,12 @@
     <Compile Include="UI\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
+    <Compile Include="WebCore\Http.cs" />
+    <Compile Include="WebCore\HttpClient.cs" />
+    <Compile Include="WebCore\ProxyServer.cs" />
+    <EmbeddedResource Include="Controls\TextBoxShell.resx">
+      <DependentUpon>TextBoxShell.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,50 +274,23 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Altman.Common\Altman.Common.csproj">
-      <Project>{8204d833-0e7e-4b70-a276-a25edbaf7f7e}</Project>
-      <Name>Altman.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Altman.DbCore\Altman.DbCore.csproj">
-      <Project>{9EE74A10-2A4A-4CE9-AF0C-D9DE32066303}</Project>
-      <Name>Altman.DbCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Altman.Setting\Altman.Setting.csproj">
-      <Project>{50e8c0d0-7d2f-47e5-8581-c0280fbf4c1a}</Project>
-      <Name>Altman.Setting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Altman.WebCore\Altman.WebCore.csproj">
-      <Project>{4878cb84-f99a-4f2f-9c25-a2658c3cdba1}</Project>
-      <Name>Altman.WebCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Controls\Controls.csproj">
-      <Project>{FEB8733E-3730-4E61-90BA-CD157B880677}</Project>
-      <Name>Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Altman.LogicCore\Altman.LogicCore.csproj">
-      <Project>{a082872c-4b4d-4da1-9012-ab91bbb19584}</Project>
-      <Name>Altman.LogicCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Altman.ModelCore\Altman.ModelCore.csproj">
-      <Project>{3078b37a-59be-4cbe-a40a-3de4797f4545}</Project>
-      <Name>Altman.ModelCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
-      <Project>{f1878fd7-a4bb-497a-b377-c41f0ba6b27b}</Project>
-      <Name>PluginFramework</Name>
-    </ProjectReference>
+    <Content Include="altman.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="altman.ico" />
+    <Folder Include="Forms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy $(SolutionDir)_Reference\sqlite3.dll $(SolutionDir)Altman\bin\x86\Debug\
-
-Copy $(SolutionDir)CHANGELOG.txt $(SolutionDir)Altman\bin\x86\Debug\
-Copy $(SolutionDir)LICENSE $(SolutionDir)Altman\bin\x86\Debug\
-Copy $(SolutionDir)README.md $(SolutionDir)Altman\bin\x86\Debug\
-Copy $(SolutionDir)help.chm $(SolutionDir)Altman\bin\x86\Debug\</PostBuildEvent>
+    <PostBuildEvent>Copy $(SolutionDir)_Ext\dll\sqlite3.dll $(OutDir)
+Copy $(SolutionDir)_Ext\*.db3 $(OutDir)
+Copy $(SolutionDir)_Ext\*.xml $(OutDir)
+if not exist $(OutDir)Docs mkdir $(OutDir)Docs
+Copy $(SolutionDir)_Docs\* $(OutDir)Docs
+if not exist $(OutDir)Plugins mkdir $(OutDir)Plugins</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

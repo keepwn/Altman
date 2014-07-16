@@ -1,6 +1,6 @@
-﻿using Controls;
+﻿using Altman.Controls;
 
-namespace Altman
+namespace Altman.UI
 {
     partial class ControlRequestHeaderSetting
     {

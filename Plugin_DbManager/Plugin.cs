@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Forms;
+
 using Altman.ModelCore;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace Plugin_DbManager
 {

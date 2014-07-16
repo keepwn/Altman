@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using Altman.ModelCore;
-using PluginFramework;
+
+using Altman.UI;
 
 namespace Altman
 {

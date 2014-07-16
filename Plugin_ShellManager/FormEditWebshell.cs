@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Xml;
+
 using Altman.ModelCore;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace Plugin_ShellManager
 {

@@ -1,4 +1,4 @@
-﻿namespace Altman
+﻿namespace Altman.UI
 {
     partial class FormGlobalSetting
     {
@@ -31,16 +31,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGlobalSetting));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.controlUserAgentSetting1 = new Altman.ControlUserAgentSetting();
+            this.controlUserAgentSetting1 = new ControlUserAgentSetting();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.controlRequestHeaderSetting1 = new Altman.ControlRequestHeaderSetting();
+            this.controlRequestHeaderSetting1 = new ControlRequestHeaderSetting();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.controlProxySetting1 = new Altman.ControlProxySetting();
+            this.controlProxySetting1 = new ControlProxySetting();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_SaveSetting = new System.Windows.Forms.Button();
-            this.controlPolicySetting1 = new Altman.ControlPolicySetting();
+            this.controlPolicySetting1 = new ControlPolicySetting();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage1.SuspendLayout();

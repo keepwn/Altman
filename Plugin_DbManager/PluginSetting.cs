@@ -1,4 +1,4 @@
-﻿using PluginFramework;
+﻿using Altman.Plugins;
 
 namespace Plugin_DbManager
 {

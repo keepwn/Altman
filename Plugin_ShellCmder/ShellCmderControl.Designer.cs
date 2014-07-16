@@ -1,4 +1,4 @@
-﻿using Controls;
+﻿using Altman.Controls;
 
 namespace Plugin_ShellCmder
 {
@@ -30,7 +30,7 @@ namespace Plugin_ShellCmder
         /// </summary>
         private void InitializeComponent()
         {
-            this.shellTextBox_Cmder = new Controls.TextBoxShell();
+            this.shellTextBox_Cmder = new Altman.Controls.TextBoxShell();
             this.SuspendLayout();
             // 
             // shellTextBox_Cmder

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AltmanSetting>
+  <UserAgent>
+    <type>1</type>
+    <option name="Custom" selected="True">altman2.0-user-agent</option>
+    <option name="IE6">Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</option>
+    <option name="IE7">Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.2)</option>
+    <option name="IE8">Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)</option>
+    <option name="IE9">Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)</option>
+    <option name="Baiduspider">Baiduspider+(+http://www.baidu.com/search/spider.htm")</option>
+    <option name="Googlebot">Googlebot/2.1 (+http://www.google.com/bot.html)</option>
+    <option name="Yahoo">Mozilla/5.0?(compatible;?Yahoo!?Slurp;?http://help.yahoo.com/help/us/ysearch/slurp")</option>
+    <option name="Msnbot">msnbot/1.0 (+http://search.msn.com/msnbot.htm)</option>
+  </UserAgent>
+  <HttpHeader>
+    <key name="Accept">*/*</key>
+    <key name="Accept-Encoding">deflate</key>
+    <key name="Accept-language">en-us</key>
+    <key name="Referer" />
+  </HttpHeader>
+  <Policy>
+    <isParamRandom>1</isParamRandom>
+    <isShowDisclaimer>0</isShowDisclaimer>
+  </Policy>
+  <Proxy>
+    <type>0</type>
+    <customProxy address="127.0.0.1" port="9999" user="" password="" domain="" />
+  </Proxy>
+</AltmanSetting>

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+
 using Altman.ModelCore;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace Plugin_PluginManager
 {

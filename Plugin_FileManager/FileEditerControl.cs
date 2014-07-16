@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+
 using Altman.ModelCore;
-using PluginFramework;
-using Plugin_FileManager;
+using Altman.Plugins;
 
 namespace Plugin_FileManager
 {

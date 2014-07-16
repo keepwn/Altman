@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using PluginFramework;
+
+using Altman.UI;
+using Altman.Plugins;
 
 namespace Altman
 {

@@ -4,9 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+
 using Altman.Common.AltData;
 using Altman.ModelCore;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace Plugin_DbManager
 {

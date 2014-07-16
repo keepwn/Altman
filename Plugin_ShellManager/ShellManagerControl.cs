@@ -4,8 +4,9 @@ using System.Data;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
+
 using Altman.ModelCore;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace Plugin_ShellManager
 {

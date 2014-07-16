@@ -1,4 +1,4 @@
-﻿using Controls;
+﻿using Altman.Controls;
 
 namespace Plugin_FileManager
 {
@@ -55,7 +55,7 @@ namespace Plugin_FileManager
             this.imageList_FileType = new System.Windows.Forms.ImageList(this.components);
             this.btn_Dir = new System.Windows.Forms.Button();
             this.textBox_url = new System.Windows.Forms.TextBox();
-            this.listView_File = new Controls.ListViewPlus();
+            this.listView_File = new Altman.Controls.ListViewPlus();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));

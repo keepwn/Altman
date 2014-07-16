@@ -6,11 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+
 using Altman.Common.AltData;
 using Altman.Common.AltEventArgs;
 using Altman.ModelCore;
-using Controls;
-using PluginFramework;
+using Altman.Controls;
+using Altman.Plugins;
 
 namespace Plugin_FileManager
 {

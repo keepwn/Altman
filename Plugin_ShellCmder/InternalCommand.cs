@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
-using Controls;
+
+using Altman.Controls;
 
 namespace Plugin_ShellCmder
 {

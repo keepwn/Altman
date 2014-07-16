@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Altman.LogicCore;
 using Altman.Setting;
+using Altman.UI;
 
 namespace Altman
 {

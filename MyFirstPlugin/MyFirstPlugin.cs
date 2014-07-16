@@ -7,8 +7,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
+
 using Altman.ModelCore;
-using PluginFramework;
+using Altman.Plugins;
 
 namespace MyFirstPlugin
 {

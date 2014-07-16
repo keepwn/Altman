@@ -69,22 +69,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Altman.Common\Altman.Common.csproj">
-      <Project>{8204d833-0e7e-4b70-a276-a25edbaf7f7e}</Project>
-      <Name>Altman.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Altman.ModelCore\Altman.ModelCore.csproj">
-      <Project>{3078b37a-59be-4cbe-a40a-3de4797f4545}</Project>
-      <Name>Altman.ModelCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
-      <Project>{f1878fd7-a4bb-497a-b377-c41f0ba6b27b}</Project>
-      <Name>PluginFramework</Name>
+    <ProjectReference Include="..\Altman\Altman.csproj">
+      <Project>{c8b447f9-e4d2-4d79-94f9-74582509e6e1}</Project>
+      <Name>Altman</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)Altman\bin\x86\Debug\Plugins</PostBuildEvent>
+    <PostBuildEvent>Copy $(TargetDir)*.dll $(SolutionDir)_Build\Plugins\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
