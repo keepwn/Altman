@@ -242,6 +242,7 @@ Copy $(SolutionDir)_Ext\*.db3 $(OutDir)
 Copy $(SolutionDir)_Ext\*.xml $(OutDir)
 if not exist $(OutDir)Docs mkdir $(OutDir)Docs
 Copy $(SolutionDir)_Docs\* $(OutDir)Docs
+Copy $(SolutionDir)README.md $(OutDir)
 if not exist $(OutDir)Plugins mkdir $(OutDir)Plugins</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
