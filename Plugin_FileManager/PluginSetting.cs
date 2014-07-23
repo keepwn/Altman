@@ -1,4 +1,4 @@
-﻿using Altman.Plugins;
+﻿using PluginFramework;
 
 namespace Plugin_FileManager
 {
@@ -16,6 +16,14 @@ namespace Plugin_FileManager
         public bool IsShowInRightContext
         {
             get { return true; }
+        }
+        public int IndexInList
+        {
+            get { return 3; }
+        }
+        public string LoadPath
+        {
+            get { return "webshell"; }
         }
     }
 }

@@ -4,19 +4,18 @@ using System.Data;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_ShellManager
 {
     public partial class ShellManagerControl : UserControl
     {
-        private IHostService _hostService;
+        private IHost _host;
         private Shell _shellData;
         private ShellManagerService _shellManagerService = null;
 
-        public ShellManagerControl(IHostService hostService, Shell data)
+        public ShellManagerControl(IHost host, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -24,11 +23,11 @@ namespace Plugin_ShellManager
             //创建listview
             //CreateListView();
 
-            this._hostService = hostService;
+            this._host = host;
             this._shellData = data;
 
             //注册事件
-            _shellManagerService = new ShellManagerService(_hostService);
+            _shellManagerService = new ShellManagerService(_host);
             _shellManagerService.GetDataTableCompletedToDo += ShellManagerServiceGetDataTableCompletedToDo;
             _shellManagerService.DeleteCompletedToDo += ShellManagerServiceDeleteCompletedToDo;
             _shellManagerService.InsertCompletedToDo += ShellManagerServiceInsertCompletedToDo;
@@ -38,12 +37,12 @@ namespace Plugin_ShellManager
             LoadWebshellData();
 
             //添加插件到右键菜单
-            foreach (var plugin in hostService.Core.GetPlugins())
+            foreach (var plugin in host.Core.GetPlugins())
             {
                 //IsShowInRightContext
-                if (plugin.PluginSetting.IsShowInRightContext)
+                if (plugin.PluginSetting.LoadPath=="webshell" && plugin.PluginSetting.IsShowInRightContext)
                 {
-                    string title = plugin.PluginAttribute.Name;
+                    string title = plugin.PluginInfo.Name;
 
                     //添加到Tsmi_Plugins中
                     ToolStripMenuItem pluginItem = new ToolStripMenuItem();
@@ -73,8 +72,8 @@ namespace Plugin_ShellManager
                         UserControl view = (plugin as IControlPlugin).GetUi(shell);
                         //创建新的tab标签
                         //设置标题为FileManager|TargetId
-                        string title = plugin.PluginAttribute.Name + "|" + shell.TargetId;
-                        _hostService.Gui.CreateNewTabPage(title, view);
+                        string title = plugin.PluginInfo.Name + "|" + shell.TargetId;
+                        _host.Ui.CreateNewTabPage(title, view);
                     }
                     else if (plugin is IFormPlugin)
                     {
@@ -232,7 +231,7 @@ namespace Plugin_ShellManager
         }
         private void item_add_Click(object sender, EventArgs e)
         {
-            FormEditWebshell editwebshell = new FormEditWebshell(_hostService);
+            FormEditWebshell editwebshell = new FormEditWebshell(_host);
             editwebshell.WebshellWatchEvent += OnWebshellChange;
             editwebshell.Show();
         }
@@ -243,7 +242,7 @@ namespace Plugin_ShellManager
                 Shell shell = (Shell)lv_shell.SelectedItems[0].Tag;
                 //Shell Shell = (Shell)lv_shell.SelectedItems[0].Tag;
 
-                FormEditWebshell editwebshell = new FormEditWebshell(_hostService, shell);
+                FormEditWebshell editwebshell = new FormEditWebshell(_host, shell);
                 editwebshell.WebshellWatchEvent += OnWebshellChange;
                 editwebshell.Show();
             }
@@ -355,7 +354,7 @@ namespace Plugin_ShellManager
             if (lv_shell.SelectedItems.Count > 0)
             {
                 Shell shell = (Shell)lv_shell.SelectedItems[0].Tag;
-                string code = _hostService.Core.GetCustomShellTypeServerCode(shell.ShellType);
+                string code = _host.Core.GetCustomShellTypeServerCode(shell.ShellType);
 
                 if (string.IsNullOrWhiteSpace(code))
                 {

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBFBAB99-6585-4360-AE7B-08842326A64C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Altman</RootNamespace>
+    <AssemblyName>AltmanUtil</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AltData\DataCombine.cs" />
+    <Compile Include="Common\AltData\DataConvert.cs" />
+    <Compile Include="Common\AltData\ResultMatch.cs" />
+    <Compile Include="Common\AltData\ResultStruct.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_CompletedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_DownloadProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_ProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_ProxyReceiveEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_UploadProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltException\CustomException.cs" />
+    <Compile Include="Common\AltException\LocalCustomException.cs" />
+    <Compile Include="Common\AltException\RequestCustomException.cs" />
+    <Compile Include="Common\AltException\ResponseCustomException.cs" />
+    <Compile Include="Controls\ListViewPlus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewPlus.Designer.cs">
+      <DependentUpon>ListViewPlus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabControl\CustomTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\NativeMethods.cs" />
+    <Compile Include="Controls\TabControl\TabStyle.cs" />
+    <Compile Include="Controls\TabControl\TabStyleProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleAngledProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleChromeProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleDefaultProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleIE8Provider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleNoneProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleRoundedProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVisualStudioProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVS2010Provider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TabControl\ThemedColors.cs" />
+    <Compile Include="Controls\TextBoxShell.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxShell.Designer.cs">
+      <DependentUpon>TextBoxShell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Shell.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TextBoxShell.resx">
+      <DependentUpon>TextBoxShell.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

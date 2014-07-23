@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 
-using Altman.Plugins;
+using PluginFramework;
 
 namespace Altman
 {

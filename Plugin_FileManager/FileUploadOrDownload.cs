@@ -3,27 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-
 using Altman.Common.AltData;
 using Altman.Common.AltEventArgs;
 using Altman.Common.AltException;
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_FileManager
 {
     public class FileUploadOrDownload
     {
-        private IHostService _hostService;
+        private IHost _host;
         private Shell _shellData;
 
         private string _sourceFilePath;
         private string _targetFilePath;
         private BackgroundWorker _backgroundWorker;
 
-        public FileUploadOrDownload(IHostService hostService, Shell shellData, string sourceFilePath, string targetFilePath)
+        public FileUploadOrDownload(IHost host, Shell shellData, string sourceFilePath, string targetFilePath)
         {
-            _hostService = hostService;
+            _host = host;
             _shellData = shellData;
             _sourceFilePath = sourceFilePath;
             _targetFilePath = targetFilePath;
@@ -133,7 +132,7 @@ namespace Plugin_FileManager
         {
             string[] par = e.Argument as string[];
 
-            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
+            byte[] resultBytes = _host.Core.SubmitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
             byte[] fileBytes = ResultMatch.MatchResultToFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             e.Result = SaveFile(par[1], fileBytes);
         }
@@ -177,7 +176,7 @@ namespace Plugin_FileManager
         private void upload_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _hostService.Core.SubmitCommand(_shellData, "FileManager/UploadFileCode", par);
+            byte[] resultBytes = _host.Core.SubmitCommand(_shellData, "FileManager/UploadFileCode", par);
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void upload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

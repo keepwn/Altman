@@ -36,6 +36,11 @@ namespace Plugin_FileManager
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView_Dirs = new System.Windows.Forms.TreeView();
             this.imageList_TreeType = new System.Windows.Forms.ImageList(this.components);
+            this.listView_File = new Altman.Controls.ListViewPlus();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rightMenu_FileManager = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.item_refresh = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -55,11 +60,6 @@ namespace Plugin_FileManager
             this.imageList_FileType = new System.Windows.Forms.ImageList(this.components);
             this.btn_Dir = new System.Windows.Forms.Button();
             this.textBox_url = new System.Windows.Forms.TextBox();
-            this.listView_File = new Altman.Controls.ListViewPlus();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -70,51 +70,35 @@ namespace Plugin_FileManager
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btn_Dir, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox_url, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(595, 387);
-            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // splitContainer1
             // 
+            resources.ApplyResources(this.splitContainer1, "splitContainer1");
             this.tableLayoutPanel1.SetColumnSpan(this.splitContainer1, 2);
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 32);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             this.splitContainer1.Panel1.Controls.Add(this.treeView_Dirs);
             // 
             // splitContainer1.Panel2
             // 
+            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this.listView_File);
-            this.splitContainer1.Size = new System.Drawing.Size(589, 352);
-            this.splitContainer1.SplitterDistance = 155;
-            this.splitContainer1.TabIndex = 4;
             // 
             // treeView_Dirs
             // 
-            this.treeView_Dirs.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.treeView_Dirs, "treeView_Dirs");
             this.treeView_Dirs.HideSelection = false;
-            this.treeView_Dirs.ImageIndex = 0;
             this.treeView_Dirs.ImageList = this.imageList_TreeType;
-            this.treeView_Dirs.Location = new System.Drawing.Point(0, 0);
             this.treeView_Dirs.Name = "treeView_Dirs";
             this.treeView_Dirs.PathSeparator = "/";
-            this.treeView_Dirs.SelectedImageIndex = 0;
-            this.treeView_Dirs.Size = new System.Drawing.Size(155, 352);
-            this.treeView_Dirs.TabIndex = 2;
             // 
             // imageList_TreeType
             // 
@@ -123,8 +107,43 @@ namespace Plugin_FileManager
             this.imageList_TreeType.Images.SetKeyName(0, "drive.ico");
             this.imageList_TreeType.Images.SetKeyName(1, "floder.ico");
             // 
+            // listView_File
+            // 
+            resources.ApplyResources(this.listView_File, "listView_File");
+            this.listView_File.AllowDrop = true;
+            this.listView_File.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
+            this.listView_File.ContextMenuStrip = this.rightMenu_FileManager;
+            this.listView_File.FullRowSelect = true;
+            this.listView_File.GridLines = true;
+            this.listView_File.MultiSelect = false;
+            this.listView_File.Name = "listView_File";
+            this.listView_File.SmallImageList = this.imageList_FileType;
+            this.listView_File.UseCompatibleStateImageBehavior = false;
+            this.listView_File.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            resources.ApplyResources(this.columnHeader5, "columnHeader5");
+            // 
+            // columnHeader6
+            // 
+            resources.ApplyResources(this.columnHeader6, "columnHeader6");
+            // 
+            // columnHeader7
+            // 
+            resources.ApplyResources(this.columnHeader7, "columnHeader7");
+            // 
+            // columnHeader8
+            // 
+            resources.ApplyResources(this.columnHeader8, "columnHeader8");
+            // 
             // rightMenu_FileManager
             // 
+            resources.ApplyResources(this.rightMenu_FileManager, "rightMenu_FileManager");
             this.rightMenu_FileManager.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.item_refresh,
             this.toolStripSeparator1,
@@ -142,109 +161,95 @@ namespace Plugin_FileManager
             this.rightMenu_FileManager.Name = "rightMenu_FileManager";
             this.rightMenu_FileManager.ShowCheckMargin = true;
             this.rightMenu_FileManager.ShowImageMargin = false;
-            this.rightMenu_FileManager.Size = new System.Drawing.Size(191, 258);
             // 
             // item_refresh
             // 
+            resources.ApplyResources(this.item_refresh, "item_refresh");
             this.item_refresh.Name = "item_refresh";
-            this.item_refresh.Size = new System.Drawing.Size(190, 22);
-            this.item_refresh.Text = "refresh";
             this.item_refresh.Click += new System.EventHandler(this.item_refresh_Click);
             // 
             // toolStripSeparator1
             // 
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
             // 
             // item_upload
             // 
+            resources.ApplyResources(this.item_upload, "item_upload");
             this.item_upload.Name = "item_upload";
-            this.item_upload.Size = new System.Drawing.Size(190, 22);
-            this.item_upload.Text = "upload";
             this.item_upload.Click += new System.EventHandler(this.item_upload_Click);
             // 
             // item_download
             // 
+            resources.ApplyResources(this.item_download, "item_download");
             this.item_download.Name = "item_download";
-            this.item_download.Size = new System.Drawing.Size(190, 22);
-            this.item_download.Text = "download";
             this.item_download.Click += new System.EventHandler(this.item_download_Click);
             // 
             // item_downloadToServer
             // 
+            resources.ApplyResources(this.item_downloadToServer, "item_downloadToServer");
             this.item_downloadToServer.Name = "item_downloadToServer";
-            this.item_downloadToServer.Size = new System.Drawing.Size(190, 22);
-            this.item_downloadToServer.Text = "download to server";
             this.item_downloadToServer.Click += new System.EventHandler(this.item_downloadToServer_Click);
             // 
             // toolStripSeparator2
             // 
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(187, 6);
             // 
             // item_del
             // 
+            resources.ApplyResources(this.item_del, "item_del");
             this.item_del.Name = "item_del";
-            this.item_del.Size = new System.Drawing.Size(190, 22);
-            this.item_del.Text = "delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // item_edit
             // 
+            resources.ApplyResources(this.item_edit, "item_edit");
             this.item_edit.Name = "item_edit";
-            this.item_edit.Size = new System.Drawing.Size(190, 22);
-            this.item_edit.Text = "edit";
             this.item_edit.Click += new System.EventHandler(this.item_edit_Click);
             // 
             // item_copy
             // 
+            resources.ApplyResources(this.item_copy, "item_copy");
             this.item_copy.Name = "item_copy";
-            this.item_copy.Size = new System.Drawing.Size(190, 22);
-            this.item_copy.Text = "copy";
             this.item_copy.Click += new System.EventHandler(this.item_copy_Click);
             // 
             // item_paste
             // 
+            resources.ApplyResources(this.item_paste, "item_paste");
             this.item_paste.Name = "item_paste";
-            this.item_paste.Size = new System.Drawing.Size(190, 22);
-            this.item_paste.Text = "paste";
             this.item_paste.Click += new System.EventHandler(this.item_paste_Click);
             // 
             // item_rename
             // 
+            resources.ApplyResources(this.item_rename, "item_rename");
             this.item_rename.Name = "item_rename";
-            this.item_rename.Size = new System.Drawing.Size(190, 22);
-            this.item_rename.Text = "rename";
             this.item_rename.Click += new System.EventHandler(this.item_rename_Click);
             // 
             // item_modifyTime
             // 
+            resources.ApplyResources(this.item_modifyTime, "item_modifyTime");
             this.item_modifyTime.Name = "item_modifyTime";
-            this.item_modifyTime.Size = new System.Drawing.Size(190, 22);
-            this.item_modifyTime.Text = "modify time";
             this.item_modifyTime.Click += new System.EventHandler(this.item_modifyTime_Click);
             // 
             // item_add
             // 
+            resources.ApplyResources(this.item_add, "item_add");
             this.item_add.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.item_createFile,
             this.item_createDir});
             this.item_add.Name = "item_add";
-            this.item_add.Size = new System.Drawing.Size(190, 22);
-            this.item_add.Text = "add";
             // 
             // item_createFile
             // 
+            resources.ApplyResources(this.item_createFile, "item_createFile");
             this.item_createFile.Name = "item_createFile";
-            this.item_createFile.Size = new System.Drawing.Size(93, 22);
-            this.item_createFile.Text = "file";
             this.item_createFile.Click += new System.EventHandler(this.item_createFile_Click);
             // 
             // item_createDir
             // 
+            resources.ApplyResources(this.item_createDir, "item_createDir");
             this.item_createDir.Name = "item_createDir";
-            this.item_createDir.Size = new System.Drawing.Size(93, 22);
-            this.item_createDir.Text = "dir";
             this.item_createDir.Click += new System.EventHandler(this.item_createDir_Click);
             // 
             // imageList_FileType
@@ -309,73 +314,23 @@ namespace Plugin_FileManager
             // 
             // btn_Dir
             // 
-            this.btn_Dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Dir.Location = new System.Drawing.Point(538, 3);
+            resources.ApplyResources(this.btn_Dir, "btn_Dir");
             this.btn_Dir.Name = "btn_Dir";
-            this.btn_Dir.Size = new System.Drawing.Size(54, 23);
-            this.btn_Dir.TabIndex = 1;
-            this.btn_Dir.Text = "Dir";
             this.btn_Dir.UseVisualStyleBackColor = true;
             this.btn_Dir.Click += new System.EventHandler(this.btn_Dir_Click);
             // 
             // textBox_url
             // 
-            this.textBox_url.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_url.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.textBox_url, "textBox_url");
             this.textBox_url.Name = "textBox_url";
-            this.textBox_url.Size = new System.Drawing.Size(529, 21);
-            this.textBox_url.TabIndex = 0;
-            // 
-            // listView_File
-            // 
-            this.listView_File.AllowDrop = true;
-            this.listView_File.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8});
-            this.listView_File.ContextMenuStrip = this.rightMenu_FileManager;
-            this.listView_File.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_File.FullRowSelect = true;
-            this.listView_File.GridLines = true;
-            this.listView_File.Location = new System.Drawing.Point(0, 0);
-            this.listView_File.MultiSelect = false;
-            this.listView_File.Name = "listView_File";
-            this.listView_File.Size = new System.Drawing.Size(430, 352);
-            this.listView_File.SmallImageList = this.imageList_FileType;
-            this.listView_File.TabIndex = 4;
-            this.listView_File.UseCompatibleStateImageBehavior = false;
-            this.listView_File.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Name";
-            this.columnHeader5.Width = 200;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Time";
-            this.columnHeader6.Width = 200;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Size";
-            this.columnHeader7.Width = 100;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Attribute";
             // 
             // FileManagerControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FileManagerControl";
-            this.Size = new System.Drawing.Size(595, 387);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);

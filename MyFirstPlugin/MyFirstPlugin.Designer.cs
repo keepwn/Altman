@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyFirstPlugin));
             this.lbl_shellData = new System.Windows.Forms.Label();
             this.btn_showMsgInStatus = new System.Windows.Forms.Button();
             this.tbx_msg = new System.Windows.Forms.TextBox();
@@ -40,75 +41,53 @@
             // 
             // lbl_shellData
             // 
-            this.lbl_shellData.AutoSize = true;
-            this.lbl_shellData.Location = new System.Drawing.Point(24, 16);
+            resources.ApplyResources(this.lbl_shellData, "lbl_shellData");
             this.lbl_shellData.Name = "lbl_shellData";
-            this.lbl_shellData.Size = new System.Drawing.Size(65, 12);
-            this.lbl_shellData.TabIndex = 0;
-            this.lbl_shellData.Text = "ShellData:";
             // 
             // btn_showMsgInStatus
             // 
-            this.btn_showMsgInStatus.Location = new System.Drawing.Point(411, 30);
+            resources.ApplyResources(this.btn_showMsgInStatus, "btn_showMsgInStatus");
             this.btn_showMsgInStatus.Name = "btn_showMsgInStatus";
-            this.btn_showMsgInStatus.Size = new System.Drawing.Size(131, 23);
-            this.btn_showMsgInStatus.TabIndex = 1;
-            this.btn_showMsgInStatus.Text = "ShowMsgInStatusBar";
             this.btn_showMsgInStatus.UseVisualStyleBackColor = true;
             this.btn_showMsgInStatus.Click += new System.EventHandler(this.btn_showMsgInStatus_Click);
             // 
             // tbx_msg
             // 
-            this.tbx_msg.Location = new System.Drawing.Point(287, 32);
+            resources.ApplyResources(this.tbx_msg, "tbx_msg");
             this.tbx_msg.Name = "tbx_msg";
-            this.tbx_msg.Size = new System.Drawing.Size(100, 21);
-            this.tbx_msg.TabIndex = 2;
             // 
             // tbx_messagBox
             // 
-            this.tbx_messagBox.Location = new System.Drawing.Point(287, 75);
+            resources.ApplyResources(this.tbx_messagBox, "tbx_messagBox");
             this.tbx_messagBox.Name = "tbx_messagBox";
-            this.tbx_messagBox.Size = new System.Drawing.Size(100, 21);
-            this.tbx_messagBox.TabIndex = 3;
             // 
             // btn_showMessageBox
             // 
-            this.btn_showMessageBox.Location = new System.Drawing.Point(411, 73);
+            resources.ApplyResources(this.btn_showMessageBox, "btn_showMessageBox");
             this.btn_showMessageBox.Name = "btn_showMessageBox";
-            this.btn_showMessageBox.Size = new System.Drawing.Size(131, 23);
-            this.btn_showMessageBox.TabIndex = 4;
-            this.btn_showMessageBox.Text = "ShowMsgInAppDialog";
             this.btn_showMessageBox.UseVisualStyleBackColor = true;
             this.btn_showMessageBox.Click += new System.EventHandler(this.btn_showMessageBox_Click);
             // 
             // btn_createNewTabPage
             // 
-            this.btn_createNewTabPage.Location = new System.Drawing.Point(411, 120);
+            resources.ApplyResources(this.btn_createNewTabPage, "btn_createNewTabPage");
             this.btn_createNewTabPage.Name = "btn_createNewTabPage";
-            this.btn_createNewTabPage.Size = new System.Drawing.Size(131, 23);
-            this.btn_createNewTabPage.TabIndex = 5;
-            this.btn_createNewTabPage.Text = "CreateNewTabPage";
             this.btn_createNewTabPage.UseVisualStyleBackColor = true;
             this.btn_createNewTabPage.Click += new System.EventHandler(this.btn_createNewTabPage_Click);
             // 
             // tbx_tabPageName
             // 
-            this.tbx_tabPageName.Location = new System.Drawing.Point(287, 122);
+            resources.ApplyResources(this.tbx_tabPageName, "tbx_tabPageName");
             this.tbx_tabPageName.Name = "tbx_tabPageName";
-            this.tbx_tabPageName.Size = new System.Drawing.Size(100, 21);
-            this.tbx_tabPageName.TabIndex = 3;
             // 
             // tbx_shellData
             // 
-            this.tbx_shellData.Location = new System.Drawing.Point(26, 32);
-            this.tbx_shellData.Multiline = true;
+            resources.ApplyResources(this.tbx_shellData, "tbx_shellData");
             this.tbx_shellData.Name = "tbx_shellData";
-            this.tbx_shellData.Size = new System.Drawing.Size(217, 270);
-            this.tbx_shellData.TabIndex = 6;
             // 
             // MyFirstPlugin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tbx_shellData);
@@ -120,7 +99,6 @@
             this.Controls.Add(this.btn_showMsgInStatus);
             this.Controls.Add(this.lbl_shellData);
             this.Name = "MyFirstPlugin";
-            this.Size = new System.Drawing.Size(570, 323);
             this.ResumeLayout(false);
             this.PerformLayout();
 

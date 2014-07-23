@@ -6,18 +6,17 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-
 using Altman.Common.AltData;
 using Altman.Common.AltEventArgs;
-using Altman.ModelCore;
+using Altman.Model;
 using Altman.Controls;
-using Altman.Plugins;
+using PluginFramework;
 
 namespace Plugin_FileManager
 {
     public partial class FileManagerControl : UserControl
     {
-        private IHostService _hostService;
+        private IHost _host;
         private Shell _shellData;
 
         private FileManagerService _fileManager;
@@ -26,7 +25,7 @@ namespace Plugin_FileManager
         private string _sourceCopyPath;  //用于文件复制
         private string _sourceCopyName;  //用于文件复制
 
-        public FileManagerControl(IHostService hostService, Shell data)
+        public FileManagerControl(IHost host, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -38,10 +37,10 @@ namespace Plugin_FileManager
             listView_File.EditSubItemCompleted += listView_File_EditSubItemCompleted;
             rightMenu_FileManager.Opening += rightMenu_FileManager_Opening;
 
-            this._hostService = hostService;
+            this._host = host;
             this._shellData = data;
 
-            _fileManager = new FileManagerService(_hostService, _shellData);
+            _fileManager = new FileManagerService(_host, _shellData);
             _fileManager.GetWwwRootPathCompletedToDo += fileManager_GetWwwRootPathCompletedToDo;
             _fileManager.DeleteFileOrDirCompletedToDo += fileManager_DeleteFileOrDirCompletedToDo;
             _fileManager.GetFileTreeCompletedToDo += fileManager_GetFileTreeCompletedToDo;
@@ -66,7 +65,7 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
@@ -79,7 +78,7 @@ namespace Plugin_FileManager
                 {
                     msg = "Download file to the remote server:Succeed";
                 }
-                _hostService.Gui.ShowMsgInStatusBar(msg);
+                _host.Ui.ShowMsgInStatusBar(msg);
                 MessageBox.Show(msg);
 
                 _fileManager.GetFileTree(GetCurrentDirPath());
@@ -92,14 +91,14 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
                 if (!(bool)e.Result)
                 {
                     string msg = "Failed to create the folder";
-                    _hostService.Gui.ShowMsgInStatusBar(msg);
+                    _host.Ui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
                 _fileManager.GetFileTree(GetCurrentDirPath());
@@ -112,14 +111,14 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
                 if (!(bool)e.Result)
                 {
                     string msg = "Failed to modify file's time";
-                    _hostService.Gui.ShowMsgInStatusBar(msg);
+                    _host.Ui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
                 _fileManager.GetFileTree(GetCurrentDirPath());
@@ -132,14 +131,14 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
                 if (!(bool)e.Result)
                 {
                     string msg = "Failed to copy file";
-                    _hostService.Gui.ShowMsgInStatusBar(msg);
+                    _host.Ui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
                 _fileManager.GetFileTree(GetCurrentDirPath());
@@ -152,14 +151,14 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
                 if (!(bool)e.Result)
                 {
                     string msg = "Failed to rename";
-                    _hostService.Gui.ShowMsgInStatusBar(msg);
+                    _host.Ui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
                 _fileManager.GetFileTree(GetCurrentDirPath());
@@ -172,7 +171,7 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is List<OsFile>)
             {
@@ -188,7 +187,7 @@ namespace Plugin_FileManager
                 }
                 ShowFilesAndDirs(treeView_Dirs, listView_File, dirs, files,_isWin);
 
-                _hostService.Gui.ShowMsgInStatusBar(string.Format("Dirs[{0}] Files[{1}]", dirs.Count, files.Count));
+                _host.Ui.ShowMsgInStatusBar(string.Format("Dirs[{0}] Files[{1}]", dirs.Count, files.Count));
             }
         }
         /// <summary>
@@ -198,7 +197,7 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is OsDisk)
             {
@@ -220,7 +219,7 @@ namespace Plugin_FileManager
 
                 SetCurrentDirPath(shellDir);
                 ShowWwwRootDir(treeView_Dirs, drives, shellDir, _isWin);
-                _hostService.Gui.ShowMsgInStatusBar("Connect succeed");
+                _host.Ui.ShowMsgInStatusBar("Connect succeed");
             }
         }
         /// <summary>
@@ -230,14 +229,14 @@ namespace Plugin_FileManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
                 if (!(bool)e.Result)
                 {
                     string msg = "Failed to delete";
-                    _hostService.Gui.ShowMsgInStatusBar(msg);
+                    _host.Ui.ShowMsgInStatusBar(msg);
                     MessageBox.Show(msg);
                 }
                 _fileManager.GetFileTree(GetCurrentDirPath());
@@ -260,7 +259,7 @@ namespace Plugin_FileManager
                 //upload.UploadFileProgressChangedToDo += upload_UploadFileProgressChangedToDo;
                 //upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
                 //upload.StartToUploadFile();
-                FileUploadOrDownload upload = new FileUploadOrDownload(_hostService, _shellData, sourceFilePath, targetFilePath);
+                FileUploadOrDownload upload = new FileUploadOrDownload(_host, _shellData, sourceFilePath, targetFilePath);
                 upload.UploadFileProgressChangedToDo += upload_UploadFileProgressChangedToDo;
                 upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
                 upload.StartToUploadFile();
@@ -280,7 +279,7 @@ namespace Plugin_FileManager
             if (e.Error != null)
             {
                 //ShowResultInProgressBar(false, e);
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is bool)
             {
@@ -293,7 +292,7 @@ namespace Plugin_FileManager
                 {
                     msg = "Upload file succeed";
                 }
-                _hostService.Gui.ShowMsgInStatusBar(msg);
+                _host.Ui.ShowMsgInStatusBar(msg);
                 MessageBox.Show(msg);
 
                 //ShowResultInProgressBar(true, e);
@@ -342,7 +341,7 @@ namespace Plugin_FileManager
                 //download.DownloadFileProgressChangedToDo += download_DownloadFileProgressChangedToDo;
                 //download.DownloadFileCompletedToDo+=download_DownloadFileCompletedToDo;
                 //download.StartToDownloadFile();
-                FileUploadOrDownload download = new FileUploadOrDownload(_hostService, _shellData, sourceFilePath, targetFilePath);
+                FileUploadOrDownload download = new FileUploadOrDownload(_host, _shellData, sourceFilePath, targetFilePath);
                 download.DownloadFileProgressChangedToDo += download_DownloadFileProgressChangedToDo;
                 download.DownloadFileCompletedToDo += download_DownloadFileCompletedToDo;
                 download.StartToDownloadFile();
@@ -367,7 +366,7 @@ namespace Plugin_FileManager
             {
                 //ShowResultInProgressBar(true,e);
                 string msg = "Download file succeed";
-                _hostService.Gui.ShowMsgInStatusBar(msg);
+                _host.Ui.ShowMsgInStatusBar(msg);
             }
         }
 
@@ -993,8 +992,8 @@ namespace Plugin_FileManager
             if (status == SelectedFilesStatus.IsFile)
             {
                 string webFile = fileInfos[0].FullName;
-                UserControl fileEditer = new FileEditerControl(_hostService, _shellData, webFile, true);
-                _hostService.Gui.CreateNewTabPage("FileEdit", fileEditer);
+                UserControl fileEditer = new FileEditerControl(_host, _shellData, webFile, true);
+                _host.Ui.CreateNewTabPage("FileEdit", fileEditer);
             }
         }
         /// <summary>
@@ -1070,8 +1069,8 @@ namespace Plugin_FileManager
         private void item_createFile_Click(object sender, EventArgs e)
         {
             string newFile = Path.Combine(GetCurrentDirPath(), "NewFile.txt");
-            UserControl fileEditer = new FileEditerControl(_hostService, _shellData, newFile, false);
-            _hostService.Gui.CreateNewTabPage("FileEdit", fileEditer);
+            UserControl fileEditer = new FileEditerControl(_host, _shellData, newFile, false);
+            _host.Ui.CreateNewTabPage("FileEdit", fileEditer);
         }
         /// <summary>
         /// 右键菜单下载文件到远程服务器

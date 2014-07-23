@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-
-using Altman.UI;
+using Altman.Forms;
 
 namespace Altman
 {

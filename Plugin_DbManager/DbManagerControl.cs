@@ -9,27 +9,27 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_DbManager
 {
     public partial class DbManagerControl : UserControl
     {
-        private IHostService _hostService;
+        private IHost _host;
         private Shell _shellData;
 
         private DbManagerService dbManagerService;
-        public DbManagerControl(IHostService hostService, Shell data)
+        public DbManagerControl(IHost host, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
-            _hostService = hostService;
+            _host = host;
             _shellData = data;
 
             //绑定事件
-            dbManagerService = new DbManagerService(_hostService, _shellData, GetDbType());
+            dbManagerService = new DbManagerService(_host, _shellData, GetDbType());
             dbManagerService.ConnectDbCompletedToDo += dbManagerService_ConnectDbCompletedToDo;
             dbManagerService.GetDbNameCompletedToDo += dbManagerService_GetDbNameCompletedToDo;
             dbManagerService.GetDbTableNameCompletedToDo += dbManagerService_GetTableNameCompletedToDo;
@@ -53,7 +53,7 @@ namespace Plugin_DbManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
                 ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is DataTable)
@@ -67,7 +67,7 @@ namespace Plugin_DbManager
         {
             if (e.Error != null)
             {
-                _hostService.Gui.ShowMsgInStatusBar(e.Error.Message);
+                _host.Ui.ShowMsgInStatusBar(e.Error.Message);
                 ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is DataTable)
@@ -414,7 +414,7 @@ namespace Plugin_DbManager
         private string GetDbType()
         {
             string type = string.Empty;
-            XmlNode node = _hostService.Core.GetShellSqlConnection(_shellData);
+            XmlNode node = _host.Core.GetShellSqlConnection(_shellData);
             if (node != null)
             {
                 XmlNode typeNode = node.SelectSingleNode("type");
@@ -426,7 +426,7 @@ namespace Plugin_DbManager
         private string GetConnStr()
         {
             string conn = string.Empty;
-            XmlNode node = _hostService.Core.GetShellSqlConnection(_shellData);
+            XmlNode node = _host.Core.GetShellSqlConnection(_shellData);
             if (node != null)
             {
                 //获取type
@@ -461,7 +461,7 @@ namespace Plugin_DbManager
         }
         private void ShowMsgInStatusBar(string msg)
         {
-            _hostService.Gui.ShowMsgInStatusBar(msg);
+            _host.Ui.ShowMsgInStatusBar(msg);
         }
     }
 }

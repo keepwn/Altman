@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Xml;
-
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_ShellManager
 {
@@ -13,14 +12,14 @@ namespace Plugin_ShellManager
     {
         private string Id;
 
-        private IHostService _hostService;
+        private IHost _host;
         private ShellManagerService _shellManagerService = null;
-        public FormEditWebshell(IHostService hostService)
+        public FormEditWebshell(IHost host)
         {
             InitializeComponent();
             
-            this._hostService = hostService;
-            _shellManagerService = new ShellManagerService(_hostService);
+            this._host = host;
+            _shellManagerService = new ShellManagerService(_host);
 
             //init
             ComboBox_ScriptType_Init();
@@ -31,12 +30,12 @@ namespace Plugin_ShellManager
             comboBox_IniType_Init();
         }
 
-        public FormEditWebshell(IHostService hostService, Shell shellArray)
+        public FormEditWebshell(IHost host, Shell shellArray)
         {
             InitializeComponent();           
 
-            this._hostService = hostService;
-            _shellManagerService = new ShellManagerService(_hostService);
+            this._host = host;
+            _shellManagerService = new ShellManagerService(_host);
 
 
             //init
@@ -165,7 +164,7 @@ namespace Plugin_ShellManager
         private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
-            foreach (string type in _hostService.Core.GetCustomShellTypeNameList())
+            foreach (string type in _host.Core.GetCustomShellTypeNameList())
             {
                 comboBox_ScritpType.Items.Add(type);
             }
@@ -191,7 +190,7 @@ namespace Plugin_ShellManager
             //如果选择了数据库连接配置类型
             if (comboBox_IniType.Text == "DbConnStr")
             {
-                comboBox_Items.Items.AddRange(_hostService.Core.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
+                comboBox_Items.Items.AddRange(_host.Core.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
             }
         }
 

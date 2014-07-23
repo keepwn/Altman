@@ -26,7 +26,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\_Build\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,7 +41,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\_Build\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -71,151 +71,82 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AltData\DataCombine.cs" />
-    <Compile Include="Common\AltData\DataConvert.cs" />
-    <Compile Include="Common\AltData\ResultMatch.cs" />
-    <Compile Include="Common\AltData\ResultStruct.cs" />
-    <Compile Include="Common\AltEventArgs\Alt_CompletedEventArgs.cs" />
-    <Compile Include="Common\AltEventArgs\Alt_DownloadProgressChangedEventArgs.cs" />
-    <Compile Include="Common\AltEventArgs\Alt_ProgressChangedEventArgs.cs" />
-    <Compile Include="Common\AltEventArgs\Alt_ProxyReceiveEventArgs.cs" />
-    <Compile Include="Common\AltEventArgs\Alt_UploadProgressChangedEventArgs.cs" />
-    <Compile Include="Common\AltException\CustomException.cs" />
-    <Compile Include="Common\AltException\LocalCustomException.cs" />
-    <Compile Include="Common\AltException\RequestCustomException.cs" />
-    <Compile Include="Common\AltException\ResponseCustomException.cs" />
-    <Compile Include="Controls\ListViewPlus.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ListViewPlus.Designer.cs">
-      <DependentUpon>ListViewPlus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TabControl\CustomTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\NativeMethods.cs" />
-    <Compile Include="Controls\TabControl\TabStyle.cs" />
-    <Compile Include="Controls\TabControl\TabStyleProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleAngledProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleChromeProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleDefaultProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleIE8Provider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleNoneProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleRoundedProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVisualStudioProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVS2010Provider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\ThemedColors.cs" />
-    <Compile Include="Controls\TextBoxShell.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TextBoxShell.Designer.cs">
-      <DependentUpon>TextBoxShell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DbCore\AccessHelper.cs" />
-    <Compile Include="DbCore\Db.cs" />
-    <Compile Include="DbCore\DbManager.cs" />
-    <Compile Include="DbCore\SqliteHelper.cs" />
-    <Compile Include="LogicCore\CustomCommandCode.cs" />
-    <Compile Include="LogicCore\CustomShellType.cs" />
-    <Compile Include="LogicCore\CustomShellTypeProvider.cs" />
-    <Compile Include="LogicCore\CustomShellTypeXmlHandle.cs" />
-    <Compile Include="LogicCore\EncryMode.cs" />
-    <Compile Include="LogicCore\FuncTreeNode.cs" />
-    <Compile Include="LogicCore\InitWorker.cs" />
-    <Compile Include="LogicCore\SettingXmlHandle.cs" />
-    <Compile Include="LogicCore\ShellExtra.cs" />
-    <Compile Include="LogicCore\ShellExtraHandle.cs" />
-    <Compile Include="LogicCore\ShellManager.cs" />
-    <Compile Include="LogicCore\XmlHelper.cs" />
-    <Compile Include="ModelCore\Shell.cs" />
-    <Compile Include="Plugins\IControlPlugin.cs" />
-    <Compile Include="Plugins\IFormPlugin.cs" />
-    <Compile Include="Plugins\IHostCoreService.cs" />
-    <Compile Include="Plugins\IHostDbService.cs" />
-    <Compile Include="Plugins\IHostGuiService.cs" />
-    <Compile Include="Plugins\IHostService.cs" />
-    <Compile Include="Plugins\IPlugin.cs" />
-    <Compile Include="Plugins\IPluginAttribute.cs" />
-    <Compile Include="Plugins\IPluginSetting.cs" />
+    <Compile Include="Data\AccessHelper.cs" />
+    <Compile Include="Data\Db.cs" />
+    <Compile Include="Data\SqliteHelper.cs" />
+    <Compile Include="Logic\CustomCommandCode.cs" />
+    <Compile Include="Logic\CustomShellType.cs" />
+    <Compile Include="Logic\CustomShellTypeProvider.cs" />
+    <Compile Include="Logic\CustomShellTypeXmlHandle.cs" />
+    <Compile Include="Logic\EncryMode.cs" />
+    <Compile Include="Logic\FuncTreeNode.cs" />
+    <Compile Include="Logic\InitWorker.cs" />
+    <Compile Include="Logic\SettingXmlHandle.cs" />
+    <Compile Include="Logic\ShellExtra.cs" />
+    <Compile Include="Logic\ShellExtraHandle.cs" />
+    <Compile Include="Logic\XmlHelper.cs" />
+    <Compile Include="Service\App.cs" />
     <Compile Include="Setting\GlobalSetting.cs" />
     <Compile Include="Setting\Setting.cs" />
-    <Compile Include="UI\AboutBox.cs">
+    <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AboutBox.Designer.cs">
+    <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ControlPolicySetting.cs">
+    <Compile Include="Forms\ControlPolicySetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ControlPolicySetting.Designer.cs">
+    <Compile Include="Forms\ControlPolicySetting.Designer.cs">
       <DependentUpon>ControlPolicySetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ControlProxySetting.cs">
+    <Compile Include="Forms\ControlProxySetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ControlProxySetting.Designer.cs">
+    <Compile Include="Forms\ControlProxySetting.Designer.cs">
       <DependentUpon>ControlProxySetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ControlRequestHeaderSetting.cs">
+    <Compile Include="Forms\ControlRequestHeaderSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ControlRequestHeaderSetting.Designer.cs">
+    <Compile Include="Forms\ControlRequestHeaderSetting.Designer.cs">
       <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ControlUserAgentSetting.cs">
+    <Compile Include="Forms\ControlUserAgentSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ControlUserAgentSetting.Designer.cs">
+    <Compile Include="Forms\ControlUserAgentSetting.Designer.cs">
       <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="CoreService.cs" />
-    <Compile Include="DbService.cs" />
-    <Compile Include="UI\FormCustomShellTypeWizard.cs">
+    <Compile Include="Service\Core.cs" />
+    <Compile Include="Service\Db.cs" />
+    <Compile Include="Forms\FormCustomShellTypeWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormCustomShellTypeWizard.Designer.cs">
+    <Compile Include="Forms\FormCustomShellTypeWizard.Designer.cs">
       <DependentUpon>FormCustomShellTypeWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FormGlobalSetting.cs">
+    <Compile Include="Forms\FormGlobalSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormGlobalSetting.Designer.cs">
+    <Compile Include="Forms\FormGlobalSetting.Designer.cs">
       <DependentUpon>FormGlobalSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FormListening.cs">
+    <Compile Include="Forms\FormListening.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormListening.Designer.cs">
+    <Compile Include="Forms\FormListening.Designer.cs">
       <DependentUpon>FormListening.cs</DependentUpon>
     </Compile>
-    <Compile Include="GuiService.cs" />
-    <Compile Include="HostService.cs" />
+    <Compile Include="Service\Ui.cs" />
+    <Compile Include="Service\Host.cs" />
     <Compile Include="InitUI.cs" />
     <Compile Include="LoadOrSaveSetting.cs" />
     <Compile Include="PluginsImport.cs" />
-    <Compile Include="UI\FormMain.cs">
+    <Compile Include="Forms\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormMain.Designer.cs">
+    <Compile Include="Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -226,50 +157,68 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TabCore.cs" />
-    <Compile Include="UI\Welcome.cs">
+    <Compile Include="Forms\Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Welcome.Designer.cs">
+    <Compile Include="Forms\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebCore\Http.cs" />
-    <Compile Include="WebCore\HttpClient.cs" />
-    <Compile Include="WebCore\ProxyServer.cs" />
-    <EmbeddedResource Include="Controls\TextBoxShell.resx">
-      <DependentUpon>TextBoxShell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutBox.resx">
+    <Compile Include="Web\Http.cs" />
+    <Compile Include="Web\HttpClient.cs" />
+    <Compile Include="Web\ProxyServer.cs" />
+    <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ControlPolicySetting.resx">
+    <EmbeddedResource Include="Forms\AboutBox.zh-CN.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlPolicySetting.resx">
       <DependentUpon>ControlPolicySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ControlProxySetting.resx">
+    <EmbeddedResource Include="Forms\ControlPolicySetting.zh-CN.resx">
+      <DependentUpon>ControlPolicySetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlProxySetting.resx">
       <DependentUpon>ControlProxySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ControlRequestHeaderSetting.resx">
+    <EmbeddedResource Include="Forms\ControlProxySetting.zh-CN.resx">
+      <DependentUpon>ControlProxySetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlRequestHeaderSetting.resx">
       <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ControlUserAgentSetting.resx">
+    <EmbeddedResource Include="Forms\ControlRequestHeaderSetting.zh-CN.resx">
+      <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlUserAgentSetting.resx">
       <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FormCustomShellTypeWizard.resx">
+    <EmbeddedResource Include="Forms\ControlUserAgentSetting.zh-CN.resx">
+      <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCustomShellTypeWizard.resx">
       <DependentUpon>FormCustomShellTypeWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FormGlobalSetting.resx">
+    <EmbeddedResource Include="Forms\FormGlobalSetting.resx">
       <DependentUpon>FormGlobalSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FormListening.resx">
+    <EmbeddedResource Include="Forms\FormListening.resx">
       <DependentUpon>FormListening.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FormMain.resx">
+    <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMain.zh-CN.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Welcome.zh-CN.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Welcome.resx">
+    <EmbeddedResource Include="Forms\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -277,7 +226,14 @@
     <Content Include="altman.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\" />
+    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
+      <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
+      <Name>AltmanUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+      <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
+      <Name>PluginFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

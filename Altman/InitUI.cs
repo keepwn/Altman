@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Altman.LogicCore;
+using Altman.Forms;
+using Altman.Logic;
 using Altman.Setting;
-using Altman.UI;
 
 namespace Altman
 {
-    public class InitUi
+    internal class InitUi
     {
         public static void InitCustomShellType()
         {

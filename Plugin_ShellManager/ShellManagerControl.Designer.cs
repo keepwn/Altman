@@ -31,6 +31,7 @@ namespace Plugin_ShellManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShellManagerControl));
             this.rightMenu_Webshell = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.item_refreshStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.item_copyServerCode = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +58,7 @@ namespace Plugin_ShellManager
             // 
             // rightMenu_Webshell
             // 
+            resources.ApplyResources(this.rightMenu_Webshell, "rightMenu_Webshell");
             this.rightMenu_Webshell.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.item_refreshStatus,
             this.item_copyServerCode,
@@ -66,55 +68,50 @@ namespace Plugin_ShellManager
             this.item_del,
             this.toolStripSeparator2});
             this.rightMenu_Webshell.Name = "rightMenu_WebShell";
-            this.rightMenu_Webshell.Size = new System.Drawing.Size(179, 126);
             // 
             // item_refreshStatus
             // 
+            resources.ApplyResources(this.item_refreshStatus, "item_refreshStatus");
             this.item_refreshStatus.Name = "item_refreshStatus";
-            this.item_refreshStatus.Size = new System.Drawing.Size(178, 22);
-            this.item_refreshStatus.Text = "Refresh All Status";
             this.item_refreshStatus.Click += new System.EventHandler(this.item_refreshStatus_Click);
             // 
             // item_copyServerCode
             // 
+            resources.ApplyResources(this.item_copyServerCode, "item_copyServerCode");
             this.item_copyServerCode.Name = "item_copyServerCode";
-            this.item_copyServerCode.Size = new System.Drawing.Size(178, 22);
-            this.item_copyServerCode.Text = "Copy ServerCode";
             this.item_copyServerCode.Click += new System.EventHandler(this.item_copyServerCode_Click);
             // 
             // toolStripSeparator1
             // 
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
             // 
             // item_add
             // 
+            resources.ApplyResources(this.item_add, "item_add");
             this.item_add.Name = "item_add";
-            this.item_add.Size = new System.Drawing.Size(178, 22);
-            this.item_add.Text = "Add";
             this.item_add.Click += new System.EventHandler(this.item_add_Click);
             // 
             // item_alter
             // 
+            resources.ApplyResources(this.item_alter, "item_alter");
             this.item_alter.Name = "item_alter";
-            this.item_alter.Size = new System.Drawing.Size(178, 22);
-            this.item_alter.Text = "Edit";
             this.item_alter.Click += new System.EventHandler(this.item_alter_Click);
             // 
             // item_del
             // 
+            resources.ApplyResources(this.item_del, "item_del");
             this.item_del.Name = "item_del";
-            this.item_del.Size = new System.Drawing.Size(178, 22);
-            this.item_del.Text = "Delete";
             this.item_del.Click += new System.EventHandler(this.item_del_Click);
             // 
             // toolStripSeparator2
             // 
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(175, 6);
             // 
             // lv_shell
             // 
+            resources.ApplyResources(this.lv_shell, "lv_shell");
             this.lv_shell.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,
             this.columnHeader1,
@@ -128,86 +125,71 @@ namespace Plugin_ShellManager
             this.columnHeader10,
             this.columnHeader11});
             this.lv_shell.ContextMenuStrip = this.rightMenu_Webshell;
-            this.lv_shell.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lv_shell.FullRowSelect = true;
             this.lv_shell.GridLines = true;
-            this.lv_shell.Location = new System.Drawing.Point(0, 0);
             this.lv_shell.MultiSelect = false;
             this.lv_shell.Name = "lv_shell";
-            this.lv_shell.Size = new System.Drawing.Size(847, 405);
             this.lv_shell.SmallImageList = this.imageList1;
-            this.lv_shell.TabIndex = 1;
             this.lv_shell.UseCompatibleStateImageBehavior = false;
             this.lv_shell.View = System.Windows.Forms.View.Details;
             this.lv_shell.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lv_shell_MouseDoubleClick);
             // 
             // columnHeader0
             // 
-            this.columnHeader0.Text = "Id";
-            this.columnHeader0.Width = 0;
+            resources.ApplyResources(this.columnHeader0, "columnHeader0");
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "ID";
-            this.columnHeader1.Width = 30;
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "TargetNo";
-            this.columnHeader2.Width = 98;
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Level";
-            this.columnHeader3.Width = 45;
+            resources.ApplyResources(this.columnHeader3, "columnHeader3");
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Status";
-            this.columnHeader4.Width = 50;
+            resources.ApplyResources(this.columnHeader4, "columnHeader4");
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "ShellUrl";
-            this.columnHeader5.Width = 200;
+            resources.ApplyResources(this.columnHeader5, "columnHeader5");
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "Type";
+            resources.ApplyResources(this.columnHeader7, "columnHeader7");
             // 
             // columnHeader8
             // 
-            this.columnHeader8.Text = "ServerCode";
-            this.columnHeader8.Width = 75;
+            resources.ApplyResources(this.columnHeader8, "columnHeader8");
             // 
             // columnHeader9
             // 
-            this.columnHeader9.Text = "Area";
-            this.columnHeader9.Width = 58;
+            resources.ApplyResources(this.columnHeader9, "columnHeader9");
             // 
             // columnHeader10
             // 
-            this.columnHeader10.Text = "Remark";
-            this.columnHeader10.Width = 100;
+            resources.ApplyResources(this.columnHeader10, "columnHeader10");
             // 
             // columnHeader11
             // 
-            this.columnHeader11.Text = "AddTime";
-            this.columnHeader11.Width = 66;
+            resources.ApplyResources(this.columnHeader11, "columnHeader11");
             // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(1, 20);
+            resources.ApplyResources(this.imageList1, "imageList1");
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // ShellManagerControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lv_shell);
             this.Name = "ShellManagerControl";
-            this.Size = new System.Drawing.Size(847, 405);
             this.rightMenu_Webshell.ResumeLayout(false);
             this.ResumeLayout(false);
 

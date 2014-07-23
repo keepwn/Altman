@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
-
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_ShellManager
 {
@@ -11,9 +11,10 @@ namespace Plugin_ShellManager
     /// </summary>
     public class ShellManagerService
     {
-        private IHostService _host;
+        private IHost _host;
+        private const string Tablename = "shell";
 
-        public class CompletedEventArgs :EventArgs
+        public class CompletedEventArgs : EventArgs
         {
             private Exception _error;
             public CompletedEventArgs(Exception error)
@@ -33,11 +34,33 @@ namespace Plugin_ShellManager
         public event EventHandler<CompletedEventArgs> RefreshShellStatusCompletedToDo;
 
 
-        public ShellManagerService(IHostService host)
+        public ShellManagerService(IHost host)
         {
             this._host = host;
+            Init();
         }
-        
+
+        private void Init()
+        {
+            List<string> definition = new List<string>
+            {
+                "id INTEGER PRIMARY KEY",
+                "target_id TEXT NOT NULL",
+                "target_level TEXT NOT NULL",
+                "status TEXT",
+                "shell_url TEXT NOT NULL",
+                "shell_pwd TEXT NOT NULL",
+                "shell_type TEXT NOT NULL",
+                "shell_extra_setting TEXT",
+                "server_coding TEXT NOT NULL",
+                "web_coding TEXT NOT NULL",
+                "area TEXT",
+                "remark TEXT",
+                "add_time TEXT NOT NULL"
+            };
+            _host.Database.InitTable(Tablename, definition.ToArray());
+        }
+
         /// <summary>
         /// 删除数据
         /// </summary>
@@ -47,17 +70,18 @@ namespace Plugin_ShellManager
             Exception error = null;
             try
             {
-                _host.Db.Delete(id);
+                var where = new KeyValuePair<string, object>("id", id);
+                _host.Database.Delete(Tablename, where);
             }
             catch (Exception ex)
             {
                 error = ex;
                 if (DeleteCompletedToDo != null)
                 {
-                    DeleteCompletedToDo(null,new CompletedEventArgs(error));
+                    DeleteCompletedToDo(null, new CompletedEventArgs(error));
                 }
             }
-            
+
         }
         /// <summary>
         /// 插入数据
@@ -68,7 +92,23 @@ namespace Plugin_ShellManager
             Exception error = null;
             try
             {
-                _host.Db.Insert(model);
+                var dic = new Dictionary<string, object>
+                {
+                    //{"id", null},//主键自增长字段，不需要设置
+                    {"target_id", model.TargetId},
+                    {"target_level", model.TargetLevel},
+                    {"status", model.Status},
+                    {"shell_url", model.ShellUrl},
+                    {"shell_pwd", model.ShellPwd},
+                    {"shell_type", model.ShellType},
+                    {"shell_extra_setting", model.ShellExtraString},
+                    {"server_coding", model.ServerCoding},
+                    {"web_coding", model.WebCoding},
+                    {"area", model.Area},
+                    {"remark", model.Remark},
+                    {"add_time", model.AddTime}
+                };
+                _host.Database.Insert(Tablename, dic);
             }
             catch (Exception ex)
             {
@@ -89,7 +129,24 @@ namespace Plugin_ShellManager
             Exception error = null;
             try
             {
-                _host.Db.Update(id, model);
+                var dic = new Dictionary<string, object>
+                {
+                    {"id", id},
+                    {"target_id", model.TargetId},
+                    {"target_level", model.TargetLevel},
+                    {"status", model.Status},
+                    {"shell_url", model.ShellUrl},
+                    {"shell_pwd", model.ShellPwd},
+                    {"shell_type", model.ShellType},
+                    {"shell_extra_setting", model.ShellExtraString},
+                    {"server_coding", model.ServerCoding},
+                    {"web_coding", model.WebCoding},
+                    {"area", model.Area},
+                    {"remark", model.Remark},
+                    {"add_time", model.AddTime}
+                };
+                var where = new KeyValuePair<string, object>("id",id);
+                _host.Database.Update(Tablename,dic,where);
             }
             catch (Exception ex)
             {
@@ -105,11 +162,11 @@ namespace Plugin_ShellManager
         /// </summary>
         /// <returns></returns>
         public DataTable GetDataTable()
-        {           
+        {
             Exception error = null;
             try
             {
-                return _host.Db.GetDataTable();
+                return _host.Database.GetDataTable(Tablename);
             }
             catch (Exception ex)
             {

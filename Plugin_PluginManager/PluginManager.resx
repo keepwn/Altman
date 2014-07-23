@@ -117,58 +117,667 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="tabControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lv_UpdatablePlugins.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;btn_Refresh.Name" xml:space="preserve">
+    <value>btn_Refresh</value>
+  </data>
+  <data name="&gt;&gt;tbx_AvailablePluginsDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage_updatable.Name" xml:space="preserve">
+    <value>tabPage_updatable</value>
+  </data>
+  <data name="lbl_Msg.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tbx_UpdatesPluginsDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btn_Remove.Location" type="System.Drawing.Point, System.Drawing">
+    <value>494, 303</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lv_AvailablePlugins.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columnHeader7.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;columnHeader14.Name" xml:space="preserve">
+    <value>columnHeader14</value>
+  </data>
+  <data name="&gt;&gt;lv_AvailablePlugins.Name" xml:space="preserve">
+    <value>lv_AvailablePlugins</value>
+  </data>
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="columnHeader8.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;btn_Install.Parent" xml:space="preserve">
+    <value>tabPage_available</value>
+  </data>
+  <data name="&gt;&gt;lv_AvailablePlugins.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tbx_AvailablePluginsDescription.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;tbx_UpdatesPluginsDescription.Parent" xml:space="preserve">
+    <value>tabPage_updatable</value>
+  </data>
+  <data name="tbx_InstalledPluginsDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 60</value>
+  </data>
+  <data name="tabPage_updatable.Text" xml:space="preserve">
+    <value>Updatable</value>
+  </data>
+  <data name="tabPage_updatable.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;columnHeader1.Name" xml:space="preserve">
+    <value>columnHeader1</value>
+  </data>
+  <data name="&gt;&gt;lv_AvailablePlugins.Parent" xml:space="preserve">
+    <value>tabPage_available</value>
+  </data>
+  <data name="&gt;&gt;lv_UpdatablePlugins.Name" xml:space="preserve">
+    <value>lv_UpdatablePlugins</value>
+  </data>
+  <data name="&gt;&gt;tabPage_installed.Name" xml:space="preserve">
+    <value>tabPage_installed</value>
+  </data>
+  <data name="tabPage_available.Size" type="System.Drawing.Size, System.Drawing">
+    <value>583, 331</value>
+  </data>
+  <data name="columnHeader11.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;tabPage_available.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage_installed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPage_available.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tbx_InstalledPluginsDescription.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="columnHeader12.Width" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="columnHeader3.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;btn_Setting.Name" xml:space="preserve">
+    <value>btn_Setting</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>PluginManager</value>
+  </data>
+  <data name="&gt;&gt;lv_InstalledPlugins.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader12.Name" xml:space="preserve">
+    <value>columnHeader12</value>
+  </data>
+  <data name="&gt;&gt;lv_InstalledPlugins.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btn_Update.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader4.Name" xml:space="preserve">
+    <value>columnHeader4</value>
+  </data>
+  <data name="btn_Install.Text" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="lbl_Msg.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lbl_Msg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_Msg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 359</value>
+  </data>
+  <data name="btn_Remove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="lbl_Msg.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;btn_Remove.Name" xml:space="preserve">
+    <value>btn_Remove</value>
+  </data>
+  <data name="columnHeader3.Text" xml:space="preserve">
+    <value>Installed Version</value>
+  </data>
+  <data name="columnHeader10.Text" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="tabPage_installed.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tbx_AvailablePluginsDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 60</value>
+  </data>
+  <data name="&gt;&gt;tabPage_installed.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="columnHeader5.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="btn_Setting.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btn_Refresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;columnHeader5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lv_UpdatablePlugins.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 208</value>
+  </data>
+  <data name="columnHeader12.Text" xml:space="preserve">
+    <value>Available Version</value>
+  </data>
+  <data name="&gt;&gt;columnHeader3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage_updatable.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="&gt;&gt;columnHeader14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Update.Name" xml:space="preserve">
+    <value>btn_Update</value>
+  </data>
+  <data name="btn_Remove.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="tbx_InstalledPluginsDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 225</value>
+  </data>
+  <data name="&gt;&gt;lv_AvailablePlugins.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lv_UpdatablePlugins.Parent" xml:space="preserve">
+    <value>tabPage_updatable</value>
+  </data>
+  <data name="columnHeader11.Width" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="&gt;&gt;btn_Setting.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;btn_Setting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Install.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader9.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="&gt;&gt;btn_Update.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;columnHeader13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Remove.Parent" xml:space="preserve">
+    <value>tabPage_installed</value>
+  </data>
+  <data name="btn_Close.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btn_Close.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="tabPage_available.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PluginManager</value>
+  </data>
+  <data name="tabPage_installed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;columnHeader7.Name" xml:space="preserve">
+    <value>columnHeader7</value>
+  </data>
+  <data name="tabPage_available.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;columnHeader13.Name" xml:space="preserve">
+    <value>columnHeader13</value>
+  </data>
+  <data name="&gt;&gt;lbl_Msg.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btn_Refresh.Location" type="System.Drawing.Point, System.Drawing">
+    <value>413, 303</value>
+  </data>
+  <data name="btn_Close.Location" type="System.Drawing.Point, System.Drawing">
+    <value>513, 362</value>
+  </data>
+  <data name="&gt;&gt;tbx_UpdatesPluginsDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader4.Text" xml:space="preserve">
+    <value>Assembly</value>
+  </data>
+  <data name="btn_Close.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;columnHeader12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPage_updatable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPage_available.Text" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_Remove.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tbx_UpdatesPluginsDescription.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lbl_Msg" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tabControl1" Row="0" RowSpan="1" Column="0" ColumnSpan="3" /&gt;&lt;Control Name="btn_Setting" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btn_Close" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Absolute,445,Absolute,83" /&gt;&lt;Rows Styles="Percent,91.3253,Percent,8.674699" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="tbx_InstalledPluginsDescription.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tbx_UpdatesPluginsDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 60</value>
+  </data>
+  <data name="tbx_UpdatesPluginsDescription.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="columnHeader7.Text" xml:space="preserve">
+    <value>Available Version</value>
+  </data>
+  <data name="&gt;&gt;tbx_AvailablePluginsDescription.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="columnHeader13.Text" xml:space="preserve">
+    <value>Can Update?</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;columnHeader2.Name" xml:space="preserve">
+    <value>columnHeader2</value>
+  </data>
+  <data name="&gt;&gt;tabPage_available.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage_installed.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbl_Msg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>437, 24</value>
+  </data>
+  <data name="lv_AvailablePlugins.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 10</value>
+  </data>
+  <data name="btn_Update.Location" type="System.Drawing.Point, System.Drawing">
+    <value>494, 303</value>
+  </data>
+  <data name="tbx_UpdatesPluginsDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 225</value>
+  </data>
+  <data name="btn_Setting.Text" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="&gt;&gt;btn_Remove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader3.Name" xml:space="preserve">
+    <value>columnHeader3</value>
+  </data>
+  <data name="columnHeader6.Text" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="&gt;&gt;tbx_AvailablePluginsDescription.Name" xml:space="preserve">
+    <value>tbx_AvailablePluginsDescription</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;columnHeader10.Name" xml:space="preserve">
+    <value>columnHeader10</value>
+  </data>
+  <data name="tbx_InstalledPluginsDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;columnHeader6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader10.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;columnHeader9.Name" xml:space="preserve">
+    <value>columnHeader9</value>
+  </data>
+  <data name="&gt;&gt;tbx_InstalledPluginsDescription.Name" xml:space="preserve">
+    <value>tbx_InstalledPluginsDescription</value>
+  </data>
+  <data name="btn_Refresh.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="&gt;&gt;btn_Install.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lv_InstalledPlugins.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;columnHeader2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Plugin</value>
+  </data>
+  <data name="&gt;&gt;btn_Refresh.Parent" xml:space="preserve">
+    <value>tabPage_available</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPage_updatable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>583, 331</value>
+  </data>
+  <data name="&gt;&gt;columnHeader9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbx_AvailablePluginsDescription.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="&gt;&gt;columnHeader11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Setting.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tabPage_available.Name" xml:space="preserve">
+    <value>tabPage_available</value>
+  </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabPage_installed.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="columnHeader12.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="tbx_AvailablePluginsDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 225</value>
+  </data>
+  <data name="lv_UpdatablePlugins.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 10</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage_updatable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbx_UpdatesPluginsDescription.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="btn_Install.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;tabPage_available.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="columnHeader8.Text" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="lv_InstalledPlugins.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 208</value>
+  </data>
+  <data name="&gt;&gt;columnHeader10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>593, 394</value>
+  </data>
+  <data name="&gt;&gt;btn_Refresh.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabPage_installed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>579, 327</value>
+  </data>
+  <data name="&gt;&gt;btn_Update.Parent" xml:space="preserve">
+    <value>tabPage_updatable</value>
+  </data>
+  <data name="&gt;&gt;lbl_Msg.Name" xml:space="preserve">
+    <value>lbl_Msg</value>
+  </data>
+  <data name="btn_Update.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="&gt;&gt;tbx_InstalledPluginsDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader14.Text" xml:space="preserve">
+    <value>Can Install?</value>
+  </data>
+  <data name="tabPage_installed.Text" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="&gt;&gt;tbx_UpdatesPluginsDescription.Name" xml:space="preserve">
+    <value>tbx_UpdatesPluginsDescription</value>
+  </data>
+  <data name="&gt;&gt;columnHeader7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader4.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="&gt;&gt;columnHeader5.Name" xml:space="preserve">
+    <value>columnHeader5</value>
+  </data>
+  <data name="columnHeader3.Width" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;lv_InstalledPlugins.Parent" xml:space="preserve">
+    <value>tabPage_installed</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;columnHeader8.Name" xml:space="preserve">
+    <value>columnHeader8</value>
+  </data>
+  <data name="btn_Setting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 362</value>
+  </data>
+  <data name="&gt;&gt;columnHeader11.Name" xml:space="preserve">
+    <value>columnHeader11</value>
+  </data>
+  <data name="lbl_Msg.Text" xml:space="preserve">
+    <value>Newly installed/removed plugin will take effect after the program start next time.</value>
+  </data>
+  <data name="columnHeader7.Width" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="&gt;&gt;tbx_InstalledPluginsDescription.Parent" xml:space="preserve">
+    <value>tabPage_installed</value>
+  </data>
+  <data name="&gt;&gt;lbl_Msg.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="btn_Update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_Install.Location" type="System.Drawing.Point, System.Drawing">
+    <value>494, 303</value>
+  </data>
+  <data name="&gt;&gt;btn_Refresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Install.Name" xml:space="preserve">
+    <value>btn_Install</value>
+  </data>
+  <data name="lv_AvailablePlugins.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 208</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>593, 394</value>
+  </data>
+  <data name="&gt;&gt;lv_InstalledPlugins.Name" xml:space="preserve">
+    <value>lv_InstalledPlugins</value>
+  </data>
+  <data name="columnHeader13.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;lv_UpdatablePlugins.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btn_Install.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;tbx_AvailablePluginsDescription.Parent" xml:space="preserve">
+    <value>tabPage_available</value>
+  </data>
+  <data name="&gt;&gt;columnHeader6.Name" xml:space="preserve">
+    <value>columnHeader6</value>
+  </data>
+  <data name="btn_Refresh.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="columnHeader6.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="columnHeader9.Text" xml:space="preserve">
+    <value>Plugin</value>
+  </data>
+  <data name="btn_Setting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 23</value>
+  </data>
+  <data name="&gt;&gt;columnHeader8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbx_AvailablePluginsDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;tbx_InstalledPluginsDescription.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>587, 353</value>
+  </data>
+  <data name="lv_InstalledPlugins.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 10</value>
+  </data>
+  <data name="&gt;&gt;lv_UpdatablePlugins.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader5.Text" xml:space="preserve">
+    <value>Plugin</value>
+  </data>
+  <data name="columnHeader11.Text" xml:space="preserve">
+    <value>Installed Version</value>
+  </data>
+  <data name="btn_Update.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.Name" xml:space="preserve">
+    <value>btn_Close</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="columnHeader14.Width" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="&gt;&gt;tabPage_updatable.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="btn_Remove.Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="tableLayoutPanel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>zh-CN</value>
   </metadata>
   <metadata name="lbl_Msg.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="btn_Setting.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="btn_Close.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="btn_Remove.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tbx_InstalledPluginsDescription.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="lv_InstalledPlugins.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tabPage2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="btn_Install.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tbx_AvailablePluginsDescription.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="lv_AvailablePlugins.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tabPage3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="btn_Update.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tbx_UpdatesPluginsDescription.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="lv_UpdatesPlugins.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
 </root>

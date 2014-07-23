@@ -117,4 +117,210 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btn_showMsgInStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>411, 30</value>
+  </data>
+  <data name="tbx_tabPageName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>287, 122</value>
+  </data>
+  <data name="&gt;&gt;tbx_tabPageName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="btn_showMessageBox.Text" xml:space="preserve">
+    <value>ShowMsgInAppDialog</value>
+  </data>
+  <data name="&gt;&gt;tbx_msg.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;btn_createNewTabPage.Name" xml:space="preserve">
+    <value>btn_createNewTabPage</value>
+  </data>
+  <data name="&gt;&gt;btn_showMsgInStatus.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_showMessageBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lbl_shellData.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;tbx_shellData.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btn_createNewTabPage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbx_msg.Name" xml:space="preserve">
+    <value>tbx_msg</value>
+  </data>
+  <data name="&gt;&gt;btn_showMsgInStatus.Name" xml:space="preserve">
+    <value>btn_showMsgInStatus</value>
+  </data>
+  <data name="tbx_messagBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tbx_messagBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 21</value>
+  </data>
+  <data name="&gt;&gt;btn_showMessageBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_shellData.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="btn_showMsgInStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 23</value>
+  </data>
+  <data name="&gt;&gt;tbx_tabPageName.Name" xml:space="preserve">
+    <value>tbx_tabPageName</value>
+  </data>
+  <data name="&gt;&gt;lbl_shellData.Name" xml:space="preserve">
+    <value>lbl_shellData</value>
+  </data>
+  <data name="&gt;&gt;tbx_tabPageName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lbl_shellData.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btn_createNewTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="tbx_shellData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 270</value>
+  </data>
+  <data name="tbx_msg.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btn_showMsgInStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btn_createNewTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 23</value>
+  </data>
+  <data name="&gt;&gt;tbx_messagBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_shellData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbx_tabPageName.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tbx_shellData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbx_shellData.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;tbx_messagBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btn_createNewTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>411, 120</value>
+  </data>
+  <data name="btn_showMsgInStatus.Text" xml:space="preserve">
+    <value>ShowMsgInStatusBar</value>
+  </data>
+  <data name="lbl_shellData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 12</value>
+  </data>
+  <data name="lbl_shellData.Text" xml:space="preserve">
+    <value>ShellData:</value>
+  </data>
+  <data name="&gt;&gt;tbx_tabPageName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btn_showMessageBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>411, 73</value>
+  </data>
+  <data name="&gt;&gt;tbx_shellData.Name" xml:space="preserve">
+    <value>tbx_shellData</value>
+  </data>
+  <data name="&gt;&gt;tbx_msg.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="btn_createNewTabPage.Text" xml:space="preserve">
+    <value>CreateNewTabPage</value>
+  </data>
+  <data name="tbx_msg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>287, 32</value>
+  </data>
+  <data name="tbx_shellData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 32</value>
+  </data>
+  <data name="&gt;&gt;btn_createNewTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbx_msg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 21</value>
+  </data>
+  <data name="btn_showMessageBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lbl_shellData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 16</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbx_shellData.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="btn_showMessageBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 23</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>570, 323</value>
+  </data>
+  <data name="&gt;&gt;btn_showMsgInStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbx_messagBox.Name" xml:space="preserve">
+    <value>tbx_messagBox</value>
+  </data>
+  <data name="&gt;&gt;btn_showMsgInStatus.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;btn_showMessageBox.Name" xml:space="preserve">
+    <value>btn_showMessageBox</value>
+  </data>
+  <data name="tbx_messagBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>287, 75</value>
+  </data>
+  <data name="tbx_tabPageName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 21</value>
+  </data>
+  <data name="&gt;&gt;tbx_messagBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbl_shellData.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MyFirstPlugin</value>
+  </data>
+  <data name="tbx_shellData.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;btn_showMessageBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="btn_createNewTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;tbx_msg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>zh-CN</value>
+  </metadata>
 </root>

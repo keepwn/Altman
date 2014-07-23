@@ -1,4 +1,4 @@
-﻿using Altman.Plugins;
+﻿using PluginFramework;
 
 namespace Plugin_DbManager
 {
@@ -17,6 +17,14 @@ namespace Plugin_DbManager
         public bool IsShowInRightContext
         {
             get { return true; }
+        }
+        public int IndexInList
+        {
+            get { return 4; }
+        }
+        public string LoadPath
+        {
+            get { return "webshell"; }
         }
     }
 }

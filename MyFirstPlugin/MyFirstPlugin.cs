@@ -7,18 +7,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
-
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace MyFirstPlugin
 {
     public partial class MyFirstPlugin : UserControl
     {
-        private IHostService _host;
+        private IHost _host;
         private Shell _shellData;
-        public MyFirstPlugin(IHostService host, Shell data)
+        public MyFirstPlugin(IHost host, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -45,17 +43,17 @@ namespace MyFirstPlugin
 
         private void btn_showMsgInStatus_Click(object sender, EventArgs e)
         {
-            _host.Gui.ShowMsgInStatusBar(tbx_msg.Text);
+            _host.Ui.ShowMsgInStatusBar(tbx_msg.Text);
         }
 
         private void btn_showMessageBox_Click(object sender, EventArgs e)
         {
-            _host.Gui.ShowMsgInAppDialog(tbx_messagBox.Text);
+            _host.Ui.ShowMsgInAppDialog(tbx_messagBox.Text);
         }
 
         private void btn_createNewTabPage_Click(object sender, EventArgs e)
         {
-            _host.Gui.CreateNewTabPage(tbx_tabPageName.Text,new UserControl1());
+            _host.Ui.CreateNewTabPage(tbx_tabPageName.Text,new UserControl1());
         }
     }
 }

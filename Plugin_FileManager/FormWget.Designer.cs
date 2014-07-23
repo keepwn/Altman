@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormWget));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_url = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,51 +38,35 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 14);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "url:";
             // 
             // textBox_url
             // 
-            this.textBox_url.Location = new System.Drawing.Point(42, 11);
+            resources.ApplyResources(this.textBox_url, "textBox_url");
             this.textBox_url.Name = "textBox_url";
-            this.textBox_url.Size = new System.Drawing.Size(192, 21);
-            this.textBox_url.TabIndex = 5;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 45);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "save:";
             // 
             // button_wget
             // 
-            this.button_wget.Location = new System.Drawing.Point(243, 11);
+            resources.ApplyResources(this.button_wget, "button_wget");
             this.button_wget.Name = "button_wget";
-            this.button_wget.Size = new System.Drawing.Size(42, 51);
-            this.button_wget.TabIndex = 9;
-            this.button_wget.Text = "Wget";
             this.button_wget.UseVisualStyleBackColor = true;
             this.button_wget.Click += new System.EventHandler(this.button_wget_Click);
             // 
             // textBox_save
             // 
-            this.textBox_save.Location = new System.Drawing.Point(42, 41);
+            resources.ApplyResources(this.textBox_save, "textBox_save");
             this.textBox_save.Name = "textBox_save";
-            this.textBox_save.Size = new System.Drawing.Size(192, 21);
-            this.textBox_save.TabIndex = 8;
             // 
             // FormWget
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 76);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_wget);
             this.Controls.Add(this.textBox_save);
@@ -91,8 +76,6 @@
             this.MinimizeBox = false;
             this.Name = "FormWget";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Wget";
             this.ResumeLayout(false);
             this.PerformLayout();
 

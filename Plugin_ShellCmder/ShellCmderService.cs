@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 using Altman.Common.AltData;
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_ShellCmder
 {
     public class ShellCmderService
     {
-        private IHostService _host;
+        private IHost _host;
         private Shell _shellData;
 
         #region 属性
@@ -41,7 +40,7 @@ namespace Plugin_ShellCmder
         }
         #endregion
 
-        public ShellCmderService(IHostService host, Shell data)
+        public ShellCmderService(IHost host, Shell data)
         {
             this._host = host;
             this._shellData = data;

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Plugin_ShellCmder</RootNamespace>
-    <AssemblyName>Plugin_ShellCmder</AssemblyName>
+    <AssemblyName>ShellCmder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="InternalCommand.cs" />
     <Compile Include="Plugin.cs" />
-    <Compile Include="PluginAttribute.cs" />
+    <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellCmderControl.cs">
@@ -79,14 +79,18 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Altman\Altman.csproj">
-      <Project>{c8b447f9-e4d2-4d79-94f9-74582509e6e1}</Project>
-      <Name>Altman</Name>
+    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
+      <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
+      <Name>AltmanUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+      <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
+      <Name>PluginFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy $(TargetDir)*.dll $(SolutionDir)_Build\Plugins\</PostBuildEvent>
+    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)_Build\Plugins\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

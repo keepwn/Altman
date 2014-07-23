@@ -8,17 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
 using Altman.Common.AltData;
 using Altman.Controls;
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_ShellCmder
 {
     public partial class ShellCmderControl : UserControl
     {
-        private IHostService _hostService;
+        private IHost _host;
         private ShellCmderService _shellCmder;
         private Shell _shellData;
         private InternalCommand _internalCommand;
@@ -26,11 +25,11 @@ namespace Plugin_ShellCmder
         private bool _isWin;
         private string _currentDir;
 
-        public ShellCmderControl(IHostService hostService, Shell data)
+        public ShellCmderControl(IHost host, Shell data)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._hostService = hostService;
+            this._host = host;
             this._shellData = data;
 
             shellTextBox_Cmder.CommandEntered+=shellTextBox_Cmder_CommandEntered;
@@ -57,7 +56,7 @@ namespace Plugin_ShellCmder
             try
             {
                 //初始化ShellCmder
-                _shellCmder = new ShellCmderService(_hostService,_shellData);
+                _shellCmder = new ShellCmderService(_host,_shellData);
                 //初始化内部命令
                 _internalCommand = new InternalCommand(shellTextBox_Cmder, _shellCmder);
                 //获取系统信息

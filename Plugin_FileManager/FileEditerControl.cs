@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using Altman.ModelCore;
-using Altman.Plugins;
+using Altman.Model;
+using PluginFramework;
 
 namespace Plugin_FileManager
 {
@@ -11,18 +11,18 @@ namespace Plugin_FileManager
     {
         private FileManagerService _fileManager;
 
-        private IHostService _hostService;
+        private IHost _host;
         private Shell _shellData;
 
 
-        public FileEditerControl(IHostService hostService, Shell data, string filePath, bool autoLoadContent)
+        public FileEditerControl(IHost host, Shell data, string filePath, bool autoLoadContent)
         {
             InitializeComponent();
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
-            this._hostService = hostService;
+            this._host = host;
             this._shellData = data;
-            _fileManager = new FileManagerService(_hostService, _shellData);
+            _fileManager = new FileManagerService(_host, _shellData);
             _fileManager.ReadFileCompletedToDo += fileManager_LoadFileContentCompletedToDo;
             _fileManager.WriteFileCompletedToDo += fileManager_SaveFileCompletedToDo;
 
