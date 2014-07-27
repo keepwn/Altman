@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>WwwRootPathCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+      <item><![CDATA[WwwRootPathCode]]></item>
+    </func>
+    <func>
+      <name>FileTreeCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[FileTreeCode;$dirPath$]]></item>
+    </func>
+    <func>
+      <name>ReadFileCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[ReadFileCode;$filePath$]]></item>
+    </func>
+    <func>
+      <name>WriteFileCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
+      <item><![CDATA[WriteFileCode;$filePath$;$fileContext$]]></item>
+    </func>
+    <func>
+      <name>DeleteFileOrDirCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+      <item><![CDATA[DeleteFileOrDirCode;$fileOrDirPath$]]></item>
+    </func>
+    <func>
+      <name>DownloadFileCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[DownloadFileCode;$filePath$]]></item>
+    </func>
+    <func>
+      <name>UploadFileCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
+      <item><![CDATA[UploadFileCode;$savefilePath$;$fileHexContext$]]></item>
+    </func>
+    <func>
+      <name>CopyFileOrDirCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
+      <item><![CDATA[CopyFileOrDirCode;$sourceFilePath$;$targetFilePath$]]></item>
+    </func>
+    <func>
+      <name>RenameFileOrDirCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
+      <item><![CDATA[RenameFileOrDirCode;$oldName$;$newName$]]></item>
+    </func>
+    <func>
+      <name>CreateDirCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[CreateDirCode;$dirPath$]]></item>
+    </func>
+    <func>
+      <name>ModifyFileOrDirTimeCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
+      <item><![CDATA[ModifyFileOrDirTimeCode;$fileOrDirPath$;$aTime$]]></item>
+    </func>
+    <func>
+      <name>WgetCode</name>
+	  <type>jspBig</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
+      <item><![CDATA[WgetCode;$urlPath$;$saveFilePath$]]></item>
+    </func>
+    <func>
+      <name>ExecuteCommandCode</name>
+	  <type>jspBig</type>
+	  <path>/Cmder</path>
+	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
+      <item><![CDATA[ExecuteCommandCode;$cmdPath$;$command$]]></item>
+    </func>
+    <func>
+      <name>SysInfoCode</name>
+	  <type>jspBig</type>
+	  <path>/Cmder</path>
+      <item><![CDATA[SysInfoCode]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

