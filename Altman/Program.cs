@@ -22,7 +22,9 @@ namespace Altman
             setup.PrivateBinPath = "Bin;Languages";
             setup.ShadowCopyFiles = "true";
             setup.CachePath = Path.Combine(Application.StartupPath, "__cache__");
-            setup.ShadowCopyDirectories = Path.Combine(Application.StartupPath, "Plugins")+";"+Path.Combine(Application.StartupPath, "Bin");
+            setup.ShadowCopyDirectories = Path.Combine(Application.StartupPath, "Plugins") 
+                                            + ";" + Path.Combine(Application.StartupPath, "Bin") 
+                                            + ";" + Path.Combine(Application.StartupPath, "Languages");
             setup.ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
 
             //从Web下载时，程序会设置为远程程序集。须手动设置loadFromRemoteSources属性为真
