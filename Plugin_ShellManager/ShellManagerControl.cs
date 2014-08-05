@@ -363,5 +363,17 @@ namespace Plugin_ShellManager
                 Clipboard.SetDataObject(code);
             }      
         }
+
+        /**
+         *  采用绑定ContextMenuStrip的方式，Mac下可能不会产生该事件
+         *  须手动绑定MouseClick事件
+         */
+        private void lv_shell_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                rightMenu_Webshell.Show(lv_shell, e.Location);
+            }
+        }
     }
 }

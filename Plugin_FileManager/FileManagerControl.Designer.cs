@@ -32,15 +32,10 @@ namespace Plugin_FileManager
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileManagerControl));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView_Dirs = new System.Windows.Forms.TreeView();
             this.imageList_TreeType = new System.Windows.Forms.ImageList(this.components);
-            this.listView_File = new Altman.Controls.ListViewPlus();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList_FileType = new System.Windows.Forms.ImageList(this.components);
             this.rightMenu_FileManager = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.item_refresh = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -57,24 +52,21 @@ namespace Plugin_FileManager
             this.item_add = new System.Windows.Forms.ToolStripMenuItem();
             this.item_createFile = new System.Windows.Forms.ToolStripMenuItem();
             this.item_createDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageList_FileType = new System.Windows.Forms.ImageList(this.components);
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Dir = new System.Windows.Forms.Button();
             this.textBox_url = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.listView_File = new Altman.Controls.ListViewPlus();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.rightMenu_FileManager.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Dir, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_url, 0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // splitContainer1
             // 
@@ -107,39 +99,65 @@ namespace Plugin_FileManager
             this.imageList_TreeType.Images.SetKeyName(0, "drive.ico");
             this.imageList_TreeType.Images.SetKeyName(1, "floder.ico");
             // 
-            // listView_File
+            // imageList_FileType
             // 
-            resources.ApplyResources(this.listView_File, "listView_File");
-            this.listView_File.AllowDrop = true;
-            this.listView_File.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8});
-            this.listView_File.ContextMenuStrip = this.rightMenu_FileManager;
-            this.listView_File.FullRowSelect = true;
-            this.listView_File.GridLines = true;
-            this.listView_File.MultiSelect = false;
-            this.listView_File.Name = "listView_File";
-            this.listView_File.SmallImageList = this.imageList_FileType;
-            this.listView_File.UseCompatibleStateImageBehavior = false;
-            this.listView_File.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            resources.ApplyResources(this.columnHeader5, "columnHeader5");
-            // 
-            // columnHeader6
-            // 
-            resources.ApplyResources(this.columnHeader6, "columnHeader6");
-            // 
-            // columnHeader7
-            // 
-            resources.ApplyResources(this.columnHeader7, "columnHeader7");
-            // 
-            // columnHeader8
-            // 
-            resources.ApplyResources(this.columnHeader8, "columnHeader8");
+            this.imageList_FileType.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_FileType.ImageStream")));
+            this.imageList_FileType.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList_FileType.Images.SetKeyName(0, "0_unknow_32.ico");
+            this.imageList_FileType.Images.SetKeyName(1, "1_folder_32.ico");
+            this.imageList_FileType.Images.SetKeyName(2, "10_exe_32.ico");
+            this.imageList_FileType.Images.SetKeyName(3, "11_dll_32.ico");
+            this.imageList_FileType.Images.SetKeyName(4, "12_bat_32.ico");
+            this.imageList_FileType.Images.SetKeyName(5, "13_bin_32.ico");
+            this.imageList_FileType.Images.SetKeyName(6, "20_zip_32.ico");
+            this.imageList_FileType.Images.SetKeyName(7, "21_rar_32.ico");
+            this.imageList_FileType.Images.SetKeyName(8, "22_gz_32.ico");
+            this.imageList_FileType.Images.SetKeyName(9, "23_tgz_32.ico");
+            this.imageList_FileType.Images.SetKeyName(10, "24_cab_32.ico");
+            this.imageList_FileType.Images.SetKeyName(11, "30_bmp_32.ico");
+            this.imageList_FileType.Images.SetKeyName(12, "31_gif_32.ico");
+            this.imageList_FileType.Images.SetKeyName(13, "32_jpeg_32.ico");
+            this.imageList_FileType.Images.SetKeyName(14, "33_jpg_32.ico");
+            this.imageList_FileType.Images.SetKeyName(15, "34_png_32.ico");
+            this.imageList_FileType.Images.SetKeyName(16, "40_rm_32.ico");
+            this.imageList_FileType.Images.SetKeyName(17, "41_rmvb_32.ico");
+            this.imageList_FileType.Images.SetKeyName(18, "42_mov_32.ico");
+            this.imageList_FileType.Images.SetKeyName(19, "43_mp4_32.ico");
+            this.imageList_FileType.Images.SetKeyName(20, "44_mpeg_32.ico");
+            this.imageList_FileType.Images.SetKeyName(21, "45_mpg_32.ico");
+            this.imageList_FileType.Images.SetKeyName(22, "46_flv_32.ico");
+            this.imageList_FileType.Images.SetKeyName(23, "47_swf_32.ico");
+            this.imageList_FileType.Images.SetKeyName(24, "50_dat_32.ico");
+            this.imageList_FileType.Images.SetKeyName(25, "51_doc_32.ico");
+            this.imageList_FileType.Images.SetKeyName(26, "52_docx_32.ico");
+            this.imageList_FileType.Images.SetKeyName(27, "53_eml_32.ico");
+            this.imageList_FileType.Images.SetKeyName(28, "54_ini_32.ico");
+            this.imageList_FileType.Images.SetKeyName(29, "55_log_32.ico");
+            this.imageList_FileType.Images.SetKeyName(30, "56_mdb_32.ico");
+            this.imageList_FileType.Images.SetKeyName(31, "57pdf_32.ico");
+            this.imageList_FileType.Images.SetKeyName(32, "58_ppt_32.ico");
+            this.imageList_FileType.Images.SetKeyName(33, "59_pptx_32.ico");
+            this.imageList_FileType.Images.SetKeyName(34, "60_psd_32.ico");
+            this.imageList_FileType.Images.SetKeyName(35, "61_rtf_32.ico");
+            this.imageList_FileType.Images.SetKeyName(36, "62_txt_32.ico");
+            this.imageList_FileType.Images.SetKeyName(37, "63_wps_32.ico");
+            this.imageList_FileType.Images.SetKeyName(38, "64_xls_32.ico");
+            this.imageList_FileType.Images.SetKeyName(39, "65_xlsx_32.ico");
+            this.imageList_FileType.Images.SetKeyName(40, "80_asa_32.ico");
+            this.imageList_FileType.Images.SetKeyName(41, "81_asp_32.ico");
+            this.imageList_FileType.Images.SetKeyName(42, "82_aspx_32.ico");
+            this.imageList_FileType.Images.SetKeyName(43, "83_c_32.ico");
+            this.imageList_FileType.Images.SetKeyName(44, "84_cpp_32.ico");
+            this.imageList_FileType.Images.SetKeyName(45, "85_cs.ico");
+            this.imageList_FileType.Images.SetKeyName(46, "86_h_32.ico");
+            this.imageList_FileType.Images.SetKeyName(47, "87_htm_32.ico");
+            this.imageList_FileType.Images.SetKeyName(48, "88_html_32.ico");
+            this.imageList_FileType.Images.SetKeyName(49, "89_jar_32.ico");
+            this.imageList_FileType.Images.SetKeyName(50, "90_php_32.ico");
+            this.imageList_FileType.Images.SetKeyName(51, "91_ruby_32.ico");
+            this.imageList_FileType.Images.SetKeyName(52, "92_sln_32.ico");
+            this.imageList_FileType.Images.SetKeyName(53, "100_chm_32.ico");
+            this.imageList_FileType.Images.SetKeyName(54, "101_iso_32.ico");
             // 
             // rightMenu_FileManager
             // 
@@ -252,65 +270,13 @@ namespace Plugin_FileManager
             this.item_createDir.Name = "item_createDir";
             this.item_createDir.Click += new System.EventHandler(this.item_createDir_Click);
             // 
-            // imageList_FileType
+            // tableLayoutPanel1
             // 
-            this.imageList_FileType.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_FileType.ImageStream")));
-            this.imageList_FileType.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList_FileType.Images.SetKeyName(0, "0_unknow_32.ico");
-            this.imageList_FileType.Images.SetKeyName(1, "1_folder_32.ico");
-            this.imageList_FileType.Images.SetKeyName(2, "10_exe_32.ico");
-            this.imageList_FileType.Images.SetKeyName(3, "11_dll_32.ico");
-            this.imageList_FileType.Images.SetKeyName(4, "12_bat_32.ico");
-            this.imageList_FileType.Images.SetKeyName(5, "13_bin_32.ico");
-            this.imageList_FileType.Images.SetKeyName(6, "20_zip_32.ico");
-            this.imageList_FileType.Images.SetKeyName(7, "21_rar_32.ico");
-            this.imageList_FileType.Images.SetKeyName(8, "22_gz_32.ico");
-            this.imageList_FileType.Images.SetKeyName(9, "23_tgz_32.ico");
-            this.imageList_FileType.Images.SetKeyName(10, "24_cab_32.ico");
-            this.imageList_FileType.Images.SetKeyName(11, "30_bmp_32.ico");
-            this.imageList_FileType.Images.SetKeyName(12, "31_gif_32.ico");
-            this.imageList_FileType.Images.SetKeyName(13, "32_jpeg_32.ico");
-            this.imageList_FileType.Images.SetKeyName(14, "33_jpg_32.ico");
-            this.imageList_FileType.Images.SetKeyName(15, "34_png_32.ico");
-            this.imageList_FileType.Images.SetKeyName(16, "40_rm_32.ico");
-            this.imageList_FileType.Images.SetKeyName(17, "41_rmvb_32.ico");
-            this.imageList_FileType.Images.SetKeyName(18, "42_mov_32.ico");
-            this.imageList_FileType.Images.SetKeyName(19, "43_mp4_32.ico");
-            this.imageList_FileType.Images.SetKeyName(20, "44_mpeg_32.ico");
-            this.imageList_FileType.Images.SetKeyName(21, "45_mpg_32.ico");
-            this.imageList_FileType.Images.SetKeyName(22, "46_flv_32.ico");
-            this.imageList_FileType.Images.SetKeyName(23, "47_swf_32.ico");
-            this.imageList_FileType.Images.SetKeyName(24, "50_dat_32.ico");
-            this.imageList_FileType.Images.SetKeyName(25, "51_doc_32.ico");
-            this.imageList_FileType.Images.SetKeyName(26, "52_docx_32.ico");
-            this.imageList_FileType.Images.SetKeyName(27, "53_eml_32.ico");
-            this.imageList_FileType.Images.SetKeyName(28, "54_ini_32.ico");
-            this.imageList_FileType.Images.SetKeyName(29, "55_log_32.ico");
-            this.imageList_FileType.Images.SetKeyName(30, "56_mdb_32.ico");
-            this.imageList_FileType.Images.SetKeyName(31, "57pdf_32.ico");
-            this.imageList_FileType.Images.SetKeyName(32, "58_ppt_32.ico");
-            this.imageList_FileType.Images.SetKeyName(33, "59_pptx_32.ico");
-            this.imageList_FileType.Images.SetKeyName(34, "60_psd_32.ico");
-            this.imageList_FileType.Images.SetKeyName(35, "61_rtf_32.ico");
-            this.imageList_FileType.Images.SetKeyName(36, "62_txt_32.ico");
-            this.imageList_FileType.Images.SetKeyName(37, "63_wps_32.ico");
-            this.imageList_FileType.Images.SetKeyName(38, "64_xls_32.ico");
-            this.imageList_FileType.Images.SetKeyName(39, "65_xlsx_32.ico");
-            this.imageList_FileType.Images.SetKeyName(40, "80_asa_32.ico");
-            this.imageList_FileType.Images.SetKeyName(41, "81_asp_32.ico");
-            this.imageList_FileType.Images.SetKeyName(42, "82_aspx_32.ico");
-            this.imageList_FileType.Images.SetKeyName(43, "83_c_32.ico");
-            this.imageList_FileType.Images.SetKeyName(44, "84_cpp_32.ico");
-            this.imageList_FileType.Images.SetKeyName(45, "85_cs.ico");
-            this.imageList_FileType.Images.SetKeyName(46, "86_h_32.ico");
-            this.imageList_FileType.Images.SetKeyName(47, "87_htm_32.ico");
-            this.imageList_FileType.Images.SetKeyName(48, "88_html_32.ico");
-            this.imageList_FileType.Images.SetKeyName(49, "89_jar_32.ico");
-            this.imageList_FileType.Images.SetKeyName(50, "90_php_32.ico");
-            this.imageList_FileType.Images.SetKeyName(51, "91_ruby_32.ico");
-            this.imageList_FileType.Images.SetKeyName(52, "92_sln_32.ico");
-            this.imageList_FileType.Images.SetKeyName(53, "100_chm_32.ico");
-            this.imageList_FileType.Images.SetKeyName(54, "101_iso_32.ico");
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btn_Dir, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBox_url, 0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // btn_Dir
             // 
@@ -324,6 +290,40 @@ namespace Plugin_FileManager
             resources.ApplyResources(this.textBox_url, "textBox_url");
             this.textBox_url.Name = "textBox_url";
             // 
+            // listView_File
+            // 
+            resources.ApplyResources(this.listView_File, "listView_File");
+            this.listView_File.AllowDrop = true;
+            this.listView_File.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
+            this.listView_File.FullRowSelect = true;
+            this.listView_File.GridLines = true;
+            this.listView_File.MultiSelect = false;
+            this.listView_File.Name = "listView_File";
+            this.listView_File.SmallImageList = this.imageList_FileType;
+            this.listView_File.UseCompatibleStateImageBehavior = false;
+            this.listView_File.View = System.Windows.Forms.View.Details;
+            this.listView_File.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_File_MouseUp);
+            // 
+            // columnHeader5
+            // 
+            resources.ApplyResources(this.columnHeader5, "columnHeader5");
+            // 
+            // columnHeader6
+            // 
+            resources.ApplyResources(this.columnHeader6, "columnHeader6");
+            // 
+            // columnHeader7
+            // 
+            resources.ApplyResources(this.columnHeader7, "columnHeader7");
+            // 
+            // columnHeader8
+            // 
+            resources.ApplyResources(this.columnHeader8, "columnHeader8");
+            // 
             // FileManagerControl
             // 
             resources.ApplyResources(this, "$this");
@@ -331,13 +331,13 @@ namespace Plugin_FileManager
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FileManagerControl";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.rightMenu_FileManager.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -120,6 +120,9 @@
   <data name="&gt;&gt;btn_Dir.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="item_copy.Text" xml:space="preserve">
+    <value>copy</value>
+  </data>
   <data name="&gt;&gt;imageList_FileType.Name" xml:space="preserve">
     <value>imageList_FileType</value>
   </data>
@@ -181,6 +184,9 @@
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 12</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 6</value>
   </data>
   <data name="&gt;&gt;item_download.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -345,9 +351,6 @@
   <data name="item_del.Text" xml:space="preserve">
     <value>delete</value>
   </data>
-  <data name="columnHeader8.Text" xml:space="preserve">
-    <value>Attribute</value>
-  </data>
   <data name="&gt;&gt;listView_File.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -375,96 +378,12 @@
   <data name="item_upload.Text" xml:space="preserve">
     <value>upload</value>
   </data>
-  <data name="item_rename.Text" xml:space="preserve">
-    <value>rename</value>
-  </data>
-  <data name="item_refresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>595, 387</value>
-  </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
-    <value>splitContainer1.Panel2</value>
-  </data>
-  <data name="item_del.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="item_rename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="treeView_Dirs.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;item_download.Name" xml:space="preserve">
-    <value>item_download</value>
-  </data>
-  <data name="item_paste.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="&gt;&gt;item_modifyTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 6</value>
-  </data>
-  <data name="&gt;&gt;columnHeader8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="item_createFile.Text" xml:space="preserve">
-    <value>file</value>
-  </data>
-  <data name="&gt;&gt;item_copy.Name" xml:space="preserve">
-    <value>item_copy</value>
-  </data>
-  <data name="&gt;&gt;item_downloadToServer.Name" xml:space="preserve">
-    <value>item_downloadToServer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btn_Dir.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;treeView_Dirs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="listView_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 352</value>
-  </data>
-  <data name="item_downloadToServer.Text" xml:space="preserve">
-    <value>download to server</value>
-  </data>
-  <data name="&gt;&gt;columnHeader7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="btn_Dir.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="item_edit.Text" xml:space="preserve">
-    <value>edit</value>
-  </data>
   <data name="imageList_FileType.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        7wEAAk1TRnQBSQFMAgEBNwEAAUABAAFIAQABFAEAARQBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFQ
+        7wEAAk1TRnQBSQFMAgEBNwEAAUABAAFoAQABFAEAARQBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFQ
         AwABGAEBAgABAQEAASAGAAFeAQEpAAMBAQIDEQEXAyABLwMhATEDIAEuAxABFQMEAQYDFQEdAyABLwMh
         ATEDHwEsAwwBEAMAAQEIAAMFAQcDGwEmAyEBMQMhATEDIQExAyEBMQMhATEDIQExAyEBMQMhATEDIQEx
         AyEBMQMhATEDIQExAyEBMQMhATADFgEfAwEBAggAAwUBBwMbASYDIQExAyEBMQMhATEDIQExAyEBMQMh
@@ -2582,6 +2501,131 @@
         A/8BgAEAAXwBAAEHAgAF/wGAAQEB/AEAAQ8YAAs=
 </value>
   </data>
+  <data name="item_rename.Text" xml:space="preserve">
+    <value>rename</value>
+  </data>
+  <data name="imageList_TreeType.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABY
+        CQAAAk1TRnQBSQFMAgEBAgEAAZABAAG4AQABEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8A/wBUAAMZASMDKQE+AykBPwMpAT8DKQE/AykBPwMpAT8DKQE/AykBPwMp
+        AT8DKQE/AykBPwMpAT4DFwEgAwABAYQAAxYBHgMoATwDKQE/AykBPwMpAT8DKQE/AykBPwMpAT8DKQE/
+        AykBPwMpAT8DKQE/AykBPwMpAT8DKAE8AxYBHgNKAYsBXQFmAWkB7QFkAWYBagHsAWQBZgFqAewBZAFm
+        AWoB7AFkAWYBagHsAWQBZgFqAewBZAFmAWoB7AFkAWYBagHsAWQBZgFqAewBZAFmAWoB7AFkAWYBagHs
+        AWEBZwFqAe4DTAGTAwcBCYQAA0cBggJmAWQB6wNkAewDZAHsA2QB7ANkAewDZAHsA2QB7ANkAewDZAHs
+        A2QB7ANkAewDZAHsA2QB7AJmAWQB6wNHAYIDTgGZAV4BwwHpAf8BkgHqAf0B/wGLAeoC/wGLAeoC/wGL
+        AeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGRAesC/wNdAdcDGgEkhAADTgGZ
+        AcMBwQG/Af8BwgHAAb4B/wG/Ab0BuwH/Ab8BvQG7Af8BvwG9AbsB/wHAAb0BvAH/AccBuwG+Af8BxwG7
+        Ab4B/wHAAb0BvAH/Ab8BvQG7Af8BvwG9AbsB/wG/Ab0BuwH/AcIBwAG+Af8BwwHBAb8B/wNOAZkDTgGZ
+        AV4BwwHoAf8BiwHcAfcB/wGEAeMB/QH/AYIB4gH8Af8BggHiAfwB/wGCAeIB/AH/AYIB4gH8Af8BggHi
+        AfwB/wGCAeIB/AH/AYIB4gH8Af8BggHiAfwB/wGGAeQB/QH/AWUBeQF+AfQDNQFVhAADTgGZAb0BuwG5
+        Af8BwAG+AbwB/wHAAb4BvAH/Ab4BvAG6Af8BvgG8AboB/wG/AbwBugH/AcABuwG6Af8BwAG7AboB/wG/
+        AbwBugH/Ab4BvAG6Af8BvgG8AboB/wHAAb4BvAH/AcABvgG8Af8BvQG7AbkB/wNOAZkDTgGZAWcBzQHu
+        Af8BbgHOAe8B/wGFAeIB/AH/AWkB3gH7Af8BagHeAfsB/wFqAd4B+wH/AWsB3gH7Af8BawHeAfsB/wFr
+        Ad4B+wH/AWsB3gH7Af8BawHeAfsB/wFrAd8B/AH/AYsB3QH4Af8DSwGOAwMBBIAAA04BmQG6AbgBtgH/
+        AcEBvwG9Af8BvAG6AbgB/wG3AbUBswH/AbgBtQG0Af8BuAG1AbQB/wG4AbYBtAH/AbgBtgG0Af8BuAG1
+        AbQB/wG4AbUBtAH/AbcBtQGzAf8BvAG6AbgB/wHBAb8BvQH/AboBuAG2Af8DTgGZA04BmQGBAdcB9AH/
+        AWEBwwHqAf8BkQHiAfsB/wFsAd4B+wH/AW4B3gH7Af8BaQHdAfsB/wFkAdoB+gH/AWUB2gH6Af8BZQHa
+        AfoB/wFlAdoB+gH/AWUB2gH6Af8BZAHaAfoB/wGFAd4B+gH/A1kBxwMWAR6AAANOAZQBvQG7AboB/wG5
+        AbcBtQH/AcQBwgHBAf8BwgHBAcAB/wHCAcEBvwH/AcIBwQG/Af8BwgHBAb8B/wHCAcEBvwH/AcIBwQG/
+        Af8BwgHBAb8B/wHCAcEBwAH/AcQBwgHBAf8BuQG3AbUB/wG9AbsBugH/A04BlANOAZkBhwHbAfcB/wFY
+        AcUB7QH/AWkBwwHpAf8BagHFAeoB/wFrAcUB6gH/AV8BxQHsAf8BWwHSAfcB/wFdAdUB+gH/AVwB1QH5
+        Af8BXAHVAfkB/wFcAdUB+QH/AVsB1QH5Af8BYgHYAfoB/wFiAWgBagHtAzABS4AAAy4BSANhAeQBzwHO
+        Ac0B/wHMAcoByQH/Ac0BzAHKAf8B0AHOAc0B/wHRAc8BzgH/AdEB0AHOAf8B0QHQAc4B/wHRAc8BzgH/
+        AdABzgHNAf8BzQHMAcoB/wHMAcoByQH/Ac8BzgHNAf8DYQHkAy4BSANOAZkBiAHbAfcB/wFiAdkB+QH/
+        AV4B0wH2Af8BXgHTAfUB/wFeAdMB9gH/AVcBygHwAf8BTwG9AeoB/wGHAdUB9AH/AYsB1wH1Af8BigHX
+        AfUB/wGKAdcB9QH/AYoB1wH1Af8BjAHZAfYB/wGaAbYBvwH9A0gBhYMAAQEDNQFWA2IB6QG+AbsBugH/
+        Ac8BzQHMAf8B0gHQAc4B/wHQAc4BzQH/AdABzgHNAf8B0AHOAc0B/wHQAc4BzQH/AdIB0AHOAf8BzwHN
+        AcwB/wG+AbsBugH/A2IB6QM1AVYDAAEBA04BmQGIAdkB9wH/AWAB2AH6Af8BYgHYAfoB/wFiAdgB+gH/
+        AWEB2AH6Af8BYQHZAfoB/wFXAcoB8QH/AVEBuQHlAf8BUQG5AeUB/wFRAbkB5QH/AVEBuQHlAf8BWgG6
+        AeQB/wNbAcsDTAGPAyoBQIcAAQEDNQFXA2IB6QG0AbEBrwH/AbABrQGrAf8BrwGsAaoB/wGvAawBqgH/
+        Aa8BrAGqAf8BrwGsAaoB/wGwAa0BqwH/AbQBsQGvAf8DYgHpAzUBVwMAAQEEAANOAZkBiQHYAfYB/wFa
+        AdQB+QH/AVwB1AH4Af8BXAHUAfgB/wFkAdgB+QH/AWgB2QH6Af8BaQHaAfoB/wFoAdkB+gH/AWcB2QH6
+        Af8BaAHZAfoB/wFmAdkB+wH/AZAB3AH3Af8DSQGIkwABAQMwAUwDRwGCA0YBfwNGAX8DRgF/A0YBfwNG
+        AX8DRgF/A0cBggMwAUwDAAEBCAADTgGYAZIB2wH3Af8BYgHXAfoB/wFkAdcB+QH/AWoB2QH6Af8BdAGq
+        AbcB/ANkAecDXwHjA18B4wNfAeMDXwHjA18B4wNhAeQDPgFqyAADQwF3A2EB4gNfAeMDXwHjA2UB5QNb
+        AcMDIQEwAxMBGgMUARwDFAEcAxQBHAMUARwDFAEbAwcBCsgAAwgBCwMUARsDFAEcAxQBHAMUARwDEAEV
+        AwEBAv8ApQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAT/BAAC/wEA
+        AQEHAAEBBwABAQcAAQEsAAGAAQEBAAEDBAABwAEDAQABAwQAAv8BAAEDBAAC/wEBAf8EAAT/GgAL
+</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>595, 387</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="item_del.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="item_rename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="treeView_Dirs.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;item_download.Name" xml:space="preserve">
+    <value>item_download</value>
+  </data>
+  <data name="item_paste.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="item_refresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="&gt;&gt;columnHeader8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="item_createFile.Text" xml:space="preserve">
+    <value>file</value>
+  </data>
+  <data name="&gt;&gt;item_copy.Name" xml:space="preserve">
+    <value>item_copy</value>
+  </data>
+  <data name="columnHeader8.Text" xml:space="preserve">
+    <value>Attribute</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btn_Dir.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;treeView_Dirs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listView_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>430, 352</value>
+  </data>
+  <data name="item_downloadToServer.Text" xml:space="preserve">
+    <value>download to server</value>
+  </data>
+  <data name="&gt;&gt;columnHeader7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btn_Dir.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="item_edit.Text" xml:space="preserve">
+    <value>edit</value>
+  </data>
+  <data name="&gt;&gt;item_downloadToServer.Name" xml:space="preserve">
+    <value>item_downloadToServer</value>
+  </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -2627,8 +2671,8 @@
   <data name="&gt;&gt;item_edit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;item_refresh.Name" xml:space="preserve">
-    <value>item_refresh</value>
+  <data name="&gt;&gt;splitContainer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;columnHeader6.Name" xml:space="preserve">
     <value>columnHeader6</value>
@@ -2666,8 +2710,8 @@
   <data name="item_refresh.Text" xml:space="preserve">
     <value>refresh</value>
   </data>
-  <data name="item_copy.Text" xml:space="preserve">
-    <value>copy</value>
+  <data name="&gt;&gt;item_refresh.Name" xml:space="preserve">
+    <value>item_refresh</value>
   </data>
   <data name="columnHeader5.Text" xml:space="preserve">
     <value>Name</value>
@@ -2684,52 +2728,8 @@
   <data name="&gt;&gt;treeView_Dirs.Name" xml:space="preserve">
     <value>treeView_Dirs</value>
   </data>
-  <data name="imageList_TreeType.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABY
-        CQAAAk1TRnQBSQFMAgEBAgEAAZABAAGYAQABEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8A/wBUAAMZASMDKQE+AykBPwMpAT8DKQE/AykBPwMpAT8DKQE/AykBPwMp
-        AT8DKQE/AykBPwMpAT4DFwEgAwABAYQAAxYBHgMoATwDKQE/AykBPwMpAT8DKQE/AykBPwMpAT8DKQE/
-        AykBPwMpAT8DKQE/AykBPwMpAT8DKAE8AxYBHgNKAYsBXQFmAWkB7QFkAWYBagHsAWQBZgFqAewBZAFm
-        AWoB7AFkAWYBagHsAWQBZgFqAewBZAFmAWoB7AFkAWYBagHsAWQBZgFqAewBZAFmAWoB7AFkAWYBagHs
-        AWEBZwFqAe4DTAGTAwcBCYQAA0cBggJmAWQB6wNkAewDZAHsA2QB7ANkAewDZAHsA2QB7ANkAewDZAHs
-        A2QB7ANkAewDZAHsA2QB7AJmAWQB6wNHAYIDTgGZAV4BwwHpAf8BkgHqAf0B/wGLAeoC/wGLAeoC/wGL
-        AeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGLAeoC/wGRAesC/wNdAdcDGgEkhAADTgGZ
-        AcMBwQG/Af8BwgHAAb4B/wG/Ab0BuwH/Ab8BvQG7Af8BvwG9AbsB/wHAAb0BvAH/AccBuwG+Af8BxwG7
-        Ab4B/wHAAb0BvAH/Ab8BvQG7Af8BvwG9AbsB/wG/Ab0BuwH/AcIBwAG+Af8BwwHBAb8B/wNOAZkDTgGZ
-        AV4BwwHoAf8BiwHcAfcB/wGEAeMB/QH/AYIB4gH8Af8BggHiAfwB/wGCAeIB/AH/AYIB4gH8Af8BggHi
-        AfwB/wGCAeIB/AH/AYIB4gH8Af8BggHiAfwB/wGGAeQB/QH/AWUBeQF+AfQDNQFVhAADTgGZAb0BuwG5
-        Af8BwAG+AbwB/wHAAb4BvAH/Ab4BvAG6Af8BvgG8AboB/wG/AbwBugH/AcABuwG6Af8BwAG7AboB/wG/
-        AbwBugH/Ab4BvAG6Af8BvgG8AboB/wHAAb4BvAH/AcABvgG8Af8BvQG7AbkB/wNOAZkDTgGZAWcBzQHu
-        Af8BbgHOAe8B/wGFAeIB/AH/AWkB3gH7Af8BagHeAfsB/wFqAd4B+wH/AWsB3gH7Af8BawHeAfsB/wFr
-        Ad4B+wH/AWsB3gH7Af8BawHeAfsB/wFrAd8B/AH/AYsB3QH4Af8DSwGOAwMBBIAAA04BmQG6AbgBtgH/
-        AcEBvwG9Af8BvAG6AbgB/wG3AbUBswH/AbgBtQG0Af8BuAG1AbQB/wG4AbYBtAH/AbgBtgG0Af8BuAG1
-        AbQB/wG4AbUBtAH/AbcBtQGzAf8BvAG6AbgB/wHBAb8BvQH/AboBuAG2Af8DTgGZA04BmQGBAdcB9AH/
-        AWEBwwHqAf8BkQHiAfsB/wFsAd4B+wH/AW4B3gH7Af8BaQHdAfsB/wFkAdoB+gH/AWUB2gH6Af8BZQHa
-        AfoB/wFlAdoB+gH/AWUB2gH6Af8BZAHaAfoB/wGFAd4B+gH/A1kBxwMWAR6AAANOAZQBvQG7AboB/wG5
-        AbcBtQH/AcQBwgHBAf8BwgHBAcAB/wHCAcEBvwH/AcIBwQG/Af8BwgHBAb8B/wHCAcEBvwH/AcIBwQG/
-        Af8BwgHBAb8B/wHCAcEBwAH/AcQBwgHBAf8BuQG3AbUB/wG9AbsBugH/A04BlANOAZkBhwHbAfcB/wFY
-        AcUB7QH/AWkBwwHpAf8BagHFAeoB/wFrAcUB6gH/AV8BxQHsAf8BWwHSAfcB/wFdAdUB+gH/AVwB1QH5
-        Af8BXAHVAfkB/wFcAdUB+QH/AVsB1QH5Af8BYgHYAfoB/wFiAWgBagHtAzABS4AAAy4BSANhAeQBzwHO
-        Ac0B/wHMAcoByQH/Ac0BzAHKAf8B0AHOAc0B/wHRAc8BzgH/AdEB0AHOAf8B0QHQAc4B/wHRAc8BzgH/
-        AdABzgHNAf8BzQHMAcoB/wHMAcoByQH/Ac8BzgHNAf8DYQHkAy4BSANOAZkBiAHbAfcB/wFiAdkB+QH/
-        AV4B0wH2Af8BXgHTAfUB/wFeAdMB9gH/AVcBygHwAf8BTwG9AeoB/wGHAdUB9AH/AYsB1wH1Af8BigHX
-        AfUB/wGKAdcB9QH/AYoB1wH1Af8BjAHZAfYB/wGaAbYBvwH9A0gBhYMAAQEDNQFWA2IB6QG+AbsBugH/
-        Ac8BzQHMAf8B0gHQAc4B/wHQAc4BzQH/AdABzgHNAf8B0AHOAc0B/wHQAc4BzQH/AdIB0AHOAf8BzwHN
-        AcwB/wG+AbsBugH/A2IB6QM1AVYDAAEBA04BmQGIAdkB9wH/AWAB2AH6Af8BYgHYAfoB/wFiAdgB+gH/
-        AWEB2AH6Af8BYQHZAfoB/wFXAcoB8QH/AVEBuQHlAf8BUQG5AeUB/wFRAbkB5QH/AVEBuQHlAf8BWgG6
-        AeQB/wNbAcsDTAGPAyoBQIcAAQEDNQFXA2IB6QG0AbEBrwH/AbABrQGrAf8BrwGsAaoB/wGvAawBqgH/
-        Aa8BrAGqAf8BrwGsAaoB/wGwAa0BqwH/AbQBsQGvAf8DYgHpAzUBVwMAAQEEAANOAZkBiQHYAfYB/wFa
-        AdQB+QH/AVwB1AH4Af8BXAHUAfgB/wFkAdgB+QH/AWgB2QH6Af8BaQHaAfoB/wFoAdkB+gH/AWcB2QH6
-        Af8BaAHZAfoB/wFmAdkB+wH/AZAB3AH3Af8DSQGIkwABAQMwAUwDRwGCA0YBfwNGAX8DRgF/A0YBfwNG
-        AX8DRgF/A0cBggMwAUwDAAEBCAADTgGYAZIB2wH3Af8BYgHXAfoB/wFkAdcB+QH/AWoB2QH6Af8BdAGq
-        AbcB/ANkAecDXwHjA18B4wNfAeMDXwHjA18B4wNhAeQDPgFqyAADQwF3A2EB4gNfAeMDXwHjA2UB5QNb
-        AcMDIQEwAxMBGgMUARwDFAEcAxQBHAMUARwDFAEbAwcBCsgAAwgBCwMUARsDFAEcAxQBHAMUARwDEAEV
-        AwEBAv8ApQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAT/BAAC/wEA
-        AQEHAAEBBwABAQcAAQEsAAGAAQEBAAEDBAABwAEDAQABAwQAAv8BAAEDBAAC/wEBAf8EAAT/GgAL
-</value>
+  <data name="&gt;&gt;item_modifyTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="rightMenu_FileManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>606, 17</value>

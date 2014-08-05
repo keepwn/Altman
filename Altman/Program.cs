@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Security;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Xml;
 using Altman.Forms;
@@ -21,7 +23,11 @@ namespace Altman
             setup.ShadowCopyFiles = "true";
             setup.CachePath = Path.Combine(Application.StartupPath, "__cache__");
             setup.ShadowCopyDirectories = Path.Combine(Application.StartupPath, "Plugins")+";"+Path.Combine(Application.StartupPath, "Bin");
-            var appDomain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup);
+            setup.ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+
+            //从Web下载时，程序会设置为远程程序集。须手动设置loadFromRemoteSources属性为真
+            var trustedLoadFromRemoteSource = new PermissionSet(PermissionState.Unrestricted);
+            var appDomain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup, trustedLoadFromRemoteSource);
 
             appDomain.DoCallBack(new CrossAppDomainDelegate(DoInShadowCopyFilesDomain));
         }

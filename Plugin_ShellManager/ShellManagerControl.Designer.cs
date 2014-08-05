@@ -124,7 +124,6 @@ namespace Plugin_ShellManager
             this.columnHeader9,
             this.columnHeader10,
             this.columnHeader11});
-            this.lv_shell.ContextMenuStrip = this.rightMenu_Webshell;
             this.lv_shell.FullRowSelect = true;
             this.lv_shell.GridLines = true;
             this.lv_shell.MultiSelect = false;
@@ -133,6 +132,7 @@ namespace Plugin_ShellManager
             this.lv_shell.UseCompatibleStateImageBehavior = false;
             this.lv_shell.View = System.Windows.Forms.View.Details;
             this.lv_shell.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lv_shell_MouseDoubleClick);
+            this.lv_shell.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lv_shell_MouseUp);
             // 
             // columnHeader0
             // 

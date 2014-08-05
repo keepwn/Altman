@@ -1,3 +1,11 @@
+->Altman 2.2.1
+1.修改右键菜单显示方式（修复在Mac下的菜单不显示Bug）（2014.07.28）
+- ShellManager1.2.1
+- FileManager1.2.1
+2.修复某些情况下插件不能加载的Bug（2014.07.28）
+3.修正了之前数据库连接语句更改以后，_func.tree对应信息未更改的错误，<connection> -> <sqlConnection>（2014.08.04）
+
+
 ->Altman 2.2.0
 1.修改了phpEval，phpEval_BuiltIn，将echo更换为print（2014.07.08）
 2.修正了phpEval_Cookie未添加->||<-的错误（2014.07.08）

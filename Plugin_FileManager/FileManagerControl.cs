@@ -1091,5 +1091,16 @@ namespace Plugin_FileManager
         }
         #endregion
 
+        /**
+         * 采用绑定ContextMenuStrip的方式，Mac下可能不会产生该事件
+         * 须手动绑定MouseClick事件
+         */
+        private void listView_File_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                rightMenu_FileManager.Show(listView_File, e.Location);
+            }
+        }
     }
 }

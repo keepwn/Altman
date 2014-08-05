@@ -27,11 +27,13 @@
 目前支持的脚本类型有：asp、aspx、php、jspFull、python
 
 ### 如何运行它 ###
-**Altman** 基于.Net4.0，兼容Mono，可以运行在windows、linux、mac（未测试）等平台。
+**Altman** 基于.Net4.0，兼容Mono，可以运行在windows、linux、mac（不推荐）等平台。
 
-在windows下，需要安装.Net4.0，点击`Altman.exe`即可运行。
+在`Windows`下，需要安装.Net4.0，点击`Altman.exe`即可运行。
 
-在linux下，需要安装Mono(>=3.2.8)以及libgdiplus，在终端输入命令`mono Altman.exe`即可运行。
+在`Linux`下，需要安装Mono(>=3.2.8)以及libgdiplus，在终端输入命令`mono Altman.exe`即可运行。
+
+在`Mac`下，需要安装Mono和MonoDevelop，在终端输入命令`mono Altman.exe`即可运行。
 
 ### 如何扩展它的功能 ###
 **Altman**采用了mef插件架构，脚本类型（.type）、脚本功能(.func)也是以文件形式保存。
