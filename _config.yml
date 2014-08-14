@@ -1,0 +1,25 @@
+root: /
+permalink: /:categories/:title/
+markdown: rdiscount
+highlight: pygments
+paginate: 5
+
+markdown: redcarpet
+redcarpet:
+    extensions: ["fenced_code_blocks", "tables", "highlight", "strikethrough"]
+
+title: Altman
+
+soft:
+  name: Altman
+  description: 一款开源的、基于插件框架的网站管理工具
+  version: v2.2.1
+  update: 2014.08.05
+  author:
+    name: keepwn
+    email: keepwn#gmail.com
+    github-user: keepwn
+    github-repo: altman
+    github-url: https://github.com/keepwn/Altman
+
+

@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<div class="page-content">
+    <div class="post-heading">
+        {{ page.title }}
+    </div>
+    <div class="post-meta">
+        <span>
+            发布时间:
+            <a href="{{ page.url }}">{{ page.date | date:"%Y年%m月%d日" }}</a>
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            分类:
+            {% for cat in page.categories %}
+            <a href="/categories.html#{{ cat }}-ref">{{ cat }}</a>
+            {% endfor %}
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            标签:
+            {% for tag in page.tags %}
+            <a href="/tags.html#{{ tag }}-ref">{{ tag }}</a>
+            {% endfor %}
+        <span>
+    </div>
+    <div class="post-entry">
+        {{ content }}
+    </div>
+</div>
+<div class="post-blank post-pager">
+    <ul class="pager">
+        {% if page.previous %}
+        <li class="previous"><a href="{{ page.previous.url }}">&larr; 上一篇</a></li>
+        {% endif %}
+        {% if page.next %}
+        <li class="next"><a href="{{ page.next.url }}">下一篇 &rarr;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% include disqus_comments.md %}
+

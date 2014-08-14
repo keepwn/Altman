@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <!-- Title,CSS,etc -->
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="jelyll theme">
+    <meta name="author" content="keepwn">
+    <link href="/static/favicon.ico" rel="shortcut icon">
+    <!-- Bootstrap Css-->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+    <!-- etc -->
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/toc.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/prettify.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/markdown.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- Doc -->
+    <div class="wrapper">
+        <!-- Doc Header-->
+        {% include header.md %}
+        <!-- Doc Main-->
+        <div id="page-main">
+            {{ content }}
+        </div>
+        <!-- Doc Footer-->
+        <div class="page-footer">
+            {% include footer.md %}
+        </div>
+    </div>
+    <!-- Bootstrap Js -->
+    <script src="/static/js/jquery-1.8.2.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <script src="/static/js/prettify.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/jquery.toc.js"></script>
+    <!-- Google Analytics -->
+    {% include google_analysis.md %}
+</body>
+</html>

@@ -1,0 +1,334 @@
+/* sidebar */
+.sidebar-list {
+  padding-left: 20px;
+}
+
+.sidebar-list li {
+  margin-bottom: 5px;
+}
+
+.home-box .markdown {
+  margin-bottom: 10px;
+}
+
+.home-box h2 {
+  margin-top: 0;
+  color: #f04c5c;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+  border-bottom: 1px solid #DDD;
+  margin: 15px 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+.home-box .feature {
+  text-align: center;
+  margin: 40px 0 30px;
+}
+
+.home-box .feature .icon {
+  color: #f04c5c;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+  font-size: 70px;
+  height: 70px;
+  display: block;
+}
+
+.home-box .feature .title {
+  margin: 20px 0 0;
+  font-size: 18px;
+}
+
+.home-box .feature .content {
+  margin: 25px 0 20px;
+  padding: 0 10px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.home-box .whouse img {
+  margin: 5px 0 0;
+}
+
+.page-header {
+  padding-bottom: 8px;
+  margin: 36px 0 18px;
+  border-bottom: none;
+}
+
+.page-box {
+  padding-bottom: 50px !important;
+}
+
+/* ******************************
+ For the getting started page
+****************************** */
+.option-chooser-blocks {
+  position: relative;
+  margin-left: -8px;
+}
+.option-chooser-blocks img {
+  opacity: 0.8;
+  padding: 0 10px;
+}
+.option-chooser-blocks a {
+  color: black;
+}
+.option-chooser-blocks li {
+  list-style-type: none;
+  display: block;
+  float: left;
+  height: 115px;
+  width: 115px;
+  background-color: #eaeaea;
+  border: 2px solid #b0c0bf;
+  margin: 6px;
+  text-align: center;
+  padding: 5px;
+}
+.option-chooser-blocks li:hover {
+  background-color: #d1d1d1;
+}
+/* ******************************
+ For the community page
+****************************** */
+.botbot-button {
+  background-color: #de6222;
+  padding: 4px;
+  height: 60px;
+}
+.botbot-button img {
+  height: 50px;
+  float: left;
+}
+.botbot-button .bbme-title {
+  font-size: larger;
+  color: white;
+}
+#navlist{
+  position: fixed;
+  z-index: 999;
+  top: 80px;
+}
+/* ******************************
+ For the github btn
+****************************** */
+.github-btn {
+  font-size: 11px;
+}
+.github-btn,
+.github-btn .btn {
+  font-weight: bold;
+}
+.gh-count{
+  padding: 2px 5px 3px 4px;
+  color: #555;
+  text-decoration: none;
+  text-shadow:0 1px 0 #fff;
+  white-space:nowrap;
+  cursor:pointer;
+  border-radius:3px;
+  position:relative;
+  display:none;
+  margin-left:4px;
+  background-color:#fafafa;
+  border:1px solid #d4d4d4;
+}
+.gh-count:hover,.gh-count:focus{color:#4183c4;text-decoration: none;}
+.gh-count:before,.gh-count:after{content:' ';position:absolute;display:inline-block;width:0;height:0;border-color:transparent;border-style:solid}
+.gh-count:before{top:50%;left:-3px;margin-top:-4px;border-width:4px 4px 4px 0;border-right-color:#fafafa}
+.gh-count:after{top:50%;left:-4px;z-index:-1;margin-top:-5px;border-width:5px 5px 5px 0;border-right-color:#d4d4d4}
+
+.docs-sidenav {
+  max-height: none;
+}
+
+.docs-sidenav .section {
+  color: #aaa;
+}
+
+.docs-sidenav > .section {
+  font-size: 16px;
+  margin: 0 0 15px;
+}
+
+.docs-sidenav .group {
+  margin: 9px 0;
+}
+
+.docs-sidenav ul ul {
+  padding: 0 0 0 10px;
+}
+
+.docs-sidenav ul li {
+  padding: 3px 0 0;
+}
+
+.docs-sidenav a {
+  color: #3483A5;
+  text-decoration: none;
+}
+
+.docs-sidenav a:hover,
+.docs-sidenav a.active {
+  color: #f04c5c;
+}
+
+#docs-collapse-btn {
+  margin: 8px 0 8px 15px;
+  float: left;
+  font-weight: bold;
+  height: 34px;
+  width: 44px;
+  line-height: 12px;
+  text-decoration: none;
+  padding: 8px 0 8px 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.docs-markdown .anchor-wrap {
+  margin-top: -50px;
+  padding-top: 50px;
+}
+
+.docs-markdown h1 a, .docs-markdown h2 a, .docs-markdown h3 a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.docs-markdown h1 a.anchor,
+.docs-markdown h2 a.anchor,
+.docs-markdown h3 a.anchor,
+.docs-markdown h4 a.anchor,
+.docs-markdown h5 a.anchor,
+.docs-markdown h6 a.anchor {
+  text-decoration:none;
+  line-height:1;
+  padding-left:0;
+  margin-left:5px;
+  top:15%;
+}
+
+.docs-markdown a span.octicon {
+  font-size: 16px;
+  font-family: "FontAwesome";
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.docs-markdown a span.octicon-link {
+  display: none;
+  color: #000;
+}
+
+.docs-markdown a span.octicon-link:before {
+  content: "\f0c1";
+}
+
+.docs-markdown h1:hover .octicon-link,
+.docs-markdown h2:hover .octicon-link,
+.docs-markdown h3:hover .octicon-link,
+.docs-markdown h4:hover .octicon-link,
+.docs-markdown h5:hover .octicon-link,
+.docs-markdown h6:hover .octicon-link {
+  display:inline-block
+}
+
+.nav-lang {
+  margin: 12px 0 0 10px;
+}
+
+.nav-github {
+  margin: 12px 0 0 10px;
+  display: inline-block;
+}
+
+#jPanelMenu-menu {
+  max-height: none;
+  padding: 75px 15px 0;
+  background: #328BB1;
+  z-index: 1;
+}
+
+#jPanelMenu-menu.docs-sidenav .section {
+  color: #fff;
+}
+
+#jPanelMenu-menu.docs-sidenav a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+#jPanelMenu-menu.docs-sidenav a:hover,
+#jPanelMenu-menu.docs-sidenav a.active {
+  color: #f04c5c;
+}
+
+/* line 3, clingify.scss */
+.js-clingify-ztransform, .js-clingify-wrapper {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Baseline selectors */
+/* line 10, clingify.scss */
+.js-clingify-wrapper {
+  width: 100%;
+}
+
+/* line 14, clingify.scss */
+.js-clingify-locked {
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 99999;
+}
+
+#disqus_thread {
+  margin: 20px 0 0 0;
+  padding: 0 9px;
+}
+
+#products .product-head {
+  margin: 0 0 20px;
+}
+
+#products .product-head h2 {
+  margin: 0 0 20px;
+}
+
+#products .product .box {
+  margin: 15px 0 0 0;
+  padding: 10px;
+}
+
+#products .product h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+}
+
+#products .product img {
+  border-radius: 4px;
+}
+
+#products .product .desc {
+  margin: 0 0 15px;
+  font-size: 14px;
+}
+
+#products .product .meta {
+  margin: 15px 0 0;
+  color: #999;
+}
+
+#products .product-head a,
+#products .product .meta a {
+  color: #3483A5;
+}
