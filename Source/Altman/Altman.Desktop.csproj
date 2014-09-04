@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C8B447F9-E4D2-4D79-94F9-74582509E6E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Altman.Desktop</RootNamespace>
+    <AssemblyName>Altman.Desktop</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_Build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_Build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\_Build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>altman.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Eto, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\..\_Ext\dll\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\About.cs" />
+    <Compile Include="Actions\Quit.cs" />
+    <Compile Include="Actions\Setting.cs" />
+    <Compile Include="AltmanApplication.cs" />
+    <Compile Include="CustomControls\TreeViewPlus.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Data\AccessHelper.cs" />
+    <Compile Include="Data\Db.cs" />
+    <Compile Include="Data\SqliteHelper.cs" />
+    <Compile Include="Dialogs\About.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Logic\CustomCommandCode.cs" />
+    <Compile Include="Logic\CustomShellType.cs" />
+    <Compile Include="Logic\CustomShellTypeProvider.cs" />
+    <Compile Include="Logic\CustomShellTypeXmlHandle.cs" />
+    <Compile Include="Logic\EncryMode.cs" />
+    <Compile Include="Logic\FuncTreeNode.cs" />
+    <Compile Include="Logic\InitWorker.cs" />
+    <Compile Include="Logic\SettingXmlHandle.cs" />
+    <Compile Include="Logic\ShellExtra.cs" />
+    <Compile Include="Logic\ShellExtraHandle.cs" />
+    <Compile Include="Logic\XmlHelper.cs" />
+    <Compile Include="Service\App.cs" />
+    <Compile Include="Setting\GlobalSetting.cs" />
+    <Compile Include="Setting\Setting.cs" />
+    <Compile Include="Forms\ControlPolicySetting.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Forms\ControlProxySetting.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Forms\ControlRequestHeaderSetting.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Forms\ControlUserAgentSetting.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Service\Core.cs" />
+    <Compile Include="Service\Db.cs" />
+    <Compile Include="Forms\FormGlobalSetting.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Forms\FormListening.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Service\Ui.cs" />
+    <Compile Include="Service\Host.cs" />
+    <Compile Include="InitUI.cs" />
+    <Compile Include="LoadOrSaveSetting.cs" />
+    <Compile Include="PluginsImport.cs" />
+    <Compile Include="FormMain.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Welcome.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Web\Http.cs" />
+    <Compile Include="Web\HttpClient.cs" />
+    <Compile Include="Web\ProxyServer.cs" />
+    <EmbeddedResource Include="Forms\ControlPolicySetting.resx">
+      <DependentUpon>ControlPolicySetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlPolicySetting.zh-CN.resx">
+      <DependentUpon>ControlPolicySetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlProxySetting.resx">
+      <DependentUpon>ControlProxySetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlProxySetting.zh-CN.resx">
+      <DependentUpon>ControlProxySetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlRequestHeaderSetting.resx">
+      <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlRequestHeaderSetting.zh-CN.resx">
+      <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlUserAgentSetting.resx">
+      <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlUserAgentSetting.zh-CN.resx">
+      <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormGlobalSetting.resx">
+      <DependentUpon>FormGlobalSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormListening.resx">
+      <DependentUpon>FormListening.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Welcome.zh-CN.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Welcome.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="altman.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
+      <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
+      <Name>AltmanUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+      <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
+      <Name>PluginFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
