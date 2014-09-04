@@ -1,20 +1,29 @@
 ﻿using System;
+using System.Linq;
 using Eto.Forms;
+using Plugin_FileManager.Model;
 
 namespace Plugin_FileManager.Actions
 {
 	public class ItemRename : Command
 	{
-		public ItemRename()
+		private Status _status;
+		public ItemRename(Status status)
 		{
 			ID = "rename";
 			MenuText = "Rename";
 			Executed += ItemRename_Executed;
+
+			_status = status;
 		}
 
 		void ItemRename_Executed(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			if (_status.FileGridView.SelectedRows.Any())
+			{
+				var row = _status.FileGridView.SelectedRows.First();
+				_status.FileGridView.BeginEdit(row, 1);
+			}
 		}
 	}
 }

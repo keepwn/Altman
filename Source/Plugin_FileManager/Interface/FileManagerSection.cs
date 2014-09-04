@@ -161,8 +161,8 @@ namespace Plugin_FileManager.Interface
 			menu.Items.Add(new Actions.ItemEdit());
 			menu.Items.Add(new Actions.ItemCopy());
 			menu.Items.Add(new Actions.ItemPaste());
-			menu.Items.Add(new Actions.ItemRename());
-			menu.Items.Add(new Actions.ItemModifyTime());
+			menu.Items.Add(new Actions.ItemRename(status));
+			menu.Items.Add(new Actions.ItemModifyTime(status));
 
 			var create = menu.Items.GetSubmenu("Add");
 			create.Items.Add(new Actions.ItemCreateDir(status));
@@ -194,6 +194,7 @@ namespace Plugin_FileManager.Interface
 				DataCell = new TextBoxCell("Name"),
 				Sortable = true,
 				AutoSize = false,
+				Editable = true,
 				Width = 200
 			});
 			control.Columns.Add(new GridColumn
@@ -202,6 +203,7 @@ namespace Plugin_FileManager.Interface
 				DataCell = new TextBoxCell("FileMTime"),
 				Sortable = true,
 				AutoSize = false,
+				Editable = true,
 				Width = 150
 			});
 			control.Columns.Add(new GridColumn
