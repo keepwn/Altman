@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Altman.Desktop.Service;
 using Altman.Model;
 using Eto.Drawing;
@@ -23,12 +24,14 @@ namespace Altman.Desktop
 
         private ButtonMenuItem _pluginsMenuItem;
         private TabControl _tabControl;
+	    private Label _showMsgLabel;
         public FormMain()
         {
             //InitializeComponent();
             //CheckForIllegalCrossThreadCalls = false;
             this.Title = "Altman";
             this.Style = "main";
+	        this.Icon = Icons.AltmanIcon;
             this.ClientSize = new Size(800, 500);
 
             this.Menu = GenerateMenuBar();
@@ -148,8 +151,8 @@ namespace Altman.Desktop
 
         public string MsgInStatusBar 
         {
-            get { return "sorry, not find status bar"; }
-            set { var notStatusBar = value; }
+			get { return _showMsgLabel.Text; }
+			set { _showMsgLabel.Text = value; }
         }
 
         public ContextMenu RightMenu
@@ -183,7 +186,7 @@ namespace Altman.Desktop
         private void LoadPluginsInUi(IEnumerable<IPlugin> plugins)
         {
             //clear PluginsMenuItem
-            _pluginsMenuItem.Items.Clear();
+            //_pluginsMenuItem.Items.Clear();
 
             foreach (var plugin in plugins)
             {
@@ -268,6 +271,7 @@ namespace Altman.Desktop
 			//添加菜单内容
 			var file = menu.Items.GetSubmenu("Menu", 100);
             _pluginsMenuItem = menu.Items.GetSubmenu("Plugins", 300);
+
 			var help = menu.Items.GetSubmenu("Help", 1000);
 
             var about = new Actions.About();
@@ -296,6 +300,7 @@ namespace Altman.Desktop
         ToolBar GenerateToolBar()
         {
             var toolBar = new ToolBar();
+	        toolBar.Dock = ToolBarDock.Top;
             //toolBar.Items.Add(quit);
             //toolBar.Items.Add(new ButtonToolItem(about));
 
@@ -305,10 +310,24 @@ namespace Altman.Desktop
         Control GenerateContent()
         {
             var layout = new DynamicLayout();
-            layout.AddRow(_tabControl = DefaultTabs());
+            layout.Add(_tabControl = DefaultTabs(),yscale:true);
+	        layout.Add(StatusBar());
 
             return layout;
         }
+
+	    Control StatusBar()
+	    {
+		    var font = new Font(SystemFont.StatusBar);
+		    var layout = new TableLayout(3, 1){Size=new Size(Size.Width,18),Spacing=new Size(5,5),Padding=new Padding(5,0)};
+			layout.Add(_showMsgLabel = new Label { Text = "Hello World", Font = font }, 0, 0);
+		    layout.Add(null, 1, 0);
+
+			var version = string.Format("Version:{0}@KeePwn", Assembly.GetExecutingAssembly().GetName().Version);
+			layout.Add(new Label { Text = version,Font=font, HorizontalAlign = HorizontalAlign.Right }, 2, 0);
+		    return layout;
+	    }
+
         TabControl DefaultTabs()
         {
             var control = new TabControl();

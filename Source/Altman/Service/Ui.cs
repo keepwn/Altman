@@ -13,7 +13,8 @@ namespace Altman.Desktop.Service
 
         public void ShowMsgInAppDialog(string msg)
         {
-            MessageBox.Show(msg);
+            //MessageBox.Show(msg);
+	        Application.Instance.Invoke(() => MessageBox.Show(Application.Instance.MainForm,msg,MessageBoxType.Information));
         }
         public void ShowMsgInStatusBar(string msg)
         {

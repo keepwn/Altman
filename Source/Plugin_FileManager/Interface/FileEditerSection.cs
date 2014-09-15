@@ -17,7 +17,7 @@ namespace Plugin_FileManager.Interface
 	    private TextBox urlTextBox;
 	    private Button readFileButton;
 	    private Button saveFileButton;
-	    private TextArea bodyTextBox;
+	    private TextArea bodyTextArea;
 
 		public FileEditerSection(IHost host, Shell data, string filePath, bool autoLoadContent)
 		{
@@ -63,25 +63,32 @@ namespace Plugin_FileManager.Interface
 			return control;
 		}
 
-		Control BodyTextBox()
+		Control BodyTextArea()
 		{
-			var control = bodyTextBox = new TextArea();
+			var control = bodyTextArea = new TextArea();
 			return control;
 		}
 
 		Control CreateLayout()
 		{
 			var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
-			layout.AddRow(ReadFileButton(), UrlTextBox(), SaveFileButton());
-			layout.AddRow(BodyTextBox());
+			layout.BeginVertical();
+			layout.BeginHorizontal();
+			layout.Add(ReadFileButton());
+			layout.Add(UrlTextBox(), true);
+			layout.Add(SaveFileButton());
+			layout.EndBeginHorizontal();
+			layout.EndVertical();
+
+			layout.AddRow(BodyTextArea());
 
 			return layout;
 		}
 
 	    string Body
 	    {
-			get { return bodyTextBox.Text; }
-		    set { bodyTextBox.Text = value; }
+			get { return bodyTextArea.Text; }
+		    set { bodyTextArea.Text = value; }
 	    }
 
 	    string Url

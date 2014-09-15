@@ -3,6 +3,7 @@
 *.pidb
 *.userprefs
 *.suo
+*.pdb
 bin/
 obj/
 /Build

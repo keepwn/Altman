@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Altman.Common.AltData;
 using Altman.Desktop.CustomControls;
 using Altman.Model;
@@ -27,6 +28,11 @@ namespace Plugin_FileManager.Interface
 
 		private Model.Status status;
 		private bool _isWin;
+		private string _oldName;
+		private string[] _oldFiles;
+		private string _oldMTime;
+		private DataStoreCollection _dataStore;
+
 		public FileManagerSection(IHost host, Shell data)
 		{
 			Content = CreateLayout();
@@ -38,21 +44,23 @@ namespace Plugin_FileManager.Interface
 			_fileManager = new FileManagerService(_host, _shellData);
 			_fileManager.GetWwwRootPathCompletedToDo += fileManager_GetWwwRootPathCompletedToDo;
 			_fileManager.GetFileTreeCompletedToDo += fileManager_GetFileTreeCompletedToDo;
-			//_fileManager.DeleteFileOrDirCompletedToDo += fileManager_DeleteFileOrDirCompletedToDo;	
-			//_fileManager.RenameFileOrDirCompletedToDo += fileManager_RenameFileOrDirCompletedToDo;
-			//_fileManager.CopyFileOrDirCompletedToDo += fileManager_CopyFileOrDirCompletedToDo;
-			//_fileManager.ModifyFileOrDirTimeCompletedToDo += fileManager_ModifyFileOrDirTimeCompletedToDo;
-			//_fileManager.CreateDirCompletedToDo += fileManager_CreateDirCompletedToDo;
-			//_fileManager.WgetCompletedToDo += fileManager_WgetCompletedToDo;
+			_fileManager.DeleteFileOrDirCompletedToDo += fileManager_DeleteFileOrDirCompletedToDo;	
+			_fileManager.RenameFileOrDirCompletedToDo += fileManager_RenameFileOrDirCompletedToDo;
+			_fileManager.CopyFileOrDirCompletedToDo += fileManager_CopyFileOrDirCompletedToDo;
+			_fileManager.ModifyFileOrDirTimeCompletedToDo += fileManager_ModifyFileOrDirTimeCompletedToDo;
+			_fileManager.CreateDirCompletedToDo += fileManager_CreateDirCompletedToDo;
+			_fileManager.WgetCompletedToDo += fileManager_WgetCompletedToDo;
 
 			status = new Model.Status
 			{
+				PathSeparator = "\\",
 				Host = _host,
+				ShellData=_shellData,
 				FileManager=_fileManager,
-				FileGridView = fileGridView,
-				PathSeparator = "\\"
+				FileGridView = fileGridView,	
 			};
 
+			//_dataStore = new List<FileInfo>();
 
 			//获取根路径
 			_fileManager.GetWwwRootPath();
@@ -88,10 +96,7 @@ namespace Plugin_FileManager.Interface
 				_host.Ui.ShowMsgInStatusBar("Connect succeed");
 			}
 		}
-		
-		/// <summary>
-		/// 获取文件列表完成事件
-		/// </summary>
+
 		private void fileManager_GetFileTreeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
 			if (e.Error != null)
@@ -115,12 +120,131 @@ namespace Plugin_FileManager.Interface
 				_host.Ui.ShowMsgInStatusBar(string.Format("Dirs[{0}] Files[{1}]", dirs.Count, files.Count));
 			}
 		}
+
+		private void fileManager_DeleteFileOrDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				if (!(bool)e.Result)
+				{
+					string msg = "Failed to delete";
+					_host.Ui.ShowMsgInStatusBar(msg);
+					MessageBox.Show(msg);
+				}
+				_fileManager.GetFileTree(GetCurrentDirPath());
+			}
+		}
+
+		private void fileManager_RenameFileOrDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				if (!(bool) e.Result)
+				{
+					string msg = "Failed to rename";
+					_host.Ui.ShowMsgInStatusBar(msg);
+					MessageBox.Show(msg);
+				}
+				else
+					//MessageBox.Show(this,"success");
+					//Application.Instance.Invoke(() => MessageBox.Show(this,"success"));
+					_host.Ui.ShowMsgInAppDialog("rename success");
+				_fileManager.GetFileTree(GetCurrentDirPath());
+			}
+		}
+
+		private void fileManager_CopyFileOrDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				if (!(bool)e.Result)
+				{
+					string msg = "Failed to copy file";
+					_host.Ui.ShowMsgInStatusBar(msg);
+					MessageBox.Show(msg);
+				}
+				_fileManager.GetFileTree(GetCurrentDirPath());
+			}
+		}
+
+		private void fileManager_CreateDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				if (!(bool)e.Result)
+				{
+					string msg = "Failed to create the folder";
+					_host.Ui.ShowMsgInStatusBar(msg);
+					MessageBox.Show(msg);
+				}
+				_fileManager.GetFileTree(GetCurrentDirPath());
+			}
+		}
+
+		private void fileManager_ModifyFileOrDirTimeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				if (!(bool)e.Result)
+				{
+					string msg = "Failed to modify file's time";
+					_host.Ui.ShowMsgInStatusBar(msg);
+					MessageBox.Show(msg);
+				}
+				_fileManager.GetFileTree(GetCurrentDirPath());
+			}
+		}
+
+		private void fileManager_WgetCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				string msg = string.Empty;
+				if (!(bool)e.Result)
+				{
+					msg = "Download file to the remote server:Failed";
+				}
+				else
+				{
+					msg = "Download file to the remote server:Succeed";
+				}
+				_host.Ui.ShowMsgInStatusBar(msg);
+				MessageBox.Show(this,msg);
+
+				//_fileManager.GetFileTree(GetCurrentDirPath());
+			}
+		}
+
 		#endregion
 
 		#region UI
 		Control UrlTextBox()
 		{
-			var control = urlTextbox = new TextBox { Size = new Size(530, 21) };
+			var control = urlTextbox = new TextBox();
 			return control;
 		}
 
@@ -155,18 +279,20 @@ namespace Plugin_FileManager.Interface
 			menu.Items.AddSeparator();
 			menu.Items.Add(new Actions.ItemUpload(status));
 			menu.Items.Add(new Actions.ItemDownload());
-			menu.Items.Add(new Actions.ItemDownloadToServer());
+			menu.Items.Add(new Actions.ItemDownloadToServer(status));
 			menu.Items.AddSeparator();
-			menu.Items.Add(new Actions.ItemDelete());
-			menu.Items.Add(new Actions.ItemEdit());
-			menu.Items.Add(new Actions.ItemCopy());
-			menu.Items.Add(new Actions.ItemPaste());
+			menu.Items.Add(new Actions.ItemDelete(status));
+			menu.Items.Add(new Actions.ItemEdit(status));
+			menu.Items.Add(new Actions.ItemCopy(status));
+			menu.Items.Add(new Actions.ItemPaste(status));
 			menu.Items.Add(new Actions.ItemRename(status));
 			menu.Items.Add(new Actions.ItemModifyTime(status));
 
 			var create = menu.Items.GetSubmenu("Add");
+			var kkk = new ButtonMenuItem() {Text = "Add"};
 			create.Items.Add(new Actions.ItemCreateDir(status));
-			create.Items.Add(new Actions.ItemCreateFile());
+			create.Items.Add(new Actions.ItemCreateFile(status));
+			menu.Items.Add(new Actions.ItemCreateFile(status));
 
 			return menu;
 		}
@@ -180,6 +306,9 @@ namespace Plugin_FileManager.Interface
 				ShowCellBorders = false,
 				RowHeight=21
 			};
+			control.CellEditing += control_CellEditing;
+			control.CellEdited += control_CellEdited;
+
 			control.Columns.Add(new GridColumn
 			{
 				HeaderText = "",
@@ -229,7 +358,112 @@ namespace Plugin_FileManager.Interface
 					RightMenu().Show(control);
 				}
 			};
+
+			fileGridView.DataStore = _dataStore = new DataStoreCollection();
 			return control;
+		}
+
+		void control_CellEditing(object sender, GridViewCellEventArgs e)
+		{
+			_oldName = ((sender as GridView).SelectedItem as FileInfo).Name;
+			_oldFiles = ((sender as GridView).DataStore as DataStoreCollection).Select(r => (r as FileInfo).Name).ToArray();
+			_oldMTime = ((sender as GridView).SelectedItem as FileInfo).FileMTime;
+		}
+
+		void control_CellEdited(object sender, GridViewCellEventArgs e)
+		{
+			var editFile = e.Item as FileInfo;
+			var items = (sender as GridView).DataStore;
+			if (e.Column == 1) //edit name
+			{
+				if (editFile.IsCreateing) //create dir
+				{
+					var newText = editFile.Name;
+					if (string.IsNullOrEmpty(newText) || newText == _oldName)
+					{
+						Undo(items, e.Row, _oldName, EditType.CreateDir);
+						return;
+					}
+					if (_oldFiles.FirstOrDefault(r => r == newText) != null)
+					{
+						MessageBox.Show("This name already exists, please rename");
+						Undo(items, e.Row, _oldName, EditType.CreateDir);
+						return;
+					}
+					//创建文件夹
+					var currentDir = GetCurrentDirPath();
+					string dirName = newText;
+					string dirFullPath = currentDir + status.PathSeparator + dirName;
+					_fileManager.CreateDir(dirFullPath);
+				}
+				else //rename
+				{
+					var newText = editFile.Name;					
+					if (string.IsNullOrEmpty(newText) || newText == _oldName)
+					{
+						Undo(items, e.Row, _oldName,EditType.Rename);
+						return;
+					}
+					if (_oldFiles.FirstOrDefault(r => r == newText) != null)
+					{
+						MessageBox.Show("This name already exists, please rename");
+						Undo(items, e.Row, _oldName, EditType.Rename);
+						return;
+					}
+					//发送重命名请求
+					//oldFileName,newFileName
+					//为了安全起见，这里使用绝对路径
+					var currentDir = GetCurrentDirPath();
+					string oldFileName = _oldName;
+					string newFileName = newText;
+					string oldFileNameFullPath = currentDir + status.PathSeparator + oldFileName;
+					string newFileNameFullPath = currentDir + status.PathSeparator + newFileName;
+					_fileManager.RenameFileOrDir(oldFileNameFullPath, newFileNameFullPath);
+				}					
+			}
+			else if (e.Column == 2)//edit mtime
+			{
+				var newText = editFile.FileMTime;
+				if (string.IsNullOrEmpty(newText) || newText == _oldMTime)
+				{
+					Undo(items, e.Row, _oldMTime, EditType.EditMTime);
+					return;
+				}
+				DateTime result;
+				if (!DateTime.TryParse(newText, out result))
+				{
+					MessageBox.Show("This time's format is error, please retry");
+					Undo(items, e.Row, _oldMTime, EditType.EditMTime);
+					return;
+				}
+				//修改时间
+				_fileManager.ModifyFileOrDirTime(editFile.FullName, newText);
+			}
+		}
+
+		enum EditType
+		{
+			Rename,
+			EditMTime,
+			CreateDir
+		}
+		void Undo(IEnumerable<object> dataStore, int row, string oldText, EditType editType)
+		{
+			if (editType == EditType.Rename)
+			{
+				(((DataStoreCollection)dataStore)[row] as FileInfo).Name= oldText;
+				//((List<FileInfo>) dataStore)[row].Name = oldText;
+			}		
+			else if (editType == EditType.EditMTime)
+			{
+				(((DataStoreCollection)dataStore)[row] as FileInfo).FileMTime = oldText;
+				//((List<FileInfo>) dataStore)[row].FileMTime = oldText;
+			}
+			else if (editType == EditType.CreateDir)
+			{
+				((DataStoreCollection)dataStore).RemoveAt(row);
+				//Application.Instance.Invoke(() =>((DataStoreCollection)dataStore).RemoveAt(row));
+			}
 		}
 
 		Control CreateLayout()
@@ -242,15 +476,13 @@ namespace Plugin_FileManager.Interface
 			layout.EndHorizontal();
 			layout.EndVertical();
 
-			layout.BeginVertical();
-			layout.Add(new Splitter
+			layout.AddRow(new Splitter
 			{
 				Panel1 = DirsTreeView(),
 				Panel2 = FileGridView(),
 				Orientation = SplitterOrientation.Horizontal,
-				Position = 200,
-			}, true);
-			layout.EndVertical();
+				Position = 220,
+			});
 			return layout;
 		}
 		#endregion
@@ -414,15 +646,19 @@ namespace Plugin_FileManager.Interface
 				return;
 
 			//show dirs,files in fileview
-			fileView.DataStore = AddDirsInListViewFile(dirs, files, currentDir);
+			//fileGridView.DataStore = AddDirsInListViewFile(dirs, files, currentDir);
+			//fileGridView.DataStore = AddDirsInListViewFile(dirs, files, currentDir);
+			AddDirsInListViewFile(dirs, files, currentDir);
 
 			//expanded
 			dirView.Expand(selectedNode);
 			dirView.RefreshItem(selectedNode);
 		}
 
-		private IEnumerable<object> AddDirsInListViewFile(IEnumerable<OsFile> dirs, IEnumerable<OsFile> files, string parentPath)
+		private void AddDirsInListViewFile(IEnumerable<OsFile> dirs, IEnumerable<OsFile> files, string parentPath)
 		{
+			_dataStore.Clear();
+
 			var item = new DataStoreCollection();
 			//显示dirs
 			foreach (OsFile dir in dirs)
@@ -441,7 +677,7 @@ namespace Plugin_FileManager.Interface
 				string fullName = Path.Combine(new string[] { parentPath, dirName });
 				item.Add(new FileInfo(dirName, fullName, false, file.FileMTime, file.FileSize, file.FilePerms));
 			}
-			return item;
+			_dataStore.AddRange(item);
 		}
 	}
 }

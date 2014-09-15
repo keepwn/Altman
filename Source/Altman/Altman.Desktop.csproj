@@ -77,6 +77,9 @@
     <Compile Include="Actions\Quit.cs" />
     <Compile Include="Actions\Setting.cs" />
     <Compile Include="AltmanApplication.cs" />
+    <Compile Include="CustomControls\GridViewPlus.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="CustomControls\TreeViewPlus.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
@@ -86,6 +89,7 @@
     <Compile Include="Dialogs\About.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="Irons.cs" />
     <Compile Include="Logic\CustomCommandCode.cs" />
     <Compile Include="Logic\CustomShellType.cs" />
     <Compile Include="Logic\CustomShellTypeProvider.cs" />

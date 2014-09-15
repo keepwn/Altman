@@ -1,12 +1,13 @@
 ﻿using System;
 using Eto.Forms;
+using Plugin_FileManager.Model;
 
 namespace Plugin_FileManager.Actions
 {
 	public class ItemRefresh : Command
 	{
-		private Model.Status _status;
-		public ItemRefresh(Model.Status status)
+		private Status _status;
+		public ItemRefresh(Status status)
 		{
 			ID = "refresh";
 			MenuText = "Refresh";

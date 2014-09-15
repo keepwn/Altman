@@ -78,6 +78,7 @@ namespace Plugin_FileManager.Model
 		public string Name { get; set; }
 		public string FullName { get; set; }
 		public bool IsDir { get; set; }
+		public bool IsCreateing { get; set; }
 		public string FileMTime { get; set; }
 		public string FileSize { get; set; }
 		public string FileAttributes { get; set; }

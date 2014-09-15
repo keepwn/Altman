@@ -73,6 +73,12 @@
     <Compile Include="Actions\ItemRefresh.cs" />
     <Compile Include="Actions\ItemRename.cs" />
     <Compile Include="Actions\ItemUpload.cs" />
+    <Compile Include="Dialogs\CreateDir.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Wget.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Interface\FileEditerSection.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
@@ -81,7 +87,7 @@
     </Compile>
     <Compile Include="FileManagerService.cs" />
     <Compile Include="FileUploadOrDownload.cs" />
-    <Compile Include="FormWget.cs">
+    <Compile Include="Dialogs\FormWget.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Interface\FileManagerSection.cs">
@@ -105,10 +111,10 @@
     <EmbeddedResource Include="FileManagerControl.zh-CN.resx">
       <DependentUpon>FileManagerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWget.resx">
+    <EmbeddedResource Include="Dialogs\FormWget.resx">
       <DependentUpon>FormWget.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWget.zh-CN.resx">
+    <EmbeddedResource Include="Dialogs\FormWget.zh-CN.resx">
       <DependentUpon>FormWget.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

@@ -150,10 +150,10 @@ namespace Plugin_ShellManager
 			{
 				HeaderText = "Name",
 				DataCell = new TextBoxCell("TargetId"),
-				Editable = false,
+				Editable = true,
 				Sortable = true,
 				AutoSize = false,
-				Width = 50
+				Width = 100
 			});
 			//Level
 			gridView.Columns.Add(new GridColumn
@@ -183,7 +183,7 @@ namespace Plugin_ShellManager
 				Editable = false,
 				Sortable = true,
 				AutoSize = false,
-				Width = 200
+				Width = 250
 			});
 			//Type
 			gridView.Columns.Add(new GridColumn
