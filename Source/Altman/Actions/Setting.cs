@@ -10,9 +10,8 @@ namespace Altman.Desktop.Actions
     {
         public Setting()
         {
-            ID = "setting";
-            MenuText = "&Setting";
-            ToolBarText = "Setting";
+			ID = "commandSetting";
+            MenuText = "Setting";
             ToolTip = "Altman Setting";
             Shortcut = Keys.S | Application.Instance.CommonModifier;
             Executed += Setting_Executed;
@@ -20,7 +19,7 @@ namespace Altman.Desktop.Actions
 
         void Setting_Executed(object sender, EventArgs e)
         {
-            new Forms.FormGlobalSetting().Show();
+	        new Forms.FormGlobalSetting().ShowModal(Application.Instance.MainForm);
         }
     }
 }

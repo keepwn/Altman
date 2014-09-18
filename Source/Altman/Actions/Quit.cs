@@ -7,9 +7,8 @@ namespace Altman.Desktop.Actions
     {
         public Quit()
         {
-            ID = "quit";
-            MenuText = "&Quit";
-            ToolBarText = "Quit";
+			ID = "commandQuit";
+            MenuText = "Quit";
             ToolTip = "Close altman";
             Shortcut = Keys.Q | Application.Instance.CommonModifier;
             Executed += Quit_Executed;

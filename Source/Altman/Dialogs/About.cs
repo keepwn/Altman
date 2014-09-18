@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Reflection;
+using Altman.Desktop.CustomControls;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace Altman.Desktop.Dialogs
 {
-    public class About : Dialog
+	public class About : DialogPlus
     {
         public About()
         {
             this.Title = "About Altman";
             this.Resizable = true;
+	        this.Size = new Size(500, 500);
 
-            var layout = new DynamicLayout { Padding = new Padding(20, 5), Spacing = new Size(10, 10) };
+            var layout = new DynamicLayout { Padding = new Padding(10, 5), Spacing = new Size(5, 5) };
 
             layout.AddCentered(new ImageView
             {
-                Image = Icon.FromResource("Altman.Desktop.altman.ico", GetType())
-            }, padding: null, xscale: true, yscale: true);
+				Image = Icons.AltmanPng
+            }, true, true);
 
             layout.Add(new Label
             {
@@ -25,28 +27,49 @@ namespace Altman.Desktop.Dialogs
                 Font = new Font(SystemFont.Bold, 20),
                 HorizontalAlign = HorizontalAlign.Center
             });
+			//Version
+			layout.Add(new Label
+			{
+				Text = "Version",
+				Font = new Font(SystemFont.Bold, 10),
+			});
+	        layout.Add(new Label
+	        {
+		        Text = "    " + AppEnvironment.AppVersion,
+		        Font = new Font(SystemFont.Default, 10),
+	        });
 
-            var version = Assembly.GetEntryAssembly().GetName().Version;
+			//License
+			layout.Add(new Label
+			{
+				Text = "License",
+				Font = new Font(SystemFont.Bold, 10),
+			});
+	        layout.Add(new Label
+	        {
+		        Text = "    " + "Released under the GNU General Public License v2",
+		        Font = new Font(SystemFont.Default, 10),
+	        });
+
+			//Copyright
+			layout.Add(new Label
+			{
+				Text = "Copyright",
+				Font = new Font(SystemFont.Bold, 10),
+			});
             layout.Add(new Label
             {
-                Text = string.Format("Version {0}", version),
+				Text = "    " + "(C) 2013-2014 by KeePwn",
                 Font = new Font(SystemFont.Default, 10),
-                HorizontalAlign = HorizontalAlign.Center
             });
 
-            layout.Add(new Label
-            {
-                Text = "Copyright 2013-2014 by KeePwn",
-                Font = new Font(SystemFont.Default, 10),
-                HorizontalAlign = HorizontalAlign.Center
-            });
-
-            layout.Add(ReadOnly());
+            //layout.Add(ReadOnly());
 
             layout.AddCentered(CloseButton());
 
             Content = layout;
         }
+
         Control ReadOnly()
         {
             var line = Environment.NewLine;
@@ -66,7 +89,7 @@ namespace Altman.Desktop.Dialogs
                 Text = "Close"
             };
             DefaultButton = button;
-            AbortButton = button;
+            //AbortButton = button;
             button.Click += delegate
             {
                 Close();

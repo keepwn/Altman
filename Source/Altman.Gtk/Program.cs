@@ -2,7 +2,7 @@
 using Altman.Desktop;
 using Eto;
 
-namespace Altman.Wpf
+namespace Altman.Gtk
 {
     static class Program
     {

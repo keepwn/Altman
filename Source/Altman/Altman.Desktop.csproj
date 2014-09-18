@@ -52,7 +52,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>altman.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -62,58 +63,42 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>..\..\_Ext\dll\Mono.Data.Sqlite.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\About.cs" />
     <Compile Include="Actions\Quit.cs" />
     <Compile Include="Actions\Setting.cs" />
     <Compile Include="AltmanApplication.cs" />
-    <Compile Include="CustomControls\GridViewPlus.cs">
+    <Compile Include="AppEnvironment.cs" />
+    <Compile Include="CustomControls\Custom.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="CustomControls\TreeViewPlus.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Data\AccessHelper.cs" />
-    <Compile Include="Data\Db.cs" />
-    <Compile Include="Data\SqliteHelper.cs" />
     <Compile Include="Dialogs\About.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Irons.cs" />
-    <Compile Include="Logic\CustomCommandCode.cs" />
-    <Compile Include="Logic\CustomShellType.cs" />
-    <Compile Include="Logic\CustomShellTypeProvider.cs" />
-    <Compile Include="Logic\CustomShellTypeXmlHandle.cs" />
-    <Compile Include="Logic\EncryMode.cs" />
-    <Compile Include="Logic\FuncTreeNode.cs" />
-    <Compile Include="Logic\InitWorker.cs" />
-    <Compile Include="Logic\SettingXmlHandle.cs" />
-    <Compile Include="Logic\ShellExtra.cs" />
-    <Compile Include="Logic\ShellExtraHandle.cs" />
-    <Compile Include="Logic\XmlHelper.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="Service\App.cs" />
-    <Compile Include="Setting\GlobalSetting.cs" />
-    <Compile Include="Setting\Setting.cs" />
-    <Compile Include="Forms\ControlPolicySetting.cs">
+    <Compile Include="Forms\PanelPolicySetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Forms\ControlProxySetting.cs">
+    <Compile Include="Forms\PanelProxySetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Forms\ControlRequestHeaderSetting.cs">
+    <Compile Include="Forms\PanelRequestHeaderSetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Forms\ControlUserAgentSetting.cs">
+    <Compile Include="Forms\PanelUserAgentSetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Service\Core.cs" />
@@ -121,15 +106,11 @@
     <Compile Include="Forms\FormGlobalSetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Forms\FormListening.cs">
-      <SubType>Eto.Forms</SubType>
-    </Compile>
     <Compile Include="Service\Ui.cs" />
     <Compile Include="Service\Host.cs" />
     <Compile Include="InitUI.cs" />
-    <Compile Include="LoadOrSaveSetting.cs" />
     <Compile Include="PluginsImport.cs" />
-    <Compile Include="FormMain.cs">
+    <Compile Include="Forms\FormMain.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,58 +119,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Welcome.cs">
+    <Compile Include="Dialogs\Welcome.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Web\Http.cs" />
-    <Compile Include="Web\HttpClient.cs" />
-    <Compile Include="Web\ProxyServer.cs" />
-    <EmbeddedResource Include="Forms\ControlPolicySetting.resx">
-      <DependentUpon>ControlPolicySetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelPolicySetting.resx">
+      <DependentUpon>PanelPolicySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlPolicySetting.zh-CN.resx">
-      <DependentUpon>ControlPolicySetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelPolicySetting.zh-CN.resx">
+      <DependentUpon>PanelPolicySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlProxySetting.resx">
-      <DependentUpon>ControlProxySetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelProxySetting.resx">
+      <DependentUpon>PanelProxySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlProxySetting.zh-CN.resx">
-      <DependentUpon>ControlProxySetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelProxySetting.zh-CN.resx">
+      <DependentUpon>PanelProxySetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlRequestHeaderSetting.resx">
-      <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelRequestHeaderSetting.resx">
+      <DependentUpon>PanelRequestHeaderSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlRequestHeaderSetting.zh-CN.resx">
-      <DependentUpon>ControlRequestHeaderSetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelRequestHeaderSetting.zh-CN.resx">
+      <DependentUpon>PanelRequestHeaderSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlUserAgentSetting.resx">
-      <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelUserAgentSetting.resx">
+      <DependentUpon>PanelUserAgentSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ControlUserAgentSetting.zh-CN.resx">
-      <DependentUpon>ControlUserAgentSetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PanelUserAgentSetting.zh-CN.resx">
+      <DependentUpon>PanelUserAgentSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormGlobalSetting.resx">
       <DependentUpon>FormGlobalSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormListening.resx">
-      <DependentUpon>FormListening.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Welcome.zh-CN.resx">
+    <EmbeddedResource Include="Dialogs\Welcome.zh-CN.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Welcome.resx">
+    <EmbeddedResource Include="Dialogs\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="altman.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
@@ -203,6 +175,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="altman.ico" />
+    <EmbeddedResource Include="altman.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

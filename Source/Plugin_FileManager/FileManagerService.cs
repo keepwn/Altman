@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using Altman.Common.AltData;
 using Altman.Model;
+using Eto.Forms;
 using PluginFramework;
 
 namespace Plugin_FileManager
@@ -64,10 +65,13 @@ namespace Plugin_FileManager
         }
         private void getFileTree_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (GetFileTreeCompletedToDo != null)
-            {
-                GetFileTreeCompletedToDo(null, e);
-            }
+			Application.Instance.Invoke(() =>
+			{
+				if (GetFileTreeCompletedToDo != null)
+				{
+					GetFileTreeCompletedToDo(null, e);
+				}
+			});     
         }
 
         #endregion

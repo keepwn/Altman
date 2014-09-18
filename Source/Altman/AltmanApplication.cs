@@ -1,4 +1,5 @@
 ﻿using System;
+using Altman.Desktop.Forms;
 using Eto;
 using Eto.Forms;
 
@@ -16,7 +17,10 @@ namespace Altman.Desktop
         {
             base.OnInitialized(e);
 
+	        Language.ReadLanguageResource("CN");
+
             this.MainForm = new FormMain();
+			//this.MainForm.Load += (sender,ea) => Language.UpdateLanguage(MainForm);
             this.MainForm.Show();
         }
 
@@ -27,7 +31,7 @@ namespace Altman.Desktop
 			var result = MessageBox.Show(MainForm, "Are you sure you want to quit?", MessageBoxButtons.YesNo, MessageBoxType.Question);
 			if (result == DialogResult.No)
 				e.Cancel = true;
-             */
+            */
 		}
     }
 }

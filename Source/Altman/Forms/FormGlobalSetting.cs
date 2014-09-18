@@ -1,12 +1,13 @@
 ﻿using System;
-using Altman.Desktop.Logic;
-using Altman.Desktop.Setting;
+using Altman.Desktop.CustomControls;
+using Altman.Logic;
+using Altman.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace Altman.Desktop.Forms
 {
-    public class FormGlobalSetting : Form
+	public class FormGlobalSetting : DialogPlus
     {
         private readonly Func<Setting.Setting.UserAgentStruct> _saveUserAgentSetting;
         private readonly Action<Setting.Setting.UserAgentStruct> _loadUserAgentSetting;
@@ -17,27 +18,27 @@ namespace Altman.Desktop.Forms
         private readonly Func<Setting.Setting.ProxyStruct> _saveProxySetting;
         private readonly Action<Setting.Setting.ProxyStruct> _loadProxySetting;
 
-        private ControlUserAgentSetting _controlUserAgentSetting;
-        private ControlRequestHeaderSetting _controlRequestHeaderSetting;
-        private ControlPolicySetting _controlPolicySetting;
-        private ControlProxySetting _controlProxySetting;
+        private PanelUserAgentSetting _panelUserAgentSetting;
+        private PanelRequestHeaderSetting _panelRequestHeaderSetting;
+        private PanelPolicySetting _panelPolicySetting;
+        private PanelProxySetting _panelProxySetting;
 
         private Button button_SaveSetting;
         private Button button_cancel;
         public FormGlobalSetting()
         {
             Init();
-            _saveUserAgentSetting = _controlUserAgentSetting.SaveUserAgnetSetting;
-            _loadUserAgentSetting = _controlUserAgentSetting.LoadUserAgnetSetting;
+            _saveUserAgentSetting = _panelUserAgentSetting.SaveUserAgnetSetting;
+            _loadUserAgentSetting = _panelUserAgentSetting.LoadUserAgnetSetting;
 
-            _saveHttpHeaderSetting = _controlRequestHeaderSetting.SaveHttpHeaderSetting;
-            _loadHttpHeaderSetting = _controlRequestHeaderSetting.LoadHttpHeaderSetting;
+            _saveHttpHeaderSetting = _panelRequestHeaderSetting.SaveHttpHeaderSetting;
+            _loadHttpHeaderSetting = _panelRequestHeaderSetting.LoadHttpHeaderSetting;
 
-            _savePolicySetting = _controlPolicySetting.SavePolicySetting;
-            _loadPolicySetting = _controlPolicySetting.LoadPolicySetting;
+            _savePolicySetting = _panelPolicySetting.SavePolicySetting;
+            _loadPolicySetting = _panelPolicySetting.LoadPolicySetting;
 
-            _saveProxySetting = _controlProxySetting.SaveProxySetting;
-            _loadProxySetting = _controlProxySetting.LoadProxySetting;
+            _saveProxySetting = _panelProxySetting.SaveProxySetting;
+            _loadProxySetting = _panelProxySetting.LoadProxySetting;
 
             _loadUserAgentSetting(((Setting.Setting)GlobalSetting.Setting).GetUserAgentStruct);
             _loadHttpHeaderSetting(((Setting.Setting)GlobalSetting.Setting).GetHttpHeaderStruct);
@@ -48,23 +49,23 @@ namespace Altman.Desktop.Forms
         void Init()
         {
             //controlUserAgentSetting
-            _controlUserAgentSetting = new ControlUserAgentSetting();
+            _panelUserAgentSetting = new PanelUserAgentSetting();
             //controlRequestHeaderSetting
-            _controlRequestHeaderSetting = new ControlRequestHeaderSetting();
+            _panelRequestHeaderSetting = new PanelRequestHeaderSetting();
             //controlPolicySetting
-            _controlPolicySetting = new ControlPolicySetting();
+            _panelPolicySetting = new PanelPolicySetting();
             //controlProxySetting
-            _controlProxySetting = new ControlProxySetting();
+            _panelProxySetting = new PanelProxySetting();
 
             var tabControl = new TabControl()
             {
                 Size = new Size(350,300)
             };
 
-            tabControl.Pages.Add(new TabPage { Text = "UserAgent", Content = _controlUserAgentSetting });
-            tabControl.Pages.Add(new TabPage { Text = "HttpHeader", Content = _controlRequestHeaderSetting });
-            tabControl.Pages.Add(new TabPage { Text = "Policy", Content = _controlPolicySetting });
-            tabControl.Pages.Add(new TabPage { Text = "Proxy", Content = _controlProxySetting });
+            tabControl.Pages.Add(new TabPage { ID = "TabPageUserAgent", Text = "UserAgent", Content = _panelUserAgentSetting });
+			tabControl.Pages.Add(new TabPage { ID = "TabPageHttpHeader", Text = "HttpHeader", Content = _panelRequestHeaderSetting });
+			tabControl.Pages.Add(new TabPage { ID = "TabPagePolicy", Text = "Policy", Content = _panelPolicySetting });
+			tabControl.Pages.Add(new TabPage { ID = "TabPageProxy", Text = "Proxy", Content = _panelProxySetting });
 
             //button
             button_SaveSetting = new Button()
@@ -92,8 +93,10 @@ namespace Altman.Desktop.Forms
             layout.Add(null);
 
             this.Content = layout;
-            this.Size = new Size(400, 390);
-            this.Title = "Setting";
+            this.Size = new Size(400, 390);       
+			this.Icon = Icons.AltmanIcon;
+			this.Title = "Setting";
+	        this.ID = "Setting";
         }
 
         private void SaveAllSetting()
@@ -113,18 +116,9 @@ namespace Altman.Desktop.Forms
             //生成Setting
             Setting.Setting setting = new Setting.Setting(userAgent, httpHeader, policy, proxy);
             //保存Setting到xml
-            InitWorker.SaveSettingToXml(setting);
+            InitWorker.SaveSettingToXml(AppEnvironment.AppPath, setting);
             //重新初始化GlobalSetting
-            InitWorker.InitGlobalSetting();
-        }
-
-        private void button_SaveSetting_Click(object sender, EventArgs e)
-        {
-            
-        }
-        private void button_cancel_Click(object sender, EventArgs e)
-        {
-            
+			InitWorker.InitGlobalSetting(AppEnvironment.AppPath);
         }
     }
 }

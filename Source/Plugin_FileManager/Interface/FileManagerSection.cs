@@ -652,7 +652,7 @@ namespace Plugin_FileManager.Interface
 
 			//expanded
 			dirView.Expand(selectedNode);
-			dirView.RefreshItem(selectedNode);
+			dirView.RefreshItem(treeItem);
 		}
 
 		private void AddDirsInListViewFile(IEnumerable<OsFile> dirs, IEnumerable<OsFile> files, string parentPath)

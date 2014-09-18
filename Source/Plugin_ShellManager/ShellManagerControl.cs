@@ -99,7 +99,7 @@ namespace Plugin_ShellManager
 			//rightMenu_Webshell
 			rightMenu_Webshell = new ContextMenu();
 
-			var item_add = new ButtonMenuItem { Text = "Add" };
+			var item_add = new ButtonMenuItem {ID="menuitemAdd", Text = "Add" };
 			item_add.Click += item_add_Click;
 			var item_edit = new ButtonMenuItem { Text = "Edit" };
 			item_edit.Click += item_edit_Click;
@@ -112,11 +112,12 @@ namespace Plugin_ShellManager
 
 			//lv_shell
 			lv_shell = CreateListView();
+			lv_shell.ContextMenu = rightMenu_Webshell;
 			lv_shell.MouseUp += (sender, e) =>
 			{
 				if (e.Buttons == MouseButtons.Alternate)
 				{
-					rightMenu_Webshell.Show(lv_shell);
+					lv_shell.ContextMenu.Show(lv_shell);
 				}
 			};
 

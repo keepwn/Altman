@@ -1,4 +1,5 @@
-﻿using Eto.Forms;
+﻿using Altman.Desktop.Forms;
+using Eto.Forms;
 using PluginFramework;
 
 namespace Altman.Desktop.Service

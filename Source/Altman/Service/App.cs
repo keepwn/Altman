@@ -8,31 +8,31 @@ namespace Altman.Desktop.Service
     {
         public Version AppVersion
         {
-            get { return Assembly.GetExecutingAssembly().GetName().Version; }
+			get { return AppEnvironment.AppVersion; }
         }
 
         public string AppCurrentDir
         {
-            get { return Environment.CurrentDirectory; }
+			get { return AppEnvironment.AppPath; }
         }
 
         public string AppPluginDir
         {
-            get { return "Plugins"; }
+			get { return AppEnvironment.AppPluginPath; }
         }
 
         public string AppPluginConfigDir
         {
-            get { return "Plugins/Config"; }
+			get { return AppEnvironment.AppPluginConfigPath; }
         }
         public string AppBinDir
         {
-            get { return "Bin"; }
+			get { return AppEnvironment.AppBinPath; }
         }
 
         public string AppLanguageDir
         {
-            get { return "Languages"; }
+			get { return AppEnvironment.AppLanguagePath; }
         }
     }
 }

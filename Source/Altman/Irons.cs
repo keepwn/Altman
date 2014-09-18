@@ -13,5 +13,10 @@ namespace Altman.Desktop
 		{
 			get { return Icon.FromResource(Prefix + "altman.ico"); }
 		}
+
+		public static Bitmap AltmanPng
+		{
+			get { return Bitmap.FromResource(Prefix + "altman.png"); }
+		}
 	}
 }

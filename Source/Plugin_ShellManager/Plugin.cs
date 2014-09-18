@@ -32,14 +32,18 @@ namespace Plugin_ShellManager
             get { return _pluginSetting; }
         }
 
-        public IHost Host
-        {
-            get { return _host; }
-        }
-
+		public EventHandler PluginLoad { get; set; }
         public object GetUi(Shell data)
         {
-            return _userControl = new ShellManagerControl(_host, data);
+			var control = new ShellManagerControl(_host, data);
+			control.Load += (sender, e) =>
+	        {
+				if (PluginLoad != null)
+				{
+					PluginLoad(sender, e);
+				}
+	        };
+	        return _userControl = control;
         }
 
         public void Dispose()

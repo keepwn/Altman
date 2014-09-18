@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Altman.Desktop.Dialogs;
 using Altman.Desktop.Forms;
-using Altman.Desktop.Logic;
-using Altman.Desktop.Setting;
+using Altman.Logic;
+using Altman.Setting;
 using Eto.Forms;
 
 namespace Altman.Desktop
 {
     internal class InitUi
     {
-        public static void InitCustomShellType()
+		public static void InitCustomShellType(string customShellTypePath)
         {
             try
             {
                 //初始化CustomShellType
-                InitWorker.RegisterCustomShellType();
+				InitWorker.RegisterCustomShellType(customShellTypePath);
             }
             catch(Exception ex)
             {
@@ -23,12 +24,12 @@ namespace Altman.Desktop
             }
         }
 
-        public static void InitGlobalSetting()
+		public static void InitGlobalSetting(string settingXmlPath)
         {
             try
             {
                 //初始化GlobalSetting
-                InitWorker.InitGlobalSetting();
+				InitWorker.InitGlobalSetting(settingXmlPath);
             }
             catch (Exception ex)
             {
@@ -45,7 +46,7 @@ namespace Altman.Desktop
                 if (tmp.IsShowDisclaimer)
                 {
                     var w = new Welcome(tmp);
-                    w.ShowModal();
+                    w.ShowModal(Application.Instance.MainForm);
                 }
             }
             catch (Exception ex)

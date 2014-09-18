@@ -8,6 +8,6 @@ namespace PluginFramework
 
         IPluginSetting PluginSetting { get; }
 
-        IHost Host { get; }
+		EventHandler PluginLoad { get; set; }
     }
 }

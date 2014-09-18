@@ -7,9 +7,8 @@ namespace Altman.Desktop.Actions
     {
         public About()
         {
-            ID = "about";
+			ID = "commandAbout";
             MenuText = "About Altman";
-            ToolBarText = "About";
             Shortcut = Keys.F11;
             Executed += About_Executed;
         }

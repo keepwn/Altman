@@ -9,6 +9,7 @@ namespace Altman.Desktop.CustomControls
 	public class TreeViewPlus : TreeView
 	{
 		private string _pathSeparator = "/";
+
 		public string PathSeparator
 		{
 			get { return _pathSeparator; }
@@ -22,7 +23,7 @@ namespace Altman.Desktop.CustomControls
 				var path = string.Empty;
 				if (this.SelectedItem == null)
 					return path;
-				var treeItem = this.SelectedItem as ITreeItem;
+				var treeItem = this.SelectedItem;
 				if (treeItem == null)
 					return path;
 				path = treeItem.Text;
@@ -36,12 +37,18 @@ namespace Altman.Desktop.CustomControls
 
 		public void Expand(ITreeItem treeItem)
 		{
+			var root = treeItem;
+			var catchTreeItem = new List<ITreeItem>();
 			while (true)
 			{
-				if (treeItem == null)
-					return;
-				treeItem.Expanded = true;
-				treeItem = treeItem.Parent;
+				if (root == null)
+					break;
+				catchTreeItem.Insert(0, root);
+				root = root.Parent;
+			}
+			foreach (var item in catchTreeItem)
+			{
+				(item as TreeItem).Expanded = true;
 			}
 		}
 	}
