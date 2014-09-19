@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Gtk", "Altman.Gtk\Al
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Mac", "Altman.Mac\Altman.Mac.csproj", "{5CE03A63-03F0-4FA3-8E4D-20C0D2CC178E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AppStore|Any CPU = AppStore|Any CPU
@@ -244,6 +246,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73257C27-0D95-471E-92DA-704D0012F83F} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{A46AD8F1-CAEF-485A-A36C-4967671224BE} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{70100E00-8921-4B78-9EEA-5326F8D0352E} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{3BBF7451-1844-40EA-9661-1E95D22D411F} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{F813E48D-D2FD-4A58-A039-C847DE92AFC7} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Altman.Mac\Altman.Mac.csproj

@@ -1,11 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using PluginFramework;
 
 namespace Altman.Desktop.Service
 {
     public class Db : IHostDb
     {
+	    public Db()
+	    {
+		    Data.Db.Init(Path.Combine(AppEnvironment.AppPath, "data.db3"));
+	    }
+
         public bool CheckTable(string tableName)
         {
             return Data.Db.CheckTable(tableName);

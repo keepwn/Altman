@@ -90,10 +90,10 @@ namespace Plugin_FileManager.Interface
 				}
 				//设置路径分隔符
 				SetPathSeparator(_isWin);
-
 				SetCurrentDirPath(shellDir);
-				ShowWwwRootDir(dirsTreeView, drives, shellDir, _isWin);
 				_host.Ui.ShowMsgInStatusBar("Connect succeed");
+
+				ShowWwwRootDir(dirsTreeView, drives, shellDir, _isWin);			
 			}
 		}
 
@@ -105,19 +105,19 @@ namespace Plugin_FileManager.Interface
 			}
 			else if (e.Result is List<OsFile>)
 			{
-				List<OsFile> filetree = e.Result as List<OsFile>;
+				var filetree = e.Result as List<OsFile>;
 				var files = new List<OsFile>();
 				var dirs = new List<OsFile>();
-				foreach (OsFile file in filetree)
+				foreach (var file in filetree)
 				{
 					if (file.FileName.EndsWith("/"))
 						dirs.Add(file);
 					else
 						files.Add(file);
 				}
-				ShowFilesAndDirs(dirsTreeView, fileGridView, dirs, files, _isWin);
-
 				_host.Ui.ShowMsgInStatusBar(string.Format("Dirs[{0}] Files[{1}]", dirs.Count, files.Count));
+
+				ShowFilesAndDirs(dirsTreeView, fileGridView, dirs, files, _isWin);			
 			}
 		}
 
@@ -131,9 +131,9 @@ namespace Plugin_FileManager.Interface
 			{
 				if (!(bool)e.Result)
 				{
-					string msg = "Failed to delete";
+					var msg = "Failed to delete";
 					_host.Ui.ShowMsgInStatusBar(msg);
-					MessageBox.Show(msg);
+					_host.Ui.ShowMsgInAppDialog(msg);
 				}
 				_fileManager.GetFileTree(GetCurrentDirPath());
 			}
@@ -149,14 +149,12 @@ namespace Plugin_FileManager.Interface
 			{
 				if (!(bool) e.Result)
 				{
-					string msg = "Failed to rename";
+					var msg = "Failed to rename";
 					_host.Ui.ShowMsgInStatusBar(msg);
-					MessageBox.Show(msg);
+					_host.Ui.ShowMsgInAppDialog(msg);
 				}
-				else
-					//MessageBox.Show(this,"success");
-					//Application.Instance.Invoke(() => MessageBox.Show(this,"success"));
-					_host.Ui.ShowMsgInAppDialog("rename success");
+				_host.Ui.ShowMsgInAppDialog("Rename success");
+
 				_fileManager.GetFileTree(GetCurrentDirPath());
 			}
 		}
@@ -171,9 +169,9 @@ namespace Plugin_FileManager.Interface
 			{
 				if (!(bool)e.Result)
 				{
-					string msg = "Failed to copy file";
+					var msg = "Failed to copy file";
 					_host.Ui.ShowMsgInStatusBar(msg);
-					MessageBox.Show(msg);
+					_host.Ui.ShowMsgInAppDialog(msg);
 				}
 				_fileManager.GetFileTree(GetCurrentDirPath());
 			}
@@ -189,9 +187,9 @@ namespace Plugin_FileManager.Interface
 			{
 				if (!(bool)e.Result)
 				{
-					string msg = "Failed to create the folder";
+					var msg = "Failed to create the folder";
 					_host.Ui.ShowMsgInStatusBar(msg);
-					MessageBox.Show(msg);
+					_host.Ui.ShowMsgInAppDialog(msg);
 				}
 				_fileManager.GetFileTree(GetCurrentDirPath());
 			}
@@ -207,9 +205,9 @@ namespace Plugin_FileManager.Interface
 			{
 				if (!(bool)e.Result)
 				{
-					string msg = "Failed to modify file's time";
+					var msg = "Failed to modify file's time";
 					_host.Ui.ShowMsgInStatusBar(msg);
-					MessageBox.Show(msg);
+					_host.Ui.ShowMsgInAppDialog(msg);
 				}
 				_fileManager.GetFileTree(GetCurrentDirPath());
 			}
@@ -233,9 +231,9 @@ namespace Plugin_FileManager.Interface
 					msg = "Download file to the remote server:Succeed";
 				}
 				_host.Ui.ShowMsgInStatusBar(msg);
-				MessageBox.Show(this,msg);
+				_host.Ui.ShowMsgInAppDialog(msg);
 
-				//_fileManager.GetFileTree(GetCurrentDirPath());
+				_fileManager.GetFileTree(GetCurrentDirPath());
 			}
 		}
 
@@ -278,7 +276,7 @@ namespace Plugin_FileManager.Interface
 			menu.Items.Add(new Actions.ItemRefresh(status));
 			menu.Items.AddSeparator();
 			menu.Items.Add(new Actions.ItemUpload(status));
-			menu.Items.Add(new Actions.ItemDownload());
+			menu.Items.Add(new Actions.ItemDownload(status));
 			menu.Items.Add(new Actions.ItemDownloadToServer(status));
 			menu.Items.AddSeparator();
 			menu.Items.Add(new Actions.ItemDelete(status));
@@ -289,10 +287,8 @@ namespace Plugin_FileManager.Interface
 			menu.Items.Add(new Actions.ItemModifyTime(status));
 
 			var create = menu.Items.GetSubmenu("Add");
-			var kkk = new ButtonMenuItem() {Text = "Add"};
 			create.Items.Add(new Actions.ItemCreateDir(status));
 			create.Items.Add(new Actions.ItemCreateFile(status));
-			menu.Items.Add(new Actions.ItemCreateFile(status));
 
 			return menu;
 		}

@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using Altman.Common.AltEventArgs;
 using Eto.Forms;
+using Plugin_FileManager.Model;
 
 namespace Plugin_FileManager.Actions
 {
 	public class ItemUpload : Command
 	{
-		private Model.Status _status;
-		public ItemUpload(Model.Status status)
+		private Status _status;
+		public ItemUpload(Status status)
 		{
 			ID = "upload";
 			MenuText = "Upload";
@@ -54,16 +57,46 @@ namespace Plugin_FileManager.Actions
 				//upload.UploadFileProgressChangedToDo += upload_UploadFileProgressChangedToDo;
 				//upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
 				//upload.StartToUploadFile();
-				/*
-				FileUploadOrDownload upload = new FileUploadOrDownload(_host, _shellData, sourceFilePath, targetFilePath);
+
+				var upload = new FileUploadOrDownload(_status.Host, _status.ShellData, sourceFilePath, targetFilePath);
 				upload.UploadFileProgressChangedToDo += upload_UploadFileProgressChangedToDo;
 				upload.UploadFileCompletedToDo += upload_UploadFileCompletedToDo;
 				upload.StartToUploadFile();
-				 */
 			}
 			catch (Exception e)
 			{
 				MessageBox.Show(e.Message);
+			}
+		}
+		private void upload_UploadFileProgressChangedToDo(object sender, AltProgressChangedEventArgs e)
+		{
+			//ControlProgressBar progressBar = e.UserState as ControlProgressBar;
+			//progressBar.Value = e.ProgressPercentage;
+		}
+		private void upload_UploadFileCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				//ShowResultInProgressBar(false, e);
+				_status.Host.Ui.ShowMsgInStatusBar(e.Error.Message);
+			}
+			else if (e.Result is bool)
+			{
+				string msg = string.Empty;
+				if (!(bool)e.Result)
+				{
+					msg = "Failed to upload file";
+				}
+				else
+				{
+					msg = "Upload file succeed";
+				}
+				_status.Host.Ui.ShowMsgInStatusBar(msg);
+				_status.Host.Ui.ShowMsgInAppDialog(msg);
+
+				//ShowResultInProgressBar(true, e);
+				//RefreshAllFiles(GetCurrentDirPath());
+				_status.FileManager.GetFileTree(_status.CurrentDirPath);
 			}
 		}
 	}

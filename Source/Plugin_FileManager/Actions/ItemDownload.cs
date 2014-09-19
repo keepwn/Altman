@@ -1,20 +1,75 @@
 ﻿using System;
+using System.ComponentModel;
+using System.IO;
+using Altman.Common.AltEventArgs;
 using Eto.Forms;
+using Plugin_FileManager.Model;
+using FileInfo = Plugin_FileManager.Model.FileInfo;
 
 namespace Plugin_FileManager.Actions
 {
 	public class ItemDownload : Command
 	{
-		public ItemDownload()
+		private Status _status;
+		public ItemDownload(Status status)
 		{
-			ID = "download";
 			MenuText = "Download";
 			Executed += ItemDownload_Executed;
+
+			_status = status;
 		}
 
 		void ItemDownload_Executed(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			var selectFile = _status.FileGridView.SelectedItem as FileInfo;
+			if (selectFile != null)
+			{
+				var webFile = selectFile.FullName;
+				var name = Path.GetFileName(webFile);
+				var saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Title = "Save File As";
+				saveFileDialog.FileName = name;
+				if (DialogResult.Ok == saveFileDialog.ShowDialog(_status.FileGridView))
+				{
+					DownloadFile(webFile, saveFileDialog.FileName);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 下载文件
+		/// </summary>
+		private void DownloadFile(string sourceFilePath, string targetFilePath)
+		{
+			try
+			{
+				var download = new FileUploadOrDownload(_status.Host, _status.ShellData, sourceFilePath, targetFilePath);
+				download.DownloadFileProgressChangedToDo += download_DownloadFileProgressChangedToDo;
+				download.DownloadFileCompletedToDo += download_DownloadFileCompletedToDo;
+				download.StartToDownloadFile();
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message);
+			}
+		}
+		private void download_DownloadFileProgressChangedToDo(object sender, AltProgressChangedEventArgs e)
+		{
+			//ShowPercentageInProgressBar(e);
+		}
+		private void download_DownloadFileCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				//ShowResultInProgressBar(false, e);
+				MessageBox.Show(e.Error.Message);
+			}
+			else
+			{
+				//ShowResultInProgressBar(true,e);
+				string msg = "Download file succeed";
+				_status.Host.Ui.ShowMsgInStatusBar(msg);
+			}
 		}
 	}
 }

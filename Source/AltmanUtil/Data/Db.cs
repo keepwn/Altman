@@ -6,12 +6,14 @@ namespace Altman.Data
 {
     public static class Db
     {
-        private const string DatabasePath = "data.db3";
-        static Db()
-        {
-            //初始化数据库           
-            CheckDb(DatabasePath);
-        }
+        private static string _databasePath = "";
+
+		public static void Init(string databasePath)
+		{
+			_databasePath = databasePath ?? "data.db3";
+			//初始化数据库
+			CheckDb(_databasePath);
+	    }
 
         /// <summary>
         /// 检查数据库文件
@@ -25,7 +27,7 @@ namespace Altman.Data
                 SqliteHelper.CreateDb(dbPath);
             }
             //设置数据库连接语句
-            SqliteHelper.DbConStr=string.Format("Data Source={0}", DatabasePath);
+            SqliteHelper.DbConStr=string.Format("Data Source={0}", _databasePath);
         }
         /// <summary>
         /// 检查数据库表
