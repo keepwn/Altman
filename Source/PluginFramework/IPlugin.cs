@@ -7,7 +7,5 @@ namespace PluginFramework
         IPluginInfo PluginInfo { get; }
 
         IPluginSetting PluginSetting { get; }
-
-		EventHandler PluginLoad { get; set; }
     }
 }

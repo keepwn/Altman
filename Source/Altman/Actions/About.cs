@@ -1,4 +1,5 @@
 ﻿using System;
+using Altman.Desktop.Resources;
 using Eto.Forms;
 
 namespace Altman.Desktop.Actions
@@ -7,8 +8,7 @@ namespace Altman.Desktop.Actions
     {
         public About()
         {
-			ID = "commandAbout";
-            MenuText = "About Altman";
+            MenuText = AltStrRes.AboutAltman;
             Shortcut = Keys.F11;
             Executed += About_Executed;
         }

@@ -87,7 +87,8 @@
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Irons.cs" />
-    <Compile Include="Language.cs" />
+    <Compile Include="Resources\AltLangRes.cs" />
+    <Compile Include="Resources\AltStrRes.cs" />
     <Compile Include="Service\App.cs" />
     <Compile Include="Forms\PanelPolicySetting.cs">
       <SubType>Eto.Forms</SubType>
@@ -103,7 +104,7 @@
     </Compile>
     <Compile Include="Service\Core.cs" />
     <Compile Include="Service\Db.cs" />
-    <Compile Include="Forms\FormGlobalSetting.cs">
+    <Compile Include="Dialogs\DialogSetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Service\Ui.cs" />
@@ -114,16 +115,12 @@
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\Welcome.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <EmbeddedResource Include="Forms\PanelPolicySetting.resx">
       <DependentUpon>PanelPolicySetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PanelPolicySetting.zh-CN.resx">
       <DependentUpon>PanelPolicySetting.cs</DependentUpon>
@@ -146,18 +143,12 @@
     <EmbeddedResource Include="Forms\PanelUserAgentSetting.zh-CN.resx">
       <DependentUpon>PanelUserAgentSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormGlobalSetting.resx">
-      <DependentUpon>FormGlobalSetting.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Welcome.zh-CN.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>

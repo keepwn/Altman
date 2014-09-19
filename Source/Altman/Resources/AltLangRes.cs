@@ -2,18 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Eto;
 using Eto.Forms;
 
-namespace Altman.Desktop
+namespace Altman.Desktop.Resources
 {
-	public class Language
+	public class AltLangRes
 	{
 		//读取默认语言 
 		public static string ReadDefaultLanguage()
@@ -46,9 +44,7 @@ namespace Altman.Desktop
 		}
 
 
-		private static Hashtable _table = new Hashtable();
-
-
+		public static Hashtable Table = new Hashtable();
 		private static XmlDocument ReadXml(string lang)
 		{
 			var langDir = AppEnvironment.AppLanguagePath;
@@ -68,21 +64,18 @@ namespace Altman.Desktop
 			return xmlDoc;
 		}
 
-		private static string AddValueToHashtable(Hashtable result, XmlNode node, string formId)
+		private static void AddValueToHashtable(Hashtable result, XmlNode node)
 		{
-			var id = string.Empty;
 			var node1 = node.SelectSingleNode("@id");
-			var node2 = node.SelectSingleNode("@text");
+			var node2 = node.SelectSingleNode("text()");
 			if (node1 != null && node2 != null)
 			{
-				var tmp = (formId + node1.InnerText).ToLower();
+				var tmp = node1.InnerText.ToLower();
 				if (!result.ContainsKey(tmp))
 				{
 					result.Add(tmp, node2.InnerText);
-					id = node1.InnerText;
 				}
 			}
-			return id;
 		}
 
 		public static void ReadLanguageResource(string lang)
@@ -94,64 +87,18 @@ namespace Altman.Desktop
 				var root = doc.DocumentElement;
 				if (root == null) return;
 
-				#region Form || Plugin.Form
-				var formNodelist = root.SelectNodes("Form|Plugin.Form");
-				if (formNodelist == null) return;
-				foreach (XmlNode formNode in formNodelist)
+				var strNodelist = root.SelectNodes("Strings/String");
+				if (strNodelist == null) return;
+				foreach (XmlNode str in strNodelist)
 				{
-					//Form
-					var id = AddValueToHashtable(result, formNode, "");
-
-					//MenuBar
-					var menuNodes = formNode.SelectNodes("MenuBar/MenuItem");
-					if (menuNodes == null) return;
-					foreach (XmlNode menuNode in menuNodes)
-					{
-						AddValueToHashtable(result, menuNode, id);
-					}
-
-					//Controls
-					var controlNodelist = formNode.SelectNodes("Controls/Control");
-					if (controlNodelist == null) return;
-					foreach (XmlNode controlNode in controlNodelist)
-					{
-						AddValueToHashtable(result, controlNode, id);
-					}
+					AddValueToHashtable(result, str);
 				}
-				#endregion
-
-				#region Plugin.Panel
-				var pluginPanelNodelist = root.SelectNodes("Plugin.Panel");
-				if (pluginPanelNodelist == null) return;
-				foreach (XmlNode pluginNode in pluginPanelNodelist)
-				{
-					//Panel
-					var id = AddValueToHashtable(result, pluginNode, "");
-
-					//ContextMenu
-					var menuNodes = pluginNode.SelectNodes("ContextMenu/MenuItem");
-					if (menuNodes == null) return;
-					foreach (XmlNode menuNode in menuNodes)
-					{
-						AddValueToHashtable(result, menuNode, id);
-					}
-
-					//Controls
-					var controlNodelist = pluginNode.SelectNodes("Controls/Control");
-					if (controlNodelist == null) return;
-					foreach (XmlNode controlNode in controlNodelist)
-					{
-						AddValueToHashtable(result, controlNode, id);
-					}
-				}
-				#endregion
-
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
 			}
-			_table = result;
+			Table = result;
 		}
 
 		public static void UpdateLanguage(object obj)
@@ -165,11 +112,11 @@ namespace Altman.Desktop
 					//Menu
 					if (form.Menu != null)
 					{
-						UpdateMenu(id, form.Menu.Items, _table);
+						UpdateMenu(form.Menu.Items, Table);
 					}
 					//Title
-					if (_table.Contains(id.ToLower()))
-						form.Title = (string) _table[id.ToLower()];
+					if (Table.Contains(id.ToLower()))
+						form.Title = (string) Table[id.ToLower()];
 				}
 				if (obj is Panel)
 				{
@@ -177,11 +124,11 @@ namespace Altman.Desktop
 					var id = panel.ID ?? "";
 					if (panel.ContextMenu != null)
 					{
-						UpdateMenu(id, panel.ContextMenu.Items, _table);
+						UpdateMenu(panel.ContextMenu.Items, Table);
 					}
 					if (panel.Controls != null)
 					{
-						UpdateControls(id, panel.Controls, _table);
+						UpdateControls(panel.Controls, Table);
 					}
 				}
 			}
@@ -199,11 +146,11 @@ namespace Altman.Desktop
 				//Menu
 				if (mainForm.Menu != null)
 				{
-					UpdateMenu(id, mainForm.Menu.Items, _table);
+					UpdateMenu(mainForm.Menu.Items, Table);
 				}
 				//Title
-				if (_table.Contains(id.ToLower()))
-					mainForm.Title = (string)_table[id.ToLower()];
+				if (Table.Contains(id.ToLower()))
+					mainForm.Title = (string)Table[id.ToLower()];
 			}
 			catch (Exception ex)
 			{
@@ -211,10 +158,19 @@ namespace Altman.Desktop
 			}
 		}
 
-		private static void UpdateText(string id, Widget obj, Hashtable table)
+		public static string GetString(string strName, string strDefault)
+		{
+			if (Table.Contains(strName))
+			{
+				return (string)Table[strName];
+			}
+			return strDefault;
+		}
+
+		private static void UpdateText(Widget obj, Hashtable table)
 		{
 			if (obj.ID == null) return;
-			var tmp = (id + obj.ID).ToLower();
+			var tmp = obj.ID.ToLower();
 			if (table.Contains(tmp))
 			{
 				if (obj is MenuItem)
@@ -232,21 +188,21 @@ namespace Altman.Desktop
 			}		
 		}
 
-		private static void UpdateMenu(string id, IEnumerable<MenuItem> menuItems, Hashtable table)
+		private static void UpdateMenu(IEnumerable<MenuItem> menuItems, Hashtable table)
 		{
 			if (menuItems == null) return;
 			foreach (var item in menuItems)
 			{
-				UpdateText(id, item, table);
+				UpdateText(item, table);
 
 				if (item.GetType() == typeof (ButtonMenuItem))
 				{
-					UpdateMenu(id, (item as ButtonMenuItem).Items, table);
+					UpdateMenu((item as ButtonMenuItem).Items, table);
 				}
 			}
 		}
 
-		private static void UpdateControls(string id, IEnumerable<Control> controls, Hashtable table)
+		private static void UpdateControls(IEnumerable<Control> controls, Hashtable table)
 		{
 			if (controls == null) return;
 			foreach (var item in controls)
@@ -258,31 +214,31 @@ namespace Altman.Desktop
 						//TabPage.Text
 						if (item is TabPage)
 						{
-							UpdateText(id, item, table);
+							UpdateText(item, table);
 						}
 
 						//Panel.ContextMenu
 						if ((item as Panel).ContextMenu != null)
 						{
-							UpdateMenu(id, (item as Panel).ContextMenu.Items, table);
+							UpdateMenu((item as Panel).ContextMenu.Items, table);
 						}
 					}
 					//Container.Controls
 					if ((item as Container).Controls != null)
 					{
-						UpdateControls(id, (item as Container).Controls, table);
+						UpdateControls((item as Container).Controls, table);
 					}
 				}
 				else if (item is GridView)
 				{
 					if ((item as GridView).ContextMenu != null)
 					{
-						UpdateMenu(id, (item as GridView).ContextMenu.Items, table);
+						UpdateMenu((item as GridView).ContextMenu.Items, table);
 					}
 				}
 				else if (item is TextControl)//Lable,Button,CheckBox
 				{
-					UpdateText(id, item, table);
+					UpdateText(item, table);
 				}
 			}
 		}

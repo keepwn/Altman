@@ -1,5 +1,6 @@
 ﻿using System;
 using Altman.Desktop.Forms;
+using Altman.Desktop.Resources;
 using Eto;
 using Eto.Forms;
 
@@ -17,7 +18,8 @@ namespace Altman.Desktop
         {
             base.OnInitialized(e);
 
-	        Language.ReadLanguageResource("CN");
+	        AltLangRes.ReadLanguageResource("CN");
+			AltStrRes.SetTranslatedStrings(AltLangRes.Table);
 
             this.MainForm = new FormMain();
 			//this.MainForm.Load += (sender,ea) => Language.UpdateLanguage(MainForm);

@@ -1,4 +1,5 @@
-﻿using Eto.Drawing;
+﻿using Altman.Desktop.Resources;
+using Eto.Drawing;
 using Eto.Forms;
 
 namespace Altman.Desktop.Forms
@@ -15,16 +16,8 @@ namespace Altman.Desktop.Forms
 
         void Init()
         {
-            _checkBoxIsParamRandom = new CheckBox()
-            {
-				ID = "CheckBoxIsParamRandom",
-                Text = "Is ParamRandom"
-            };
-            _checkBoxIsShowDisclaimer = new CheckBox()
-            {
-				ID = "CheckBoxIsShowDisclaimer",
-                Text = "IsShowDisclaimer"
-            };
+	        _checkBoxIsParamRandom = new CheckBox() {Text = AltStrRes.IsParamRandom};
+	        _checkBoxIsShowDisclaimer = new CheckBox() {Text = AltStrRes.IsShowDisclaimer};
 
             var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
 

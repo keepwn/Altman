@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Altman.Desktop.Resources;
 using Eto.Forms;
 
 namespace Altman.Desktop.CustomControls
@@ -16,7 +17,7 @@ namespace Altman.Desktop.CustomControls
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			Language.UpdateLanguage(this);
+			AltLangRes.UpdateLanguage(this);
 		}
 	}
 
@@ -25,7 +26,7 @@ namespace Altman.Desktop.CustomControls
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			Language.UpdateLanguage(this);
+			AltLangRes.UpdateLanguage(this);
 		}
 	}
 
@@ -34,7 +35,7 @@ namespace Altman.Desktop.CustomControls
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			Language.UpdateLanguage(this);
+			AltLangRes.UpdateLanguage(this);
 		}
 	}
 

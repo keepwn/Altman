@@ -32,17 +32,9 @@ namespace Plugin_ShellManager
             get { return _pluginSetting; }
         }
 
-		public EventHandler PluginLoad { get; set; }
         public object GetUi(Shell data)
         {
 			var control = new ShellManagerControl(_host, data);
-			control.Load += (sender, e) =>
-	        {
-				if (PluginLoad != null)
-				{
-					PluginLoad(sender, e);
-				}
-	        };
 	        return _userControl = control;
         }
 

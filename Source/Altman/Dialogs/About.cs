@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Reflection;
 using Altman.Desktop.CustomControls;
+using Altman.Desktop.Resources;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace Altman.Desktop.Dialogs
 {
-	public class About : DialogPlus
+	public class About : Dialog
     {
         public About()
         {
-            this.Title = "About Altman";
+			this.Title = AltStrRes.AboutAltman;
             this.Resizable = true;
 	        this.Size = new Size(500, 500);
 
@@ -19,7 +20,7 @@ namespace Altman.Desktop.Dialogs
             layout.AddCentered(new ImageView
             {
 				Image = Icons.AltmanPng
-            }, true, true);
+			}, true, true);
 
             layout.Add(new Label
             {
@@ -86,7 +87,7 @@ namespace Altman.Desktop.Dialogs
         {
             var button = new Button
             {
-                Text = "Close"
+                Text = AltStrRes.Close
             };
             DefaultButton = button;
             //AbortButton = button;

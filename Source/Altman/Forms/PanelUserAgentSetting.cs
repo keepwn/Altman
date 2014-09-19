@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Altman.Desktop.Resources;
 using Eto.Drawing;
 using Eto.Forms;
 
@@ -15,17 +16,13 @@ namespace Altman.Desktop.Forms
 
         void Init()
         {
-            checkBox_IsRandom = new CheckBox()
-            {
-				ID = "CheckBoxRandomUserAgent",
-                Text = "Random User-Agent"
-            };
+	        checkBox_IsRandom = new CheckBox() {Text = AltStrRes.IsUserAgentRandom};
             comboBox_UserAgentList = new ComboBox{Size=new Size(300,25)};
 
             var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
 
             layout.AddRow(checkBox_IsRandom);
-			layout.AddRow(new Label { ID = "LabelUserAgentList", Text = "User-Agent List" });
+			layout.AddRow(new Label { Text = AltStrRes.UserAgentList});
             layout.AddRow(comboBox_UserAgentList,null);
             layout.Add(null);
 

@@ -1,13 +1,14 @@
 ﻿using System;
-using Altman.Desktop.CustomControls;
+using Altman.Desktop.Forms;
+using Altman.Desktop.Resources;
 using Altman.Logic;
 using Altman.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Forms
+namespace Altman.Desktop.Dialogs
 {
-	public class FormGlobalSetting : DialogPlus
+	public class DialogSetting : Dialog
     {
         private readonly Func<Setting.Setting.UserAgentStruct> _saveUserAgentSetting;
         private readonly Action<Setting.Setting.UserAgentStruct> _loadUserAgentSetting;
@@ -25,7 +26,7 @@ namespace Altman.Desktop.Forms
 
         private Button button_SaveSetting;
         private Button button_cancel;
-        public FormGlobalSetting()
+        public DialogSetting()
         {
             Init();
             _saveUserAgentSetting = _panelUserAgentSetting.SaveUserAgnetSetting;
@@ -62,29 +63,23 @@ namespace Altman.Desktop.Forms
                 Size = new Size(350,300)
             };
 
-            tabControl.Pages.Add(new TabPage { ID = "TabPageUserAgent", Text = "UserAgent", Content = _panelUserAgentSetting });
-			tabControl.Pages.Add(new TabPage { ID = "TabPageHttpHeader", Text = "HttpHeader", Content = _panelRequestHeaderSetting });
-			tabControl.Pages.Add(new TabPage { ID = "TabPagePolicy", Text = "Policy", Content = _panelPolicySetting });
-			tabControl.Pages.Add(new TabPage { ID = "TabPageProxy", Text = "Proxy", Content = _panelProxySetting });
+			tabControl.Pages.Add(new TabPage { Text = AltStrRes.UserAgent, Content = _panelUserAgentSetting });
+			tabControl.Pages.Add(new TabPage { Text = AltStrRes.HttpHeader, Content = _panelRequestHeaderSetting });
+			tabControl.Pages.Add(new TabPage { Text = AltStrRes.Policy, Content = _panelPolicySetting });
+			tabControl.Pages.Add(new TabPage { Text = AltStrRes.Proxy, Content = _panelProxySetting });
 
             //button
-            button_SaveSetting = new Button()
-            {
-                Text = "Save&Exit"
-            };
+	        button_SaveSetting = new Button() {Text = AltStrRes.SaveAndExit};
             button_SaveSetting.Click += delegate
             {
                 SaveAllSetting();
-                this.Close();
+                Close();
             };
 
-            button_cancel = new Button()
-            {
-                Text = "Cancel"
-            };
+	        button_cancel = new Button() {Text = AltStrRes.Cancel};
             button_cancel.Click += delegate
             {
-                this.Close();
+                Close();
             };
 
             var layout = new DynamicLayout{Padding=new Padding(0,10),Spacing=new Size(5,5)};
@@ -92,11 +87,10 @@ namespace Altman.Desktop.Forms
             layout.AddSeparateRow(null, button_SaveSetting, button_cancel);
             layout.Add(null);
 
-            this.Content = layout;
-            this.Size = new Size(400, 390);       
-			this.Icon = Icons.AltmanIcon;
-			this.Title = "Setting";
-	        this.ID = "Setting";
+            Content = layout;
+            Size = new Size(400, 390);       
+			Icon = Icons.AltmanIcon;
+	        Title = AltStrRes.Setting;
         }
 
         private void SaveAllSetting()

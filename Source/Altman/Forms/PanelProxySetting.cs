@@ -1,4 +1,5 @@
-﻿using Eto.Drawing;
+﻿using Altman.Desktop.Resources;
+using Eto.Drawing;
 using Eto.Forms;
 
 namespace Altman.Desktop.Forms
@@ -38,11 +39,7 @@ namespace Altman.Desktop.Forms
             _textBoxProxyDomain = new TextBox();
 
             //radioButton_noProxy
-            _radioButtonNoProxy = new RadioButton()
-            {
-				ID = "RadioButtonNotUseProxy",
-                Text = "Not Use Proxy"
-            };
+	        _radioButtonNoProxy = new RadioButton() {Text = AltStrRes.NotUseProxy};
             _radioButtonNoProxy.CheckedChanged += delegate
             {
                 if (_radioButtonNoProxy.Checked)
@@ -52,11 +49,7 @@ namespace Altman.Desktop.Forms
             };
 
             //radioButton_ieProxy
-            _radioButtonIeProxy = new RadioButton(_radioButtonNoProxy)
-            {
-				ID = "RadioButtonUseSystemProxySettings",
-                Text = "Use System Proxy Settings"
-            };
+	        _radioButtonIeProxy = new RadioButton(_radioButtonNoProxy) {Text = AltStrRes.UseSystemProxySetting};
             _radioButtonIeProxy.CheckedChanged += delegate
             {
                 if (_radioButtonIeProxy.Checked)
@@ -66,11 +59,7 @@ namespace Altman.Desktop.Forms
             };
 
             //radioButton_customProxy
-            _radioButtonCustomProxy = new RadioButton(_radioButtonNoProxy)
-            {
-				ID = "RadioButtonUseCustomProxySettings",
-                Text = "Use Custom Proxy Settings"
-            };
+			_radioButtonCustomProxy = new RadioButton(_radioButtonNoProxy) { Text = AltStrRes.UseCustomProxySetting };
             _radioButtonCustomProxy.CheckedChanged += delegate
             {
                 if (_radioButtonCustomProxy.Checked)
@@ -96,7 +85,7 @@ namespace Altman.Desktop.Forms
 
             group = new GroupBox()
             {
-                Text = "Setting",
+                Text = AltStrRes.Setting,
                 Content = layout2
             };
 

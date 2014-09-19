@@ -14,8 +14,7 @@ namespace Altman.Desktop.Service
 
         public void ShowMsgInAppDialog(string msg)
         {
-            //MessageBox.Show(msg);
-	        Application.Instance.Invoke(() => MessageBox.Show(Application.Instance.MainForm,msg,MessageBoxType.Information));
+            MessageBox.Show(msg);
         }
         public void ShowMsgInStatusBar(string msg)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Altman.Desktop.Resources;
 using Eto.Forms;
 
 namespace Altman.Desktop.Actions
@@ -7,9 +8,7 @@ namespace Altman.Desktop.Actions
     {
         public Quit()
         {
-			ID = "commandQuit";
-            MenuText = "Quit";
-            ToolTip = "Close altman";
+	        MenuText = AltStrRes.Quit;
             Shortcut = Keys.Q | Application.Instance.CommonModifier;
             Executed += Quit_Executed;
         }

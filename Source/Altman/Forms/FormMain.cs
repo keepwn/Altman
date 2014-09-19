@@ -5,7 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Altman.Desktop.CustomControls;
+using Altman.Desktop.Resources;
 using Altman.Desktop.Service;
 using Altman.Model;
 using Eto.Drawing;
@@ -14,7 +14,7 @@ using PluginFramework;
 
 namespace Altman.Desktop.Forms
 {
-	public class FormMain : FormPlus
+	public class FormMain : Form
 	{
 		private PluginsImport _pluginsImport;
 		private DirectoryCatalog _directoryCatalog;
@@ -30,8 +30,7 @@ namespace Altman.Desktop.Forms
 		{
 			//InitializeComponent();
 			//CheckForIllegalCrossThreadCalls = false;
-			this.ID = "FormMain";
-			this.Title = "Altman";
+			this.Title = AltStrRes.Title;
 			this.Style = "main";
 			this.Icon = Icons.AltmanIcon;
 			this.ClientSize = new Size(800, 500);
@@ -104,7 +103,7 @@ namespace Altman.Desktop.Forms
 		private void Compose()
 		{
 			var catalog = new AggregateCatalog();
-			_directoryCatalog = new DirectoryCatalog("Plugins");
+			_directoryCatalog = new DirectoryCatalog(AppEnvironment.AppPluginPath);
 			catalog.Catalogs.Add(_directoryCatalog);
 			_container = new CompositionContainer(catalog);
 			try
@@ -148,8 +147,6 @@ namespace Altman.Desktop.Forms
 		}
 
 		#endregion
-
-
 
 		public string MsgInStatusBar
 		{
@@ -200,8 +197,7 @@ namespace Altman.Desktop.Forms
 				{
 					var pluginRun = new Command()
 					{
-						ID = "run",
-						MenuText = "run",
+						MenuText = "Run",
 						Tag = plugin,
 					};
 					pluginRun.Executed += pluginRun_Click;
@@ -209,8 +205,7 @@ namespace Altman.Desktop.Forms
 				}
 				var pluginAbout = new Command()
 				{
-					ID = "about",
-					MenuText = "about",
+					MenuText = "About",
 					Tag = plugin,
 				};
 				pluginAbout.Executed += pluginAbout_Click;
@@ -232,7 +227,6 @@ namespace Altman.Desktop.Forms
 					{
 						Panel view = null;
 						var p = (plugin as IControlPlugin);
-						p.PluginLoad += (sender, e) => { Language.UpdateLanguage(view); };
 						view = p.GetUi(new Shell()) as Panel;
 						//创建新的tab标签
 						CreateNewTabPage(title, view);
@@ -274,13 +268,9 @@ namespace Altman.Desktop.Forms
 			menu.Trim = false;
 
 			//添加菜单内容
-			var file = menu.Items.GetSubmenu("Menu", 100);
-			file.ID = "menuitemMenu";
-			_pluginsMenuItem = menu.Items.GetSubmenu("Plugins", 300);
-			_pluginsMenuItem.ID = "menuitemPlugins";
-
-			var help = menu.Items.GetSubmenu("Help", 1000);
-			help.ID = "menuitemHelp";
+			var file = menu.Items.GetSubmenu(AltStrRes.Menu, 100);
+			_pluginsMenuItem = menu.Items.GetSubmenu(AltStrRes.Plugin, 300);
+			var help = menu.Items.GetSubmenu(AltStrRes.Help, 1000);
 
 			var about = new Actions.About();
 			var quit = new Actions.Quit();
@@ -329,7 +319,7 @@ namespace Altman.Desktop.Forms
 		{
 			var font = new Font(SystemFont.StatusBar);
 			var layout = new TableLayout(3, 1) { Size = new Size(Size.Width, 18), Spacing = new Size(5, 5), Padding = new Padding(5, 0) };
-			layout.Add(_showMsgLabel = new Label { Text = "Hello World", Font = font }, 0, 0);
+			layout.Add(_showMsgLabel = new Label { Text = "Ready", Font = font }, 0, 0);
 			layout.Add(null, 1, 0);
 
 			var version = string.Format("Version:{0}@KeePwn", Assembly.GetExecutingAssembly().GetName().Version);
