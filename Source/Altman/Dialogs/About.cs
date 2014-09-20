@@ -12,15 +12,15 @@ namespace Altman.Desktop.Dialogs
         public About()
         {
 			this.Title = AltStrRes.AboutAltman;
-            this.Resizable = true;
-	        this.Size = new Size(500, 500);
+            this.Resizable = false;
+	        //this.Size = new Size(300, 300);
 
-            var layout = new DynamicLayout { Padding = new Padding(10, 5), Spacing = new Size(5, 5) };
+            var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
 
             layout.AddCentered(new ImageView
             {
-				Image = Icons.AltmanPng
-			}, true, true);
+				Image = Icons.AltmanBigPng
+			}, true, false);
 
             layout.Add(new Label
             {
@@ -64,23 +64,9 @@ namespace Altman.Desktop.Dialogs
                 Font = new Font(SystemFont.Default, 10),
             });
 
-            //layout.Add(ReadOnly());
-
             layout.AddCentered(CloseButton());
 
             Content = layout;
-        }
-
-        Control ReadOnly()
-        {
-            var line = Environment.NewLine;
-            string msg =
-                   "免责声明:" +line+
-                   "本程序仅供学习和研究!" +line+
-                   "请使用者遵守国家相关法律法规!" +line+
-                   "由于使用不当造成的后果本人不承担任何责任!";
-            var control = new TextArea { Text = msg, ReadOnly = true };
-            return control;
         }
 
         Control CloseButton()

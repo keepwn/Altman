@@ -171,6 +171,9 @@
     <EmbeddedResource Include="altman.ico" />
     <EmbeddedResource Include="altman.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="altman_big.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

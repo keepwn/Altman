@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Eto.Drawing;
+﻿using Eto.Drawing;
 
 namespace Altman.Desktop
 {
@@ -17,6 +13,11 @@ namespace Altman.Desktop
 		public static Bitmap AltmanPng
 		{
 			get { return Bitmap.FromResource(Prefix + "altman.png"); }
+		}
+
+		public static Bitmap AltmanBigPng
+		{
+			get { return Bitmap.FromResource(Prefix + "altman_big.png"); }
 		}
 	}
 }
