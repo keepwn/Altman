@@ -477,7 +477,7 @@ namespace Plugin_FileManager.Interface
 				Panel1 = DirsTreeView(),
 				Panel2 = FileGridView(),
 				Orientation = SplitterOrientation.Horizontal,
-				Position = 220,
+				Position = 200,
 			});
 			return layout;
 		}

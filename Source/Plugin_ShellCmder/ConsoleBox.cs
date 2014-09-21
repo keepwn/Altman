@@ -9,7 +9,7 @@ using Eto.Forms;
 
 namespace Plugin_ShellCmder
 {
-    public class CmdBox : TextArea
+    public class ConsoleBox : TextArea
     {
         public class CommandEnteredEventArgs : EventArgs
         {
@@ -95,12 +95,9 @@ namespace Plugin_ShellCmder
 
         public delegate void EventCommandEntered(object sender, CommandEnteredEventArgs e);
         public event EventCommandEntered CommandEntered;
-        public CmdBox()
+        public ConsoleBox()
         {
-            //InitializeComponent();
-            //this.TextInput += CmdBox_TextInput;
             this.KeyDown += CmdBox_KeyDown;
-
             this.Wrap = true;
         }
 
@@ -277,6 +274,7 @@ namespace Plugin_ShellCmder
                     this.Text = stringBuilder.ToString();
                     return;
                 }
+				
                 this.Text = "";
             }
         }
@@ -357,35 +355,24 @@ namespace Plugin_ShellCmder
         /// </summary>
         private void AddText(string text)
         {
-            this.Text += text;
+	        this.Append(text,true);
             MoveCaretToEndOfText();
         }
 
         private void AddResultText(string result)
         {
-            if (_isWin)
-            {
-                this.Text += result;
-            }
-            else
-            {
-                this.Text += result.Replace("\n", "\r\n");
-            }
-            MoveCaretToEndOfText();
+	        AddText(_isWin ? result : result.Replace("\n", "\r\n"));
         }
 
-        /// <summary>
+	    /// <summary>
         /// 打印提示信息
         /// </summary>
         private void PrintPrompt()
         {
             string currentText = this.Text;
-            //if (currentText.Length != 0 && currentText[currentText.Length - 1] != '\n')
             if (currentText.Length != 0 && !currentText.EndsWith(Environment.NewLine))
                 PrintLine(1);
-            {
-                this.AddText(_prompt);
-            }
+            this.AddText(_prompt);
         }
         /// <summary>
         /// 换行
@@ -400,9 +387,8 @@ namespace Plugin_ShellCmder
         #endregion
 
         #region public method
-        private delegate void SetPromptTextClient(string val);//代理  
         /// <summary>
-        /// 用异步的方式设置新提示信息并且打印
+        /// 设置新提示信息并且打印
         /// </summary>
         public void SetPromptText(string val)
         {
@@ -416,8 +402,7 @@ namespace Plugin_ShellCmder
         {
             return commandHistory.GetCommandHistory();
         }
-
-        private delegate void PrintCommandResultClient(string result);//代理       
+     
         /// <summary>
         /// 用异步的方式打印命令执行的结果（解决多线程调用UI的问题）
         /// </summary>
@@ -432,7 +417,6 @@ namespace Plugin_ShellCmder
             });
         }
 
-        private delegate void ClearContextClient();//代理
         /// <summary>
         /// 用异步的方式清空文本内容（解决多线程调用UI的问题）
         /// </summary>
@@ -453,33 +437,24 @@ namespace Plugin_ShellCmder
         #endregion
 
         #region 属性
-        /// <summary>
-        /// 前景色
-        /// </summary>
         public Color ShellTextForeColor
         {
             get { return this.TextColor; }
             set { this.TextColor = value; }
         }
-        /// <summary>
-        /// 背景色
-        /// </summary>
+
         public Color ShellTextBackColor
         {
             get { return this.BackgroundColor; }
             set { this.BackgroundColor = value; }
         }
-        /// <summary>
-        /// 字体
-        /// </summary>
+
         public Font ShellTextFont
         {
             get { return this.Font; }
             set { this.Font = value; }
         }
-        /// <summary>
-        /// 提示信息
-        /// </summary>
+
         public string Prompt
         {
             get { return this._prompt; }

@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmdBox.cs">
+    <Compile Include="ConsoleBox.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="InternalCommand.cs" />
@@ -73,11 +73,6 @@
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="ShellCmderService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ShellCmderControl.resx">
-      <DependentUpon>ShellCmderControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">

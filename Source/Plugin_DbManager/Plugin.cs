@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using System.Windows.Forms;
 using Altman.Model;
 using PluginFramework;
 
@@ -9,7 +8,7 @@ namespace Plugin_DbManager
     [Export(typeof(IPlugin))]
     public class Plugin : IControlPlugin
     {
-        private UserControl _userControl;
+        private object _userControl;
         private PluginInfo _pluginInfo;
         private IPluginSetting _pluginSetting;
         private IHost _host;
@@ -32,20 +31,14 @@ namespace Plugin_DbManager
             get { return _pluginSetting; }
         }
 
-        public IHost Host
-        {
-            get { return _host; }
-        }
-
-        public UserControl GetUi(Shell data)
+        public object GetUi(Shell data)
         {
             return _userControl = new DbManagerControl(_host, data);
         }
 
         public void Dispose()
         {
-            if (_userControl != null)
-                _userControl.Dispose();
+	        _userControl = null;
         }
     }
 }

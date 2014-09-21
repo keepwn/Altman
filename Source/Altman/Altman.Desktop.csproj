@@ -118,41 +118,6 @@
     <Compile Include="Dialogs\Welcome.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <EmbeddedResource Include="Forms\PanelPolicySetting.resx">
-      <DependentUpon>PanelPolicySetting.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelPolicySetting.zh-CN.resx">
-      <DependentUpon>PanelPolicySetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelProxySetting.resx">
-      <DependentUpon>PanelProxySetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelProxySetting.zh-CN.resx">
-      <DependentUpon>PanelProxySetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelRequestHeaderSetting.resx">
-      <DependentUpon>PanelRequestHeaderSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelRequestHeaderSetting.zh-CN.resx">
-      <DependentUpon>PanelRequestHeaderSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelUserAgentSetting.resx">
-      <DependentUpon>PanelUserAgentSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PanelUserAgentSetting.zh-CN.resx">
-      <DependentUpon>PanelUserAgentSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Welcome.zh-CN.resx">
-      <DependentUpon>Welcome.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Welcome.resx">
-      <DependentUpon>Welcome.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">

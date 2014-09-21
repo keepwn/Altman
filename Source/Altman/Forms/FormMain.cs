@@ -17,7 +17,6 @@ namespace Altman.Desktop.Forms
 	public class FormMain : Form
 	{
 		private PluginsImport _pluginsImport;
-		private DirectoryCatalog _directoryCatalog;
 		private CompositionContainer _container;
 
 		private IHost _host;
@@ -103,8 +102,11 @@ namespace Altman.Desktop.Forms
 		private void Compose()
 		{
 			var catalog = new AggregateCatalog();
-			_directoryCatalog = new DirectoryCatalog(AppEnvironment.AppPluginPath);
-			catalog.Catalogs.Add(_directoryCatalog);
+			catalog.Catalogs.Add(new DirectoryCatalog(AppEnvironment.AppPluginPath));
+			foreach (var dir in Directory.EnumerateDirectories(AppEnvironment.AppPluginPath))
+			{
+				catalog.Catalogs.Add(new DirectoryCatalog(dir));
+			}
 			_container = new CompositionContainer(catalog);
 			try
 			{
@@ -164,6 +166,7 @@ namespace Altman.Desktop.Forms
 			get { return _pluginsImport; }
 		}
 
+		/*
 		public void RefreshPlugins()
 		{
 			_directoryCatalog.Refresh();
@@ -181,6 +184,7 @@ namespace Altman.Desktop.Forms
 				LoadPluginsInUi(_pluginsImport.Plugins);
 			}
 		}
+		 */
 
 		private void LoadPluginsInUi(IEnumerable<IPlugin> plugins)
 		{

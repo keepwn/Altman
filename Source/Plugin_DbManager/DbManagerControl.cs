@@ -1,53 +1,117 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Xml;
 
 using Altman.Model;
+using Eto.Drawing;
+using Eto.Forms;
 using PluginFramework;
 
 namespace Plugin_DbManager
 {
-    public partial class DbManagerControl : UserControl
+    public class DbManagerControl : Panel
     {
         private IHost _host;
         private Shell _shellData;
 
         private DbManagerService dbManagerService;
+
+		//private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		//private System.Windows.Forms.ToolStrip toolStrip1;
+		//private System.Windows.Forms.ToolStripButton toolStripButton_run;
+		//private System.Windows.Forms.SplitContainer splitContainer1;
+		//private System.Windows.Forms.SplitContainer splitContainer2;
+		private TreeView treeView_Dbs;
+		private TextArea tbx_sql;
+		private GridView dataGridView_result;
+		//private System.Windows.Forms.ToolStripComboBox toolStripComboBox_dbs;
+		//private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		//private System.Windows.Forms.ToolStripButton toolStripButton_connect;
+		//private System.Windows.Forms.ToolStripButton toolStripButton_disconnect;
+		//private System.Windows.Forms.ContextMenuStrip rightMenu_DataTable;
+		//private System.Windows.Forms.ToolStripMenuItem Tsmi_SaveAsCsv;
+		//private System.Windows.Forms.ContextMenuStrip rightMenu_TreeView;
+		//private System.Windows.Forms.ToolStripMenuItem Tsmi_ViewTable;
+		//private System.Windows.Forms.ToolStripMenuItem Tsmi_CopyName;
         public DbManagerControl(IHost host, Shell data)
         {
-            InitializeComponent();
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
+            Init();
 
             _host = host;
             _shellData = data;
 
             //绑定事件
-            dbManagerService = new DbManagerService(_host, _shellData, GetDbType());
-            dbManagerService.ConnectDbCompletedToDo += dbManagerService_ConnectDbCompletedToDo;
-            dbManagerService.GetDbNameCompletedToDo += dbManagerService_GetDbNameCompletedToDo;
-            dbManagerService.GetDbTableNameCompletedToDo += dbManagerService_GetTableNameCompletedToDo;
-            dbManagerService.GetColumnTypeCompletedToDo += dbManagerService_GetColumnTypeCompletedToDo;
-            dbManagerService.ExecuteReaderCompletedToDo += dbManagerService_ExecuteReaderCompletedToDo;
-            dbManagerService.ExecuteNonQueryCompletedToDo += dbManagerService_ExecuteNonQueryCompletedToDo;
+			//dbManagerService = new DbManagerService(_host, _shellData, GetDbType());
+			//dbManagerService.ConnectDbCompletedToDo += dbManagerService_ConnectDbCompletedToDo;
+			//dbManagerService.GetDbNameCompletedToDo += dbManagerService_GetDbNameCompletedToDo;
+			//dbManagerService.GetDbTableNameCompletedToDo += dbManagerService_GetTableNameCompletedToDo;
+			//dbManagerService.GetColumnTypeCompletedToDo += dbManagerService_GetColumnTypeCompletedToDo;
+			//dbManagerService.ExecuteReaderCompletedToDo += dbManagerService_ExecuteReaderCompletedToDo;
+			//dbManagerService.ExecuteNonQueryCompletedToDo += dbManagerService_ExecuteNonQueryCompletedToDo;
             
-            treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;
-            rightMenu_TreeView.Opening += rightMenu_TreeView_Opening;
+			//treeView_Dbs.AfterSelect += treeView_Dbs_AfterSelect;
+			//rightMenu_TreeView.Opening += rightMenu_TreeView_Opening;
 
-            RefreshServerStatus(false);
+			//RefreshServerStatus(false);
 
-            //连接数据库
-            dbManagerService.ConnectDb(GetConnStr());
+			////连接数据库
+			//dbManagerService.ConnectDb(GetConnStr());
         }
 
+	    void Init()
+	    {
+		    //var toolBar = new ToolBar();
 
+		    //ToolItem toolItemConnect = new ButtonToolItem {Text = "Connect"};
+			//ToolItem toolItemDisconnect = new ButtonToolItem{Text = "Disconnect"};
 
+			//toolBar.Items.Add(toolItemConnect);
+			//toolBar.Items.Add(toolItemDisconnect);
+
+		    var top = new DynamicLayout();
+		    top.BeginHorizontal();
+			var toolItemConnect = new Button { Text = "Connect", Image = Icons.ConnectIcon};
+			var toolItemDisconnect = new Button { Text = "Disconnect", Image = Icons.DisconnectIcon };
+		    top.Add(toolItemConnect);
+		    top.Add(toolItemDisconnect);
+		    top.Add(null);
+			top.EndVertical();
+
+		    treeView_Dbs = new TreeView();
+	
+			tbx_sql = new TextArea
+		    {
+			    Font = new Font(FontFamilies.Sans, 10, FontStyle.Bold | FontStyle.Italic)
+		    };
+		    dataGridView_result = new GridView();
+
+		    var rightPanel = new Splitter
+		    {
+			    Panel1 = tbx_sql,
+			    Panel2 = dataGridView_result,
+			    Orientation = SplitterOrientation.Vertical,
+			    Position = 100
+		    };
+
+			var sp = new Splitter
+			{
+				Panel1 = treeView_Dbs, 
+				Panel2 = rightPanel, 
+				Orientation = SplitterOrientation.Horizontal,
+				Position = 200
+			};
+
+			var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
+			layout.AddRow(top);
+		    layout.AddRow(sp);
+		    Content = layout;
+	    }
+		/*
         #region ServiceCompletedToDo
         private void dbManagerService_ExecuteNonQueryCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -463,5 +527,6 @@ namespace Plugin_DbManager
         {
             _host.Ui.ShowMsgInStatusBar(msg);
         }
+		 */
     }
 }

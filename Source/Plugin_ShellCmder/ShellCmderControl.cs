@@ -25,7 +25,7 @@ namespace Plugin_ShellCmder
         private bool _isWin;
         private string _currentDir;
 
-        private CmdBox shellTextBox_Cmder;
+        private ConsoleBox shellTextBox_Cmder;
         public ShellCmderControl(IHost host, Shell data)
         {
             Init();
@@ -39,7 +39,7 @@ namespace Plugin_ShellCmder
 
         void Init()
         {
-            shellTextBox_Cmder = new CmdBox()
+            shellTextBox_Cmder = new ConsoleBox()
             {
                 IsWin = true,
                 Prompt = ">>> >>> >>> > > > > > > ",
@@ -56,7 +56,7 @@ namespace Plugin_ShellCmder
         /// <summary>
         /// 回车执行事件
         /// </summary>
-        private void shellTextBox_Cmder_CommandEntered(object sender, CmdBox.CommandEnteredEventArgs e)
+        private void shellTextBox_Cmder_CommandEntered(object sender, ConsoleBox.CommandEnteredEventArgs e)
         {
             string command = e.Command;
             Thread thread = new Thread(() => this.ExecuteCmd(command));

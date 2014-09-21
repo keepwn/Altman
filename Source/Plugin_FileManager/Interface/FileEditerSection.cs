@@ -48,7 +48,14 @@ namespace Plugin_FileManager.Interface
 		    var control = readFileButton = new Button {Text = "Read"};
 		    control.Click += delegate
 		    {
-
+				if (Url != null)
+				{
+					LoadFileContent(Url);
+				}
+				else
+				{
+					_host.Ui.ShowMsgInAppDialog("url is null");
+				}
 		    };
 		    return control;
 	    }
@@ -58,7 +65,14 @@ namespace Plugin_FileManager.Interface
 			var control = saveFileButton = new Button { Text = "Save" };
 			control.Click += delegate
 			{
-
+				if (Url != null)
+				{
+					SaveFile(Url, Body);
+				}
+				else
+				{
+					_host.Ui.ShowMsgInAppDialog("url is null");
+				}
 			};
 			return control;
 		}
@@ -74,8 +88,8 @@ namespace Plugin_FileManager.Interface
 			var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
 			layout.BeginVertical();
 			layout.BeginHorizontal();
+			layout.Add(UrlTextBox(),true);
 			layout.Add(ReadFileButton());
-			layout.Add(UrlTextBox(), true);
 			layout.Add(SaveFileButton());
 			layout.EndBeginHorizontal();
 			layout.EndVertical();
@@ -104,12 +118,14 @@ namespace Plugin_FileManager.Interface
         {
             if (e.Error != null)
             {
-                MessageBox.Show(e.Error.Message);
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if (e.Result is string)
             {
-                string content = e.Result as string;
+                var content = e.Result as string;
 				Body = content;
+
+				_host.Ui.ShowMsgInStatusBar("load file success");
             }
         }
         /// <summary>
@@ -121,47 +137,15 @@ namespace Plugin_FileManager.Interface
         {
             if (e.Error != null)
             {
-                MessageBox.Show(e.Error.Message);
+				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
             else if ((bool) e.Result)
             {
-                MessageBox.Show("保存成功");
+				_host.Ui.ShowMsgInAppDialog("save file success");
             }
             else
             {
-                MessageBox.Show("保存失败");
-            }
-        }
-        /// <summary>
-        /// 读取文件事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_readFile_Click(object sender, EventArgs e)
-        {
-			if (Url != null)
-            {
-				LoadFileContent(Url);
-            }
-            else
-            {
-                MessageBox.Show("地址栏为空");
-            }
-        }
-        /// <summary>
-        /// 保存文件事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_saveFile_Click(object sender, EventArgs e)
-        {
-			if (Url != null)
-            {
-				SaveFile(Url, Body);
-            }
-            else
-            {
-                MessageBox.Show("地址栏为空");
+				_host.Ui.ShowMsgInAppDialog("save file failed");
             }
         }
 
