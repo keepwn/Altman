@@ -5,17 +5,17 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Desktop", "Altman\Altman.Desktop.csproj", "{C8B447F9-E4D2-4D79-94F9-74582509E6E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstPlugin", "MyFirstPlugin\MyFirstPlugin.csproj", "{73257C27-0D95-471E-92DA-704D0012F83F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstPlugin", "Plugin\MyFirstPlugin\MyFirstPlugin.csproj", "{73257C27-0D95-471E-92DA-704D0012F83F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellCmder", "Plugin_ShellCmder\Plugin_ShellCmder.csproj", "{A46AD8F1-CAEF-485A-A36C-4967671224BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellCmder", "Plugin\Plugin_ShellCmder\Plugin_ShellCmder.csproj", "{A46AD8F1-CAEF-485A-A36C-4967671224BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_FileManager", "Plugin_FileManager\Plugin_FileManager.csproj", "{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_FileManager", "Plugin\Plugin_FileManager\Plugin_FileManager.csproj", "{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_DbManager", "Plugin_DbManager\Plugin_DbManager.csproj", "{70100E00-8921-4B78-9EEA-5326F8D0352E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_DbManager", "Plugin\Plugin_DbManager\Plugin_DbManager.csproj", "{70100E00-8921-4B78-9EEA-5326F8D0352E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_PluginManager", "Plugin_PluginManager\Plugin_PluginManager.csproj", "{3BBF7451-1844-40EA-9661-1E95D22D411F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_PluginManager", "Plugin\Plugin_PluginManager\Plugin_PluginManager.csproj", "{3BBF7451-1844-40EA-9661-1E95D22D411F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellManager", "Plugin_ShellManager\Plugin_ShellManager.csproj", "{F813E48D-D2FD-4A58-A039-C847DE92AFC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellManager", "Plugin\Plugin_ShellManager\Plugin_ShellManager.csproj", "{F813E48D-D2FD-4A58-A039-C847DE92AFC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginFramework", "PluginFramework\PluginFramework.csproj", "{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}"
 EndProject

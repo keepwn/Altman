@@ -119,15 +119,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
+    <ProjectReference Include="..\..\AltmanUtil\AltmanUtil.csproj">
       <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
       <Name>AltmanUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Altman\Altman.Desktop.csproj">
+    <ProjectReference Include="..\..\Altman\Altman.Desktop.csproj">
       <Project>{C8B447F9-E4D2-4D79-94F9-74582509E6E1}</Project>
       <Name>Altman.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+    <ProjectReference Include="..\..\PluginFramework\PluginFramework.csproj">
       <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
       <Name>PluginFramework</Name>
     </ProjectReference>

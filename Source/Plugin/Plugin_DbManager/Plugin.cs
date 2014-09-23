@@ -33,7 +33,7 @@ namespace Plugin_DbManager
 
         public object GetUi(Shell data)
         {
-            return _userControl = new DbManagerControl(_host, data);
+            return _userControl = new DbManagerPanel(_host, data);
         }
 
         public void Dispose()

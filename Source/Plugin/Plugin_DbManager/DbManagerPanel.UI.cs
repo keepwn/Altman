@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Eto.Drawing;
+using Eto.Forms;
+
+namespace Plugin_DbManager
+{
+	partial class DbManagerPanel
+	{
+		void Init()
+		{
+			//_buttonConnect
+			_buttonConnect = new Button { Text = "Connect", Image = Icons.ConnectIcon };
+			_buttonConnect.Click += ButtonConnect_Click;
+
+			//_buttonDisconnect
+			_buttonDisconnect = new Button { Text = "Disconnect", Image = Icons.DisconnectIcon };
+			_buttonDisconnect.Click += _buttonDisconnect_Click;
+
+			//_comboboxDbs
+			_comboboxDbs = new ComboBox();
+			_comboboxDbs.Size = new Size(200, -1);
+
+			//_buttonRunScript
+			_buttonRunScript = new Button {Text = "Run Sql", Image = Icons.RunScripIcon};
+			_buttonRunScript.Click += _buttonRunScript_Click;
+
+			//_itemSaveAsCsv
+			_itemSaveAsCsv = new ButtonMenuItem { Text = "SaveAsCsv" };
+			_itemSaveAsCsv.Click += _itemSaveAsCsv_Click;
+
+			//_itemViewTable
+			_itemViewTable = new ButtonMenuItem { Text = "ViewTable" };
+			_itemViewTable.Click += _itemViewTable_Click;
+			_itemViewTable.Enabled = false;
+
+			//_itemCopyName
+			_itemCopyName = new ButtonMenuItem { Text = "CopyName" };
+			_itemCopyName.Click += _itemCopyName_Click;
+
+			//_menuDbView
+			_menuDbView = new ContextMenu();
+			_menuDbView.Items.Add(_itemCopyName);
+			_menuDbView.Items.Add(_itemViewTable);
+
+			//_menuResultView
+			_menuResultView = new ContextMenu();
+			_menuResultView.Items.Add(_itemSaveAsCsv);
+
+			//_treeViewDbs
+			_treeViewDbs = new TreeView();
+			_treeViewDbs.ContextMenu = _menuDbView;
+			_treeViewDbs.SelectionChanged += _treeViewDbs_SelectionChanged;
+			_treeViewDbs.Activated += _treeViewDbs_Activated;
+			_treeViewDbs.MouseUp += (sender, e) =>
+			{
+				if (e.Buttons == MouseButtons.Alternate)
+				{
+					_treeViewDbs.ContextMenu.Show(_treeViewDbs);
+				}
+			};
+
+			//_textAreaSql
+			_textAreaSql = new TextArea {Font = new Font(FontFamilies.Sans, 12, FontStyle.Bold | FontStyle.Italic)};
+			
+			//_gridViewResult
+			_gridViewResult = new GridView();
+			_gridViewResult.ContextMenu = _menuResultView;
+			_gridViewResult.Style = "GridViewResult";
+			_gridViewResult.MouseUp += (sender, e) =>
+			{
+				if (e.Buttons == MouseButtons.Alternate)
+				{
+					_gridViewResult.ContextMenu.Show(_treeViewDbs);
+				}
+			};
+
+			//topLayout
+			var topLayout = new DynamicLayout();
+			topLayout.BeginHorizontal();
+			topLayout.Add(_buttonConnect);
+			topLayout.Add(_buttonDisconnect);
+			topLayout.Add(_comboboxDbs);
+			topLayout.Add(_buttonRunScript);
+			topLayout.Add(null);
+			topLayout.EndVertical();
+
+			//rightPanel
+			var rightPanel = new Splitter
+			{
+				Panel1 = _textAreaSql,
+				Panel2 = _gridViewResult,
+				Orientation = SplitterOrientation.Vertical,
+				Position = 100
+			};
+
+			//mainLayout
+			var mainLayout = new Splitter
+			{
+				Panel1 = _treeViewDbs,
+				Panel2 = rightPanel,
+				Orientation = SplitterOrientation.Horizontal,
+				Position = 200
+			};
+
+			//layout
+			var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
+			layout.AddRow(topLayout);
+			layout.AddRow(mainLayout);
+			Content = layout;
+		}
+
+		private Button _buttonConnect;
+		private Button _buttonDisconnect;
+		private ComboBox _comboboxDbs;
+		private Button _buttonRunScript;
+
+		private TreeView _treeViewDbs;
+		private TextArea _textAreaSql;
+		private GridView _gridViewResult;
+
+		private MenuItem _itemSaveAsCsv;
+		private MenuItem _itemViewTable;
+		private MenuItem _itemCopyName;
+
+		private ContextMenu _menuDbView;
+		private ContextMenu _menuResultView;
+	}
+}
