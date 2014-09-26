@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
+using Eto.Forms;
 using PluginFramework;
+using Plugin_PluginManager.Model;
 
 namespace Plugin_PluginManager
 {
-    public partial class InstallForm : Form
+    public partial class InstallDialog : Dialog
     {
         private string _unzipBaseDir;
 
@@ -20,9 +20,9 @@ namespace Plugin_PluginManager
         private List<UpdateInfo> _infos;
 
         public EventHandler InstallPluginCompletedToDo;
-        public InstallForm(IHost host, UpdateInfo[] infos)
+        public InstallDialog(IHost host, UpdateInfo[] infos)
         {
-            InitializeComponent();
+            Init();
 
             _host = host;
             _infos = new List<UpdateInfo>(infos);
@@ -39,13 +39,13 @@ namespace Plugin_PluginManager
         #region 属性
         public string DownloadUrl
         {
-            get { return lbl_download.Text; }
-            set { lbl_download.Text = "Downloading: " + value; }
+            get { return _labelDownload.Text; }
+			set { _labelDownload.Text = "Downloading: " + value; }
         }
         public int Progress
         {
-            get { return progressBar_download.Value; }
-            set { progressBar_download.Value = value; }
+            get { return _progressBarDownload.Value; }
+			set { _progressBarDownload.Value = value; }
         }
         #endregion
 
@@ -60,10 +60,7 @@ namespace Plugin_PluginManager
             {
                 Directory.Delete(_unzipBaseDir, true);
             }
-            if (!this.IsDisposed)
-            {
-                this.Close();
-            }
+            Close();
         }
 
         private void DownloadNextPlugin()
@@ -101,7 +98,7 @@ namespace Plugin_PluginManager
             if (e.Error != null)
             {
                 string msg = string.Format("Download {0} failed", info.Name);
-                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxType.Error);
             }
             else
             {
@@ -125,7 +122,7 @@ namespace Plugin_PluginManager
             if (!Unzip(info))
             {
                 msg = string.Format("Unzip {0} failed", info.Name);
-                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxType.Error);
             }
             //拷贝
             DownloadUrl = string.Format("Install {0} ...", info.Name);
@@ -134,12 +131,12 @@ namespace Plugin_PluginManager
             if (CopyPluginFiles(info.Install.CopyFiles, unzipDir, _host.App.AppCurrentDir))
             {
                 msg = string.Format("Install {0} success", info.Name);
-                MessageBox.Show(msg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBox.Show(msg, "Success", MessageBoxButtons.OK, MessageBoxType.Information);
             }
             else
             {
                 msg = string.Format("Install {0} failed", info.Name);
-                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxType.Error);
             }
         }
         /// <summary>

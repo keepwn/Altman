@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Eto.Drawing;
+using Eto.Forms;
+
+namespace Plugin_PluginManager
+{
+	partial class InstallDialog
+	{
+		void Init()
+		{
+			//_labelDownload
+			_labelDownload = new Label();
+
+			//_progressBarDownload
+			_progressBarDownload = new ProgressBar();
+
+			var layout = new DynamicLayout {Padding = new Padding(5, 5), Spacing = new Size(5, 5)};
+			layout.AddRow(_labelDownload);
+			layout.AddRow(_progressBarDownload);
+
+			Content = layout;
+			Icon = Application.Instance.MainForm.Icon;
+		}
+
+		private ProgressBar _progressBarDownload;
+		private Label _labelDownload;
+	}
+}

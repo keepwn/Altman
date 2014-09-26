@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using swf=System.Windows.Forms;
 using sd=System.Drawing;
 using Altman.Desktop;
@@ -14,20 +16,41 @@ namespace Altman.WinForm
         [STAThread]
         static void Main()
         {
-            var generator = Platform.Get(Platforms.WinForms);
+			var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			if (AppDomain.CurrentDomain.IsDefaultAppDomain())
+			{
+				var setup = new AppDomainSetup();
+				setup.PrivateBinPath = "Bin";
+				setup.ShadowCopyFiles = "true";
+				setup.CachePath = Path.Combine(Path.GetTempPath(), "__cache__");
+				setup.ShadowCopyDirectories = Path.Combine(path, "Plugins") + ";" + Path.Combine(path, "Bin");
+
+				var appDomain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup);
+				appDomain.ExecuteAssembly(Assembly.GetExecutingAssembly().CodeBase);
+			}
+			else
+			{
+				Start();
+			}
+        }
+
+	    static void Start()
+	    {
+			var generator = Platform.Get(Platforms.WinForms);
 			Style.Add<Eto.WinForms.Forms.Controls.GridViewHandler>(null,
 				h =>
 				{
 					h.Control.ColumnHeadersBorderStyle = swf.DataGridViewHeaderBorderStyle.None;
 					h.Control.BorderStyle = swf.BorderStyle.Fixed3D;
+					h.Control.BackgroundColor = sd.SystemColors.Window;
 				});
 
-	        Style.Add<Eto.WinForms.MenuBarHandler>(null, h =>
-	        {
+			Style.Add<Eto.WinForms.MenuBarHandler>(null, h =>
+			{
 				h.Control.BackColor = sd.SystemColors.Control;
-	        });
-            var app = new AltmanApplication(generator);
-            app.Run();
-        }
+			});
+			var app = new AltmanApplication(generator);
+			app.Run();
+	    }
     }
 }

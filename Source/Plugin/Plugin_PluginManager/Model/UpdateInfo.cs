@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Plugin_PluginManager
+namespace Plugin_PluginManager.Model
 {
     public class UpdateInfo
     {

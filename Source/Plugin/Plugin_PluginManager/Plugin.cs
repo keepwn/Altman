@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using System.Windows.Forms;
 using Altman.Model;
 using PluginFramework;
 
@@ -9,7 +8,7 @@ namespace Plugin_PluginManager
     [Export(typeof(IPlugin))]
     public class Plugin:IFormPlugin
     {
-        private Form _form;
+        private object _form;
         private PluginInfo _pluginInfo;
         private IPluginSetting _pluginSetting;
         private IHost _host;
@@ -37,15 +36,14 @@ namespace Plugin_PluginManager
             get { return _host; }
         }
 
-        public Form GetUi(Shell data)
+        public object GetUi(Shell data)
         {
             return _form = new PluginManager(_host, data);
         }
 
         public void Dispose()
         {
-            if (_form != null)
-                _form.Dispose();
+            _form = null;
         }
     }
 }

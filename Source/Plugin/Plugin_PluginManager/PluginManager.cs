@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Windows.Forms;
 using System.Xml;
 using Altman.Model;
+using Eto.Forms;
 using PluginFramework;
+using Plugin_PluginManager.Model;
 
 namespace Plugin_PluginManager
 {
@@ -16,78 +16,83 @@ namespace Plugin_PluginManager
         private IHost _host;
         private Shell _shellData;
 
-        private string _updateXmlPath = "./Plugins/update.xml";
-        private string _updateXmlUrl = "";
+	    private string _updateXmlPath;
+	    private string _updateXmlUrl;
         private UpdateInfo[] _updateInfos = null;
         private IEnumerable<IPlugin> _installedPlugins = null;
 
         public PluginManager(IHost host, Shell data)
         {
-            InitializeComponent();
+            Init();
 
             this._host = host;
             this._shellData = data;
 
-            _updateXmlUrl = ReadConfigXml();
-            _installedPlugins = _host.Core.GetPlugins();
-            DownloadUpdateXml();
-            LoadInstalledPlugins();
-        }
+			_updateXmlPath = Path.Combine(_host.App.AppPluginDir, "update.xml");
+			_updateXmlUrl = ReadConfigXml();
+			_installedPlugins = _host.Core.GetPlugins();
+			DownloadUpdateXml();
+			LoadInstalledPlugins();
+        }		
 
-        private void btn_Close_Click(object sender, System.EventArgs e)
-        {
-            this.Close();
-        }
+		void _buttonSetting_Click(object sender, EventArgs e)
+		{
+			//throw new NotImplementedException();
+		}
+
+		void _tabControl_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			//throw new NotImplementedException();
+		}
+
+
+		void _buttonClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 
         #region ShowInstalledPlugins
         private void LoadInstalledPlugins()
         {
             if (_installedPlugins == null) return;
-            //clear
-            lv_InstalledPlugins.Items.Clear();
-            //loading
-            foreach (var plugin in _installedPlugins)
-            {
-                string[] items = new string[] {
-                    plugin.PluginInfo.Name,
-                    plugin.PluginInfo.Author,
-                    plugin.PluginInfo.Version,
-                    plugin.PluginInfo.FileName
-                    };
-                ListViewItem viewItem = new ListViewItem(items);
-                viewItem.Tag = plugin;
-                lv_InstalledPlugins.Items.Add(viewItem);
-            }
+	        var items = _installedPlugins.Select(plugin => new PluginModel(plugin)).ToList();
+	        _gridViewInstalled.DataStore = items;
         }
-        private void lv_InstalledPlugins_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lv_InstalledPlugins.SelectedItems.Count == 1)
-            {
-                IPlugin plugin = (IPlugin)(lv_InstalledPlugins.SelectedItems[0]).Tag;
-                tbx_InstalledPluginsDescription.Text = plugin.PluginInfo.Description;
-            }
-        }
-        private void btn_Remove_Click(object sender, EventArgs e)
-        {
-            if (lv_InstalledPlugins.CheckedItems.Count > 0)
-            {
-                DialogResult result = MessageBox.Show("You Will Remove This/These Plugins, Continue?",
-                    "Warning",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    foreach (ListViewItem item in lv_InstalledPlugins.CheckedItems)
-                    {
-                        IPlugin plugin = (IPlugin)item.Tag;
-                        string filepath = "./Plugins" + "/" + plugin.PluginInfo.FileName;
-                        File.Delete(filepath);
-                        item.Remove();
-                    }
-                    lbl_Msg.Visible = true;
-                }
-            }
-        }
+
+		void _gridViewInstalled_SelectionChanged(object sender, EventArgs e)
+		{
+			if (_gridViewInstalled.SelectedItem != null)
+			{
+				var plugin = (_gridViewInstalled.SelectedItem as PluginModel).Plugin;
+				_textAreatInstalledDes.Text = plugin != null ? plugin.PluginInfo.Description : "";
+			}
+		}
+
+		void _buttonRemove_Click(object sender, EventArgs e)
+		{
+			var items = _gridViewInstalled.DataStore as List<PluginModel>;
+			if (items != null && items.Any(r => r.Checked))
+			{
+				DialogResult result = MessageBox.Show("You Will Remove This/These Plugins, Continue?",
+					"Warning",
+					MessageBoxButtons.YesNo,
+					MessageBoxType.Error);
+				if (result == DialogResult.Yes)
+				{
+					foreach (var item in items)
+					{
+						if (item.Checked)
+						{
+							var plugin = item.Plugin;
+							var filepath = "./Plugins" + "/" + plugin.PluginInfo.FileName;
+							File.Delete(filepath);
+							items.Remove(item);
+						}				
+					}
+					_labelMsg.Visible = true;
+				}
+			}
+		}
         #endregion
 
         #region ShowAvailablePlugins
@@ -96,8 +101,8 @@ namespace Plugin_PluginManager
         /// </summary>
         public UpdateInfo[] ReadUpdateXml()
         {
-            string filePath = _updateXmlPath;
-            List<UpdateInfo> infos = new List<UpdateInfo>();
+            var filePath = _updateXmlPath;
+            var infos = new List<UpdateInfo>();
             try
             {
                 XmlDocument xml = new XmlDocument(); //初始化一个xml实例
@@ -169,13 +174,10 @@ namespace Plugin_PluginManager
         /// </summary>
         private void DownloadUpdateXml()
         {
-            //clear
-            lv_AvailablePlugins.Items.Clear();
-            ListViewItem item = new ListViewItem("Downloading update xml...");
-            lv_AvailablePlugins.Items.Add(item);
-            lv_AvailablePlugins.CheckBoxes = false;
+	        var tip = new PluginModel("Downloading update xml...");
+			_gridViewAvailable.DataStore = new List<PluginModel> { tip };
 
-            WebClient client = new WebClient();
+            var client = new WebClient();
             client.DownloadFileCompleted += client_DownloadFileCompleted;
             client.DownloadFileAsync(new Uri(_updateXmlUrl), _updateXmlPath);
         }
@@ -183,10 +185,13 @@ namespace Plugin_PluginManager
         {
             if (e.Error != null)
             {
-                lv_AvailablePlugins.Items[0].Text = "Can't download update xml";
+				_buttonInstall.Enabled = false;
+				var tip = new PluginModel("Can't download update xml");
+				_gridViewAvailable.DataStore = new List<PluginModel> { tip };            
             }
             else
             {
+				_buttonInstall.Enabled = true;
                 ShowAvailablePlugins();
                 ShowUpdatablePlugins();
             }
@@ -209,66 +214,68 @@ namespace Plugin_PluginManager
             if (_installedPlugins == null) return;
             if (!File.Exists(_updateXmlPath)) return;
 
-            //clear
-            lv_AvailablePlugins.Items.Clear();
-            lv_AvailablePlugins.CheckBoxes = true;
+	        var items = new List<PluginModel>();
+	        _updateInfos = ReadUpdateXml();
+	        if (_updateInfos != null)
+	        {
+		        foreach (var info in _updateInfos)
+		        {
+			        //在列表中排除已安装的插件
+			        if (_installedPlugins.FirstOrDefault(x => x.PluginInfo.Name == info.Name) != null)
+						continue;
 
-            _updateInfos = ReadUpdateXml();
-            if (_updateInfos == null) return;
-            foreach (UpdateInfo info in _updateInfos)
-            {
-                //在列表中排除已安装的插件
-                if (_installedPlugins.FirstOrDefault(x => x.PluginInfo.Name == info.Name) != null) continue;
+					var canInstall = _host.App.AppVersion >= info.Version.RequiredVersion;
+			        info.CanUpdate = canInstall;
 
-                bool status = _host.App.AppVersion >= info.Version.RequiredVersion;
-                info.CanUpdate = status;
-                string[] items = new string[]
-                        {
-                            info.Name,
-                            info.Author,
-                            info.Version.Version.ToString(),
-                            info.Version.RequiredVersion.ToString(),
-                            info.CanUpdate.ToString()
-                        };
-                ListViewItem item = new ListViewItem(items);
-                if (!info.CanUpdate) item.BackColor = Color.Gray;
-                item.Tag = info;
-                lv_AvailablePlugins.Items.Add(item);
-            }
+			        var item = new PluginModel(info.Name);
+			        item.Author = info.Author;
+			        item.AvailableVersion = info.Version.Version.ToString();
+			        item.RequiredVersion = info.Version.RequiredVersion.ToString();
+					item.CanInstall = info.CanUpdate.ToString();
+			        item.Tag = info;
+
+			        items.Add(item);
+		        }
+	        }
+	        _gridViewAvailable.DataStore = items;
         }
-        private void lv_AvailablePlugins_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lv_AvailablePlugins.SelectedItems.Count != 1) return;
-            UpdateInfo info = (UpdateInfo)(lv_AvailablePlugins.SelectedItems[0]).Tag;
-            tbx_AvailablePluginsDescription.Text = info.Description;
-        }
+
+		void _gridViewAvailable_SelectionChanged(object sender, EventArgs e)
+		{
+			if (_gridViewAvailable.SelectedItem != null)
+			{
+				var info = (UpdateInfo)(_gridViewAvailable.SelectedItem as PluginModel).Tag;
+				_textAreatAvailableDes.Text = info != null ? info.Description : "";
+			}
+		}
         /// <summary>
         /// 刷新按钮
         /// </summary>
-        private void btn_Refresh_Click(object sender, EventArgs e)
-        {
-            DownloadUpdateXml();
-        }
+		void _buttonRefresh_Click(object sender, EventArgs e)
+		{
+			DownloadUpdateXml();
+		}
         /// <summary>
         /// 安装按钮
         /// </summary>
-        private void btn_Install_Click(object sender, EventArgs e)
-        {
-            UpdateInfo[] infos = (from ListViewItem item in lv_AvailablePlugins.CheckedItems
-                                  where ((UpdateInfo)item.Tag).CanUpdate
-                                  select (UpdateInfo)item.Tag
-                                      ).ToArray();
-            if (infos.Length <= 0) return;
-            InstallForm install = new InstallForm(_host, infos);
-            install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
-            install.ShowDialog();
-        }
+		void _buttonInstall_Click(object sender, EventArgs e)
+		{
+			var items = _gridViewAvailable.DataStore as List<PluginModel>;
+	        if (items != null && items.Any(r => r.Checked))
+	        {
+				var infos = items.Select(r => (r.Tag as UpdateInfo)).Where(r => r.CanUpdate).ToArray();
+				if (infos.Length <= 0) return;
+				var install = new InstallDialog(_host, infos);
+				install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
+		        install.ShowModal(this);
+	        }
+		}
         /// <summary>
         /// 插件安装完成
         /// </summary>
         private void install_InstallPluginCompletedToDo(object sender, EventArgs e)
         {
-            lbl_Msg.Visible = true;
+	        _labelMsg.Visible = true;
         }
         #endregion
 
@@ -280,54 +287,54 @@ namespace Plugin_PluginManager
         {
             if (_installedPlugins == null) return;
             if (_updateInfos == null) return;
-            //clear
-            lv_UpdatablePlugins.Items.Clear();
+
+			var items = new List<PluginModel>();
             foreach (var plugin in _installedPlugins)
             {
                 //判断已安装的插件是否可以更新
-                UpdateInfo info =
-                    _updateInfos.FirstOrDefault(
-                        x =>
-                            x.Name == plugin.PluginInfo.Name
-                            && new Version(plugin.PluginInfo.Version) < x.Version.Version);
+                var info =_updateInfos.FirstOrDefault(x =>
+					x.Name == plugin.PluginInfo.Name
+					&& new Version(plugin.PluginInfo.Version) < x.Version.Version);
                 if (info == null) continue;
 
-                bool status = _host.App.AppVersion >= info.Version.RequiredVersion;
-                info.CanUpdate = status;
-                string[] items = new string[]
-                        {
-                            info.Name,
-                            info.Author,
-                            plugin.PluginInfo.Version,
-                            info.Version.Version.ToString(),
-                            info.CanUpdate.ToString()
-                        };
-                ListViewItem item = new ListViewItem(items);
-                if (!info.CanUpdate) item.BackColor = Color.Gray;
-                item.Tag = info;
-                lv_UpdatablePlugins.Items.Add(item);
+                var canUpdate = _host.App.AppVersion >= info.Version.RequiredVersion;
+	            info.CanUpdate = canUpdate;
+
+	            var item = new PluginModel(info.Name);
+	            item.Author = info.Author;
+	            item.InstalledVersion = plugin.PluginInfo.Version;
+	            item.AvailableVersion = info.Version.Version.ToString();
+				item.CanUpdate = info.CanUpdate.ToString();
+				item.Tag = info;
+
+	            items.Add(item);
             }
+	        _gridViewUpdatable.DataStore = items;
         }
-        private void lv_UpdatablePlugins_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lv_UpdatablePlugins.SelectedItems.Count != 1) return;
-            UpdateInfo info = (UpdateInfo)(lv_UpdatablePlugins.SelectedItems[0]).Tag;
-            tbx_UpdatesPluginsDescription.Text = info.Description;
-        }
+
+		void _gridViewUpdatable_SelectionChanged(object sender, EventArgs e)
+		{
+			if (_gridViewUpdatable.SelectedItem != null)
+			{
+				var info = (UpdateInfo)(_gridViewUpdatable.SelectedItem as PluginModel).Tag;
+				_textAreatUpdatesDes.Text = info != null ? info.Description : "";
+			}
+		}
         /// <summary>
         /// 升级按钮
         /// </summary>
-        private void btn_Update_Click(object sender, EventArgs e)
-        {
-            UpdateInfo[] infos = (from ListViewItem item in lv_UpdatablePlugins.CheckedItems
-                                  where ((UpdateInfo)item.Tag).CanUpdate
-                                  select (UpdateInfo)item.Tag
-                                      ).ToArray();
-            if (infos.Length <= 0) return;
-            InstallForm install = new InstallForm(_host, infos);
-            install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
-            install.ShowDialog();
-        }
+		void _buttonUpdate_Click(object sender, EventArgs e)
+		{
+			var items = _gridViewUpdatable.DataStore as List<PluginModel>;
+			if (items != null && items.Any(r => r.Checked))
+			{
+				var infos = items.Select(r => (r.Tag as UpdateInfo)).Where(r => r.CanUpdate).ToArray();
+				if (infos.Length <= 0) return;
+				var install = new InstallDialog(_host, infos);
+				install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
+				install.ShowModal(this);
+			}
+		}
         #endregion
 
         #region Init
@@ -344,6 +351,6 @@ namespace Plugin_PluginManager
             XmlNode updateXmlNode = xml.SelectSingleNode("/config/updateXml");
             return updateXmlNode == null ? defaultUpate : updateXmlNode.InnerText;
         }
-        #endregion
-    }
+		#endregion
+	}
 }

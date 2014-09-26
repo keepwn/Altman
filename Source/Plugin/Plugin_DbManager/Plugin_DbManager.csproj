@@ -75,14 +75,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DbManagerPanel.resx">
-      <DependentUpon>DbManagerPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DbManagerPanel.zh-CN.resx">
-      <DependentUpon>DbManagerPanel.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\AltmanUtil\AltmanUtil.csproj">
       <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
       <Name>AltmanUtil</Name>
@@ -103,10 +95,7 @@
     <EmbeddedResource Include="Resources\server_connect.ico" />
     <EmbeddedResource Include="Resources\server_disconnect.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Actions\" />
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)..\Build\Plugins\</PostBuildEvent>

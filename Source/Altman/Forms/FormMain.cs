@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -52,7 +53,12 @@ namespace Altman.Desktop.Forms
 			//----导入插件----
 			_pluginsImport = new PluginsImport();
 			_host = new Host(this);
-			Compose();
+			if (!Compose())
+			{
+				MessageBox.Show("May be some plugins were error, please remove them.");
+				Environment.Exit(0);
+			}
+
 			//----导入插件结束----
 
 
@@ -99,8 +105,9 @@ namespace Altman.Desktop.Forms
 		/// <summary>
 		/// 组合部件
 		/// </summary>
-		private void Compose()
+		private bool Compose()
 		{
+			var success = false;
 			var catalog = new AggregateCatalog();
 			catalog.Catalogs.Add(new DirectoryCatalog(AppEnvironment.AppPluginPath));
 			foreach (var dir in Directory.EnumerateDirectories(AppEnvironment.AppPluginPath))
@@ -112,12 +119,18 @@ namespace Altman.Desktop.Forms
 			{
 				_container.ComposeExportedValue("IHost", _host);
 				_container.ComposeParts(_pluginsImport);
+				success = true;
 			}
 			catch (CompositionException compositionException)
 			{
-				MessageBox.Show(compositionException.ToString());
-				_container.Dispose();
+				Debug.WriteLine(compositionException.Message);
+				//_container.Dispose();
 			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+			}
+			return success;
 		}
 		/// <summary>
 		/// 卸载插件
