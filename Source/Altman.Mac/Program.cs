@@ -1,4 +1,7 @@
-﻿using Altman.Desktop;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using Altman.Desktop;
 using Eto;
 using Eto.Mac.Forms.Controls;
 using Eto.Mac.Forms;
@@ -12,6 +15,26 @@ namespace Altman.Mac
 	static class Program
 	{
 		static void Main(string[] args)
+		{
+			var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			if (AppDomain.CurrentDomain.IsDefaultAppDomain())
+			{
+				var setup = new AppDomainSetup();
+				setup.PrivateBinPath = "Bin";
+				setup.ShadowCopyFiles = "true";
+				setup.CachePath = Path.Combine(Path.GetTempPath(), "__cache__");
+				setup.ShadowCopyDirectories = Path.Combine(path, "Plugins") + ";" + Path.Combine(path, "Bin");
+
+				var appDomain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup);
+				appDomain.ExecuteAssembly(Assembly.GetExecutingAssembly().CodeBase);
+			}
+			else
+			{
+				Start();
+			}
+		}
+
+		static void Start()
 		{
 			#if DEBUG && !XAMMAC2
 			Debug.Listeners.Add(new ConsoleTraceListener());
