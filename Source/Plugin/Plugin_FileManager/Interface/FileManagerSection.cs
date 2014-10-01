@@ -304,6 +304,7 @@ namespace Plugin_FileManager.Interface
 			};
 			control.CellEditing += control_CellEditing;
 			control.CellEdited += control_CellEdited;
+			control.CellDoubleClick += control_CellDoubleClick;
 
 			control.Columns.Add(new GridColumn
 			{
@@ -357,6 +358,16 @@ namespace Plugin_FileManager.Interface
 
 			fileGridView.DataStore = _dataStore = new DataStoreCollection();
 			return control;
+		}
+
+		void control_CellDoubleClick(object sender, GridViewCellEventArgs e)
+		{
+			var selectFile = e.Item as FileInfo;
+			if (selectFile != null && selectFile.IsDir)
+			{
+				SetCurrentDirPath(selectFile.FullName);
+				_fileManager.GetFileTree(GetCurrentDirPath());
+			}
 		}
 
 		void control_CellEditing(object sender, GridViewCellEventArgs e)

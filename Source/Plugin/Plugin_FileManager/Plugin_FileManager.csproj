@@ -48,8 +48,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eto">
-      <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
+    <Reference Include="Eto, Version=1.99.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Eto\Eto.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -82,9 +83,7 @@
     <Compile Include="Interface\FileEditerSection.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="FileManagerControl.cs">
-      <SubType>Eto.Forms</SubType>
-    </Compile>
+    <Compile Include="FileManagerControl.cs" />
     <Compile Include="FileManagerService.cs" />
     <Compile Include="FileUploadOrDownload.cs" />
     <Compile Include="Dialogs\FormWget.cs">
