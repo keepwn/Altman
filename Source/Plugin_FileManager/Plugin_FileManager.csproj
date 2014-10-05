@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Plugin_FileManager</RootNamespace>
+    <AssemblyName>FileManager</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Eto">
+      <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\ItemCopy.cs" />
+    <Compile Include="Actions\ItemCreateDir.cs" />
+    <Compile Include="Actions\ItemCreateFile.cs" />
+    <Compile Include="Actions\ItemDelete.cs" />
+    <Compile Include="Actions\ItemDownload.cs" />
+    <Compile Include="Actions\ItemDownloadToServer.cs" />
+    <Compile Include="Actions\ItemEdit.cs" />
+    <Compile Include="Actions\ItemModifyTime.cs" />
+    <Compile Include="Actions\ItemPaste.cs" />
+    <Compile Include="Actions\ItemRefresh.cs" />
+    <Compile Include="Actions\ItemRename.cs" />
+    <Compile Include="Actions\ItemUpload.cs" />
+    <Compile Include="Dialogs\CreateDir.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Wget.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Interface\FileEditerSection.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="FileManagerControl.cs" />
+    <Compile Include="FileManagerService.cs" />
+    <Compile Include="FileUploadOrDownload.cs" />
+    <Compile Include="Dialogs\FormWget.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Interface\FileManagerSection.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Interface\Icons.cs" />
+    <Compile Include="Model\FileInfo.cs" />
+    <Compile Include="Model\Status.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="PluginInfo.cs" />
+    <Compile Include="PluginSetting.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Interface\FileEditerSection.resx">
+      <DependentUpon>FileEditerSection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagerControl.resx">
+      <DependentUpon>FileManagerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagerControl.zh-CN.resx">
+      <DependentUpon>FileManagerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormWget.resx">
+      <DependentUpon>FormWget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormWget.zh-CN.resx">
+      <DependentUpon>FormWget.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
+      <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
+      <Name>AltmanUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Altman\Altman.Desktop.csproj">
+      <Project>{C8B447F9-E4D2-4D79-94F9-74582509E6E1}</Project>
+      <Name>Altman.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+      <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
+      <Name>PluginFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\drive.ico" />
+    <EmbeddedResource Include="Resources\floder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\0_unknow_32.ico" />
+    <EmbeddedResource Include="Resources\100_chm_32.ico" />
+    <EmbeddedResource Include="Resources\101_iso_32.ico" />
+    <EmbeddedResource Include="Resources\10_exe_32.ico" />
+    <EmbeddedResource Include="Resources\11_dll_32.ico" />
+    <EmbeddedResource Include="Resources\12_bat_32.ico" />
+    <EmbeddedResource Include="Resources\13_bin_32.ico" />
+    <EmbeddedResource Include="Resources\1_folder_32.ico" />
+    <EmbeddedResource Include="Resources\20_zip_32.ico" />
+    <EmbeddedResource Include="Resources\21_rar_32.ico" />
+    <EmbeddedResource Include="Resources\22_gz_32.ico" />
+    <EmbeddedResource Include="Resources\23_tgz_32.ico" />
+    <EmbeddedResource Include="Resources\24_cab_32.ico" />
+    <EmbeddedResource Include="Resources\30_bmp_32.ico" />
+    <EmbeddedResource Include="Resources\31_gif_32.ico" />
+    <EmbeddedResource Include="Resources\32_jpeg_32.ico" />
+    <EmbeddedResource Include="Resources\33_jpg_32.ico" />
+    <EmbeddedResource Include="Resources\34_png_32.ico" />
+    <EmbeddedResource Include="Resources\40_rm_32.ico" />
+    <EmbeddedResource Include="Resources\41_rmvb_32.ico" />
+    <EmbeddedResource Include="Resources\42_mov_32.ico" />
+    <EmbeddedResource Include="Resources\43_mp4_32.ico" />
+    <EmbeddedResource Include="Resources\44_mpeg_32.ico" />
+    <EmbeddedResource Include="Resources\45_mpg_32.ico" />
+    <EmbeddedResource Include="Resources\46_flv_32.ico" />
+    <EmbeddedResource Include="Resources\47_swf_32.ico" />
+    <EmbeddedResource Include="Resources\50_dat_32.ico" />
+    <EmbeddedResource Include="Resources\51_doc_32.ico" />
+    <EmbeddedResource Include="Resources\52_docx_32.ico" />
+    <EmbeddedResource Include="Resources\53_eml_32.ico" />
+    <EmbeddedResource Include="Resources\54_ini_32.ico" />
+    <EmbeddedResource Include="Resources\55_log_32.ico" />
+    <EmbeddedResource Include="Resources\56_mdb_32.ico" />
+    <EmbeddedResource Include="Resources\57pdf_32.ico" />
+    <EmbeddedResource Include="Resources\58_ppt_32.ico" />
+    <EmbeddedResource Include="Resources\59_pptx_32.ico" />
+    <EmbeddedResource Include="Resources\60_psd_32.ico" />
+    <EmbeddedResource Include="Resources\61_rtf_32.ico" />
+    <EmbeddedResource Include="Resources\62_txt_32.ico" />
+    <EmbeddedResource Include="Resources\63_wps_32.ico" />
+    <EmbeddedResource Include="Resources\64_xls_32.ico" />
+    <EmbeddedResource Include="Resources\65_xlsx_32.ico" />
+    <EmbeddedResource Include="Resources\80_asa_32.ico" />
+    <EmbeddedResource Include="Resources\81_asp_32.ico" />
+    <EmbeddedResource Include="Resources\82_aspx_32.ico" />
+    <EmbeddedResource Include="Resources\83_c_32.ico" />
+    <EmbeddedResource Include="Resources\84_cpp_32.ico" />
+    <EmbeddedResource Include="Resources\85_cs.ico" />
+    <EmbeddedResource Include="Resources\86_h_32.ico" />
+    <EmbeddedResource Include="Resources\87_htm_32.ico" />
+    <EmbeddedResource Include="Resources\88_html_32.ico" />
+    <EmbeddedResource Include="Resources\89_jar_32.ico" />
+    <EmbeddedResource Include="Resources\90_php_32.ico" />
+    <EmbeddedResource Include="Resources\91_ruby_32.ico" />
+    <EmbeddedResource Include="Resources\92_sln_32.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\$(TargetName)
+copy $(TargetPath) $(SolutionDir)..\Build\Plugins\$(TargetName)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

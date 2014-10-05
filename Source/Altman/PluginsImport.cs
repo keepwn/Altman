@@ -6,7 +6,7 @@ namespace Altman.Desktop
 {
     public class PluginsImport
     {
-        [ImportMany(typeof(IPlugin), RequiredCreationPolicy = CreationPolicy.NonShared, AllowRecomposition = true)]
+		[ImportMany(typeof(IPlugin), AllowRecomposition = true)]
         public IEnumerable<IPlugin> Plugins = null;
     }
 }

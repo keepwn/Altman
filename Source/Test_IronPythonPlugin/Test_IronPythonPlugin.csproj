@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}</ProjectGuid>
+    <ProjectGuid>{B04F9AE9-4144-44B4-A730-85105E6FBA7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PluginFramework</RootNamespace>
-    <AssemblyName>PluginFramework</AssemblyName>
+    <RootNamespace>Plugin_IronPythonPluginTest</RootNamespace>
+    <AssemblyName>Plugin_IronPythonPluginTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -24,28 +24,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\_Build\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -57,26 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IControlPlugin.cs" />
-    <Compile Include="IFormPlugin.cs" />
-    <Compile Include="IHostApp.cs" />
-    <Compile Include="IHostCore.cs" />
-    <Compile Include="IHostDb.cs" />
-    <Compile Include="IHostUi.cs" />
-    <Compile Include="IHost.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="IPluginInfo.cs" />
-    <Compile Include="IPluginSetting.cs" />
-    <Compile Include="ITest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
-      <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
-      <Name>AltmanUtil</Name>
-    </ProjectReference>
+    <Content Include="IronPythonPluginTest.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\Test
+copy IronPythonPluginTest.py $(SolutionDir)..\Build\Plugins\Test\IronPythonPluginTest.py</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

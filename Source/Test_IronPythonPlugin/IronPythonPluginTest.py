@@ -1,0 +1,65 @@
+﻿import clr
+clr.AddReference('PluginFramework')
+from PluginFramework import IPluginInfo,IPluginSetting,IControlPlugin
+import sys,os
+
+class PluginInfo(IPluginInfo):
+    @property
+    def Name(self):
+        return 'IronPythonPluginTest'
+    @property
+    def FileName(self):
+        return os.path.realpath(sys.path[0])
+    @property
+    def Version(self):
+        return '1.0' 
+    @property
+    def Author(self):
+        return 'Keepwn'
+    @property
+    def Description(self):
+        return 'this is a ironpython plugin demo.'
+
+class PluginSetting(IPluginSetting):
+    @property
+    def IsAutoLoad(self):
+        return False
+    @property
+    def IsNeedShellData(self):
+        return False
+    @property
+    def IsShowInRightContext(self):
+        return True
+    @property
+    def IndexInList(self):
+        return 1
+    @property
+    def LoadPath(self):
+        return 'webshell'
+
+@export(IPlugin)
+class Plugin(IControlPlugin):
+    def __init__(self):
+        self.userControl = None
+        self.pluginInfo = PluginInfo()
+        self.pluginSetting = PluginSetting()
+
+    @import_one(IHost)
+    def import_host(self, host):
+        self.host = host
+
+    @property
+    def PluginInfo(self):
+        return self.pluginInfo
+    
+    @property
+    def PluginSetting(self):
+        return self.pluginSetting
+
+    def GetUi(self, shell):
+        #self._userControl = MyFirstPlugin(_host,data)
+        #return self._userControl
+        pass
+
+    def Dispose(self):
+        self.userControl = None

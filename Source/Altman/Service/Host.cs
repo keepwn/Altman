@@ -1,4 +1,6 @@
-﻿using Altman.Desktop.Forms;
+﻿using System.ComponentModel.Composition;
+using Altman.Desktop.Forms;
+using Eto.Forms;
 using PluginFramework;
 
 namespace Altman.Desktop.Service
@@ -29,7 +31,7 @@ namespace Altman.Desktop.Service
         private IHostUi _ui;
         private IHostDb _database;
 
-        public Host(FormMain mainForm)
+		public Host(FormMain mainForm)
         {
             _app = new App();
             _core = new Core(mainForm);

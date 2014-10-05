@@ -5,17 +5,17 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Desktop", "Altman\Altman.Desktop.csproj", "{C8B447F9-E4D2-4D79-94F9-74582509E6E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstPlugin", "Plugin\MyFirstPlugin\MyFirstPlugin.csproj", "{73257C27-0D95-471E-92DA-704D0012F83F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_DoNetPlugin", "Test_DoNetPlugin\Test_DoNetPlugin.csproj", "{73257C27-0D95-471E-92DA-704D0012F83F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellCmder", "Plugin\Plugin_ShellCmder\Plugin_ShellCmder.csproj", "{A46AD8F1-CAEF-485A-A36C-4967671224BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellCmder", "Plugin_ShellCmder\Plugin_ShellCmder.csproj", "{A46AD8F1-CAEF-485A-A36C-4967671224BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_FileManager", "Plugin\Plugin_FileManager\Plugin_FileManager.csproj", "{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_FileManager", "Plugin_FileManager\Plugin_FileManager.csproj", "{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_DbManager", "Plugin\Plugin_DbManager\Plugin_DbManager.csproj", "{70100E00-8921-4B78-9EEA-5326F8D0352E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_DbManager", "Plugin_DbManager\Plugin_DbManager.csproj", "{70100E00-8921-4B78-9EEA-5326F8D0352E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_PluginManager", "Plugin\Plugin_PluginManager\Plugin_PluginManager.csproj", "{3BBF7451-1844-40EA-9661-1E95D22D411F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_PluginManager", "Plugin_PluginManager\Plugin_PluginManager.csproj", "{3BBF7451-1844-40EA-9661-1E95D22D411F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellManager", "Plugin\Plugin_ShellManager\Plugin_ShellManager.csproj", "{F813E48D-D2FD-4A58-A039-C847DE92AFC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ShellManager", "Plugin_ShellManager\Plugin_ShellManager.csproj", "{F813E48D-D2FD-4A58-A039-C847DE92AFC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginFramework", "PluginFramework\PluginFramework.csproj", "{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}"
 EndProject
@@ -30,6 +30,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Mac", "Altman.Mac\Altman.Mac.csproj", "{5CE03A63-03F0-4FA3-8E4D-20C0D2CC178E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltmanMef", "AltmanMef\AltmanMef.csproj", "{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_IronPythonCollection", "Plugin_IronPythonCollection\Plugin_IronPythonCollection.csproj", "{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C734A6D6-27EC-42E6-83F1-40C34C746519}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_IronPythonPlugin", "Test_IronPythonPlugin\Test_IronPythonPlugin.csproj", "{B04F9AE9-4144-44B4-A730-85105E6FBA7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +108,7 @@ Global
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Debug|x86.ActiveCfg = Debug|x86
+		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Debug|x86.Build.0 = Debug|x86
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -114,6 +123,7 @@ Global
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|x86.ActiveCfg = Debug|x86
+		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Debug|x86.Build.0 = Debug|x86
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70100E00-8921-4B78-9EEA-5326F8D0352E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -128,6 +138,7 @@ Global
 		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|x86.ActiveCfg = Debug|x86
+		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Debug|x86.Build.0 = Debug|x86
 		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BBF7451-1844-40EA-9661-1E95D22D411F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -243,17 +254,67 @@ Global
 		{5CE03A63-03F0-4FA3-8E4D-20C0D2CC178E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5CE03A63-03F0-4FA3-8E4D-20C0D2CC178E}.Release|x86.ActiveCfg = Release|Any CPU
 		{5CE03A63-03F0-4FA3-8E4D-20C0D2CC178E}.Release|x86.Build.0 = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Debug|x86.Build.0 = Debug|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}.Release|x86.ActiveCfg = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Debug|x86.Build.0 = Debug|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{73257C27-0D95-471E-92DA-704D0012F83F} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{73257C27-0D95-471E-92DA-704D0012F83F} = {C734A6D6-27EC-42E6-83F1-40C34C746519}
 		{A46AD8F1-CAEF-485A-A36C-4967671224BE} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
 		{0F1AD89A-3B01-4BBE-A1F0-93A7FE9C34D8} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
 		{70100E00-8921-4B78-9EEA-5326F8D0352E} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
 		{3BBF7451-1844-40EA-9661-1E95D22D411F} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
 		{F813E48D-D2FD-4A58-A039-C847DE92AFC7} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{C734A6D6-27EC-42E6-83F1-40C34C746519} = {A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}
+		{B04F9AE9-4144-44B4-A730-85105E6FBA7C} = {C734A6D6-27EC-42E6-83F1-40C34C746519}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Altman.Mac\Altman.Mac.csproj

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,8 +10,10 @@ using System.Reflection;
 using Altman.Desktop.Resources;
 using Altman.Desktop.Service;
 using Altman.Model;
+using AltmanMef;
 using Eto.Drawing;
 using Eto.Forms;
+using IronPython.Hosting;
 using PluginFramework;
 
 namespace Altman.Desktop.Forms
@@ -21,7 +24,6 @@ namespace Altman.Desktop.Forms
 		private CompositionContainer _container;
 
 		private IHost _host;
-
 
 		private ButtonMenuItem _pluginsMenuItem;
 		private TabControl _tabControl;
@@ -108,16 +110,47 @@ namespace Altman.Desktop.Forms
 		private bool Compose()
 		{
 			var success = false;
+			var pluginDir = AppEnvironment.AppPluginPath;
+
+			// load .py && .dll plugins
+			var pythonFiles = new List<FileInfo>();
 			var catalog = new AggregateCatalog();
-			catalog.Catalogs.Add(new DirectoryCatalog(AppEnvironment.AppPluginPath));
-			foreach (var dir in Directory.EnumerateDirectories(AppEnvironment.AppPluginPath))
+			//catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+			catalog.Catalogs.Add(new DirectoryCatalog(pluginDir));
+			foreach (var dir in Directory.EnumerateDirectories(pluginDir))
 			{
-				catalog.Catalogs.Add(new DirectoryCatalog(dir));
+				var dirInfo = new DirectoryInfo(dir);
+				// add .py
+				var file = dirInfo.GetFiles("*.py");
+				pythonFiles.AddRange(file);
+				// add .dll
+				catalog.Catalogs.Add(new DirectoryCatalog(dir, "*.dll"));
 			}
 			_container = new CompositionContainer(catalog);
+
+			// create python
+			var engine = Python.CreateEngine();
+			//var paths = engine.GetSearchPaths();
+			//paths.Add(AppEnvironment.AppPath);
+			//engine.SetSearchPaths(paths);
+
+			// configure the engine with types
+			var typesYouWantPythonToHaveAccessTo = new[] { typeof(IPlugin), typeof(IHost) };
+			var typeExtractor = new ExtractTypesFromScript(engine);
+			// add parts
+			var parts = new List<ComposablePart>();
+			foreach (var py in pythonFiles)
+			{
+				var script = engine.CreateScriptSourceFromFile(py.FullName);
+				var exports = typeExtractor.GetPartsFromScript(script, typesYouWantPythonToHaveAccessTo);
+				parts.AddRange(exports);
+			}
+			var batch = new CompositionBatch(parts, new ComposablePart[] { });
+
 			try
 			{
-				_container.ComposeExportedValue("IHost", _host);
+				_container.ComposeExportedValue(_host);
+				_container.Compose(batch);
 				_container.ComposeParts(_pluginsImport);
 				success = true;
 			}
@@ -132,6 +165,7 @@ namespace Altman.Desktop.Forms
 			}
 			return success;
 		}
+
 		/// <summary>
 		/// 卸载插件
 		/// </summary>
