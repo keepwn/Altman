@@ -26,7 +26,7 @@ namespace Test_DoNetPlugin
 
         public string LoadPath
         {
-            get { return "webshell"; }
+            get { return "test"; }
         }
     }
 }

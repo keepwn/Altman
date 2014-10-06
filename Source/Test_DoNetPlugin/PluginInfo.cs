@@ -23,7 +23,7 @@ namespace Test_DoNetPlugin
         }
         public string Description
         {
-            get { return "Info about this my first plugin"; }
+			get { return "this is a .net plugin demo."; }
         }
     }
 }

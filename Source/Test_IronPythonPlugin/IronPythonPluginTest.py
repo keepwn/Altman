@@ -9,7 +9,7 @@ class PluginInfo(IPluginInfo):
         return 'IronPythonPluginTest'
     @property
     def FileName(self):
-        return os.path.realpath(sys.path[0])
+        return 'IronPythonPluginTest.py'
     @property
     def Version(self):
         return '1.0' 
@@ -35,7 +35,7 @@ class PluginSetting(IPluginSetting):
         return 1
     @property
     def LoadPath(self):
-        return 'webshell'
+        return 'test'
 
 @export(IPlugin)
 class Plugin(IControlPlugin):

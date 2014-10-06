@@ -237,7 +237,6 @@ namespace Altman.Desktop.Forms
 		{
 			//clear PluginsMenuItem
 			//_pluginsMenuItem.Items.Clear();
-
 			foreach (var plugin in plugins)
 			{
 				string title = plugin.PluginInfo.Name;
