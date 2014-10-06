@@ -10,20 +10,17 @@ using PluginFramework;
 
 namespace Plugin_ShellManager
 {
-	public class ShellManagerControl : Panel
+	public partial class ShellManagerPanel : Panel
 	{
 		private IHost _host;
 		private Shell _shellData;
 		private ShellManagerService _shellManagerService = null;
 
-
-		private ContextMenu rightMenu_Webshell;
-		private GridView lv_shell;
 		/*
 		private ToolStripMenuItem item_refreshStatus;
 		private ToolStripMenuItem item_copyServerCode;
 		*/
-		public ShellManagerControl(IHost host, Shell data)
+		public ShellManagerPanel(IHost host, Shell data)
 		{
 			Init();
 
@@ -49,33 +46,34 @@ namespace Plugin_ShellManager
 					string title = plugin.PluginInfo.Name;
 
 					//添加到Tsmi_Plugins中
+					/*
 					var pluginCommand = new Command();
 					pluginCommand.ID = title;
 					pluginCommand.MenuText = title;
 					pluginCommand.Tag = plugin;
 					pluginCommand.Executed += pluginCommand_Executed;
-					/*
+					*/
 					var pluginItem = new ButtonMenuItem();
 					pluginItem.ID = title;
 					pluginItem.Text = title;
 					pluginItem.Click += pluginItem_Click;
-					pluginItem. = plugin;
-					 */
-					rightMenu_Webshell.Items.Add(pluginCommand);
+					pluginItem.Tag = plugin;
+
+					_rightMenuWebshell.Items.Add(pluginItem);
 				}
 			}
 		}
 
-		void pluginCommand_Executed(object sender, EventArgs e)
+		void pluginItem_Click(object sender, EventArgs e)
 		{
-			if (lv_shell.SelectedItems.Any())
+			if (_gridViewShell.SelectedItems.Any())
 			{
-				var item = sender as Command;
+				var item = sender as MenuItem;
 				if (item != null)
 				{
 					IPlugin plugin = item.Tag as IPlugin;
 
-					Shell shell = (Shell)lv_shell.SelectedItem;
+					Shell shell = (Shell)_gridViewShell.SelectedItem;
 					shell.TimeOut = 8000;
 
 					if (plugin is IControlPlugin)
@@ -93,130 +91,6 @@ namespace Plugin_ShellManager
 					}
 				}
 			}
-		}
-		void Init()
-		{
-			//rightMenu_Webshell
-			rightMenu_Webshell = new ContextMenu();
-
-			var item_add = new ButtonMenuItem {ID="menuitemAdd", Text = "Add" };
-			item_add.Click += item_add_Click;
-			var item_edit = new ButtonMenuItem { Text = "Edit" };
-			item_edit.Click += item_edit_Click;
-			var item_delete = new ButtonMenuItem { Text = "Delete" };
-			item_delete.Click += item_delete_Click;
-			rightMenu_Webshell.Items.Add(item_add);
-			rightMenu_Webshell.Items.Add(item_edit);
-			rightMenu_Webshell.Items.Add(item_delete);
-			rightMenu_Webshell.Items.Add(new SeparatorMenuItem());
-
-			//lv_shell
-			lv_shell = CreateListView();
-			lv_shell.ContextMenu = rightMenu_Webshell;
-			lv_shell.MouseUp += (sender, e) =>
-			{
-				if (e.Buttons == MouseButtons.Alternate)
-				{
-					lv_shell.ContextMenu.Show(lv_shell);
-				}
-			};
-
-			var layout = new DynamicLayout { Padding = new Padding(0), Spacing = new Size(10, 10) };
-			layout.Add(lv_shell);
-
-			//this.ContextMenu = rightMenu_Webshell;
-			this.Content = layout;
-		}
-
-		GridView CreateListView()
-		{
-			//_gridViewHeader
-			var gridView = new GridView()
-			{
-				AllowMultipleSelection = false,
-				BackgroundColor = Colors.White,
-				ShowCellBorders = false,
-			};
-			//Id
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "Id",
-				DataCell = new TextBoxCell("Id"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = true
-			});
-			//Name
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "Name",
-				DataCell = new TextBoxCell("TargetId"),
-				Editable = true,
-				Sortable = true,
-				AutoSize = false,
-				Width = 100
-			});
-			//Level
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "Level",
-				DataCell = new TextBoxCell("TargetLevel"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = false,
-				Width = 50
-			});
-			//Status
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "Status",
-				DataCell = new TextBoxCell("Status"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = false,
-				Width = 50
-			});
-			//ShellUrl
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "ShellUrl",
-				DataCell = new TextBoxCell("ShellUrl"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = false,
-				Width = 250
-			});
-			//Type
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "Type",
-				DataCell = new TextBoxCell("ShellType"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = false,
-				Width = 100
-			});
-			//Remark
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "Remark",
-				DataCell = new TextBoxCell("Remark"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = false,
-				Width = 100
-			});
-			//AddTime
-			gridView.Columns.Add(new GridColumn
-			{
-				HeaderText = "AddTime",
-				DataCell = new TextBoxCell("AddTime"),
-				Editable = false,
-				Sortable = true,
-				AutoSize = false,
-				Width = 100
-			});
-			return gridView;
 		}
 
 		private Shell ConvertDataRowToShellStruct(DataRow row)
@@ -241,7 +115,6 @@ namespace Plugin_ShellManager
 
 			return shell;
 		}
-
 
 		public class ShellDataView : Shell
 		{
@@ -269,7 +142,6 @@ namespace Plugin_ShellManager
 			}
 		}
 
-
 		/// <summary>
 		/// 载入webshell数据
 		/// </summary>
@@ -287,7 +159,7 @@ namespace Plugin_ShellManager
 				item.Add(shell);
 			}
 
-			lv_shell.DataStore = item;
+			_gridViewShell.DataStore = item;
 		}
 
 		#region 数据获取/插入/删除/更新事件
@@ -335,9 +207,9 @@ namespace Plugin_ShellManager
 		}
 		private void item_edit_Click(object sender, EventArgs e)
 		{
-			if (lv_shell.SelectedItems.Any())
+			if (_gridViewShell.SelectedItems.Any())
 			{
-				Shell shell = (Shell)lv_shell.SelectedItem;
+				Shell shell = (Shell)_gridViewShell.SelectedItem;
 
 				FormEditWebshell editwebshell = new FormEditWebshell(_host, shell);
 				editwebshell.WebshellWatchEvent += OnWebshellChange;
@@ -346,9 +218,9 @@ namespace Plugin_ShellManager
 		}
 		private void item_delete_Click(object sender, EventArgs e)
 		{
-			if (lv_shell.SelectedItems.Any())
+			if (_gridViewShell.SelectedItems.Any())
 			{
-				int id = int.Parse(((Shell)lv_shell.SelectedItem).Id);
+				int id = int.Parse(((Shell)_gridViewShell.SelectedItem).Id);
 				_shellManagerService.Delete(id);
 				LoadWebshellData();
 			}
@@ -356,15 +228,14 @@ namespace Plugin_ShellManager
 		#endregion
 
 		#region 批量检测shell状态
-		private void item_refreshStatus_Click(object sender, EventArgs e)
+		void _itemRefreshStatus_Click(object sender, EventArgs e)
 		{
 			RefreshAllStatus();
 		}
 		private void RefreshAllStatus()
 		{
-			if (lv_shell.DataStore == null)
-				return;
-			foreach (var item in lv_shell.DataStore as DataStoreCollection)
+			if (_gridViewShell.DataStore == null) return;
+			foreach (var item in _gridViewShell.DataStore as DataStoreCollection)
 			{
 				Thread thread = new Thread(RefreshStatus);
 				thread.Start(item);
@@ -401,59 +272,45 @@ namespace Plugin_ShellManager
 			}
 			if (myResponse == null)
 			{
-				//RefreshShellStatusInListView(item, "-1");
+				RefreshShellStatusInListView(shell, "-1");
 			}
 			else
 			{
-				//RefreshShellStatusInListView(item, Convert.ToInt32(myResponse.StatusCode).ToString());
+				RefreshShellStatusInListView(shell, Convert.ToInt32(myResponse.StatusCode).ToString());
 			}
 		}
 
-		//public delegate void RefreshShellStatusInvoke(ListViewItem item, string status);
-		//private void RefreshShellStatusInListView(ListViewItem item, string status)
-		//{
-		//    //等待异步
-		//    if (this.InvokeRequired)
-		//    {
-		//        RefreshShellStatusInvoke invoke = new RefreshShellStatusInvoke(RefreshShellStatusInListView);
-		//        this.Invoke(invoke, new object[] { item, status });
-		//    }
-		//    else
-		//    {
-		//        item.SubItems[4].Text = status;
-
-		//        Shell shell = (Shell)item.Tag;
-		//        shell.Status = status;
-		//        _shellManagerService.Update(int.Parse(shell.Id), shell);
-		//    }
-		//}
+		private void RefreshShellStatusInListView(Shell item, string status)
+		{
+			item.Status = status;
+			_shellManagerService.Update(int.Parse(item.Id), item);
+		}
 		#endregion
 
-		private void lv_shell_MouseDoubleClick(object sender, MouseEventArgs e)
+		void _gridViewShell_CellDoubleClick(object sender, GridViewCellEventArgs e)
 		{
-			if (lv_shell.SelectedItems.Any())
+			if (_gridViewShell.SelectedItems.Any())
 			{
 				//如果存在FileManager插件，则双击进入FileManager
-				if (rightMenu_Webshell.Items.Any(item => item.Text == "FileManager"))
+				var item = _rightMenuWebshell.Items.FirstOrDefault(i => i.ID == "FileManager");
+				if (item != null)
 				{
-					//ToolStripItem item = rightMenu_Webshell.Items["FileManager"];
-					//pluginItem_Click(item, null);
+					pluginItem_Click(item, null);
 				}
 			}
 		}
 
-		private void item_copyServerCode_Click(object sender, EventArgs e)
+		void _itemCopyServerCode_Click(object sender, EventArgs e)
 		{
-			if (lv_shell.SelectedItems.Any())
+			if (_gridViewShell.SelectedItems.Any())
 			{
-				var shell = lv_shell.SelectedItem as Shell;
+				var shell = _gridViewShell.SelectedItem as Shell;
 				string code = _host.Core.GetCustomShellTypeServerCode(shell.ShellType);
 
 				if (string.IsNullOrWhiteSpace(code))
 				{
-					MessageBox.Show("ServerCode is NUll!");
+					MessageBox.Show("ServerCode is NULL!");
 				}
-				//Clipboard.SetDataObject(code);
 				new Clipboard().Text = code;
 			}
 		}

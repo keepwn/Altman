@@ -33,7 +33,7 @@ namespace Plugin_ShellManager
 
         public object GetUi(Shell data)
         {
-            return _userControl = new ShellManagerControl(_host, data);
+            return _userControl = new ShellManagerPanel(_host, data);
         }
 
         public void Dispose()

@@ -63,8 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PluginSetting.cs" />
+    <Compile Include="ShellManagerPanel.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="ShellManagerService.cs" />
-    <Compile Include="ShellManagerControl.cs">
+    <Compile Include="ShellManagerPanel.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="FormEditWebshell.cs">
@@ -78,14 +81,8 @@
     <EmbeddedResource Include="FormEditWebshell.zh-CN.resx">
       <DependentUpon>FormEditWebshell.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ShellManagerControl.resx">
-      <DependentUpon>ShellManagerControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormEditWebshell.resx">
       <DependentUpon>FormEditWebshell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ShellManagerControl.zh-CN.resx">
-      <DependentUpon>ShellManagerControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
