@@ -19,13 +19,13 @@ namespace Plugin_ShellManager
 			_itemCopyServerCode.Click += _itemCopyServerCode_Click;
 			//_itemAdd
 			_itemAdd = new ButtonMenuItem { Text = "Add" };
-			_itemAdd.Click += item_add_Click;
+			_itemAdd.Click += _itemAdd_Click;
 			//_itemEdit
 			_itemEdit = new ButtonMenuItem { Text = "Edit" };
-			_itemEdit.Click += item_edit_Click;
+			_itemEdit.Click += _itemEdit_Click;
 			//_itemDelete
 			_itemDelete = new ButtonMenuItem { Text = "Delete" };
-			_itemDelete.Click += item_delete_Click;
+			_itemDelete.Click += _itemDelete_Click;
 
 			//rightMenu_Webshell
 			_rightMenuWebshell = new ContextMenu();

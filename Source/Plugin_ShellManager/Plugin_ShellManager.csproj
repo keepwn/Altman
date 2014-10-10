@@ -62,7 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormEditWebshell.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Share\IniElement.cs" />
+    <Compile Include="Share\Ini.cs" />
+    <Compile Include="Share\IniSettings.cs" />
     <Compile Include="PluginSetting.cs" />
+    <Compile Include="Model\ShellDataView.cs" />
+    <Compile Include="ShellExtraStringHandle.cs" />
     <Compile Include="ShellManagerPanel.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
@@ -78,14 +86,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormEditWebshell.zh-CN.resx">
-      <DependentUpon>FormEditWebshell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormEditWebshell.resx">
-      <DependentUpon>FormEditWebshell.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
       <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
       <Name>AltmanUtil</Name>
@@ -95,6 +95,7 @@
       <Name>PluginFramework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\$(TargetName)

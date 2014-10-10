@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 using Altman.Model;
 using Eto.Drawing;
@@ -15,21 +16,6 @@ namespace Plugin_ShellManager
 
         private IHost _host;
         private ShellManagerService _shellManagerService = null;
-
-
-	    private Button _buttonAdvanced;
-        private Button _buttonAdd;
-        private Button _buttonAlter;
-        private TextBox _textBoxName;
-		private ComboBox _comboBoxLevel;
-        private TextBox _textBoxShellPath;
-        private TextBox _textBoxShellPass;
-        private TextArea _richTextBoxSetting;
-        private TextBox _textBoxRemark;
-        private ComboBox _comboBoxScritpType;
-        private ComboBox _comboBoxServerCoding;
-        private ComboBox _comboBoxWebCoding;
-        private Splitter _p12;
 
         public FormEditWebshell(IHost host)
         {
@@ -59,116 +45,59 @@ namespace Plugin_ShellManager
             ComboBox_ScriptType_Init();
 			comboBox_IniType_Init();
 
-            this._buttonAdd.Enabled = false;
-            this._buttonAlter.Enabled = true;
+            _buttonAdd.Enabled = false;
+            _buttonAlter.Enabled = true;
 
             this.Id = shellArray.Id;
-            this._textBoxName.Text = shellArray.TargetId;
-            this._comboBoxLevel.Items.Add(shellArray.TargetLevel);
+            _textBoxName.Text = shellArray.TargetId;
+            _comboBoxLevel.Items.Add(shellArray.TargetLevel);
+			_comboBoxScritpType.SelectedKey = shellArray.ShellType;
 
-            this._textBoxShellPath.Text = shellArray.ShellUrl;
-            this._textBoxShellPass.Text = shellArray.ShellPwd;
+            _textBoxShellPath.Text = shellArray.ShellUrl;
+            _textBoxShellPass.Text = shellArray.ShellPwd;
 
-            this._richTextBoxSetting.Text = shellArray.ShellExtraString;
+            _textBoxRemark.Text = shellArray.Remark;
 
-            this._textBoxRemark.Text = shellArray.Remark;
+	        if (_comboBoxServerCoding.Items.FirstOrDefault(r => r.Key == shellArray.ServerCoding) == null)
+	        {
+				_comboBoxServerCoding.Items.Add(shellArray.ServerCoding);
+	        }
+			_comboBoxServerCoding.SelectedKey = shellArray.ServerCoding;
 
-            this._comboBoxScritpType.SelectedKey = shellArray.ShellType;
-            this._comboBoxServerCoding.Items.Add(shellArray.ServerCoding);
-            this._comboBoxWebCoding.Items.Add(shellArray.WebCoding);          
+	        if (_comboBoxWebCoding.Items.FirstOrDefault(r => r.Key == shellArray.WebCoding) == null)
+	        {
+				_comboBoxWebCoding.Items.Add(shellArray.WebCoding);
+	        }
+			_comboBoxWebCoding.SelectedKey = shellArray.WebCoding;
+
+			_richTextBoxSetting.Text = shellArray.ShellExtraString;
         }
-
-        void Init()
-        {
-            _buttonAdd = new Button { Text = "Add" };
-            _buttonAdd.Click +=buttonAdd_Click;
-
-            _buttonAlter = new Button { Text = "Alter"};
-			_buttonAlter.Click += _buttonAlter_Click;
-
-	        _buttonAdvanced = new Button {Text = "Advanced"};
-			_buttonAdvanced.Click += _buttonAdvanced_Click;
-
-	        _textBoxName = new TextBox {PlaceholderText = "Name", Size = new Size(200, -1)};
-			_comboBoxLevel = new ComboBox { Size = new Size(50, -1), };
-            _comboBoxScritpType = new ComboBox { Size = new Size(120, -1) };
-			_textBoxShellPath = new TextBox { PlaceholderText = "Shell Url", Size = new Size(300, -1) };
-            _textBoxShellPass = new TextBox {PlaceholderText = "Pass" };
-            _richTextBoxSetting = new TextArea { Size = new Size(100, -1) };
-            _textBoxRemark = new TextBox {PlaceholderText = "Remark"};
-	        _comboBoxServerCoding = new ComboBox();
-	        _comboBoxWebCoding = new ComboBox();
-
-
-			var panel1 = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
-			panel1.BeginVertical();
-			panel1.BeginHorizontal();
-	        panel1.Add(_textBoxName, true);
-			panel1.Add(_comboBoxLevel);
-			panel1.Add(_comboBoxScritpType);
-			panel1.EndHorizontal();
-			panel1.EndVertical();
-
-			panel1.BeginVertical();
-			panel1.BeginHorizontal();
-			panel1.Add(_textBoxShellPath, true);
-            panel1.Add(_textBoxShellPass);
-			panel1.EndHorizontal();
-			panel1.EndVertical();
-	        
-	        panel1.AddRow(_textBoxRemark);
-
-			panel1.BeginVertical();
-			panel1.BeginHorizontal();
-	        panel1.Add(null, true);
-			panel1.Add(_buttonAdd);
-			panel1.Add(_buttonAlter);
-			panel1.EndHorizontal();
-            panel1.Add(null);
-			panel1.EndVertical();
-			
-
-            var panel2 = new DynamicLayout();
-            panel2.AddRow(_richTextBoxSetting);
-            _p12 = new Splitter { Panel1 = panel1, Panel2 = panel2, Orientation = SplitterOrientation.Horizontal, Position=300};
-            _p12.Panel2.Visible = false;
-
-            var layout = new DynamicLayout{Padding=new Padding(5,5),Spacing=new Size(5,5)};
-            layout.AddRow(_p12);
-
-
-            Content = layout;
-            ClientSize = new Size(500,300);
-            Title = "Edit Shell";
-	        Icon = Application.Instance.MainForm.Icon;
-        }
+        
 
 		void _buttonAdvanced_Click(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			//_p12.Panel2.Visible = !_p12.Panel2.Visible;
+			_p12.Panel2.Visible = true;
+			_p12.Panel1.Visible = false;
 		}
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-			//_p12.Panel2.Visible = !_p12.Panel2.Visible;
-            //this.ClientSize = new Size(600, 200);
-			//this.Size = new Size(600, 200);
-
-            Shell shell = new Shell();
+            var shell = new Shell();
 
             shell.Id = this.Id;
-            shell.TargetId = this._textBoxName.Text.Trim();
-            shell.TargetLevel = this._comboBoxLevel.SelectedKey.Trim();
+            shell.TargetId = _textBoxName.Text.Trim();
+            shell.TargetLevel = _comboBoxLevel.SelectedKey.Trim();
 
-            shell.ShellUrl = this._textBoxShellPath.Text.Trim();
-            shell.ShellPwd = this._textBoxShellPass.Text.Trim();
+            shell.ShellUrl = _textBoxShellPath.Text.Trim();
+            shell.ShellPwd = _textBoxShellPass.Text.Trim();
 
-            shell.ShellExtraString = this._richTextBoxSetting.Text.Trim();
-            shell.Remark = this._textBoxRemark.Text.Trim();
+            shell.ShellExtraString = _richTextBoxSetting.Text.Trim();
+            shell.Remark = _textBoxRemark.Text.Trim();
 
-            shell.ShellType = this._comboBoxScritpType.SelectedKey.Trim();
-            shell.ServerCoding = this._comboBoxServerCoding.SelectedKey.Trim();
-            shell.WebCoding = this._comboBoxWebCoding.SelectedKey.Trim();
+            shell.ShellType = _comboBoxScritpType.SelectedKey.Trim();
+            shell.ServerCoding = _comboBoxServerCoding.SelectedKey.Trim();
+            shell.WebCoding = _comboBoxWebCoding.SelectedKey.Trim();
 
             string time = DateTime.Now.Date.ToShortDateString();
             if (time.Contains("/"))
@@ -187,21 +116,21 @@ namespace Plugin_ShellManager
         }
 		private void _buttonAlter_Click(object sender, EventArgs e)
         {
-            Shell shell = new Shell();
+            var shell = new Shell();
 
             shell.Id = this.Id;
-            shell.TargetId = this._textBoxName.Text.Trim();
-            shell.TargetLevel = this._comboBoxLevel.SelectedKey.Trim();
+            shell.TargetId = _textBoxName.Text.Trim();
+            shell.TargetLevel = _comboBoxLevel.SelectedKey.Trim();
 
-            shell.ShellUrl = this._textBoxShellPath.Text.Trim();
-            shell.ShellPwd = this._textBoxShellPass.Text.Trim();
+            shell.ShellUrl = _textBoxShellPath.Text.Trim();
+            shell.ShellPwd = _textBoxShellPass.Text.Trim();
 
-            shell.ShellExtraString = this._richTextBoxSetting.Text.Trim();
-            shell.Remark = this._textBoxRemark.Text.Trim();
+            shell.ShellExtraString = _richTextBoxSetting.Text.Trim();
+            shell.Remark = _textBoxRemark.Text.Trim();
 
-            shell.ShellType = this._comboBoxScritpType.SelectedKey.Trim();
-            shell.ServerCoding = this._comboBoxServerCoding.SelectedKey.Trim();
-            shell.WebCoding = this._comboBoxWebCoding.SelectedKey.Trim();
+            shell.ShellType = _comboBoxScritpType.SelectedKey.Trim();
+            shell.ServerCoding = _comboBoxServerCoding.SelectedKey.Trim();
+            shell.WebCoding = _comboBoxWebCoding.SelectedKey.Trim();
 
             string time = DateTime.Now.Date.ToShortDateString();
             if (time.Contains("/"))

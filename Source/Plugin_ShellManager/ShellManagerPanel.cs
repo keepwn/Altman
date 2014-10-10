@@ -16,10 +16,6 @@ namespace Plugin_ShellManager
 		private Shell _shellData;
 		private ShellManagerService _shellManagerService = null;
 
-		/*
-		private ToolStripMenuItem item_refreshStatus;
-		private ToolStripMenuItem item_copyServerCode;
-		*/
 		public ShellManagerPanel(IHost host, Shell data)
 		{
 			Init();
@@ -116,32 +112,6 @@ namespace Plugin_ShellManager
 			return shell;
 		}
 
-		public class ShellDataView : Shell
-		{
-			//public string ID;//用于定位listview
-			public ShellDataView(Shell shell)
-			{
-				this.Id = shell.Id;
-				this.TargetId = shell.TargetId;
-				this.TargetLevel = shell.TargetLevel;
-				this.Status = shell.Status;
-
-				this.ShellUrl = shell.ShellUrl;
-				this.ShellPwd = shell.ShellPwd;
-				this.ShellType = shell.ShellType;
-				this.ShellExtraString = shell.ShellExtraString;
-
-				this.ServerCoding = shell.ServerCoding;
-				this.WebCoding = shell.WebCoding;
-
-				this.TimeOut = shell.TimeOut;
-
-				this.Area = shell.Area;
-				this.Remark = shell.Remark;
-				this.AddTime = shell.AddTime;
-			}
-		}
-
 		/// <summary>
 		/// 载入webshell数据
 		/// </summary>
@@ -199,13 +169,13 @@ namespace Plugin_ShellManager
 		{
 			LoadWebshellData();
 		}
-		private void item_add_Click(object sender, EventArgs e)
+		void _itemAdd_Click(object sender, EventArgs e)
 		{
-			FormEditWebshell editwebshell = new FormEditWebshell(_host);
+			var editwebshell = new FormEditWebshell(_host);
 			editwebshell.WebshellWatchEvent += OnWebshellChange;
 			editwebshell.Show();
 		}
-		private void item_edit_Click(object sender, EventArgs e)
+		void _itemEdit_Click(object sender, EventArgs e)
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
@@ -216,13 +186,27 @@ namespace Plugin_ShellManager
 				editwebshell.Show();
 			}
 		}
-		private void item_delete_Click(object sender, EventArgs e)
+		void _itemDelete_Click(object sender, EventArgs e)
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
 				int id = int.Parse(((Shell)_gridViewShell.SelectedItem).Id);
 				_shellManagerService.Delete(id);
 				LoadWebshellData();
+			}
+		}
+		void _itemCopyServerCode_Click(object sender, EventArgs e)
+		{
+			if (_gridViewShell.SelectedItems.Any())
+			{
+				var shell = _gridViewShell.SelectedItem as Shell;
+				string code = _host.Core.GetCustomShellTypeServerCode(shell.ShellType);
+
+				if (string.IsNullOrWhiteSpace(code))
+				{
+					MessageBox.Show("ServerCode is NULL!");
+				}
+				new Clipboard().Text = code;
 			}
 		}
 		#endregion
@@ -297,21 +281,6 @@ namespace Plugin_ShellManager
 				{
 					pluginItem_Click(item, null);
 				}
-			}
-		}
-
-		void _itemCopyServerCode_Click(object sender, EventArgs e)
-		{
-			if (_gridViewShell.SelectedItems.Any())
-			{
-				var shell = _gridViewShell.SelectedItem as Shell;
-				string code = _host.Core.GetCustomShellTypeServerCode(shell.ShellType);
-
-				if (string.IsNullOrWhiteSpace(code))
-				{
-					MessageBox.Show("ServerCode is NULL!");
-				}
-				new Clipboard().Text = code;
 			}
 		}
 	}

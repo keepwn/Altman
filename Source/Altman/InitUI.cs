@@ -63,7 +63,7 @@ namespace Altman.Desktop
             return CustomShellTypeProvider.ShellTypeStyleContainer.Keys.ToArray();
         }
         /// <summary>
-        /// 获取CustomShellType子节点的名字列表
+		/// 获取CustomShellType/DbManager子节点的Info列表
         /// </summary>
         /// <param name="shellTypeName"></param>
         /// <returns></returns>
