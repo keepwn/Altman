@@ -36,7 +36,7 @@ namespace Plugin_ShellCmder
             get { return _host; }
         }
 
-        public object GetUi(Shell data)
+        public object Load(PluginParameter data)
         {
             return _userControl = new ShellCmderControl(_host, data);
         }

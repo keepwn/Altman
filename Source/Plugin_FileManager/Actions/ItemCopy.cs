@@ -19,8 +19,8 @@ namespace Plugin_FileManager.Actions
 
 		void ItemCopy_Executed(object sender, EventArgs e)
 		{
-			FileInfo selected = null;
-			if ((selected = _status.FileGridView.SelectedItem as FileInfo)!=null)
+			FileInfoView selected = null;
+			if ((selected = _status.FileGridView.SelectedItem as FileInfoView)!=null)
 			{
 				_status.CopyFileFullPath = selected.FullName;
 				_status.CopyFileName = selected.Name;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -7,34 +8,39 @@ using Altman.Model;
 using Eto.Drawing;
 using Eto.Forms;
 using PluginFramework;
+using Plugin_ShellManager.Core;
+using Plugin_ShellManager.Data;
 
 namespace Plugin_ShellManager
 {
 	public partial class ShellManagerPanel : Panel
 	{
 		private IHost _host;
-		private Shell _shellData;
-		private ShellManagerService _shellManagerService = null;
+		//private Shell _shellData;
+		private ShellManager _shellManager = null;
 
-		public ShellManagerPanel(IHost host, Shell data)
+		public ShellManagerPanel(IHost host, PluginParameter data)
 		{
+			this._host = host;
+
+			//Init
+			InitWorker.InitCustomShellType(Path.Combine(_host.App.AppCurrentDir,"CustomType"));
+			new ShellManagerService().RegisterService();
+
 			Init();
 
-			this._host = host;
-			this._shellData = data;
-
 			//注册事件
-			_shellManagerService = new ShellManagerService(_host);
-			_shellManagerService.GetDataTableCompletedToDo += ShellManagerServiceGetDataTableCompletedToDo;
-			_shellManagerService.DeleteCompletedToDo += ShellManagerServiceDeleteCompletedToDo;
-			_shellManagerService.InsertCompletedToDo += ShellManagerServiceInsertCompletedToDo;
-			_shellManagerService.UpdateCompletedToDo += ShellManagerServiceUpdateCompletedToDo;
+			_shellManager = new ShellManager(_host);
+			_shellManager.GetDataTableCompletedToDo += ShellManagerGetDataTableCompletedToDo;
+			_shellManager.DeleteCompletedToDo += ShellManagerDeleteCompletedToDo;
+			_shellManager.InsertCompletedToDo += ShellManagerInsertCompletedToDo;
+			_shellManager.UpdateCompletedToDo += ShellManagerUpdateCompletedToDo;
 
 			//载入shell数据
 			LoadWebshellData();
 
 			//添加插件到右键菜单
-			foreach (var plugin in host.Core.GetPlugins())
+			foreach (var plugin in PluginProvider.GetPlugins())
 			{
 				//IsShowInRightContext
 				if (plugin.PluginSetting.LoadPath == "webshell" && plugin.PluginSetting.IsShowInRightContext)
@@ -67,14 +73,17 @@ namespace Plugin_ShellManager
 				var item = sender as MenuItem;
 				if (item != null)
 				{
-					IPlugin plugin = item.Tag as IPlugin;
+					var plugin = item.Tag as IPlugin;
 
-					Shell shell = (Shell)_gridViewShell.SelectedItem;
+					var shell = (Shell)_gridViewShell.SelectedItem;
 					shell.TimeOut = 8000;
+
+					var param = new PluginParameter();
+					param.AddParameter("shell", shell);
 
 					if (plugin is IControlPlugin)
 					{
-						object view = (plugin as IControlPlugin).GetUi(shell);
+						object view = (plugin as IControlPlugin).Load(param);
 						//创建新的tab标签
 						//设置标题为FileManager|TargetId
 						string title = plugin.PluginInfo.Name + "|" + shell.TargetId;
@@ -82,34 +91,11 @@ namespace Plugin_ShellManager
 					}
 					else if (plugin is IFormPlugin)
 					{
-						Form form = (Form)(plugin as IFormPlugin).GetUi(shell);
+						var form = (Form)(plugin as IFormPlugin).Load(param);
 						form.Show();
 					}
 				}
 			}
-		}
-
-		private Shell ConvertDataRowToShellStruct(DataRow row)
-		{
-			Shell shell = new Shell();
-
-			shell.Id = row["id"].ToString();
-			shell.TargetId = row["target_id"].ToString();
-			shell.TargetLevel = row["target_level"].ToString();
-			shell.Status = row["status"].ToString();
-
-			shell.ShellUrl = row["shell_url"].ToString();
-			shell.ShellPwd = row["shell_pwd"].ToString();
-			shell.ShellType = row["shell_type"].ToString();
-			shell.ShellExtraString = row["shell_extra_setting"].ToString();
-			shell.ServerCoding = row["server_coding"].ToString();
-			shell.WebCoding = row["web_coding"].ToString();
-
-			shell.Area = row["area"].ToString();
-			shell.Remark = row["remark"].ToString();
-			shell.AddTime = row["add_time"].ToString();
-
-			return shell;
 		}
 
 		/// <summary>
@@ -117,7 +103,7 @@ namespace Plugin_ShellManager
 		/// </summary>
 		public void LoadWebshellData()
 		{
-			DataTable dataTable = _shellManagerService.GetDataTable();
+			DataTable dataTable = _shellManager.GetDataTable();
 			if (dataTable == null)
 			{
 				return;
@@ -125,7 +111,7 @@ namespace Plugin_ShellManager
 			var item = new DataStoreCollection();
 			foreach (DataRow row in dataTable.Rows)
 			{
-				Shell shell = ConvertDataRowToShellStruct(row);
+				Shell shell = DataConvert.ConvertDataRowToShellStruct(row);
 				item.Add(shell);
 			}
 
@@ -133,28 +119,28 @@ namespace Plugin_ShellManager
 		}
 
 		#region 数据获取/插入/删除/更新事件
-		private void ShellManagerServiceUpdateCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
+		private void ShellManagerUpdateCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
 		{
 			if (e.Error != null)
 			{
 				MessageBox.Show(e.Error.Message);
 			}
 		}
-		private void ShellManagerServiceInsertCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
+		private void ShellManagerInsertCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
 		{
 			if (e.Error != null)
 			{
 				MessageBox.Show(e.Error.Message);
 			}
 		}
-		private void ShellManagerServiceDeleteCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
+		private void ShellManagerDeleteCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
 		{
 			if (e.Error != null)
 			{
 				MessageBox.Show(e.Error.Message);
 			}
 		}
-		private void ShellManagerServiceGetDataTableCompletedToDo(object sender, ShellManagerService.CompletedEventArgs e)
+		private void ShellManagerGetDataTableCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
 		{
 			if (e.Error != null)
 			{
@@ -191,7 +177,7 @@ namespace Plugin_ShellManager
 			if (_gridViewShell.SelectedItems.Any())
 			{
 				int id = int.Parse(((Shell)_gridViewShell.SelectedItem).Id);
-				_shellManagerService.Delete(id);
+				_shellManager.Delete(id);
 				LoadWebshellData();
 			}
 		}
@@ -199,6 +185,7 @@ namespace Plugin_ShellManager
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
+				/*
 				var shell = _gridViewShell.SelectedItem as Shell;
 				string code = _host.Core.GetCustomShellTypeServerCode(shell.ShellType);
 
@@ -207,6 +194,7 @@ namespace Plugin_ShellManager
 					MessageBox.Show("ServerCode is NULL!");
 				}
 				new Clipboard().Text = code;
+				 */
 			}
 		}
 		#endregion
@@ -267,7 +255,7 @@ namespace Plugin_ShellManager
 		private void RefreshShellStatusInListView(Shell item, string status)
 		{
 			item.Status = status;
-			_shellManagerService.Update(int.Parse(item.Id), item);
+			_shellManager.Update(int.Parse(item.Id), item);
 		}
 		#endregion
 

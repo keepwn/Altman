@@ -6,7 +6,7 @@ using System.Text;
 using IronPython.Runtime.Types;
 using Microsoft.Scripting.Hosting;
 
-namespace AltmanMef
+namespace IPythonMef
 {
 	public class IronPythonTypeWrapper
 	{

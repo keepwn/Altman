@@ -52,7 +52,7 @@ namespace Plugin_ShellManager
 			var root = xmlDoc.CreateElement("root");
 			var ini = Ini.FromString(iniString);
 
-			foreach (var section in ini.sections)
+			foreach (var section in ini.Sections)
 			{
 				if (section.Comment != null)
 				{
@@ -81,6 +81,12 @@ namespace Plugin_ShellManager
 				root.AppendChild(node);
 			}
 			return root.InnerXml;
+		}
+
+		public static string[] GetShellSqlConnection(string extraString)
+		{
+			var ini = Ini.FromString(extraString);
+			return new[] { ini["SqlConnection"]["type"], ini["SqlConnection"]["conn"] };
 		}
 	}
 }

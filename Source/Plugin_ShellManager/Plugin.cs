@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using Altman.Model;
 using PluginFramework;
 
 namespace Plugin_ShellManager
@@ -31,7 +30,7 @@ namespace Plugin_ShellManager
             get { return _pluginSetting; }
         }
 
-        public object GetUi(Shell data)
+        public object Load(PluginParameter data)
         {
             return _userControl = new ShellManagerPanel(_host, data);
         }

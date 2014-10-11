@@ -76,7 +76,7 @@ namespace Altman.Desktop.Forms
             layout.AddRow(_radioButtonCustomProxy);
 
 
-            var layout2 = new DynamicLayout { Padding = new Padding(20, 5), Spacing = new Size(5, 5) };
+            var layout2 = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(5, 5) };
             layout2.AddRow(new Label { Text = "Server: " }, TableLayout.AutoSized(_textBoxProxyAddr));
             layout2.AddRow(new Label { Text = "Port: " }, TableLayout.AutoSized(_textBoxProxyPort));
             layout2.AddRow(new Label { Text = "User: " }, TableLayout.AutoSized(_textBoxProxyUser));

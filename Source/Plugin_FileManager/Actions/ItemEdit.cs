@@ -19,11 +19,11 @@ namespace Plugin_FileManager.Actions
 
 		void ItemEdit_Executed(object sender, EventArgs e)
 		{
-			var selectFile =  _status.FileGridView.SelectedItem as FileInfo;
+			var selectFile =  _status.FileGridView.SelectedItem as FileInfoView;
 			if (selectFile != null && !selectFile.IsDir)
 			{
 				var webFile = selectFile.FullName;
-				var fileEditer = new FileEditerSection(_status.Host,_status.ShellData, webFile, true);
+				var fileEditer = new FileEditerPanel(_status.Host,_status.ShellData, webFile, true);
 				_status.Host.Ui.CreateNewTabPage("FileEdit", fileEditer);
 			}
 		}

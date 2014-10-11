@@ -62,19 +62,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\InitWorker.cs" />
+    <Compile Include="Data\DataConvert.cs" />
     <Compile Include="FormEditWebshell.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="Core\CustomCommandCode.cs" />
+    <Compile Include="Core\CustomShellType.cs" />
+    <Compile Include="Core\CustomShellTypeProvider.cs" />
+    <Compile Include="Core\CustomShellTypeXmlHandle.cs" />
+    <Compile Include="Core\EncryMode.cs" />
+    <Compile Include="Core\FuncTreeNode.cs" />
+    <Compile Include="Core\ShellExtra.cs" />
+    <Compile Include="Core\ShellExtraHandle.cs" />
+    <Compile Include="Core\XmlHelper.cs" />
     <Compile Include="Share\IniElement.cs" />
     <Compile Include="Share\Ini.cs" />
     <Compile Include="Share\IniSettings.cs" />
     <Compile Include="PluginSetting.cs" />
-    <Compile Include="Model\ShellDataView.cs" />
+    <Compile Include="Model\ShellView.cs" />
     <Compile Include="ShellExtraStringHandle.cs" />
     <Compile Include="ShellManagerPanel.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="ShellManagerService.cs" />
+    <Compile Include="ShellManager.cs" />
     <Compile Include="ShellManagerPanel.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
@@ -84,6 +95,7 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShellManagerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">

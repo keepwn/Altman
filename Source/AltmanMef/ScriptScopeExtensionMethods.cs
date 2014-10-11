@@ -5,7 +5,7 @@ using System.Text;
 using IronPython.Runtime;
 using Microsoft.Scripting.Hosting;
 
-namespace AltmanMef
+namespace IPythonMef
 {
 	public static class ScriptScopeExtensionMethods
 	{

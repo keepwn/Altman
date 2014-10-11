@@ -15,8 +15,8 @@ namespace Test_DoNetPlugin
         private Button btn_createNewTabPage;
 
         private IHost _host;
-        private Shell _shellData;
-        public DoNetPluginTest(IHost host, Shell data)
+		private PluginParameter _shellData;
+        public DoNetPluginTest(IHost host, PluginParameter data)
         {
             Init();
 
@@ -47,17 +47,14 @@ namespace Test_DoNetPlugin
         }
 
 
-        private void ShowShellTypeDataInLable(Shell data)
+		private void ShowShellTypeDataInLable(PluginParameter data)
         {
             StringBuilder strBuilder = new StringBuilder();
-
-            strBuilder.AppendLine("[ShellUrl]:" + data.ShellUrl);
-            strBuilder.AppendLine("[ShellPwd]:" + data.ShellPwd);
-            strBuilder.AppendLine("[ShellType]:" + data.ShellType);
-            strBuilder.AppendLine("[ServerCoding]:" + data.ServerCoding);
-            strBuilder.AppendLine("[TimeOut]:" + data.TimeOut);
-            strBuilder.AppendLine("[ShellExtraString]:" + data.ShellExtraString);
-
+			if (data == null) return;
+			foreach (var i in data.Parameters)
+			{
+				strBuilder.AppendLine("["+i.Key+"]:" +i.Value);
+			}
             tbx_shellData.Text = strBuilder.ToString();
         }
 

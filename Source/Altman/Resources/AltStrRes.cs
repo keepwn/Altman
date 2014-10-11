@@ -23,6 +23,7 @@ namespace Altman.Desktop.Resources
 
 			_title = GetString(table, "StrTitle", _title);
 			_aboutAltman = GetString(table, "StrAboutAltman", _aboutAltman);
+			_docs = GetString(table, "StrDocs", _docs);
 			_disclaimer = GetString(table, "StrDisclaimer", _disclaimer);
 			_dontDisplayAgain = GetString(table, "StrDontDisplayAgain", _dontDisplayAgain);
 			_no = GetString(table, "StrNo", _no);
@@ -44,7 +45,7 @@ namespace Altman.Desktop.Resources
 			_userAgentList = GetString(table, "StrUserAgentList", _userAgentList);
 			_isParamRandom = GetString(table, "StrIsParamRandom", _isParamRandom);
 			_isShowDisclaimer = GetString(table, "StrIsShowDisclaimer", _isShowDisclaimer);
-			_notUseProxy = GetString(table, "StrIsShowDisclaimer", _notUseProxy);
+			_notUseProxy = GetString(table, "StrNotUseProxy", _notUseProxy);
 			_useSystemProxySetting = GetString(table, "StrUseSystemProxySetting", _useSystemProxySetting);
 			_useCustomProxySetting = GetString(table, "StrUseCustomProxySetting", _useCustomProxySetting);
 		}
@@ -190,9 +191,15 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _userAgentList; }
 		}
 
+		public static string Docs
+		{
+			get { return _docs; }
+		}
+
 		private static string _title = @"Altman";
 
 		private static string _aboutAltman = @"About Altman";
+		private static string _docs = @"Altman Docs";
 
 		private static string _welcome = @"Welcome";
 		private static string _dontDisplayAgain = @"don't display again";

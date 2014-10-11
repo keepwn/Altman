@@ -30,10 +30,10 @@ namespace Test_DoNetPlugin
             get { return _pluginSetting; }
         }
 
-        public object GetUi(Shell data)
-        {
-             return _userControl = new DoNetPluginTest(_host,(Shell)data);
-        }
+	    public object Load(PluginParameter data)
+	    {
+			return _userControl = new DoNetPluginTest(_host, data);
+	    }
 
         public void Dispose()
         {

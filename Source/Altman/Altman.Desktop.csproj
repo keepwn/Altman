@@ -63,14 +63,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="IronPython, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libraries\IronPython\IronPython.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libraries\IronPython\Microsoft.Scripting.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -81,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\About.cs" />
+    <Compile Include="Actions\Docs.cs" />
     <Compile Include="Actions\Quit.cs" />
     <Compile Include="Actions\Setting.cs" />
     <Compile Include="AltmanApplication.cs" />
@@ -128,10 +121,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AltmanMef\AltmanMef.csproj">
-      <Project>{f7e04e19-6b7a-434e-bd12-5d50f6b1f058}</Project>
-      <Name>AltmanMef</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
       <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
       <Name>AltmanUtil</Name>

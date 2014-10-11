@@ -31,13 +31,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Mac", "Altman.Mac\Al
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltmanMef", "AltmanMef\AltmanMef.csproj", "{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPythonMef", "AltmanMef\IPythonMef.csproj", "{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_IronPythonCollection", "Plugin_IronPythonCollection\Plugin_IronPythonCollection.csproj", "{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C734A6D6-27EC-42E6-83F1-40C34C746519}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_IronPythonPlugin", "Test_IronPythonPlugin\Test_IronPythonPlugin.csproj", "{B04F9AE9-4144-44B4-A730-85105E6FBA7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,8 +170,8 @@ Global
 		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|x86.ActiveCfg = Debug|x86
-		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|x86.Build.0 = Debug|x86
+		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Debug|x86.Build.0 = Debug|Any CPU
 		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86D5E7B9-D58B-41EB-81D9-FC548F055EE5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -301,6 +303,22 @@ Global
 		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B04F9AE9-4144-44B4-A730-85105E6FBA7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Debug|x86.Build.0 = Debug|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{124ECA1A-4538-4C25-8B68-A0EEB4CBBAA0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

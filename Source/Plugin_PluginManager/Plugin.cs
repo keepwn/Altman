@@ -35,7 +35,7 @@ namespace Plugin_PluginManager
             get { return _host; }
         }
 
-        public object GetUi(Shell data)
+        public object Load(PluginParameter data)
         {
             return _form = new PluginManager(_host, data);
         }

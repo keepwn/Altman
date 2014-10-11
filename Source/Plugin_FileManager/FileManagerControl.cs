@@ -19,7 +19,7 @@
 //		private IHost _host;
 //		private Shell _shellData;
 
-//		private FileManagerService _fileManager;
+//		private FileManager _fileManager;
 
 //		private bool _isWin;             //是否是windows系统
 //		private string _sourceCopyPath;  //用于文件复制
@@ -48,7 +48,7 @@
 //			this._host = host;
 //			this._shellData = data;
 
-//			_fileManager = new FileManagerService(_host, _shellData);
+//			_fileManager = new FileManager(_host, _shellData);
 //			_fileManager.GetWwwRootPathCompletedToDo += fileManager_GetWwwRootPathCompletedToDo;
 //			_fileManager.DeleteFileOrDirCompletedToDo += fileManager_DeleteFileOrDirCompletedToDo;
 //			_fileManager.GetFileTreeCompletedToDo += fileManager_GetFileTreeCompletedToDo;
@@ -483,14 +483,14 @@
 //			chm,
 //		}
 
-//		private struct FileInfo
+//		private struct FileInfoView
 //		{
 //			public string Name;
 //			public string FullName;
 //			public bool IsDir;
 //			public FileType Type;
 
-//			public FileInfo(string name, string fullname, bool isDir, string fileType)
+//			public FileInfoView(string name, string fullname, bool isDir, string fileType)
 //			{
 //				Name = name;
 //				FullName = fullname;
@@ -621,7 +621,7 @@
 //				item.SubItems.Add(dir.FilePerms);
 //				//添加fileInfo
 //				string fullName = Path.Combine(new string[] { parentPath, dirName }) + (_isWin ? "\\" : "/");
-//				item.Tag = new FileInfo(dirName, fullName, true, FileType.unknow.ToString());//is dir
+//				item.Tag = new FileInfoView(dirName, fullName, true, FileType.unknow.ToString());//is dir
 //				listViewFile.Items.Add(item);
 //			}
 //		}
@@ -636,7 +636,7 @@
 //				string type = Path.GetExtension(dirName).ToLower();
 //				if (type.StartsWith("."))
 //					type = type.TrimStart('.');
-//				var fileInfo = new FileInfo(dirName, fullName, false, type);//is file
+//				var fileInfo = new FileInfoView(dirName, fullName, false, type);//is file
 //				//添加文件列表
 //				ListViewItem item = new ListViewItem(file.FileName);
 //				item.Name = dirName;//为item添加name,为查找确定key               
@@ -707,14 +707,14 @@
 //		/// <summary>
 //		/// 获取文件列表中被选择的文件信息
 //		/// </summary>
-//		private List<FileInfo> GetSelectedFilesInListView()
+//		private List<FileInfoView> GetSelectedFilesInListView()
 //		{
-//			List<FileInfo> files = new List<FileInfo>();
+//			List<FileInfoView> files = new List<FileInfoView>();
 //			if (listView_File.SelectedItems.Count > 0)
 //			{
 //				foreach (ListViewItem item in listView_File.SelectedItems)
 //				{
-//					files.Add((FileInfo)item.Tag);
+//					files.Add((FileInfoView)item.Tag);
 //				}
 //			}
 //			return files;
@@ -722,7 +722,7 @@
 //		/// <summary>
 //		/// 获取listview中选中项状态
 //		/// </summary>
-//		private SelectedFilesStatus GetStatusOfSelectedFilesInListView(List<FileInfo> fileInfos)
+//		private SelectedFilesStatus GetStatusOfSelectedFilesInListView(List<FileInfoView> fileInfos)
 //		{
 //			if (fileInfos.Count == 0)
 //			{
@@ -812,7 +812,7 @@
 //		/// </summary>
 //		private void listView_File_DoubleClick(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status == SelectedFilesStatus.IsDir)
 //			{
@@ -878,7 +878,7 @@
 //					_fileManager.RenameFileOrDir(oldFileNameFullPath, newFileNameFullPath);
 //					break;
 //				case "modifyTime":
-//					FileInfo fileInfo = (FileInfo)(((ListView)sender).Items[e.ItemRowIndex]).Tag;
+//					FileInfoView fileInfo = (FileInfoView)(((ListView)sender).Items[e.ItemRowIndex]).Tag;
 //					//修改时间
 //					_fileManager.ModifyFileOrDirTime(fileInfo.FullName, e.Label);
 //					break;
@@ -901,7 +901,7 @@
 //		/// </summary>
 //		private void rightMenu_FileManager_Opening(object sender, CancelEventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status == SelectedFilesStatus.NoSelected)
 //			{
@@ -980,7 +980,7 @@
 //		/// </summary>
 //		private void item_download_Click(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status == SelectedFilesStatus.IsFile)
 //			{
@@ -1003,7 +1003,7 @@
 //			DialogResult result = MessageBox.Show("Continue To Delete？", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 //			if (result == DialogResult.Yes)
 //			{
-//				List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//				List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //				SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //				if (status == SelectedFilesStatus.IsDir || status == SelectedFilesStatus.IsFile)
 //				{
@@ -1019,7 +1019,7 @@
 //		/// </summary>
 //		private void item_edit_Click(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status == SelectedFilesStatus.IsFile)
 //			{
@@ -1033,7 +1033,7 @@
 //		/// </summary>
 //		private void item_rename_Click(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status != SelectedFilesStatus.NoSelected)
 //			{
@@ -1045,7 +1045,7 @@
 //		/// </summary>
 //		private void item_modifyTime_Click(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status != SelectedFilesStatus.NoSelected)
 //			{
@@ -1057,7 +1057,7 @@
 //		/// </summary>
 //		private void item_copy_Click(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status == SelectedFilesStatus.IsDir || status == SelectedFilesStatus.IsFile)
 //			{
@@ -1070,7 +1070,7 @@
 //		/// </summary>
 //		private void item_paste_Click(object sender, EventArgs e)
 //		{
-//			List<FileInfo> fileInfos = GetSelectedFilesInListView();
+//			List<FileInfoView> fileInfos = GetSelectedFilesInListView();
 //			SelectedFilesStatus status = GetStatusOfSelectedFilesInListView(fileInfos);
 //			if (status == SelectedFilesStatus.NoSelected)
 //			{

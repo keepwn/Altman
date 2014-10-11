@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -68,7 +69,10 @@
     <Compile Include="IPluginInfo.cs" />
     <Compile Include="IPluginSetting.cs" />
     <Compile Include="ITest.cs" />
+    <Compile Include="PluginParameter.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PluginProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">

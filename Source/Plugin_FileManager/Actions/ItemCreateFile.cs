@@ -21,7 +21,7 @@ namespace Plugin_FileManager.Actions
 		void ItemCreateFile_Executed(object sender, EventArgs e)
 		{
 			string newFile = _status.CurrentDirPath+ _status.PathSeparator+"NewFile.txt";
-			var fileEditer = new FileEditerSection(_status.Host, _status.ShellData, newFile, false);
+			var fileEditer = new FileEditerPanel(_status.Host, _status.ShellData, newFile, false);
 			_status.Host.Ui.CreateNewTabPage("FileEdit", fileEditer);
 		}
 	}

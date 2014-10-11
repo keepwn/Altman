@@ -79,20 +79,26 @@
     <Compile Include="Dialogs\Wget.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Interface\FileEditerSection.cs">
+    <Compile Include="Interface\FileEditerPanel.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Interface\FileEditerPanel.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="FileManagerControl.cs" />
-    <Compile Include="FileManagerService.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="FileUploadOrDownload.cs" />
     <Compile Include="Dialogs\FormWget.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Interface\FileManagerSection.cs">
+    <Compile Include="Interface\FileManagerPanel.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Interface\FileManagerPanel.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Interface\Icons.cs" />
-    <Compile Include="Model\FileInfo.cs" />
+    <Compile Include="Model\FileInfoView.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
@@ -100,8 +106,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Interface\FileEditerSection.resx">
-      <DependentUpon>FileEditerSection.cs</DependentUpon>
+    <EmbeddedResource Include="Interface\FileEditerPanel.resx">
+      <DependentUpon>FileEditerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagerControl.resx">
       <DependentUpon>FileManagerControl.cs</DependentUpon>

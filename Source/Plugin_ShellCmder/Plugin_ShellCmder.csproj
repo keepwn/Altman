@@ -72,7 +72,7 @@
     <Compile Include="ShellCmderControl.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="ShellCmderService.cs" />
+    <Compile Include="ShellCmder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">

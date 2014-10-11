@@ -18,8 +18,8 @@ namespace Plugin_FileManager.Actions
 
 		void ItemPaste_Executed(object sender, EventArgs e)
 		{
-			FileInfo selected = null;
-			if ((selected = _status.FileGridView.SelectedItem as FileInfo) != null)
+			FileInfoView selected = null;
+			if ((selected = _status.FileGridView.SelectedItem as FileInfoView) != null)
 			{
 				var sourceFullName = _status.CopyFileFullPath;
 				var targetDir = _status.CurrentDirPath;

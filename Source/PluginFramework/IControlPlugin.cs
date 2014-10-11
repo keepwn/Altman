@@ -1,9 +1,14 @@
-﻿using Altman.Model;
+﻿using System;
 
 namespace PluginFramework
 {
     public interface IControlPlugin : IPlugin
     {
-        object GetUi(Shell data);
+		/// <summary>
+		/// 加载
+		/// </summary>
+		/// <param name="param"></param>
+		/// <returns></returns>
+	    object Load(PluginParameter param);
     }
 }

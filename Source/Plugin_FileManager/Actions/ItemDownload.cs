@@ -4,7 +4,6 @@ using System.IO;
 using Altman.Common.AltEventArgs;
 using Eto.Forms;
 using Plugin_FileManager.Model;
-using FileInfo = Plugin_FileManager.Model.FileInfo;
 
 namespace Plugin_FileManager.Actions
 {
@@ -21,7 +20,7 @@ namespace Plugin_FileManager.Actions
 
 		void ItemDownload_Executed(object sender, EventArgs e)
 		{
-			var selectFile = _status.FileGridView.SelectedItem as FileInfo;
+			var selectFile = _status.FileGridView.SelectedItem as FileInfoView;
 			if (selectFile != null)
 			{
 				var webFile = selectFile.FullName;

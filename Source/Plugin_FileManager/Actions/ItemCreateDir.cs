@@ -23,7 +23,7 @@ namespace Plugin_FileManager.Actions
 		void ItemCreateDir_Executed(object sender, EventArgs e)
 		{
 			string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-			var newItem = new FileInfo("NewFolder", "NewFolder", true, time, "0", "0777");
+			var newItem = new FileInfoView("NewFolder", "NewFolder", true, time, "0", "0777");
 			newItem.IsCreateing = true;
 
 			if (!Platform.Instance.IsWinForms)
@@ -63,7 +63,7 @@ namespace Plugin_FileManager.Actions
 
 		private string[] GetOldFiles()
 		{
-			return _status.FileGridView.DataStore.Select(r => (r as FileInfo).Name).ToArray();
+			return _status.FileGridView.DataStore.Select(r => (r as FileInfoView).Name).ToArray();
 		}
 	}
 }

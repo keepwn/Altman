@@ -60,7 +60,7 @@ namespace Altman.Desktop.Dialogs
 
             var tabControl = new TabControl()
             {
-                Size = new Size(350,300)
+                Size = new Size(350,320)
             };
 
 			tabControl.Pages.Add(new TabPage { Text = AltStrRes.UserAgent, Content = _panelUserAgentSetting });
@@ -88,7 +88,7 @@ namespace Altman.Desktop.Dialogs
             layout.Add(null);
 
             Content = layout;
-            Size = new Size(400, 390);       
+            Size = new Size(400, 400);       
 			Icon = Icons.AltmanIcon;
 	        Title = AltStrRes.Setting;
         }

@@ -30,7 +30,7 @@ namespace Plugin_DbManager
             get { return _pluginSetting; }
         }
 
-        public object GetUi(Shell data)
+        public object Load(PluginParameter data)
         {
             return _userControl = new DbManagerPanel(_host, data);
         }

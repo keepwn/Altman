@@ -67,7 +67,7 @@
     <Compile Include="DbManagerPanel.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="DbManagerService.cs" />
+    <Compile Include="DbManager.cs" />
     <Compile Include="Icons.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />

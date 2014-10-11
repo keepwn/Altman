@@ -17,7 +17,7 @@ namespace Plugin_FileManager.Model
 		public string DirWillBeProcessed;
 		public string FileWillBeProcessed;
 		public GridView FileGridView;
-		public FileManagerService FileManager;
+		public FileManager FileManager;
 		public IHost Host;
 		public Shell ShellData;
 	}

@@ -21,16 +21,15 @@ namespace Plugin_PluginManager
         private UpdateInfo[] _updateInfos = null;
         private IEnumerable<IPlugin> _installedPlugins = null;
 
-        public PluginManager(IHost host, Shell data)
+		public PluginManager(IHost host, PluginParameter data)
         {
+			this._host = host;
+
             Init();
 
-            this._host = host;
-            this._shellData = data;
-
-			_updateXmlPath = Path.Combine(_host.App.AppPluginDir, "update.xml");
+			_updateXmlPath = Path.Combine(_host.App.AppPluginDir, new PluginInfo().Name, "update.xml");
 			_updateXmlUrl = ReadConfigXml();
-			_installedPlugins = _host.Core.GetPlugins();
+			_installedPlugins = PluginProvider.GetPlugins();
 			DownloadUpdateXml();
 			LoadInstalledPlugins();
         }		
@@ -84,8 +83,10 @@ namespace Plugin_PluginManager
 						if (item.Checked)
 						{
 							var plugin = item.Plugin;
-							var filepath = "./Plugins" + "/" + plugin.PluginInfo.FileName;
-							File.Delete(filepath);
+							//删除插件所在文件夹
+							var dirPath = Path.Combine(_host.App.AppPluginDir, plugin.PluginInfo.Name);
+							if(Directory.Exists(dirPath))
+								Directory.Delete(dirPath);
 							items.Remove(item);
 						}				
 					}
@@ -340,15 +341,15 @@ namespace Plugin_PluginManager
         #region Init
         public string ReadConfigXml()
         {
-            string defaultUpate = "http://www.keepwn.com/static/files/update.xml";
-            string configPath = Path.Combine(_host.App.AppPluginConfigDir, "PluginManager.xml");
-            if (!File.Exists(configPath))
+            var defaultUpate = "http://www.keepwn.com/static/files/update.xml";
+			var configPath = Path.Combine(_host.App.AppPluginDir, new PluginInfo().Name, "PluginManager.xml");
+			if (!File.Exists(configPath))
             {
                 return defaultUpate;
             }
-            XmlDocument xml = new XmlDocument();
-            xml.Load(configPath);
-            XmlNode updateXmlNode = xml.SelectSingleNode("/config/updateXml");
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(configPath);
+            var updateXmlNode = xmlDoc.SelectSingleNode("/config/updateXml");
             return updateXmlNode == null ? defaultUpate : updateXmlNode.InnerText;
         }
 		#endregion

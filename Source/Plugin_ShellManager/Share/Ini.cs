@@ -207,7 +207,7 @@ namespace Plugin_ShellManager.Share
 		public static string OutputString(Ini file)
 		{
 			var sb = new StringBuilder();
-			foreach (var element in file.elements)
+			foreach (var element in file.Elements)
 			{
 				if (!IniSettings.PreserveFormatting)
 					element.FormatDefault();
@@ -241,25 +241,25 @@ namespace Plugin_ShellManager.Share
 
 		public void WriteIniFile(Ini file)
 		{
-			WriteElements(file.elements);
+			WriteElements(file.Elements);
 		}
 
 		public void WriteSection(IniSection section)
 		{
 			WriteElement(section.SectionStart);
-			for (var i = section.Parent.elements.IndexOf(section.SectionStart) + 1; i < section.Parent.elements.Count; i++)
+			for (var i = section.Parent.Elements.IndexOf(section.SectionStart) + 1; i < section.Parent.Elements.Count; i++)
 			{
-				if (section.Parent.elements[i] is IniSectionStart)
+				if (section.Parent.Elements[i] is IniSectionStart)
 					break;
-				WriteElement(section.Parent.elements[i]);
+				WriteElement(section.Parent.Elements[i]);
 			}
 		}
 	}
 
 	public class Ini
 	{
-		internal List<IniElement> elements = new List<IniElement>();
-		internal List<IniSection> sections = new List<IniSection>();
+		public List<IniElement> Elements = new List<IniElement>();
+		public List<IniSection> Sections = new List<IniSection>();
 
 		public IniSection this[string sectionName]
 		{
@@ -269,20 +269,20 @@ namespace Plugin_ShellManager.Share
 				if (sect != null)
 					return sect;
 				IniSectionStart start;
-				if (sections.Count > 0)
+				if (Sections.Count > 0)
 				{
-					var prev = sections[sections.Count - 1].SectionStart;
+					var prev = Sections[Sections.Count - 1].SectionStart;
 					start = prev.CreateNew(sectionName);
 				}
 				else
 					start = IniSectionStart.FromName(sectionName);
 				if (IniSettings.SeparateSection)
 				{
-					elements.Add(new IniBlankLine(1));
+					Elements.Add(new IniBlankLine(1));
 				}
-				elements.Add(start);
+				Elements.Add(start);
 				sect = new IniSection(this, start);
-				sections.Add(sect);
+				Sections.Add(sect);
 				return sect;
 			}
 		}
@@ -291,31 +291,31 @@ namespace Plugin_ShellManager.Share
 		{
 			get
 			{
-				if (elements.Count > 0)
-					if (elements[0] is IniCommentary && !(!IniSettings.SeparateHeader
-															&& elements.Count > 1 && !(elements[1] is IniBlankLine)))
-						return ((IniCommentary)elements[0]).Comment;
+				if (Elements.Count > 0)
+					if (Elements[0] is IniCommentary && !(!IniSettings.SeparateHeader
+															&& Elements.Count > 1 && !(Elements[1] is IniBlankLine)))
+						return ((IniCommentary)Elements[0]).Comment;
 				return "";
 			}
 			set
 			{
-				if (elements.Count > 0 && elements[0] is IniCommentary && !(!IniSettings.SeparateHeader
-																				&& elements.Count > 1 && !(elements[1] is IniBlankLine)))
+				if (Elements.Count > 0 && Elements[0] is IniCommentary && !(!IniSettings.SeparateHeader
+																				&& Elements.Count > 1 && !(Elements[1] is IniBlankLine)))
 				{
 					if (value == "")
 					{
-						elements.RemoveAt(0);
-						if (IniSettings.SeparateHeader && elements.Count > 0 && elements[0] is IniBlankLine)
-							elements.RemoveAt(0);
+						Elements.RemoveAt(0);
+						if (IniSettings.SeparateHeader && Elements.Count > 0 && Elements[0] is IniBlankLine)
+							Elements.RemoveAt(0);
 					}
 					else
-						((IniCommentary)elements[0]).Comment = value;
+						((IniCommentary)Elements[0]).Comment = value;
 				}
 				else if (value != "")
 				{
-					if ((elements.Count == 0 || !(elements[0] is IniBlankLine)) && IniSettings.SeparateHeader)
-						elements.Insert(0, new IniBlankLine(1));
-					elements.Insert(0, IniCommentary.FromComment(value));
+					if ((Elements.Count == 0 || !(Elements[0] is IniBlankLine)) && IniSettings.SeparateHeader)
+						Elements.Insert(0, new IniBlankLine(1));
+					Elements.Insert(0, IniCommentary.FromComment(value));
 				}
 			}
 		}
@@ -324,10 +324,10 @@ namespace Plugin_ShellManager.Share
 		{
 			get
 			{
-				if (elements.Count > 0)
+				if (Elements.Count > 0)
 				{
-					if (elements[elements.Count - 1] is IniCommentary)
-						return ((IniCommentary)elements[elements.Count - 1]).Comment;
+					if (Elements[Elements.Count - 1] is IniCommentary)
+						return ((IniCommentary)Elements[Elements.Count - 1]).Comment;
 				}
 				return "";
 			}
@@ -335,31 +335,31 @@ namespace Plugin_ShellManager.Share
 			{
 				if (value == "")
 				{
-					if (elements.Count > 0 && elements[elements.Count - 1] is IniCommentary)
+					if (Elements.Count > 0 && Elements[Elements.Count - 1] is IniCommentary)
 					{
-						elements.RemoveAt(elements.Count - 1);
-						if (elements.Count > 0 && elements[elements.Count - 1] is IniBlankLine)
-							elements.RemoveAt(elements.Count - 1);
+						Elements.RemoveAt(Elements.Count - 1);
+						if (Elements.Count > 0 && Elements[Elements.Count - 1] is IniBlankLine)
+							Elements.RemoveAt(Elements.Count - 1);
 					}
 				}
 				else
 				{
-					if (elements.Count > 0)
+					if (Elements.Count > 0)
 					{
-						if (elements[elements.Count - 1] is IniCommentary)
-							((IniCommentary)elements[elements.Count - 1]).Comment = value;
+						if (Elements[Elements.Count - 1] is IniCommentary)
+							((IniCommentary)Elements[Elements.Count - 1]).Comment = value;
 						else
-							elements.Add(IniCommentary.FromComment(value));
-						if (elements.Count > 2)
+							Elements.Add(IniCommentary.FromComment(value));
+						if (Elements.Count > 2)
 						{
-							if (!(elements[elements.Count - 2] is IniBlankLine) && IniSettings.SeparateHeader)
-								elements.Insert(elements.Count - 1, new IniBlankLine(1));
+							if (!(Elements[Elements.Count - 2] is IniBlankLine) && IniSettings.SeparateHeader)
+								Elements.Insert(Elements.Count - 1, new IniBlankLine(1));
 							else if (value == "")
-								elements.RemoveAt(elements.Count - 2);
+								Elements.RemoveAt(Elements.Count - 2);
 						}
 					}
 					else
-						elements.Add(IniCommentary.FromComment(value));
+						Elements.Add(IniCommentary.FromComment(value));
 				}
 			}
 		}
@@ -367,17 +367,17 @@ namespace Plugin_ShellManager.Share
 		private IniSection GetSection(string name)
 		{
 			var lower = name.ToLowerInvariant();
-			for (var i = 0; i < sections.Count; i++)
-				if (sections[i].Name == name || (!IniSettings.CaseSensitive && sections[i].Name.ToLowerInvariant() == lower))
-					return sections[i];
+			for (var i = 0; i < Sections.Count; i++)
+				if (Sections[i].Name == name || (!IniSettings.CaseSensitive && Sections[i].Name.ToLowerInvariant() == lower))
+					return Sections[i];
 			return null;
 		}
 
 		public string[] GetSectionNames()
 		{
-			var ret = new string[sections.Count];
-			for (var i = 0; i < sections.Count; i++)
-				ret[i] = sections[i].Name;
+			var ret = new string[Sections.Count];
+			for (var i = 0; i < Sections.Count; i++)
+				ret[i] = Sections[i].Name;
 			return ret;
 		}
 
@@ -397,30 +397,30 @@ namespace Plugin_ShellManager.Share
 		public static Ini FromElements(IEnumerable<IniElement> elemes)
 		{
 			var ret = new Ini();
-			ret.elements.AddRange(elemes);
-			if (ret.elements.Count > 0)
+			ret.Elements.AddRange(elemes);
+			if (ret.Elements.Count > 0)
 			{
 				IniSection section = null;
 
-				if (ret.elements[ret.elements.Count - 1] is IniBlankLine)
-					ret.elements.RemoveAt(ret.elements.Count - 1);
-				foreach (var element in ret.elements)
+				if (ret.Elements[ret.Elements.Count - 1] is IniBlankLine)
+					ret.Elements.RemoveAt(ret.Elements.Count - 1);
+				foreach (var element in ret.Elements)
 				{
 					var el = element;
 					if (el is IniSectionStart)
 					{
 						section = new IniSection(ret, (IniSectionStart)el);
-						ret.sections.Add(section);
+						ret.Sections.Add(section);
 					}
 					else if (section != null)
 						section.Elements.Add(el);
-					else if (ret.sections.Exists(a => a.Name == ""))
-						ret.sections[0].Elements.Add(el);
+					else if (ret.Sections.Exists(a => a.Name == ""))
+						ret.Sections[0].Elements.Add(el);
 					else if (el is IniValue)
 					{
 						section = new IniSection(ret, IniSectionStart.FromName(""));
 						section.Elements.Add(el);
-						ret.sections.Add(section);
+						ret.Sections.Add(section);
 					}
 				}
 			}
@@ -460,12 +460,12 @@ namespace Plugin_ShellManager.Share
 			if (section == null)
 				return;
 			var sect = section.SectionStart;
-			elements.Remove(sect);
-			for (var i = elements.IndexOf(sect) + 1; i < elements.Count; i++)
+			Elements.Remove(sect);
+			for (var i = Elements.IndexOf(sect) + 1; i < Elements.Count; i++)
 			{
-				if (elements[i] is IniSectionStart)
+				if (Elements[i] is IniSectionStart)
 					break;
-				elements.RemoveAt(i);
+				Elements.RemoveAt(i);
 			}
 		}
 
@@ -475,9 +475,9 @@ namespace Plugin_ShellManager.Share
 		{
 			var lastSectIntend = "";
 			var lastValIntend = "";
-			for (var i = 0; i < elements.Count; i++)
+			for (var i = 0; i < Elements.Count; i++)
 			{
-				var el = elements[i];
+				var el = Elements[i];
 				if (preserveIntendation)
 				{
 					if (el is IniSectionStart)
@@ -490,8 +490,8 @@ namespace Plugin_ShellManager.Share
 				{
 					if (el is IniSectionStart)
 						el.Indentation = lastSectIntend;
-					else if (el is IniCommentary && i != elements.Count - 1 && !(elements[i + 1] is IniBlankLine))
-						el.Indentation = elements[i + 1].Indentation;
+					else if (el is IniCommentary && i != Elements.Count - 1 && !(Elements[i + 1] is IniBlankLine))
+						el.Indentation = Elements[i + 1].Indentation;
 					else
 						el.Indentation = lastValIntend;
 				}
@@ -503,22 +503,22 @@ namespace Plugin_ShellManager.Share
 		{
 			var dict = new Dictionary<string, int>();
 			int index;
-			for (var i = 0; i < sections.Count; i++)
+			for (var i = 0; i < Sections.Count; i++)
 			{
-				var sect = sections[i];
+				var sect = Sections[i];
 				if (dict.ContainsKey(sect.Name))
 				{
 					index = dict[sect.Name] + 1;
-					elements.Remove(sect.SectionStart);
-					sections.Remove(sect);
+					Elements.Remove(sect.SectionStart);
+					Sections.Remove(sect);
 					for (var j = sect.Elements.Count - 1; j >= 0; j--)
 					{
 						var el = sect.Elements[j];
 						if (!(j == sect.Elements.Count - 1 && el is IniCommentary))
-							elements.Remove(el);
+							Elements.Remove(el);
 						if (!(el is IniBlankLine))
 						{
-							elements.Insert(index, el);
+							Elements.Insert(index, el);
 							var val = this[sect.Name].FirstValue();
 							if (val != null)
 								el.Indentation = val.Indentation;
@@ -528,7 +528,7 @@ namespace Plugin_ShellManager.Share
 					}
 				}
 				else
-					dict.Add(sect.Name, elements.IndexOf(sect.SectionStart));
+					dict.Add(sect.Name, Elements.IndexOf(sect.SectionStart));
 			}
 		}
 	}
@@ -564,7 +564,7 @@ namespace Plugin_ShellManager.Share
 		public void InsertComment(string comment)
 		{
 			var com = IniCommentary.FromComment(comment);
-			Parent.elements.Add(com);
+			Parent.Elements.Add(com);
 		}
 
 		public string InlineComment
@@ -606,15 +606,15 @@ namespace Plugin_ShellManager.Share
 
 		private void SetComment(IniElement el, string comment)
 		{
-			var index = Parent.elements.IndexOf(el);
+			var index = Parent.Elements.IndexOf(el);
 			if (IniSettings.CommentChars.Length == 0)
 				throw new NotSupportedException("Comments are currently disabled. Setup ConfigFileSettings.CommentChars property to enable them.");
 			IniCommentary com;
-			if (index > 0 && Parent.elements[index - 1] is IniCommentary)
+			if (index > 0 && Parent.Elements[index - 1] is IniCommentary)
 			{
-				com = ((IniCommentary)Parent.elements[index - 1]);
+				com = ((IniCommentary)Parent.Elements[index - 1]);
 				if (comment == "")
-					Parent.elements.Remove(com);
+					Parent.Elements.Remove(com);
 				else
 				{
 					com.Comment = comment;
@@ -625,29 +625,16 @@ namespace Plugin_ShellManager.Share
 			{
 				com = IniCommentary.FromComment(comment);
 				com.Indentation = el.Indentation;
-				Parent.elements.Insert(index, com);
+				Parent.Elements.Insert(index, com);
 			}
 		}
 
 		private string GetComment(IniElement el)
 		{
-			var index = Parent.elements.IndexOf(el);
-			if (index != 0 && Parent.elements[index - 1] is IniCommentary)
-				return ((IniCommentary)Parent.elements[index - 1]).Comment;
+			var index = Parent.Elements.IndexOf(el);
+			if (index != 0 && Parent.Elements[index - 1] is IniCommentary)
+				return ((IniCommentary)Parent.Elements[index - 1]).Comment;
 			return "";
-		}
-
-		private IniValue GetValue(string key)
-		{
-			var lower = key.ToLowerInvariant();
-			for (var i = 0; i < Elements.Count; i++)
-				if (Elements[i] is IniValue)
-				{
-					var val = (IniValue)Elements[i];
-					if (val.Key == key || (!IniSettings.CaseSensitive && val.Key.ToLowerInvariant() == lower))
-						return val;
-				}
-			return null;
 		}
 
 		public void SetComment(string key, string comment)
@@ -687,8 +674,21 @@ namespace Plugin_ShellManager.Share
 		{
 			var v = GetValue(key);
 			if (key == null) return;
-			Parent.elements.Remove(v);
+			Parent.Elements.Remove(v);
 			Elements.Remove(v);
+		}
+
+		private IniValue GetValue(string key)
+		{
+			var lower = key.ToLowerInvariant();
+			for (var i = 0; i < Elements.Count; i++)
+				if (Elements[i] is IniValue)
+				{
+					var val = (IniValue)Elements[i];
+					if (val.Key == key || (!IniSettings.CaseSensitive && val.Key.ToLowerInvariant() == lower))
+						return val;
+				}
+			return null;
 		}
 
 		private void SetValue(string key, string value)
@@ -704,9 +704,9 @@ namespace Plugin_ShellManager.Share
 				{
 					IniElement el;
 					var valFound = false;
-					for (var i = Parent.elements.IndexOf(SectionStart) - 1; i >= 0; i--)
+					for (var i = Parent.Elements.IndexOf(SectionStart) - 1; i >= 0; i--)
 					{
-						el = Parent.elements[i];
+						el = Parent.Elements[i];
 						if (el is IniValue)
 						{
 							ret = ((IniValue)el).CreateNew(key, value);
@@ -725,12 +725,12 @@ namespace Plugin_ShellManager.Share
 			if (prev == null)
 			{
 				Elements.Insert(Elements.IndexOf(SectionStart) + 1, ret);
-				Parent.elements.Insert(Parent.elements.IndexOf(SectionStart) + 1, ret);
+				Parent.Elements.Insert(Parent.Elements.IndexOf(SectionStart) + 1, ret);
 			}
 			else
 			{
 				Elements.Insert(Elements.IndexOf(prev) + 1, ret);
-				Parent.elements.Insert(Parent.elements.IndexOf(prev) + 1, ret);
+				Parent.Elements.Insert(Parent.Elements.IndexOf(prev) + 1, ret);
 			}
 		}
 
@@ -754,6 +754,13 @@ namespace Plugin_ShellManager.Share
 			var list = new List<string>(Elements.Count);
 			list.AddRange(Elements.OfType<IniValue>().Select(t => (t).Key));
 			return new ReadOnlyCollection<string>(list);
+		}
+
+		public ReadOnlyCollection<KeyValuePair<string,string>> GetKeysAndValues()
+		{
+			var list = new List<KeyValuePair<string, string>>();
+			list.AddRange(Elements.OfType<IniValue>().Select(r => new KeyValuePair<string, string>(r.Key, r.Value)));
+			return new ReadOnlyCollection<KeyValuePair<string, string>>(list);
 		}
 
 		public override string ToString()

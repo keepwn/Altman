@@ -9,7 +9,7 @@ using IronPython.Runtime;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
 
-namespace AltmanMef
+namespace IPythonMef
 {
 	public class IronPythonFile
 	{

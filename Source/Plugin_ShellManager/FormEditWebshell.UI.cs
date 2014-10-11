@@ -108,7 +108,7 @@ namespace Plugin_ShellManager
 
 		private void buttonTest1_Click(object sender, EventArgs e)
 		{
-			var conns =  _host.Core.GetDbNodeFuncCodeNameList(_comboBoxScritpType.SelectedKey);
+			var conns = new ShellManagerService().GetDbNodeInfoList(_comboBoxScritpType.SelectedKey);
 			_richTextBoxSetting.Text = ShellExtraStringHandle.CreateDefaultIniString(conns);
 		}
 

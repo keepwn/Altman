@@ -10,15 +10,21 @@ using IronPython.Runtime.Types;
 using Microsoft.CSharp.RuntimeBinder;
 using Microsoft.Scripting.Hosting;
 
-namespace AltmanMef
+namespace IPythonMef
 {
 	public class ExtractTypesFromScript
 	{
-		private readonly ScriptEngine _engine;
+		private static ScriptEngine _engine;
 
-		public ExtractTypesFromScript(ScriptEngine engine)
+		static ExtractTypesFromScript()
 		{
-			_engine = engine;
+			_engine = Python.CreateEngine();
+		}
+
+		public IEnumerable<IronPythonComposablePart> GetPartsFromScript(string scriptPath, IEnumerable<Type> injectTypes = null)
+		{
+			var script = _engine.CreateScriptSourceFromFile(scriptPath);
+			return GetParts(GetTypesFromScript(script, injectTypes));
 		}
 
 		public IEnumerable<IronPythonComposablePart> GetPartsFromScript(ScriptSource script, IEnumerable<Type> injectTypes = null)

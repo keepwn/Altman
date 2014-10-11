@@ -5,6 +5,7 @@ using Altman.Model;
 using Eto.Drawing;
 using Eto.Forms;
 using PluginFramework;
+using Plugin_ShellManager.Share;
 
 namespace Plugin_ShellManager
 {
@@ -15,14 +16,14 @@ namespace Plugin_ShellManager
         private string Id;
 
         private IHost _host;
-        private ShellManagerService _shellManagerService = null;
+        private ShellManager _shellManager = null;
 
         public FormEditWebshell(IHost host)
         {
             Init();
             
             this._host = host;
-            _shellManagerService = new ShellManagerService(_host);
+            _shellManager = new ShellManager(_host);
 
             //init
             ComboBox_ScriptType_Init();
@@ -38,7 +39,7 @@ namespace Plugin_ShellManager
             Init();
 
             this._host = host;
-            _shellManagerService = new ShellManagerService(_host);
+            _shellManager = new ShellManager(_host);
 
 
             //init
@@ -78,72 +79,71 @@ namespace Plugin_ShellManager
 		{
 			//_p12.Panel2.Visible = !_p12.Panel2.Visible;
 			_p12.Panel2.Visible = true;
-			_p12.Panel1.Visible = false;
+			//_p12.Panel1.Visible = false;
 		}
+
+	    private Shell GetShellConfigFromPanel()
+	    {
+			var shell = new Shell();
+
+			shell.Id = this.Id;
+		    shell.TargetId = _textBoxName.Text.Trim();//*
+		    shell.TargetLevel = _comboBoxLevel.SelectedKey ?? "";
+		    shell.ShellType = _comboBoxScritpType.SelectedKey ?? "";//*
+
+			shell.ShellUrl = _textBoxShellPath.Text.Trim();//*
+			shell.ShellPwd = _textBoxShellPass.Text.Trim();//*
+
+			shell.ShellExtraString = _richTextBoxSetting.Text;
+			shell.Remark = _textBoxRemark.Text;
+
+		    shell.ServerCoding = _comboBoxServerCoding.SelectedKey ?? "";//*
+		    shell.WebCoding = _comboBoxWebCoding.SelectedKey ?? "";//*
+
+			var time = DateTime.Now.Date.ToShortDateString();
+			if (time.Contains("/"))
+			{
+				time = time.Replace("/", "-");
+			}
+			shell.AddTime = time;
+		    return shell;
+	    }
+
+	    private bool VerifyShell(Shell shell)
+	    {
+		    var success = true;
+		    if (shell.TargetId == ""
+				|| shell.ShellType == ""
+				|| shell.ShellUrl == ""
+				|| shell.ShellPwd == ""
+				|| shell.ServerCoding == ""
+				|| shell.WebCoding == "")
+		    {
+			    success = false;
+			    MessageBox.Show("Please fill out the project with *",MessageBoxType.Error);
+		    }
+			return success;
+	    }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var shell = new Shell();
+	        var shell = GetShellConfigFromPanel();
+			//验证Shell是否合法
+			if (!VerifyShell(shell))
+		        return;
 
-            shell.Id = this.Id;
-            shell.TargetId = _textBoxName.Text.Trim();
-            shell.TargetLevel = _comboBoxLevel.SelectedKey.Trim();
-
-            shell.ShellUrl = _textBoxShellPath.Text.Trim();
-            shell.ShellPwd = _textBoxShellPass.Text.Trim();
-
-            shell.ShellExtraString = _richTextBoxSetting.Text.Trim();
-            shell.Remark = _textBoxRemark.Text.Trim();
-
-            shell.ShellType = _comboBoxScritpType.SelectedKey.Trim();
-            shell.ServerCoding = _comboBoxServerCoding.SelectedKey.Trim();
-            shell.WebCoding = _comboBoxWebCoding.SelectedKey.Trim();
-
-            string time = DateTime.Now.Date.ToShortDateString();
-            if (time.Contains("/"))
-            {
-                time = time.Replace("/", "-");
-            }
-            shell.AddTime = time;
-
-            //验证ExtraSettingXml是否合法
-            if (!VerifyXml(shell.ShellExtraString))
-                return;
-
-            _shellManagerService.Insert(shell);
+            _shellManager.Insert(shell);
             OnWebshellChange(EventArgs.Empty);
             Close();
         }
 		private void _buttonAlter_Click(object sender, EventArgs e)
         {
-            var shell = new Shell();
+			var shell = GetShellConfigFromPanel();
+			//验证Shell是否合法
+			if (!VerifyShell(shell))
+				return;
 
-            shell.Id = this.Id;
-            shell.TargetId = _textBoxName.Text.Trim();
-            shell.TargetLevel = _comboBoxLevel.SelectedKey.Trim();
-
-            shell.ShellUrl = _textBoxShellPath.Text.Trim();
-            shell.ShellPwd = _textBoxShellPass.Text.Trim();
-
-            shell.ShellExtraString = _richTextBoxSetting.Text.Trim();
-            shell.Remark = _textBoxRemark.Text.Trim();
-
-            shell.ShellType = _comboBoxScritpType.SelectedKey.Trim();
-            shell.ServerCoding = _comboBoxServerCoding.SelectedKey.Trim();
-            shell.WebCoding = _comboBoxWebCoding.SelectedKey.Trim();
-
-            string time = DateTime.Now.Date.ToShortDateString();
-            if (time.Contains("/"))
-            {
-                time = time.Replace("/", "-");
-            }
-            shell.AddTime = time;
-
-            //验证ExtraSettingXml是否合法
-            if (!VerifyXml(shell.ShellExtraString))
-                return;
-
-            _shellManagerService.Update(int.Parse(shell.Id), shell);
+            _shellManager.Update(int.Parse(shell.Id), shell);
             OnWebshellChange(EventArgs.Empty);
             Close();
         }
@@ -180,7 +180,7 @@ namespace Plugin_ShellManager
         private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
-            foreach (string type in _host.Core.GetCustomShellTypeNameList())
+			foreach (string type in new ShellManagerService().GetCustomShellTypeNameList())
             {
                 _comboBoxScritpType.Items.Add(type);
             }

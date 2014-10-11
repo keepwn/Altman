@@ -18,32 +18,49 @@ namespace Plugin_DbManager
         private IHost _host;
         private Shell _shellData;
 
-        private DbManagerService dbManagerService;
-		
-        public DbManagerPanel(IHost host, Shell data)
-        {
-            Init();
+	    private struct ShellSqlConnection
+	    {
+		    public string type;
+		    public string conn;
+	    }
 
-            _host = host;
-            _shellData = data;
+	    private ShellSqlConnection _shellSqlConn;
+
+        private DbManager _dbManager;
+		
+        public DbManagerPanel(IHost host, PluginParameter data)
+        {
+			_host = host;
+			_shellData = (Shell)data[0];
+			_shellSqlConn = GetShellSqlConn();
+
+            Init();			
 
             //绑定事件
-			dbManagerService = new DbManagerService(_host, _shellData, GetDbType());
-			dbManagerService.ConnectDbCompletedToDo += dbManagerService_ConnectDbCompletedToDo;
-			dbManagerService.GetDbNameCompletedToDo += dbManagerService_GetDbNameCompletedToDo;
-			dbManagerService.GetDbTableNameCompletedToDo += dbManagerService_GetTableNameCompletedToDo;
-			dbManagerService.GetColumnTypeCompletedToDo += dbManagerService_GetColumnTypeCompletedToDo;
-			dbManagerService.ExecuteReaderCompletedToDo += dbManagerService_ExecuteReaderCompletedToDo;
-			dbManagerService.ExecuteNonQueryCompletedToDo += dbManagerService_ExecuteNonQueryCompletedToDo;
+			_dbManager = new DbManager(_host, _shellData, _shellSqlConn.type);
+			_dbManager.ConnectDbCompletedToDo += DbManagerConnectDbCompletedToDo;
+			_dbManager.GetDbNameCompletedToDo += DbManagerGetDbNameCompletedToDo;
+			_dbManager.GetDbTableNameCompletedToDo += DbManagerGetTableNameCompletedToDo;
+			_dbManager.GetColumnTypeCompletedToDo += DbManagerGetColumnTypeCompletedToDo;
+			_dbManager.ExecuteReaderCompletedToDo += DbManagerExecuteReaderCompletedToDo;
+			_dbManager.ExecuteNonQueryCompletedToDo += DbManagerExecuteNonQueryCompletedToDo;
 
 			RefreshServerStatus(false);
 
-			//连接数据库
-			dbManagerService.ConnectDb(GetConnStr());
+
+	        if (string.IsNullOrEmpty(_shellSqlConn.type) || string.IsNullOrEmpty(_shellSqlConn.conn))
+	        {
+		        MessageBox.Show("shell's sqlConnection is null or space");
+	        }
+	        else
+	        {
+				//连接数据库
+				_dbManager.ConnectDb(_shellSqlConn.conn);
+	        }
         }
 
         #region ServiceCompletedToDo
-        private void dbManagerService_ExecuteNonQueryCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        private void DbManagerExecuteNonQueryCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -55,7 +72,7 @@ namespace Plugin_DbManager
                 ShowMsgInStatusBar((e.Result as DataTable).Rows[0][0].ToString());
             }
         }
-        private void dbManagerService_ExecuteReaderCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        private void DbManagerExecuteReaderCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -68,7 +85,7 @@ namespace Plugin_DbManager
                 ShowMsgInStatusBar(string.Format("{0} rows", (e.Result as DataTable).Rows.Count));
             }
         }
-        private void dbManagerService_GetColumnTypeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        private void DbManagerGetColumnTypeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -87,7 +104,7 @@ namespace Plugin_DbManager
                 ShowMsgInStatusBar(string.Format("{0} columns", columns.Length));
             }
         }
-        private void dbManagerService_GetTableNameCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        private void DbManagerGetTableNameCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -106,7 +123,7 @@ namespace Plugin_DbManager
                 ShowMsgInStatusBar(string.Format("{0} tables", tables.Length));
             }
         }
-        private void dbManagerService_GetDbNameCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        private void DbManagerGetDbNameCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -124,7 +141,7 @@ namespace Plugin_DbManager
                 ShowMsgInStatusBar(string.Format("{0} databases", dbs.Length));
             }
         }
-        private void dbManagerService_ConnectDbCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
+        private void DbManagerConnectDbCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -255,17 +272,17 @@ namespace Plugin_DbManager
 			{
 				if (type == "root")
 				{
-					dbManagerService.GetDbName(GetConnStr());
+					_dbManager.GetDbName(_shellSqlConn.conn);
 				}
 				else if (type == "db")
 				{
-					dbManagerService.GetTableName(GetConnStr(), name);
+					_dbManager.GetTableName(_shellSqlConn.conn, name);
 				}
 				else if (type == "table")
 				{
 					var dbname = e.Item.Parent.Text;
 
-					dbManagerService.GetColumnType(GetConnStr(), dbname, name);
+					_dbManager.GetColumnType(_shellSqlConn.conn, dbname, name);
 				}
 			}
 		}
@@ -288,7 +305,7 @@ namespace Plugin_DbManager
         /// </summary>
 		void ButtonConnect_Click(object sender, EventArgs e)
 		{
-			dbManagerService.ConnectDb(GetConnStr());
+			_dbManager.ConnectDb(_shellSqlConn.conn);
 		}
         /// <summary>
         /// 断开数据库
@@ -321,11 +338,11 @@ namespace Plugin_DbManager
 				var dbName = _comboboxDbs.SelectedKey;
 				if (sql.ToLower().StartsWith("select"))
 				{
-					dbManagerService.ExecuteReader(GetConnStr(), dbName, sql);
+					_dbManager.ExecuteReader(_shellSqlConn.conn, dbName, sql);
 				}
 				else
 				{
-					dbManagerService.ExecuteNonQuery(GetConnStr(), dbName, sql);
+					_dbManager.ExecuteNonQuery(_shellSqlConn.conn, dbName, sql);
 				}
 			}
 		}
@@ -414,54 +431,16 @@ namespace Plugin_DbManager
 		}
         #endregion
 
-        private string GetDbType()
-        {
-            string type = string.Empty;
-            XmlNode node = _host.Core.GetShellSqlConnection(_shellData);
-            if (node != null)
-            {
-                XmlNode typeNode = node.SelectSingleNode("type");
-                if (typeNode != null)
-                    type = typeNode.InnerText;
-            }
-            return type;
-        }
-        private string GetConnStr()
-        {
-            string conn = string.Empty;
-            XmlNode node = _host.Core.GetShellSqlConnection(_shellData);
-            if (node != null)
-            {
-                //获取type
-                var scriptType = _shellData.ShellType;
+		private ShellSqlConnection GetShellSqlConn()
+	    {
+			var getShellSqlConnection = PluginServiceProvider.GetService<Func<Shell, string[]>>("GetShellSqlConnection");
+			if (getShellSqlConnection == null)
+				throw new ArgumentException("Not Found `GetShellSqlConnection` Service");
 
-                if (scriptType.StartsWith("php"))
-                {
-                    string host = string.Empty;
-                    string user = string.Empty;
-                    string pass = string.Empty;
-                    string language = string.Empty;
-                    XmlNode hostNode = node.SelectSingleNode("host");
-                    if (hostNode != null) host = hostNode.InnerText;
-                    XmlNode userNode = node.SelectSingleNode("user");
-                    if (userNode != null) user = userNode.InnerText;
-                    XmlNode passNode = node.SelectSingleNode("pass");
-                    if (passNode != null) pass = passNode.InnerText;
-                    XmlNode lanNode = node.SelectSingleNode("language");
-                    if (lanNode != null) language = lanNode.InnerText;
+			var res = getShellSqlConnection(_shellData);
+			return new ShellSqlConnection {type = res[0]??"", conn = res[1]??""};
+	    }
 
-                    conn = string.Format("{0};{1};{2};{3};", host, user, pass, language);
-                }
-                else
-                {
-
-                    XmlNode connNode = node.SelectSingleNode("conn");
-                    if (connNode != null) 
-                        conn = connNode.InnerText;
-                }
-            }
-            return conn;           
-        }
         private void ShowMsgInStatusBar(string msg)
         {
             _host.Ui.ShowMsgInStatusBar(msg);

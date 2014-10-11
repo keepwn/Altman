@@ -4,7 +4,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Text;
 
-namespace AltmanMef
+namespace IPythonMef
 {
 	public class IronPythonImportDefinition
 	{

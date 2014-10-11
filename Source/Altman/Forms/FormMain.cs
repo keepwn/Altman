@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using Altman.Desktop.Resources;
 using Altman.Desktop.Service;
-using Altman.Model;
-using AltmanMef;
 using Eto.Drawing;
 using Eto.Forms;
-using IronPython.Hosting;
 using PluginFramework;
 
 namespace Altman.Desktop.Forms
 {
 	public class FormMain : Form
 	{
-		private PluginsImport _pluginsImport;
+		//private PluginsImport _pluginsImport;
 		private CompositionContainer _container;
 
 		private IHost _host;
@@ -53,9 +48,10 @@ namespace Altman.Desktop.Forms
 
 
 			//----导入插件----
-			_pluginsImport = new PluginsImport();
+			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
-			if (!Compose())
+			PluginProvider.Host = _host;
+			if (!PluginProvider.Compose(AppEnvironment.AppPluginPath))
 			{
 				MessageBox.Show("May be some plugins were error, please remove them.");
 				Environment.Exit(0);
@@ -65,7 +61,7 @@ namespace Altman.Desktop.Forms
 
 
 			//----数据初始化----
-			InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
+			//InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
 			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
 			//----数据初始化结束----
 
@@ -73,13 +69,13 @@ namespace Altman.Desktop.Forms
 			//----UI处理----       
 
 			//treenode
-			TreeView treeViewFunc = new TreeView();
-			TreeItem treeItem = InitUi.GetCustomShellTypeTree();
-			treeItem.Text = "ShellType";
-			treeViewFunc.DataStore = treeItem;
+			//TreeView treeViewFunc = new TreeView();
+			//TreeItem treeItem = InitUi.GetCustomShellTypeTree();
+			//treeItem.Text = "ShellType";
+			//treeViewFunc.DataStore = treeItem;
 
 			//plugins
-			LoadPluginsInUi(_pluginsImport.Plugins.OrderBy(p => p.PluginSetting.IndexInList).ThenBy(p => p.PluginInfo.Name));
+			LoadPluginsInUi(PluginProvider.Plugins.OrderBy(p => p.PluginSetting.IndexInList).ThenBy(p => p.PluginInfo.Name));
 			//----UI处理结束----
 
 
@@ -87,7 +83,7 @@ namespace Altman.Desktop.Forms
 			InitUi.InitWelcome();
 
 			//auto load plugins
-			AutoLoadPlugins(_pluginsImport.Plugins);
+			AutoLoadPlugins(PluginProvider.Plugins);
 		}
 
 
@@ -107,64 +103,65 @@ namespace Altman.Desktop.Forms
 		/// <summary>
 		/// 组合部件
 		/// </summary>
-		private bool Compose()
-		{
-			var success = false;
-			var pluginDir = AppEnvironment.AppPluginPath;
+		//private bool Compose()
+		//{
+		//	var success = false;
+		//	var pluginDir = AppEnvironment.AppPluginPath;
 
-			// load .py && .dll plugins
-			var pythonFiles = new List<FileInfo>();
-			var catalog = new AggregateCatalog();
-			//catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-			catalog.Catalogs.Add(new DirectoryCatalog(pluginDir));
-			foreach (var dir in Directory.EnumerateDirectories(pluginDir))
-			{
-				var dirInfo = new DirectoryInfo(dir);
-				// add .py
-				var file = dirInfo.GetFiles("*.py");
-				pythonFiles.AddRange(file);
-				// add .dll
-				catalog.Catalogs.Add(new DirectoryCatalog(dir, "*.dll"));
-			}
-			_container = new CompositionContainer(catalog);
+		//	// load .py && .dll plugins
+		//	var pythonFiles = new List<FileInfo>();
+		//	var catalog = new AggregateCatalog();
+		//	//catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+		//	catalog.Catalogs.Add(new DirectoryCatalog(pluginDir));
+		//	foreach (var dir in Directory.EnumerateDirectories(pluginDir))
+		//	{
+		//		var dirInfo = new DirectoryInfo(dir);
+		//		// add .py
+		//		var file = dirInfo.GetFiles("*.py");
+		//		pythonFiles.AddRange(file);
+		//		// add .dll
+		//		catalog.Catalogs.Add(new DirectoryCatalog(dir, "*.dll"));
+		//	}
+		//	_container = new CompositionContainer(catalog);
 
-			// create python
-			var engine = Python.CreateEngine();
-			//var paths = engine.GetSearchPaths();
-			//paths.Add(AppEnvironment.AppPath);
-			//engine.SetSearchPaths(paths);
+		//	// create python
+		//	//var engine = Python.CreateEngine();
+		//	//engine.ImportModule("IronPython.Stdlib.dll");
+		//	//var paths = engine.GetSearchPaths();
+		//	//paths.Add(AppEnvironment.AppPath);
+		//	//engine.SetSearchPaths(paths);
 
-			// configure the engine with types
-			var typesYouWantPythonToHaveAccessTo = new[] { typeof(IPlugin), typeof(IHost) };
-			var typeExtractor = new ExtractTypesFromScript(engine);
-			// add parts
-			var parts = new List<ComposablePart>();
-			foreach (var py in pythonFiles)
-			{
-				var script = engine.CreateScriptSourceFromFile(py.FullName);
-				var exports = typeExtractor.GetPartsFromScript(script, typesYouWantPythonToHaveAccessTo);
-				parts.AddRange(exports);
-			}
-			var batch = new CompositionBatch(parts, new ComposablePart[] { });
+		//	// configure the engine with types
+		//	var typesYouWantPythonToHaveAccessTo = new[] { typeof(IPlugin), typeof(IHost) };
+		//	var typeExtractor = new ExtractTypesFromScript();
 
-			try
-			{
-				_container.ComposeExportedValue(_host);
-				_container.Compose(batch);
-				_container.ComposeParts(_pluginsImport);
-				success = true;
-			}
-			catch (CompositionException compositionException)
-			{
-				Debug.WriteLine(compositionException.Message);
-				//_container.Dispose();
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.Message);
-			}
-			return success;
-		}
+		//	// add parts
+		//	var parts = new List<ComposablePart>();
+		//	foreach (var py in pythonFiles)
+		//	{
+		//		var exports = typeExtractor.GetPartsFromScript(py.FullName, typesYouWantPythonToHaveAccessTo);
+		//		parts.AddRange(exports);
+		//	}
+		//	var batch = new CompositionBatch(parts, new ComposablePart[] { });
+
+		//	try
+		//	{
+		//		_container.ComposeExportedValue(_host);
+		//		_container.Compose(batch);
+		//		_container.ComposeParts(_pluginsImport);
+		//		success = true;
+		//	}
+		//	catch (CompositionException compositionException)
+		//	{
+		//		Debug.WriteLine(compositionException.Message);
+		//		//_container.Dispose();
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Debug.WriteLine(ex.Message);
+		//	}
+		//	return success;
+		//}
 
 		/// <summary>
 		/// 卸载插件
@@ -208,9 +205,9 @@ namespace Altman.Desktop.Forms
 			get { return this.ContextMenu; }
 		}
 
-		public PluginsImport PluginsImport
+		public IEnumerable<IPlugin> Plugins
 		{
-			get { return _pluginsImport; }
+			get { return PluginProvider.Plugins; }
 		}
 
 		/*
@@ -277,13 +274,13 @@ namespace Altman.Desktop.Forms
 					{
 						Panel view = null;
 						var p = (plugin as IControlPlugin);
-						view = p.GetUi(new Shell()) as Panel;
+						view = p.Load(null) as Panel;
 						//创建新的tab标签
 						CreateNewTabPage(title, view);
 					}
 					else if (plugin is IFormPlugin)
 					{
-						object form = (plugin as IFormPlugin).GetUi(new Shell());
+						object form = (plugin as IFormPlugin).Load(null);
 						var form1 = form as Form;
 						if (form1 != null) form1.Show();
 					}
@@ -298,7 +295,7 @@ namespace Altman.Desktop.Forms
 				return;
 			if (plugin is IControlPlugin)
 			{
-				object view = (plugin as IControlPlugin).GetUi(new Shell());
+				object view = (plugin as IControlPlugin).Load(null);
 				//创建新的tab标签
 				//设置标题为FileManager|TargetId
 				string title = plugin.PluginInfo.Name;
@@ -306,7 +303,7 @@ namespace Altman.Desktop.Forms
 			}
 			else if (plugin is IFormPlugin)
 			{
-				object form = (plugin as IFormPlugin).GetUi(new Shell());
+				object form = (plugin as IFormPlugin).Load(null);
 				var form1 = form as Form;
 				if (form1 != null) form1.Show();
 			}
@@ -323,6 +320,7 @@ namespace Altman.Desktop.Forms
 			var help = menu.Items.GetSubmenu(AltStrRes.Help, 1000);
 
 			var about = new Actions.About();
+			var docs = new Actions.Docs();
 			var quit = new Actions.Quit();
 			var setting = new Actions.Setting();
 
@@ -341,6 +339,7 @@ namespace Altman.Desktop.Forms
 			file.Items.Add(setting);
 			file.Items.Add(quit);
 			help.Items.Add(about);
+			help.Items.Add(docs);
 
 			//menu.Items.Trim();
 			return menu;
@@ -398,8 +397,6 @@ namespace Altman.Desktop.Forms
 			_tabControl.SelectedPage = newTabpage;
 		}
 
-
-
 		#region Event
 		void newTabpage_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
@@ -436,19 +433,6 @@ namespace Altman.Desktop.Forms
 			//setting.ShowDialog();
 		}
 
-		private void Tsmi_Wizard_Click(object sender, EventArgs e)
-		{
-			//启动自定义shelltype
-			//FormCustomShellTypeWizard wiz = new FormCustomShellTypeWizard();
-			//wiz.Show();
-		}
-
-		private void Tsmi_Listening_Click(object sender, EventArgs e)
-		{
-			//FormListening lisenting = new FormListening();
-			//lisenting.Show();
-		}
-
 		private void Tsmi_developerMode_Click(object sender, EventArgs e)
 		{
 			//splitContainer1.Panel1Collapsed = !Tsmi_developerMode.Checked;
@@ -456,27 +440,12 @@ namespace Altman.Desktop.Forms
 
 		private void Tsmi_ReloadShellType_Click(object sender, EventArgs e)
 		{
-			InitUi.InitCustomShellType(AppEnvironment.AppPath);
+			//InitUi.InitCustomShellType(AppEnvironment.AppPath);
 		}
 
 		private void Tsmi_ReloadSetting_Click(object sender, EventArgs e)
 		{
 			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
-		}
-
-		private void Tsmi_docs_Click(object sender, EventArgs e)
-		{
-			/*
-			string chm = Application.StartupPath + "//Docs//HELP.chm";
-			if (File.Exists(chm))
-			{
-				System.Diagnostics.Process.Start(chm);
-			}
-			else
-			{
-				MessageBox.Show("Not find /Docs/help.chm");
-			}
-			 * */
 		}
 		#endregion
 	}

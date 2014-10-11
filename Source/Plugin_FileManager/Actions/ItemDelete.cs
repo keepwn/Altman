@@ -18,7 +18,7 @@ namespace Plugin_FileManager.Actions
 
 		void ItemDelete_Executed(object sender, EventArgs e)
 		{
-			var selectFile = _status.FileGridView.SelectedItem as FileInfo;
+			var selectFile = _status.FileGridView.SelectedItem as FileInfoView;
 			if (selectFile != null)
 			{
 				string webDir = selectFile.FullName;

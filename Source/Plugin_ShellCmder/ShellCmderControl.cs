@@ -18,7 +18,7 @@ namespace Plugin_ShellCmder
     public class ShellCmderControl : Panel
     {
         private IHost _host;
-        private ShellCmderService _shellCmder;
+        private ShellCmder _shellCmder;
         private Shell _shellData;
         private InternalCommand _internalCommand;
 
@@ -26,11 +26,11 @@ namespace Plugin_ShellCmder
         private string _currentDir;
 
         private ConsoleBox shellTextBox_Cmder;
-        public ShellCmderControl(IHost host, Shell data)
+        public ShellCmderControl(IHost host, PluginParameter data)
         {
             Init();
             this._host = host;
-            this._shellData = data;
+			this._shellData = (Shell)data[0];
 
             shellTextBox_Cmder.CommandEntered+=shellTextBox_Cmder_CommandEntered;
             shellTextBox_Cmder.Prompt = "SECTools";
@@ -72,7 +72,7 @@ namespace Plugin_ShellCmder
             try
             {
                 //初始化ShellCmder
-                _shellCmder = new ShellCmderService(_host,_shellData);
+                _shellCmder = new ShellCmder(_host,_shellData);
                 //初始化内部命令
                 _internalCommand = new InternalCommand(shellTextBox_Cmder, _shellCmder);
                 //获取系统信息

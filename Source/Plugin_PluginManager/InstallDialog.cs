@@ -77,13 +77,13 @@ namespace Plugin_PluginManager
         }
         private void DownloadPlugin(UpdateInfo info)
         {
-            string downloadUrl = info.DownloadUrl;
-            string saveName = Path.Combine(_unzipBaseDir, Path.GetFileName(info.DownloadUrl) ?? info.Name+".zip");
+            var downloadUrl = info.DownloadUrl;
+            var saveName = Path.Combine(_unzipBaseDir, Path.GetFileName(info.DownloadUrl) ?? info.Name+".zip");
 
             DownloadUrl = downloadUrl;
             Progress = 0;
 
-            WebClient client = new WebClient();
+            var client = new WebClient();
             client.DownloadProgressChanged += client_DownloadProgressChanged;
             client.DownloadFileCompleted += client_DownloadFileCompleted;
             client.DownloadFileAsync(new Uri(downloadUrl), saveName, info);
@@ -94,10 +94,10 @@ namespace Plugin_PluginManager
         }
         private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            UpdateInfo info = e.UserState as UpdateInfo;
+            var info = e.UserState as UpdateInfo;
             if (e.Error != null)
             {
-                string msg = string.Format("Download {0} failed", info.Name);
+                var msg = string.Format("Download {0} failed", info.Name);
 				MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxType.Error);
             }
             else
@@ -115,7 +115,7 @@ namespace Plugin_PluginManager
         /// </summary>
         private void InstallPlugin(UpdateInfo info)
         {
-            string msg = "";
+            var msg = "";
             //解压
             DownloadUrl = string.Format("Unzip {0} ...", info.Name);
             Progress += 25;
@@ -127,8 +127,8 @@ namespace Plugin_PluginManager
             //拷贝
             DownloadUrl = string.Format("Install {0} ...", info.Name);
             Progress += 25;
-            string unzipDir = Path.Combine(_unzipBaseDir, info.Name);
-            if (CopyPluginFiles(info.Install.CopyFiles, unzipDir, _host.App.AppCurrentDir))
+            var unzipDir = Path.Combine(_unzipBaseDir, info.Name);
+			if (CopyPluginFiles(info.Install.CopyFiles, unzipDir, _host.App.AppCurrentDir, _host.App.AppPluginDir, info.Name))
             {
                 msg = string.Format("Install {0} success", info.Name);
 				MessageBox.Show(msg, "Success", MessageBoxButtons.OK, MessageBoxType.Information);
@@ -144,21 +144,27 @@ namespace Plugin_PluginManager
         /// </summary>
         private bool Unzip(UpdateInfo info)
         {
-            string zipFile = Path.Combine(_unzipBaseDir, Path.GetFileName(info.DownloadUrl)??info.Name+".zip");
-            string unzipDir = Path.Combine(_unzipBaseDir, info.Name);
+            var zipFile = Path.Combine(_unzipBaseDir, Path.GetFileName(info.DownloadUrl)??info.Name+".zip");
+            var unzipDir = Path.Combine(_unzipBaseDir, info.Name);
 
             return ZipUtil.Decompress(zipFile, unzipDir, true);
         }
         /// <summary>
         /// 拷贝插件文件
         /// </summary>
-        private bool CopyPluginFiles(KeyValuePair<string, string>[] copyFiles, string unzipDir, string appCurrentDir)
+        private bool CopyPluginFiles(KeyValuePair<string, string>[] copyFiles, string unzipDir,string appCurrentDir, string appPluginsDir, string pluginName)
         {
-            foreach (KeyValuePair<string, string> a in copyFiles)
+            foreach (var a in copyFiles)
             {
-                string source = Path.Combine(unzipDir, a.Key);
-                string desDir = Path.Combine(appCurrentDir, a.Value);
-                string destFile = Path.Combine(appCurrentDir, a.Value, Path.GetFileName(source));
+                var source = Path.Combine(unzipDir, a.Key);
+				//如果目标路径为相对路径，则复制目标到Plugins/AAA/目录
+	            var desDir = "";
+	            if (!Path.IsPathRooted(a.Value))
+	            {
+					desDir = Path.Combine(appPluginsDir, pluginName, a.Value);
+	            }
+                desDir = Path.Combine(appCurrentDir, a.Value);
+                var destFile = Path.Combine(appCurrentDir, a.Value, Path.GetFileName(source));
                 try
                 {
                     if (!Directory.Exists(desDir))

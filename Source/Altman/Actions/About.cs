@@ -9,7 +9,6 @@ namespace Altman.Desktop.Actions
         public About()
         {
             MenuText = AltStrRes.AboutAltman;
-            Shortcut = Keys.F11;
             Executed += About_Executed;
         }
 

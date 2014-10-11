@@ -37,9 +37,9 @@ namespace Plugin_FileManager
             get { return _host; }
         }
 
-        public object GetUi(Shell data)
+        public object Load(PluginParameter data)
         {
-			return _userControl = new FileManagerSection(_host, data);
+			return _userControl = new FileManagerPanel(_host, data);
         }
 
         public void Dispose()
