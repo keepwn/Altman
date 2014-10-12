@@ -1,6 +1,6 @@
 ﻿using PluginFramework;
 
-namespace Plugin_ShellCmder
+namespace Plugin_DeveloperTool
 {
     public class PluginSetting : IPluginSetting
     {
@@ -8,6 +8,7 @@ namespace Plugin_ShellCmder
         {
             get { return false; }
         }
+
         public bool IsNeedShellData
         {
             get { return true; }
@@ -19,11 +20,11 @@ namespace Plugin_ShellCmder
         }
         public int IndexInList
         {
-            get { return 2; }
+            get { return 100; }
         }
         public string LoadPath
         {
-			get { return "shellmanager"; }
+			get { return ""; }
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using PluginFramework;
 
-namespace Plugin_ShellManager
+namespace Plugin_DeveloperTool
 {
     [PartCreationPolicy(CreationPolicy.NonShared)]
     [Export(typeof(IPlugin))]
-    public class Plugin : IControlPlugin
+    public class Plugin : IFormPlugin
     {
         private object _userControl;
         private PluginInfo _pluginInfo;
@@ -18,7 +17,6 @@ namespace Plugin_ShellManager
         {
             _pluginInfo = new PluginInfo();
             _pluginSetting = new PluginSetting();
-			new ShellManagerService().RegisterService(_pluginInfo.Name);
         }
 
         public IPluginInfo PluginInfo
@@ -33,12 +31,12 @@ namespace Plugin_ShellManager
 
         public object Load(PluginParameter data)
         {
-            return _userControl = new ShellManagerPanel(_host, data);
+            return _userControl = new DeveloperTool(_host, data);
         }
 
         public void Dispose()
         {
-            _userControl =null;
+	        _userControl = null;
         }
     }
 }

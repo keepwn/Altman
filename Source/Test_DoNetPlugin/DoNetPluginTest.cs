@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Altman.Model;
+using Eto.Drawing;
 using Eto.Forms;
 using PluginFramework;
 
@@ -8,69 +9,74 @@ namespace Test_DoNetPlugin
 {
     public class DoNetPluginTest : Panel
     {
-        private TextArea tbx_shellData;
-        private TextBox tbx_msg;
-        private Button btn_showMsgInStatus;
-        private Button btn_showMessageBox;
-        private Button btn_createNewTabPage;
+        private TextArea _tbxShellData;
+        private TextBox _tbxMsg;
+        private Button _btnShowMsgInStatus;
+        private Button _btnShowMessageBox;
+        private Button _btnCreateNewTabPage;
 
         private IHost _host;
-		private PluginParameter _shellData;
+		private Shell _shellData;
         public DoNetPluginTest(IHost host, PluginParameter data)
         {
+			_host = host;
+			_shellData = (Shell)data[0];
+
             Init();
-
-            _host = host;
-            _shellData = data;
-
             ShowShellTypeDataInLable(_shellData);
         }
 
         void Init()
         {
-            tbx_shellData = new TextArea();
-            tbx_msg = new TextBox();
-            btn_showMsgInStatus = new Button() {Text = "Show Msg In Status"};
-            btn_showMsgInStatus.Click+=btn_showMsgInStatus_Click;
-            btn_showMessageBox = new Button() {Text = "Show Msg In Message"};
-            btn_showMessageBox.Click+=btn_showMessageBox_Click;
-            btn_createNewTabPage = new Button(){Text = "Create New TabPage"};
-            btn_createNewTabPage.Click+=btn_createNewTabPage_Click;
+	        _tbxShellData = new TextArea {Size = new Size(-1, 200)};
+            _tbxMsg = new TextBox();
+            _btnShowMsgInStatus = new Button() {Text = "Show Msg In Status"};
+            _btnShowMsgInStatus.Click+=btn_showMsgInStatus_Click;
+            _btnShowMessageBox = new Button() {Text = "Show Msg In Message"};
+            _btnShowMessageBox.Click+=btn_showMessageBox_Click;
+            _btnCreateNewTabPage = new Button(){Text = "Create New TabPage"};
+            _btnCreateNewTabPage.Click+=btn_createNewTabPage_Click;
 
-            var layout = new DynamicLayout();
-            layout.AddSeparateRow(new Label() { Text = "ShellData"}, tbx_shellData);
-            layout.AddSeparateRow(new Label(){Text="Msg"},tbx_msg,null);
-            layout.AddSeparateRow(btn_showMsgInStatus, btn_showMessageBox, btn_createNewTabPage,null);
-            layout.AddRow(null);
+	        var layout = new DynamicLayout {Padding = new Padding(10, 10), Size = new Size(10, 10)};
+            layout.AddRow(new Label() { Text = "ShellData"});
+			layout.AddRow(_tbxShellData);
+			layout.AddSeparateRow(new Label() { Text = "Msg", VerticalAlign = VerticalAlign.Middle }, _tbxMsg, null);
+			layout.AddSeparateRow(_btnShowMsgInStatus, _btnShowMessageBox, _btnCreateNewTabPage, null);
+			layout.Add(null);
 
             this.Content = layout;
         }
 
 
-		private void ShowShellTypeDataInLable(PluginParameter data)
+		private void ShowShellTypeDataInLable(Shell data)
         {
-            StringBuilder strBuilder = new StringBuilder();
+            var strBuilder = new StringBuilder();
 			if (data == null) return;
-			foreach (var i in data.Parameters)
-			{
-				strBuilder.AppendLine("["+i.Key+"]:" +i.Value);
-			}
-            tbx_shellData.Text = strBuilder.ToString();
+
+			strBuilder.AppendLine("[ShellUrl]:" + data.ShellUrl);
+			strBuilder.AppendLine("[ShellPwd]:" + data.ShellPwd);
+			strBuilder.AppendLine("[ShellType]:" + data.ShellType);
+			strBuilder.AppendLine("[ServerCoding]:" + data.ServerCoding);
+			strBuilder.AppendLine("[WebCoding]:" + data.WebCoding);
+			strBuilder.AppendLine("[ShellExtraString]:" + data.ShellExtraString);
+			strBuilder.AppendLine("[TimeOut]:" + data.TimeOut);
+
+            _tbxShellData.Text = strBuilder.ToString();
         }
 
         private void btn_showMsgInStatus_Click(object sender, EventArgs e)
         {
-            _host.Ui.ShowMsgInStatusBar(tbx_msg.Text);
+            _host.Ui.ShowMsgInStatusBar(_tbxMsg.Text);
         }
 
         private void btn_showMessageBox_Click(object sender, EventArgs e)
         {
-            _host.Ui.ShowMsgInAppDialog(tbx_msg.Text);
+            _host.Ui.ShowMsgInAppDialog(_tbxMsg.Text);
         }
 
         private void btn_createNewTabPage_Click(object sender, EventArgs e)
         {
-            _host.Ui.CreateNewTabPage(tbx_msg.Text, new UserControl1());
+            _host.Ui.CreateNewTabPage(_tbxMsg.Text, new UserControl1());
         }
     }
 }

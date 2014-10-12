@@ -18,11 +18,11 @@ namespace Plugin_PluginManager
         }
         public int IndexInList
         {
-            get { return 100; }
+            get { return 10000; }
         }
         public string LoadPath
         {
-            get { return "system"; }
+            get { return ""; }
         }
     }
 }

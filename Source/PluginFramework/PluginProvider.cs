@@ -71,12 +71,17 @@ namespace PluginFramework
 
 		public static IEnumerable<IPlugin> GetPlugins()
 		{
-			return Plugins;
+			return Plugins.OrderBy(p => p.PluginSetting.IndexInList).ThenBy(p => p.PluginInfo.Name);
 		}
 
 		public static IEnumerable<IPlugin> GetChildPlugins(IPlugin plugin)
 		{
-			return Plugins.Where(r => r.PluginSetting.LoadPath == plugin.PluginInfo.Name);
+			return Plugins.Where(r => String.Equals(r.PluginSetting.LoadPath, plugin.PluginInfo.Name, StringComparison.CurrentCultureIgnoreCase));
+		}
+
+		public static IEnumerable<IPlugin> GetRootPlugins()
+		{
+			return Plugins.Where(r => r.PluginSetting.LoadPath == "");
 		}
 
 		public static IPlugin GetParentPlugin(IPlugin plugin)
@@ -87,27 +92,114 @@ namespace PluginFramework
 
 	public static class PluginServiceProvider
 	{
-		private static Dictionary<string, object> _services;
+		public struct ServiceStore
+		{
+			public object Service;
+			public string Provider;
+			public string TypeName;
+		}
+
+		private static Dictionary<string, ServiceStore> _services;
+		private static Dictionary<string, Type> _serviceTypes;
 		static PluginServiceProvider()
 		{
-			_services = new Dictionary<string, object>();
+			_serviceTypes = new Dictionary<string, Type>();
+			_services = new Dictionary<string, ServiceStore>();
 		}
 
-		public static void RegisterService<T>(string name, T func)
+		public static void RegisterService<T>(string providerName, string serviceName, T func)
 		{
-			if (!_services.ContainsKey(name))
+			if (!_services.ContainsKey(serviceName))
 			{
-				_services.Add(name, func);
+				var store = new ServiceStore { Provider = providerName, Service = func, TypeName = "" };
+				_services.Add(serviceName, store);
 			}
 		}
 
-		public static T GetService<T>(string name)
+		public static void RegisterService<T>(string providerName, string serviceName, string serviceTypeName, T func)
 		{
-			if (_services.ContainsKey(name) && _services[name] is T)
+			if (!_services.ContainsKey(serviceName))
 			{
-				return (T)_services[name];
+				if (_serviceTypes.ContainsKey(serviceTypeName))
+				{
+					if (_serviceTypes[serviceTypeName] != typeof (T))
+						throw new ArgumentException("Type of the func argument is not in conformity with the defined service type.");
+				}
+				else
+				{
+					_serviceTypes.Add(serviceTypeName, typeof(T));
+				}
+				var store = new ServiceStore { Provider = providerName, Service = func, TypeName = serviceTypeName };
+				_services.Add(serviceName, store);
+			}
+		}
+
+		public static T GetService<T>(string serviceName)
+		{
+			if (_services.ContainsKey(serviceName)
+				&& _services[serviceName].Service is T)
+			{
+				return (T) _services[serviceName].Service;
 			}
 			return default(T);
+		}
+
+		public static ServiceStore GetServiceStore(string serviceName)
+		{
+			if (_services.ContainsKey(serviceName))
+			{
+				return _services[serviceName];
+			}
+			return default(ServiceStore);
+		}
+
+		public static IEnumerable<T> GetServices<T>()
+		{
+			return _services.Values.Select(r=> (T)r.Service).ToList();
+		}
+
+		public static IEnumerable<T> GetServices<T>(string providerName)
+		{
+			return _services.Values.Where(r => r.Provider == providerName).Select(r => (T) r.Service).ToList();
+		}
+
+		public static IEnumerable<string> GetServiceNames()
+		{
+			return _services.Keys;
+		}
+
+		public static IEnumerable<string> GetServiceNames(string providerName)
+		{
+			return _services.Where(r => r.Value.Provider == providerName).Select(r => r.Key).ToList();
+		}
+
+		public static IEnumerable<string> GetServiceNamesByType(string serviceTypeName)
+		{
+			return _services.Where(r => r.Value.TypeName == serviceTypeName).Select(r => r.Key).ToList();
+		}
+
+		public static IEnumerable<string> GetServiceNames<T>()
+		{
+			return _services.Where(r => r.Value.Service is T).Select(r => r.Key).ToList();
+		}
+
+		public static IEnumerable<string> GetServiceNames<T>(string providerName)
+		{
+			return _services.Where(r => r.Value.Service is T && r.Value.Provider == providerName).Select(r => r.Key).ToList();
+		}
+
+		public static string GetServiceTypeName(string serviceName)
+		{
+			if (_services.ContainsKey(serviceName))
+			{
+				return _services[serviceName].TypeName;
+			}
+			throw new KeyNotFoundException("The service name not found.");
+		}
+
+		public static IEnumerable<string> GetServiceTypeNames()
+		{
+			return _serviceTypes.Keys;
 		}
 	}
 }

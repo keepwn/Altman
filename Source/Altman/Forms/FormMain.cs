@@ -75,7 +75,7 @@ namespace Altman.Desktop.Forms
 			//treeViewFunc.DataStore = treeItem;
 
 			//plugins
-			LoadPluginsInUi(PluginProvider.Plugins.OrderBy(p => p.PluginSetting.IndexInList).ThenBy(p => p.PluginInfo.Name));
+			LoadPluginsInUi();
 			//----UI处理结束----
 
 
@@ -85,7 +85,6 @@ namespace Altman.Desktop.Forms
 			//auto load plugins
 			AutoLoadPlugins(PluginProvider.Plugins);
 		}
-
 
 		private void pluginAbout_Click(object sender, EventArgs e)
 		{
@@ -230,37 +229,81 @@ namespace Altman.Desktop.Forms
 		}
 		 */
 
-		private void LoadPluginsInUi(IEnumerable<IPlugin> plugins)
+		private void LoadPluginsInUi()
 		{
-			//clear PluginsMenuItem
-			//_pluginsMenuItem.Items.Clear();
-			foreach (var plugin in plugins)
+			foreach (var plugin in PluginProvider.GetRootPlugins())
 			{
-				string title = plugin.PluginInfo.Name;
-
-				//plugins in PluginsMenuItem
-				var item = _pluginsMenuItem.Items.GetSubmenu(title);
-				if (!plugin.PluginSetting.IsNeedShellData)
-				{
-					var pluginRun = new Command()
-					{
-						MenuText = "Run",
-						Tag = plugin,
-					};
-					pluginRun.Executed += pluginRun_Click;
-					item.Items.Add(pluginRun);
-				}
-				var pluginAbout = new Command()
-				{
-					MenuText = "About",
-					Tag = plugin,
-				};
-				pluginAbout.Executed += pluginAbout_Click;
-				pluginAbout.Tag = plugin;
-				item.Items.Add(pluginAbout);
-				//_pluginsMenuItem.Items.Add(item);
+				var item = LoadPluginsInUi(plugin, true);
+				_pluginsMenuItem.Items.Add(item);
 			}
 		}
+
+		private ButtonMenuItem LoadPluginsInUi(IPlugin plugin, bool isRoot)
+		{
+			var item = new ButtonMenuItem();
+
+			var title = plugin.PluginInfo.Name;
+			item.Text = title;
+			item.Order = plugin.PluginSetting.IndexInList;
+
+			// 如果是插件，添加Run按钮
+			if (isRoot)
+			{
+				var pluginRun = new Command()
+				{
+					MenuText = "Run",
+					Tag = plugin,
+				};
+				pluginRun.Executed += pluginRun_Click;
+				item.Items.Add(pluginRun);
+			}
+
+			// 添加About按钮
+			var pluginAbout = new Command()
+			{
+				MenuText = "About",
+				Tag = plugin,
+			};
+			pluginAbout.Executed += pluginAbout_Click;
+			pluginAbout.Tag = plugin;
+			item.Items.Add(pluginAbout);
+
+			// 添加子插件按钮
+			var childs = PluginProvider.GetChildPlugins(plugin);
+			if (childs.Any())
+			{
+				item.Items.AddSeparator();
+				var pluginChild = new ButtonMenuItem()
+				{
+					Text = "Child Plugins",
+				};
+				foreach (var c in childs)
+				{
+					pluginChild.Items.Add(LoadPluginsInUi(c, false));
+				}
+				item.Items.Add(pluginChild);
+			}
+
+			var serviceNames = PluginServiceProvider.GetServiceNames(title).ToList();
+			if (serviceNames.Any())
+			{
+				var pluginService = new ButtonMenuItem()
+				{
+					Text = "Services",
+				};
+				foreach (var name in serviceNames)
+				{
+					var serviceType = PluginServiceProvider.GetServiceTypeName(name);
+					var text = string.IsNullOrEmpty(serviceType) ? name : "[Type: " + serviceType + " ] " + name;
+					pluginService.Items.Add(new ButtonMenuItem {Text = text});
+				}
+				item.Items.Add(pluginService);
+			}
+
+
+			return item;
+		}
+
 		private void AutoLoadPlugins(IEnumerable<IPlugin> plugins)
 		{
 			//IsAutoLoad

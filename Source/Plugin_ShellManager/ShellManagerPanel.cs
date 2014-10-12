@@ -25,7 +25,6 @@ namespace Plugin_ShellManager
 
 			//Init
 			InitWorker.InitCustomShellType(Path.Combine(_host.App.AppCurrentDir,"CustomType"));
-			new ShellManagerService().RegisterService();
 
 			Init();
 
@@ -43,7 +42,7 @@ namespace Plugin_ShellManager
 			foreach (var plugin in PluginProvider.GetPlugins())
 			{
 				//IsShowInRightContext
-				if (plugin.PluginSetting.LoadPath == "webshell" && plugin.PluginSetting.IsShowInRightContext)
+				if (plugin.PluginSetting.LoadPath.ToLower() == "shellmanager" && plugin.PluginSetting.IsShowInRightContext)
 				{
 					string title = plugin.PluginInfo.Name;
 

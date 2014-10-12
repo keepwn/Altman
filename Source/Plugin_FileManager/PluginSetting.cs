@@ -23,7 +23,7 @@ namespace Plugin_FileManager
         }
         public string LoadPath
         {
-            get { return "webshell"; }
+			get { return "shellmanager"; }
         }
     }
 }

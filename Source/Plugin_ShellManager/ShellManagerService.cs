@@ -73,20 +73,20 @@ namespace Plugin_ShellManager
 			return shellExtra.HttpHeader;
 		}
 
-		public void RegisterService()
+		public void RegisterService(string pluginName)
 		{
 			PluginServiceProvider.RegisterService<Func<Shell, string, string[], byte[]>>
-				("SubmitCommand", SubmitCommand);
+				(pluginName, "SubmitCommand", SubmitCommand);
 			PluginServiceProvider.RegisterService<Func<Shell, string, string[], bool, bool, byte[]>>
-				("SubmitCommandWithEvent", SubmitCommand);
+				(pluginName, "SubmitCommandWithEvent", SubmitCommand);
 			PluginServiceProvider.RegisterService<Func<string, string>>
-				("GetCustomShellTypeServerCode", GetCustomShellTypeServerCode);
+				(pluginName, "GetCustomShellTypeServerCode", GetCustomShellTypeServerCode);
 			PluginServiceProvider.RegisterService<Func<string[]>>
-				("GetCustomShellTypeNameList", GetCustomShellTypeNameList);
+				(pluginName, "GetCustomShellTypeNameList", GetCustomShellTypeNameList);
 			PluginServiceProvider.RegisterService<Func<string, string[]>>
-				("GetDbNodeInfoList", GetDbNodeInfoList);
+				(pluginName, "GetDbNodeInfoList", GetDbNodeInfoList);
 			PluginServiceProvider.RegisterService<Func<Shell, string[]>>
-				("GetShellSqlConnection", GetShellSqlConnection);
+				(pluginName, "GetShellSqlConnection", GetShellSqlConnection);
 		}
 	}
 }
