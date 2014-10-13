@@ -17,65 +17,70 @@ namespace Plugin_DeveloperTool
 
 			_host = host;
 
-			_radioButtonEncode.Checked = true;
-
 			LoadServices();
 		}
 
 		private ComboBox _comboBoxServices;
-		private RadioButton _radioButtonEncode;
-		private RadioButton _radioButtonDecode;
-		private Button _buttonRun;
-		private TextBox _textBoxA;
-		private TextBox _textBoxB;
+		private TextArea _textAreaInfo;
 
 		private TextArea _textAreaResult;
 		void Init()
 		{
 			_comboBoxServices = new ComboBox();
+			_comboBoxServices.SelectedIndexChanged += _comboBoxServices_SelectedIndexChanged;
 
-			_radioButtonEncode = new RadioButton();
-			_radioButtonDecode = new RadioButton(_radioButtonEncode);
-
-			_buttonRun = new Button { Text = "Run" };
-			_buttonRun.Click += _buttonRun_Click;
-
-			_textBoxA = new TextBox();
-			_textBoxB = new TextBox();
-
+			_textAreaInfo = new TextArea{Size=new Size(-1,200)};
+			_textAreaInfo.Enabled = true;
 			_textAreaResult = new TextArea();
 
 			var layout = new DynamicLayout {Padding = new Padding(10, 10)};
-			layout.AddSeparateRow(_comboBoxServices, _radioButtonEncode, _radioButtonDecode, _buttonRun);
-			layout.AddSeparateRow(_textBoxA, _textBoxB);
+			layout.AddSeparateRow(_comboBoxServices);
+			layout.AddSeparateRow(_textAreaInfo);
 			layout.AddSeparateRow(_textAreaResult);
 
 			Content = layout;
 			Title = "Developer Tool";
+			Size = new Size(400, 400);
 		}
 
-		void _buttonRun_Click(object sender, EventArgs e)
+		void _comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			var index = _comboBoxServices.SelectedIndex;
-			_function = (_comboBoxServices.Items[index] as ListItem).Tag as Func<string, bool, string>;
+			if (index >= 0)
+			{
+				/*
+				 * void Write(
+				 * bool value)
+				 */
+				var builder = new StringBuilder();
+				var selectItem = (_comboBoxServices.Items[index] as ListItem);
+				var service = selectItem.Tag;
 
-			var par1 = _textBoxA.Text.Trim();
-			var par2 = _radioButtonEncode.Checked;
-			var result = _function(par1,par2);
+				var serviceName = selectItem.Text;
+				var ret = service;
+				var args = service.GetType().GetGenericArguments();
 
-			_textAreaResult.Text = result;
+				builder.Append(serviceName+"(\n");
+
+				var arguments = string.Join(
+					",\n",
+					args.Select((r, i) => "\t" + r.FullName + " func" + (i + 1).ToString()));
+				builder.Append(arguments + "\n)");
+
+				_textAreaInfo.Text = builder.ToString();
+			}
 		}
 
 		private Func<string, bool, string> _function;
 		public void LoadServices()
 		{
-			var names = PluginServiceProvider.GetServiceNames<Func<string, bool, string>>();
+			var names = PluginServiceProvider.GetServiceNames();
 			foreach (var name in names)
 			{
 				var item = new ListItem
 				{
 					Text = name,
-					Tag = PluginServiceProvider.GetService<Func<string, bool, string>>(name)
+					Tag = PluginServiceProvider.GetService<object>(name)
 				};
 				_comboBoxServices.Items.Add(item);
 			}

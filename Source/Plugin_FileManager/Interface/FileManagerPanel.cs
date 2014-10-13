@@ -21,7 +21,7 @@ namespace Plugin_FileManager.Interface
 		private Shell _shellData;
 		private FileManager _fileManager;
 
-		private Status status;
+		private Status _status;
 		private bool _isWin;
 		private string _oldName;
 		private string[] _oldFiles;
@@ -46,7 +46,7 @@ namespace Plugin_FileManager.Interface
 			_fileManager.CreateDirCompletedToDo += fileManager_CreateDirCompletedToDo;
 			_fileManager.WgetCompletedToDo += fileManager_WgetCompletedToDo;
 
-			status = new Status
+			_status = new Status
 			{
 				PathSeparator = "\\",
 				Host = _host,
@@ -55,6 +55,7 @@ namespace Plugin_FileManager.Interface
 				FileGridView = _gridViewFile,	
 			};
 
+			_gridViewFile.ContextMenu = CreateFileRightMenu(_status);
 			//_dataStore = new List<FileInfoView>();
 			_gridViewFile.DataStore = _dataStore = new DataStoreCollection();
 
@@ -236,6 +237,31 @@ namespace Plugin_FileManager.Interface
 		#endregion
 
 		#region UI
+
+		ContextMenu CreateFileRightMenu(Status status)
+		{
+			//contextMenu
+			var contextMenu = new ContextMenu();
+			contextMenu.Items.Add(new Actions.ItemRefresh(status));
+			contextMenu.Items.AddSeparator();
+			contextMenu.Items.Add(new Actions.ItemUpload(status));
+			contextMenu.Items.Add(new Actions.ItemDownload(status));
+			contextMenu.Items.Add(new Actions.ItemDownloadToServer(status));
+			contextMenu.Items.AddSeparator();
+			contextMenu.Items.Add(new Actions.ItemDelete(status));
+			contextMenu.Items.Add(new Actions.ItemEdit(status));
+			contextMenu.Items.Add(new Actions.ItemCopy(status));
+			contextMenu.Items.Add(new Actions.ItemPaste(status));
+			contextMenu.Items.Add(new Actions.ItemRename(status));
+			contextMenu.Items.Add(new Actions.ItemModifyTime(status));
+
+			var create = contextMenu.Items.GetSubmenu("Add");
+			create.Items.Add(new Actions.ItemCreateDir(status));
+			create.Items.Add(new Actions.ItemCreateFile(status));
+
+			return contextMenu;
+		}
+
 		void _buttonDir_Click(object sender, EventArgs e)
 		{
 			if (GetCurrentDirPath() != "")
@@ -290,7 +316,7 @@ namespace Plugin_FileManager.Interface
 					//创建文件夹
 					var currentDir = GetCurrentDirPath();
 					string dirName = newText;
-					string dirFullPath = currentDir + status.PathSeparator + dirName;
+					string dirFullPath = currentDir + _status.PathSeparator + dirName;
 					_fileManager.CreateDir(dirFullPath);
 				}
 				else //rename
@@ -313,8 +339,8 @@ namespace Plugin_FileManager.Interface
 					var currentDir = GetCurrentDirPath();
 					string oldFileName = _oldName;
 					string newFileName = newText;
-					string oldFileNameFullPath = currentDir + status.PathSeparator + oldFileName;
-					string newFileNameFullPath = currentDir + status.PathSeparator + newFileName;
+					string oldFileNameFullPath = currentDir + _status.PathSeparator + oldFileName;
+					string newFileNameFullPath = currentDir + _status.PathSeparator + newFileName;
 					_fileManager.RenameFileOrDir(oldFileNameFullPath, newFileNameFullPath);
 				}					
 			}
@@ -367,7 +393,7 @@ namespace Plugin_FileManager.Interface
 
 		private void SetPathSeparator(bool isWin)
 		{
-			status.PathSeparator = _treeViewDirs.PathSeparator = isWin ? "\\" : "/";
+			_status.PathSeparator = _treeViewDirs.PathSeparator = isWin ? "\\" : "/";
 		}
 
 		private string GetCurrentDirPath()
@@ -381,11 +407,11 @@ namespace Plugin_FileManager.Interface
 			string dir = currentDir;
 			if (dir.EndsWith(sep))
 			{
-				status.CurrentDirPath = _textboxUrl.Text = dir;
+				_status.CurrentDirPath = _textboxUrl.Text = dir;
 			}
 			else
 			{
-				status.CurrentDirPath = _textboxUrl.Text = dir + sep;
+				_status.CurrentDirPath = _textboxUrl.Text = dir + sep;
 			}
 		}
 
@@ -398,7 +424,7 @@ namespace Plugin_FileManager.Interface
 			treeView.DataStore = treeItem;
 
 			//RefreshAllFiles(GetCurrentDirPath());
-			new Actions.ItemRefresh(status).Execute();
+			new Actions.ItemRefresh(_status).Execute();
 		}
 		
 		private void AddDriveInDirTree(TreeItem treeItem, IEnumerable<string> drives)

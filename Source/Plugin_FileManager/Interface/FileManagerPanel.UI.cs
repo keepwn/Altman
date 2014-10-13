@@ -23,25 +23,6 @@ namespace Plugin_FileManager.Interface
 			_treeViewDirs = new TreeViewPlus();
 			_treeViewDirs.Activated += _treeViewDirs_Activated;
 
-			//contextMenu
-			var contextMenu = new ContextMenu();
-			contextMenu.Items.Add(new Actions.ItemRefresh(status));
-			contextMenu.Items.AddSeparator();
-			contextMenu.Items.Add(new Actions.ItemUpload(status));
-			contextMenu.Items.Add(new Actions.ItemDownload(status));
-			contextMenu.Items.Add(new Actions.ItemDownloadToServer(status));
-			contextMenu.Items.AddSeparator();
-			contextMenu.Items.Add(new Actions.ItemDelete(status));
-			contextMenu.Items.Add(new Actions.ItemEdit(status));
-			contextMenu.Items.Add(new Actions.ItemCopy(status));
-			contextMenu.Items.Add(new Actions.ItemPaste(status));
-			contextMenu.Items.Add(new Actions.ItemRename(status));
-			contextMenu.Items.Add(new Actions.ItemModifyTime(status));
-
-			var create = contextMenu.Items.GetSubmenu("Add");
-			create.Items.Add(new Actions.ItemCreateDir(status));
-			create.Items.Add(new Actions.ItemCreateFile(status));
-
 			_gridViewFile = new GridView
 			{
 				AllowMultipleSelection = false,
@@ -95,12 +76,13 @@ namespace Plugin_FileManager.Interface
 				AutoSize = false,
 				Width = 70
 			});
-			_gridViewFile.ContextMenu = contextMenu;
+
 			_gridViewFile.MouseUp += (sender, e) =>
 			{
 				if (e.Buttons == MouseButtons.Alternate)
 				{
-					_gridViewFile.ContextMenu.Show(_gridViewFile);
+					if (_gridViewFile.ContextMenu!=null)
+						_gridViewFile.ContextMenu.Show(_gridViewFile);
 				}
 			};
 

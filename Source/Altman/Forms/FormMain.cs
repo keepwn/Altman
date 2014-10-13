@@ -300,7 +300,6 @@ namespace Altman.Desktop.Forms
 				item.Items.Add(pluginService);
 			}
 
-
 			return item;
 		}
 

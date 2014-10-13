@@ -78,7 +78,7 @@ namespace Plugin_ShellManager
 			{
 				HeaderText = "Name",
 				DataCell = new TextBoxCell("TargetId"),
-				Editable = true,
+				Editable = false,
 				Sortable = true,
 				AutoSize = false,
 				Width = 100
