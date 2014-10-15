@@ -9,16 +9,6 @@ namespace Test_DoNetPlugin
             get { return false; }
         }
 
-        public bool IsNeedShellData
-        {
-            get { return false; }
-        }
-
-        public bool IsShowInRightContext
-        {
-            get { return true; }
-        }
-
         public int IndexInList
         {
             get { return 1; }

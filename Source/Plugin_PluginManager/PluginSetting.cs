@@ -8,14 +8,6 @@ namespace Plugin_PluginManager
         {
             get { return false; }
         }
-        public bool IsNeedShellData
-        {
-            get { return false; }
-        }
-        public bool IsShowInRightContext
-        {
-            get { return false; }
-        }
         public int IndexInList
         {
             get { return 10000; }

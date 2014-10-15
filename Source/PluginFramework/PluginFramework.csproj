@@ -68,7 +68,6 @@
     <Compile Include="IPlugin.cs" />
     <Compile Include="IPluginInfo.cs" />
     <Compile Include="IPluginSetting.cs" />
-    <Compile Include="ITest.cs" />
     <Compile Include="PluginParameter.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

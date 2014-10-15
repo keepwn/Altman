@@ -8,15 +8,7 @@ namespace Plugin_ShellCmder
         {
             get { return false; }
         }
-        public bool IsNeedShellData
-        {
-            get { return true; }
-        }
 
-        public bool IsShowInRightContext
-        {
-            get { return true; }
-        }
         public int IndexInList
         {
             get { return 2; }

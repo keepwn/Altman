@@ -8,7 +8,6 @@ namespace PluginFramework
     public interface IHostApp
     {
         Version AppVersion { get; }
-
         string AppCurrentDir { get; }
         string AppPluginDir { get; }
         string AppPluginConfigDir { get; }

@@ -42,7 +42,7 @@ namespace Plugin_ShellManager
 			foreach (var plugin in PluginProvider.GetPlugins())
 			{
 				//IsShowInRightContext
-				if (plugin.PluginSetting.LoadPath.ToLower() == "shellmanager" && plugin.PluginSetting.IsShowInRightContext)
+				if (plugin.PluginSetting.LoadPath.ToLower() == "shellmanager")
 				{
 					string title = plugin.PluginInfo.Name;
 
