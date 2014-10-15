@@ -17,7 +17,7 @@ namespace Plugin_Encoder
         {
             _pluginInfo = new PluginInfo();
             _pluginSetting = new PluginSetting();
-	        EncoderService.RegisterService(_pluginInfo.Name);
+	        EncoderService.RegisterService(this);
         }
 
         public IPluginInfo PluginInfo

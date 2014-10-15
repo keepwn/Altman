@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using PluginFramework;
@@ -55,14 +56,14 @@ namespace Plugin_Encoder
 			return tmp;
 		}
 
-		public static void RegisterService(string pluginName)
+		public static void RegisterService(IPlugin plugin)
 		{
 			PluginServiceProvider.RegisterService<Func<string, bool, string>>
-				(pluginName, "ToBase64", "Encode", ToBase64);
+				(plugin, "ToBase64", "Encode", ToBase64);
 			PluginServiceProvider.RegisterService<Func<string, string>>
-				(pluginName, "ToMd5_16", "Convert", ToMd5_16);
+				(plugin, "ToMd5_16", "Convert", ToMd5_16);
 			PluginServiceProvider.RegisterService<Func<string, string>>
-				(pluginName, "ToMd5_32", "Convert", ToMd5_32);
+				(plugin, "ToMd5_32", "Convert", ToMd5_32);
 		}
 	}
 }

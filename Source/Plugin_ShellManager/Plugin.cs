@@ -18,7 +18,7 @@ namespace Plugin_ShellManager
         {
             _pluginInfo = new PluginInfo();
             _pluginSetting = new PluginSetting();
-			new ShellManagerService().RegisterService(_pluginInfo.Name);
+			new ShellManagerService().RegisterService(this);
         }
 
         public IPluginInfo PluginInfo

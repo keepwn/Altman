@@ -6,6 +6,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace PluginFramework
@@ -94,8 +95,9 @@ namespace PluginFramework
 	{
 		public struct ServiceStore
 		{
+			public IPlugin Provider;
+			public Assembly Assembly;
 			public object Service;
-			public string Provider;
 			public string TypeName;
 		}
 
@@ -107,16 +109,22 @@ namespace PluginFramework
 			_services = new Dictionary<string, ServiceStore>();
 		}
 
-		public static void RegisterService<T>(string providerName, string serviceName, T func)
+		public static void RegisterService<T>(IPlugin provider, string serviceName, T func)
 		{
 			if (!_services.ContainsKey(serviceName))
 			{
-				var store = new ServiceStore { Provider = providerName, Service = func, TypeName = "" };
+				var store = new ServiceStore
+				{
+					Provider = provider,
+					Assembly = provider.GetType().Assembly,
+					Service = func,
+					TypeName = "",
+				};
 				_services.Add(serviceName, store);
 			}
 		}
 
-		public static void RegisterService<T>(string providerName, string serviceName, string serviceTypeName, T func)
+		public static void RegisterService<T>(IPlugin provider, string serviceName, string serviceTypeName, T func)
 		{
 			if (!_services.ContainsKey(serviceName))
 			{
@@ -129,7 +137,13 @@ namespace PluginFramework
 				{
 					_serviceTypes.Add(serviceTypeName, typeof(T));
 				}
-				var store = new ServiceStore { Provider = providerName, Service = func, TypeName = serviceTypeName };
+				var store = new ServiceStore
+				{
+					Provider = provider,
+					Assembly = provider.GetType().Assembly,
+					Service = func,
+					TypeName = serviceTypeName,
+				};
 				_services.Add(serviceName, store);
 			}
 		}
@@ -160,7 +174,12 @@ namespace PluginFramework
 
 		public static IEnumerable<T> GetServices<T>(string providerName)
 		{
-			return _services.Values.Where(r => r.Provider == providerName).Select(r => (T) r.Service).ToList();
+			return _services.Values.Where(r => r.Provider.PluginInfo.Name == providerName).Select(r => (T)r.Service).ToList();
+		}
+
+		public static IEnumerable<T> GetServices<T>(IPlugin provider)
+		{
+			return _services.Values.Where(r => r.Provider == provider).Select(r => (T)r.Service).ToList();
 		}
 
 		public static IEnumerable<string> GetServiceNames()
@@ -170,7 +189,12 @@ namespace PluginFramework
 
 		public static IEnumerable<string> GetServiceNames(string providerName)
 		{
-			return _services.Where(r => r.Value.Provider == providerName).Select(r => r.Key).ToList();
+			return _services.Where(r => r.Value.Provider.PluginInfo.Name == providerName).Select(r => r.Key).ToList();
+		}
+
+		public static IEnumerable<string> GetServiceNames(IPlugin provider)
+		{
+			return _services.Where(r => r.Value.Provider == provider).Select(r => r.Key).ToList();
 		}
 
 		public static IEnumerable<string> GetServiceNamesByType(string serviceTypeName)
@@ -185,7 +209,7 @@ namespace PluginFramework
 
 		public static IEnumerable<string> GetServiceNames<T>(string providerName)
 		{
-			return _services.Where(r => r.Value.Service is T && r.Value.Provider == providerName).Select(r => r.Key).ToList();
+			return _services.Where(r => r.Value.Service is T && r.Value.Provider.PluginInfo.Name == providerName).Select(r => r.Key).ToList();
 		}
 
 		public static string GetServiceTypeName(string serviceName)
@@ -200,6 +224,15 @@ namespace PluginFramework
 		public static IEnumerable<string> GetServiceTypeNames()
 		{
 			return _serviceTypes.Keys;
+		}
+
+		public static IPlugin GetServiceProvider(string serviceName)
+		{
+			if (_services.ContainsKey(serviceName))
+			{
+				return _services[serviceName].Provider;
+			}
+			throw new KeyNotFoundException("The service name not found.");
 		}
 	}
 }

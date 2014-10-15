@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
@@ -30,11 +31,20 @@ namespace Plugin_DeveloperTool
 			_comboBoxServices.SelectedIndexChanged += _comboBoxServices_SelectedIndexChanged;
 
 			_textAreaInfo = new TextArea{Size=new Size(-1,200)};
-			_textAreaInfo.Enabled = true;
+			_textAreaInfo.Enabled = false;
 			_textAreaResult = new TextArea();
+			_textAreaResult.Text = "If you wanna call one service, you can do like this:\n" +
+									"Func<string, bool, string> ToBase64 = null;\n" +
+									"ToBase64 = PluginServiceProvider.GetService<Func<Shell, string, string[], byte[]>>(\"ToBase64\");\n" +
+									"var result = ToBase64(\"Test\",True);\n" +
+									"//result=\"VGVzdA==\"";
+			_textAreaResult.Enabled = false;
 
 			var layout = new DynamicLayout {Padding = new Padding(10, 10)};
-			layout.AddSeparateRow(_comboBoxServices);
+
+			layout.AddSeparateRow(
+				new Label {Text = "The Registered Services", VerticalAlign = VerticalAlign.Middle},
+				_comboBoxServices);
 			layout.AddSeparateRow(_textAreaInfo);
 			layout.AddSeparateRow(_textAreaResult);
 
@@ -48,30 +58,41 @@ namespace Plugin_DeveloperTool
 			var index = _comboBoxServices.SelectedIndex;
 			if (index >= 0)
 			{
-				/*
-				 * void Write(
-				 * bool value)
-				 */
-				var builder = new StringBuilder();
 				var selectItem = (_comboBoxServices.Items[index] as ListItem);
-				var service = selectItem.Tag;
 
+				var builder = new StringBuilder();
+				var serviceStore = (PluginServiceProvider.ServiceStore)selectItem.Tag;
+
+				if (serviceStore.Assembly == null) return;
 				var serviceName = selectItem.Text;
-				var ret = service;
-				var args = service.GetType().GetGenericArguments();
+				var assembly= serviceStore.Assembly;
+				MethodInfo method = null;
+				foreach (var type in assembly.GetTypes())
+				{
+					var mes = type.GetMethods().FirstOrDefault(r => r.Name == serviceName);
+					if (mes != null)
+					{
+						method = mes;
+						break;
+					}
+				}
+				if (method != null)
+				{
+					var returnType = method.ReturnType.ToString();
+					var args = method.GetParameters();
 
-				builder.Append(serviceName+"(\n");
+					builder.Append(returnType + " " + serviceName + "(\n");
 
-				var arguments = string.Join(
-					",\n",
-					args.Select((r, i) => "\t" + r.FullName + " func" + (i + 1).ToString()));
-				builder.Append(arguments + "\n)");
+					var arguments = string.Join(
+						",\n",
+						args.Select((r, i) => "\t" + r.ParameterType +" "+ r.Name));
+					builder.Append(arguments + "\n)");
 
-				_textAreaInfo.Text = builder.ToString();
+					_textAreaInfo.Text = builder.ToString();
+				}
 			}
 		}
 
-		private Func<string, bool, string> _function;
 		public void LoadServices()
 		{
 			var names = PluginServiceProvider.GetServiceNames();
@@ -80,7 +101,7 @@ namespace Plugin_DeveloperTool
 				var item = new ListItem
 				{
 					Text = name,
-					Tag = PluginServiceProvider.GetService<object>(name)
+					Tag = PluginServiceProvider.GetServiceStore(name)
 				};
 				_comboBoxServices.Items.Add(item);
 			}
