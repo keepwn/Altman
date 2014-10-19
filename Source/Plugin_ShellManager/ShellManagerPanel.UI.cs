@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
+using PluginFramework;
+using Plugin_ShellManager.Resources;
 
 namespace Plugin_ShellManager
 {
 	partial class ShellManagerPanel
 	{
-		void Init()
+		void InitUi()
 		{
 			//_itemRefreshStatus
-			_itemRefreshStatus = new ButtonMenuItem { Text = "Refresh Status" };
+			_itemRefreshStatus = new ButtonMenuItem { Text = StrRes.GetString("StrRefreshStatus", "Refresh Status") };
 			_itemRefreshStatus.Click += _itemRefreshStatus_Click;
 			//_itemCopyServerCode
-			_itemCopyServerCode = new ButtonMenuItem { Text = "Copy ServerCode" };
+			_itemCopyServerCode = new ButtonMenuItem { Text = StrRes.GetString("StrCopyServerCode", "Copy ServerCode") };
 			_itemCopyServerCode.Click += _itemCopyServerCode_Click;
 			//_itemAdd
-			_itemAdd = new ButtonMenuItem { Text = "Add" };
+			_itemAdd = new ButtonMenuItem { Text =  StrRes.GetString("StrAdd","Add") };
 			_itemAdd.Click += _itemAdd_Click;
 			//_itemEdit
-			_itemEdit = new ButtonMenuItem { Text = "Edit" };
+			_itemEdit = new ButtonMenuItem { Text =  StrRes.GetString("StrEdit","Edit") };
 			_itemEdit.Click += _itemEdit_Click;
 			//_itemDelete
-			_itemDelete = new ButtonMenuItem { Text = "Delete" };
+			_itemDelete = new ButtonMenuItem { Text =  StrRes.GetString("StrDelete","Delete") };
 			_itemDelete.Click += _itemDelete_Click;
 
 			//rightMenu_Webshell

@@ -116,7 +116,7 @@ namespace PluginFramework
 				var store = new ServiceStore
 				{
 					Provider = provider,
-					Assembly = provider.GetType().Assembly,
+					Assembly = provider != null ? provider.GetType().Assembly : null,
 					Service = func,
 					TypeName = "",
 				};
@@ -140,7 +140,7 @@ namespace PluginFramework
 				var store = new ServiceStore
 				{
 					Provider = provider,
-					Assembly = provider.GetType().Assembly,
+					Assembly = provider!=null? provider.GetType().Assembly:null,
 					Service = func,
 					TypeName = serviceTypeName,
 				};

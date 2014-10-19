@@ -76,6 +76,7 @@
     <Compile Include="Core\ShellExtra.cs" />
     <Compile Include="Core\ShellExtraHandle.cs" />
     <Compile Include="Core\XmlHelper.cs" />
+    <Compile Include="Resources\StrRes.cs" />
     <Compile Include="Share\IniElement.cs" />
     <Compile Include="Share\Ini.cs" />
     <Compile Include="Share\IniSettings.cs" />

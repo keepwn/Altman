@@ -8,17 +8,10 @@ namespace Altman.Desktop.Resources
 {
 	public static class AltStrRes
 	{
-		private static string GetString(Hashtable table, string strName, string strDefault)
-		{
-			if (table.Contains(strName.ToLower()))
-			{
-				return (string)table[strName.ToLower()];
-			}
-			return strDefault;
-		}
-
+		private static Hashtable _table;
 		public static void SetTranslatedStrings(Hashtable table)
 		{
+			_table = table;
 			if (table == null) throw new ArgumentNullException("table");
 
 			_title = GetString(table, "StrTitle", _title);
@@ -48,6 +41,24 @@ namespace Altman.Desktop.Resources
 			_notUseProxy = GetString(table, "StrNotUseProxy", _notUseProxy);
 			_useSystemProxySetting = GetString(table, "StrUseSystemProxySetting", _useSystemProxySetting);
 			_useCustomProxySetting = GetString(table, "StrUseCustomProxySetting", _useCustomProxySetting);
+		}
+
+		public static string GetString(string strName, string strDefault)
+		{
+			if (_table != null)
+			{
+				return GetString(_table, strName, strDefault);
+			}
+			return strDefault;
+		}
+
+		public static string GetString(Hashtable table, string strName, string strDefault)
+		{
+			if (table.Contains(strName.ToLower()))
+			{
+				return (string)table[strName.ToLower()];
+			}
+			return strDefault;
 		}
 
 		public static string AboutAltman

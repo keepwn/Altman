@@ -43,7 +43,6 @@ namespace Altman.Desktop.Resources
 			ds.WriteXml("LanguageDefine.xml");
 		}
 
-
 		public static Hashtable Table = new Hashtable();
 		private static XmlDocument ReadXml(string lang)
 		{

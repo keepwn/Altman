@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_ShellManager.Resources;
 using Plugin_ShellManager.Share;
 
 namespace Plugin_ShellManager
 {
 	public partial class FormEditWebshell
 	{
-		void Init()
+		void InitUi()
 		{
 			//_buttonAdd
-			_buttonAdd = new Button { Text = "Add" };
+			_buttonAdd = new Button { Text = StrRes.GetString("StrAdd", "Add") };
 			_buttonAdd.Click += buttonAdd_Click;
 
 			//_buttonAlter
-			_buttonAlter = new Button { Text = "Alter" };
+			_buttonAlter = new Button { Text = StrRes.GetString("StrAlter", "Alter") };
 			_buttonAlter.Click += _buttonAlter_Click;
 
 			//_buttonAdvanced
-			_buttonAdvanced = new Button { Text = "Advanced" };
+			_buttonAdvanced = new Button { Text = StrRes.GetString("StrAdvanced","Advanced") };
 			_buttonAdvanced.Click += _buttonAdvanced_Click;
 
 			//buttonTest
@@ -31,16 +32,16 @@ namespace Plugin_ShellManager
 			var buttonTest2 = new Button { Text = "Test2" };
 			buttonTest2.Click += buttonTest2_Click;
 
-			_textBoxName = new TextBox { PlaceholderText = "Name", Size = new Size(200, -1) };
-			_comboBoxLevel = new ComboBox { Size = new Size(50, -1), };
+			_textBoxName = new TextBox { PlaceholderText = "*Name", Size = new Size(200, -1) };
+			_comboBoxLevel = new ComboBox(true) { Size = new Size(50, -1), };
 			_comboBoxScritpType = new ComboBox { Size = new Size(120, -1) };
-			_textBoxShellPath = new TextBox { PlaceholderText = "Shell Url", Size = new Size(300, -1) };
-			_textBoxShellPass = new TextBox { PlaceholderText = "Pass" };
+			_textBoxShellPath = new TextBox { PlaceholderText = "*Shell Url", Size = new Size(300, -1) };
+			_textBoxShellPass = new TextBox { PlaceholderText = "*Pass" };
 			_textBoxRemark = new TextBox { PlaceholderText = "Remark" };
 
 			var codeList = new List<IListItem>
 			{
-				new ListItem {Text = "UTF-8"}, 
+				new ListItem {Text = "UTF-8"},
 				new ListItem {Text = "GB2312"}
 			};
 			_comboBoxServerCoding = new ComboBox();
@@ -53,8 +54,8 @@ namespace Plugin_ShellManager
 
 			//_panelAdvanced
 			_panelAdvanced = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
-			_panelAdvanced.AddSeparateRow(new Label {Text = "ServerCoding", VerticalAlign = VerticalAlign.Middle}, _comboBoxServerCoding);
-			_panelAdvanced.AddSeparateRow(new Label { Text = "WebCoding", VerticalAlign = VerticalAlign.Middle }, _comboBoxWebCoding);
+			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrServerCoding", "ServerCoding"), VerticalAlign = VerticalAlign.Middle }, _comboBoxServerCoding);
+			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrWebCoding", "WebCoding"), VerticalAlign = VerticalAlign.Middle }, _comboBoxWebCoding);
 			_panelAdvanced.AddSeparateRow(_richTextBoxSetting);
 
 			var panel1 = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
@@ -87,21 +88,21 @@ namespace Plugin_ShellManager
 			panel1.EndHorizontal();
 			panel1.EndVertical();
 			//line 5
-			//panel1.Add(_panelAdvanced);
-			panel1.Add(null);
+			panel1.Add(_panelAdvanced, false, true);
+			_panelAdvanced.Visible = false;
 
-			_p12 = new Splitter
-			{
-				Panel1 = panel1, 
-				Panel2 = _panelAdvanced,
-				Orientation=SplitterOrientation.Horizontal,
-				Position = 200
-			};
-			_p12.FixedPanel = SplitterFixedPanel.Panel1;
-			_p12.Panel2.Visible = false;
+			//_p12 = new Splitter
+			//{
+			//	Panel1 = panel1,
+			//	Panel2 = _panelAdvanced,
+			//	Orientation = SplitterOrientation.Vertical,
+			//	Position = 130,
+			//};
+			//_p12.FixedPanel = SplitterFixedPanel.Panel1;
+			//_p12.Panel2.Visible = false;
 
-			Content = _p12;
-			ClientSize = new Size(500, 300);
+			Content = panel1;
+			ClientSize = new Size(500, 130);
 			Title = "Edit Shell";
 			Icon = Application.Instance.MainForm.Icon;
 		}
@@ -118,6 +119,7 @@ namespace Plugin_ShellManager
 		}
 
 		private Button _buttonAdvanced;
+		private Button _buttonReturn;
 		private Button _buttonAdd;
 		private Button _buttonAlter;
 		private TextBox _textBoxName;

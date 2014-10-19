@@ -10,50 +10,45 @@ using Eto.Forms;
 using PluginFramework;
 using Plugin_ShellManager.Core;
 using Plugin_ShellManager.Data;
+using Plugin_ShellManager.Resources;
 
 namespace Plugin_ShellManager
 {
 	public partial class ShellManagerPanel : Panel
 	{
 		private IHost _host;
-		//private Shell _shellData;
 		private ShellManager _shellManager = null;
 
 		public ShellManagerPanel(IHost host, PluginParameter data)
 		{
-			this._host = host;
+			_host = host;
 
-			//Init
+			// init StrRes to translate string
+			StrRes.SetHost(_host);
+			InitUi();
+
+			// init CustomShellType 
 			InitWorker.InitCustomShellType(Path.Combine(_host.App.AppCurrentDir,"CustomType"));
 
-			Init();
-
-			//注册事件
+			// 注册事件
 			_shellManager = new ShellManager(_host);
 			_shellManager.GetDataTableCompletedToDo += ShellManagerGetDataTableCompletedToDo;
 			_shellManager.DeleteCompletedToDo += ShellManagerDeleteCompletedToDo;
 			_shellManager.InsertCompletedToDo += ShellManagerInsertCompletedToDo;
 			_shellManager.UpdateCompletedToDo += ShellManagerUpdateCompletedToDo;
 
-			//载入shell数据
+			// 载入shell数据
 			LoadWebshellData();
 
-			//添加插件到右键菜单
+			// 添加插件到右键菜单
 			foreach (var plugin in PluginProvider.GetPlugins())
 			{
-				//IsShowInRightContext
+				// IsShowInRightContext
 				if (plugin.PluginSetting.LoadPath.ToLower() == "shellmanager")
 				{
 					string title = plugin.PluginInfo.Name;
 
-					//添加到Tsmi_Plugins中
-					/*
-					var pluginCommand = new Command();
-					pluginCommand.ID = title;
-					pluginCommand.MenuText = title;
-					pluginCommand.Tag = plugin;
-					pluginCommand.Executed += pluginCommand_Executed;
-					*/
+					// 添加到Tsmi_Plugins中
 					var pluginItem = new ButtonMenuItem();
 					pluginItem.ID = title;
 					pluginItem.Text = title;

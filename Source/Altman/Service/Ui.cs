@@ -1,4 +1,5 @@
 ﻿using Altman.Desktop.Forms;
+using Altman.Desktop.Resources;
 using Eto.Forms;
 using PluginFramework;
 
@@ -28,5 +29,10 @@ namespace Altman.Desktop.Service
         {
             return _mainForm.RightMenu;
         }
+
+	    public string GetTranslatedString(string strName, string strDefault)
+	    {
+		    return AltStrRes.GetString(strName, strDefault);
+	    }
     }
 }

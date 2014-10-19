@@ -5,6 +5,7 @@ using Altman.Model;
 using Eto.Drawing;
 using Eto.Forms;
 using PluginFramework;
+using Plugin_ShellManager.Resources;
 using Plugin_ShellManager.Share;
 
 namespace Plugin_ShellManager
@@ -20,7 +21,7 @@ namespace Plugin_ShellManager
 
         public FormEditWebshell(IHost host)
         {
-            Init();
+            InitUi();
             
             this._host = host;
             _shellManager = new ShellManager(_host);
@@ -30,13 +31,11 @@ namespace Plugin_ShellManager
             
             _buttonAdd.Enabled = true;
             _buttonAlter.Enabled = false;
-
-            comboBox_IniType_Init();
         }
 
         public FormEditWebshell(IHost host, Shell shellArray)
         {
-            Init();
+            InitUi();
 
             this._host = host;
             _shellManager = new ShellManager(_host);
@@ -44,7 +43,6 @@ namespace Plugin_ShellManager
 
             //init
             ComboBox_ScriptType_Init();
-			comboBox_IniType_Init();
 
             _buttonAdd.Enabled = false;
             _buttonAlter.Enabled = true;
@@ -77,9 +75,8 @@ namespace Plugin_ShellManager
 
 		void _buttonAdvanced_Click(object sender, EventArgs e)
 		{
-			//_p12.Panel2.Visible = !_p12.Panel2.Visible;
-			_p12.Panel2.Visible = true;
-			//_p12.Panel1.Visible = false;
+			_panelAdvanced.Visible = !_panelAdvanced.Visible;
+			ClientSize = _panelAdvanced.Visible ? new Size(500, 300) : new Size(500, 130);
 		}
 
 	    private Shell GetShellConfigFromPanel()
@@ -88,7 +85,7 @@ namespace Plugin_ShellManager
 
 			shell.Id = this.Id;
 		    shell.TargetId = _textBoxName.Text.Trim();//*
-		    shell.TargetLevel = _comboBoxLevel.SelectedKey ?? "";
+			shell.TargetLevel = _comboBoxLevel.Text;
 		    shell.ShellType = _comboBoxScritpType.SelectedKey ?? "";//*
 
 			shell.ShellUrl = _textBoxShellPath.Text.Trim();//*
@@ -120,7 +117,9 @@ namespace Plugin_ShellManager
 				|| shell.WebCoding == "")
 		    {
 			    success = false;
-			    MessageBox.Show("Please fill out the project with *",MessageBoxType.Error);
+			    MessageBox.Show(
+					StrRes.GetString("StrPleaseFillOutTheProjectWith*","Please fill out the project with *"),
+					MessageBoxType.Error);
 		    }
 			return success;
 	    }
@@ -157,75 +156,16 @@ namespace Plugin_ShellManager
             }
         }
 
-        private bool VerifyXml(string xml)
-        {
-            bool isVaild = false;
-            try
-            {
-                XmlNode tmp = new XmlDocument().CreateElement("Root");
-                tmp.InnerXml = xml;
-                isVaild = true;
-            }
-            catch
-            {
-                isVaild = false;
-                MessageBox.Show("Sorry,the ini is not legal xml.Please edit the ini.");
-            }
-            return isVaild;
-        }
-
         /// <summary>
         /// 初始化可选择的脚本类型
         /// </summary>
         private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
-			foreach (string type in new ShellManagerService().GetCustomShellTypeNameList())
+			foreach (var type in new ShellManagerService().GetCustomShellTypeNameList())
             {
                 _comboBoxScritpType.Items.Add(type);
             }
-        }
-        /// <summary>
-        /// 初始化可选择的配置类型
-        /// </summary>
-        private void comboBox_IniType_Init()
-        {
-            string[] types = { "DbConnStr", "PostData"};
-            //comboBox_IniType.Items.AddRange(types);
-            //comboBox_IniType.SelectedIndex = 0;
-
-        }
-        /// <summary>
-        /// 选择配置类型事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void comboBox_IniType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*
-            comboBox_Items.Items.Clear();
-            //如果选择了数据库连接配置类型
-            if (comboBox_IniType.Text == "DbConnStr")
-            {
-                comboBox_Items.Items.AddRange(_host.Core.GetDbNodeFuncCodeNameList(comboBox_ScritpType.Text));
-            }
-             */
-        }
-
-        private void btn_insert_Click(object sender, EventArgs e)
-        {
-            /*
-            string selectedStr = comboBox_Items.Text;
-            if (string.IsNullOrEmpty(selectedStr))
-            {
-                MessageBox.Show("please select one firstly");
-            }
-            else
-            {
-                richTextBox_Setting.AppendText("\r\n");
-                richTextBox_Setting.AppendText(selectedStr);
-            }
-            */
         }
     }
 }
