@@ -5,6 +5,7 @@ using System.Text;
 using Altman.Desktop.CustomControls;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Interface
 {
@@ -16,7 +17,7 @@ namespace Plugin_FileManager.Interface
 			_textboxUrl = new TextBox();
 
 			//_buttonDir
-			_buttonDir = new Button {Text = "Dir"};
+			_buttonDir = new Button {Text = StrRes.GetString("StrDir","Dir")};
 			_buttonDir.Click += _buttonDir_Click;
 
 			//_treeViewDirs
@@ -44,7 +45,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
-				HeaderText = "Name",
+				HeaderText = StrRes.GetString("StrName","Name"),
 				DataCell = new TextBoxCell("Name"),
 				Sortable = true,
 				AutoSize = false,
@@ -53,7 +54,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
-				HeaderText = "Time",
+				HeaderText = StrRes.GetString("StrTime","Time"),
 				DataCell = new TextBoxCell("FileMTime"),
 				Sortable = true,
 				AutoSize = false,
@@ -62,7 +63,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
-				HeaderText = "Size",
+				HeaderText = StrRes.GetString("StrSize","Size"),
 				DataCell = new TextBoxCell("FileSize"),
 				Sortable = true,
 				AutoSize = false,
@@ -70,7 +71,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
-				HeaderText = "Attribute",
+				HeaderText = StrRes.GetString("StrAttribute","Attribute"),
 				DataCell = new TextBoxCell("FileAttributes"),
 				Sortable = true,
 				AutoSize = false,

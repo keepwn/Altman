@@ -78,6 +78,7 @@
     <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
+    <Compile Include="Resources\StrRes.cs" />
     <Compile Include="ZipUtil.cs" />
   </ItemGroup>
   <ItemGroup>

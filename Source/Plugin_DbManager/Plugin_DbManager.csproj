@@ -73,6 +73,7 @@
     <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\StrRes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">

@@ -5,6 +5,7 @@ using Eto;
 using Eto.Forms;
 using Plugin_FileManager;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -14,7 +15,7 @@ namespace Plugin_FileManager.Actions
 		public ItemCreateDir(Status status)
 		{
 			ID = "createDir";
-			MenuText = "CreateDir";
+			MenuText = StrRes.GetString("StrCreateDir","CreateDir");
 			Executed += ItemCreateDir_Executed;
 
 			_status = status;

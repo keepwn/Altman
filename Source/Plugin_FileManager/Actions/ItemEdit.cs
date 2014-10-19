@@ -2,6 +2,7 @@
 using Eto.Forms;
 using Plugin_FileManager.Interface;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -11,7 +12,7 @@ namespace Plugin_FileManager.Actions
 		public ItemEdit(Status status)
 		{
 			ID = "edit";
-			MenuText = "Edit";
+			MenuText = StrRes.GetString("StrEdit","Edit");
 			Executed += ItemEdit_Executed;
 
 			_status = status;

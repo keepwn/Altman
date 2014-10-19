@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Interface
 {
@@ -15,11 +16,11 @@ namespace Plugin_FileManager.Interface
 			_textBoxUrl = new TextBox();
 
 			//_buttonReadFile
-			_buttonReadFile = new Button { Text = "Read" };
+			_buttonReadFile = new Button { Text = StrRes.GetString("StrLoad", "Load") };
 			_buttonReadFile.Click += _buttonReadFile_Click;
 
 			//_buttonSaveFile
-			_buttonSaveFile = new Button {Text = "Save"};
+			_buttonSaveFile = new Button {Text = StrRes.GetString("StrSave","Save")};
 			_buttonSaveFile.Click += _buttonSaveFile_Click;
 
 			//_textAreaBody

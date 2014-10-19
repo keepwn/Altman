@@ -4,6 +4,7 @@ using System.IO;
 using Altman.Common.AltEventArgs;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -12,7 +13,7 @@ namespace Plugin_FileManager.Actions
 		private Status _status;
 		public ItemDownload(Status status)
 		{
-			MenuText = "Download";
+			MenuText = StrRes.GetString("StrDownload","Download");
 			Executed += ItemDownload_Executed;
 
 			_status = status;

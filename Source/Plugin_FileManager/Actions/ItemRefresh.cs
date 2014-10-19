@@ -1,6 +1,7 @@
 ﻿using System;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -10,7 +11,7 @@ namespace Plugin_FileManager.Actions
 		public ItemRefresh(Status status)
 		{
 			ID = "refresh";
-			MenuText = "Refresh";
+			MenuText = StrRes.GetString("StrRefresh","Refresh");
 			Executed += ItemRefresh_Executed;
 
 			_status = status;

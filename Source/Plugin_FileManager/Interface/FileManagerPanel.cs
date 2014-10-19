@@ -12,6 +12,7 @@ using Eto.Drawing;
 using Eto.Forms;
 using PluginFramework;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Interface
 {
@@ -30,10 +31,12 @@ namespace Plugin_FileManager.Interface
 
 		public FileManagerPanel(IHost host, PluginParameter data)
 		{
-			Init();
-
 			_host = host;
 			_shellData = (Shell)data[0];
+
+			// init StrRes to translate string
+			StrRes.SetHost(_host);
+			Init();
 
 			//
 			_fileManager = new FileManager(_host, _shellData);
@@ -255,7 +258,7 @@ namespace Plugin_FileManager.Interface
 			contextMenu.Items.Add(new Actions.ItemRename(status));
 			contextMenu.Items.Add(new Actions.ItemModifyTime(status));
 
-			var create = contextMenu.Items.GetSubmenu("Add");
+			var create = contextMenu.Items.GetSubmenu(StrRes.GetString("StrNew", "New"));
 			create.Items.Add(new Actions.ItemCreateDir(status));
 			create.Items.Add(new Actions.ItemCreateFile(status));
 

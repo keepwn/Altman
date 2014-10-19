@@ -8,6 +8,7 @@ using Altman.Model;
 using Eto.Forms;
 using PluginFramework;
 using Plugin_PluginManager.Model;
+using Plugin_PluginManager.Resources;
 
 namespace Plugin_PluginManager
 {
@@ -25,6 +26,8 @@ namespace Plugin_PluginManager
         {
 			this._host = host;
 
+			// init StrRes to translate string
+			StrRes.SetHost(_host);
             Init();
 
 			_updateXmlPath = Path.Combine(_host.App.AppPluginDir, new PluginInfo().Name, "update.xml");

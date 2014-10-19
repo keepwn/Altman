@@ -5,6 +5,7 @@ using System.IO;
 using Altman.Common.AltEventArgs;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -14,7 +15,7 @@ namespace Plugin_FileManager.Actions
 		public ItemUpload(Status status)
 		{
 			ID = "upload";
-			MenuText = "Upload";
+			MenuText = StrRes.GetString("StrUpload","Upload");
 			Executed += ItemUpload_Executed;
 
 			_status = status;

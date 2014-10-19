@@ -1,6 +1,7 @@
 ﻿using System;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -10,7 +11,7 @@ namespace Plugin_FileManager.Actions
 		public ItemPaste(Status status)
 		{
 			ID = "paste";
-			MenuText = "Paste";
+			MenuText = StrRes.GetString("StrPaste","Paste");
 			Executed += ItemPaste_Executed;
 
 			_status = status;
@@ -32,8 +33,6 @@ namespace Plugin_FileManager.Actions
 					_status.CopyFileName = string.Empty;
 				}
 			}
-
-
 		}
 	}
 }

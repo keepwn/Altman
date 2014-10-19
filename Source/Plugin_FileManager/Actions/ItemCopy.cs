@@ -2,6 +2,7 @@
 using System.Linq;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -11,7 +12,7 @@ namespace Plugin_FileManager.Actions
 		public ItemCopy(Status status)
 		{
 			ID = "copy";
-			MenuText = "Copy";
+			MenuText = StrRes.GetString("StrCopy","Copy");
 			Executed += ItemCopy_Executed;
 
 			_status = status;

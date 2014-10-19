@@ -3,6 +3,7 @@ using System.IO;
 using Eto.Forms;
 using Plugin_FileManager.Interface;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -12,7 +13,7 @@ namespace Plugin_FileManager.Actions
 		public ItemCreateFile(Status status)
 		{
 			ID = "createFile";
-			MenuText = "CreateFile";
+			MenuText = StrRes.GetString("StrCreateFile","CreateFile");
 			Executed += ItemCreateFile_Executed;
 
 			_status = status;

@@ -1,6 +1,7 @@
 ﻿using System;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -10,7 +11,7 @@ namespace Plugin_FileManager.Actions
 		public ItemDownloadToServer(Status status)
 		{
 			ID = "downloadToServer";
-			MenuText = "DownloadToServer";
+			MenuText = StrRes.GetString("StrDownloadToServer","DownloadToServer");
 			Executed += ItemDownloadToServer_Executed;
 
 			_status = status;

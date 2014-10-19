@@ -2,6 +2,7 @@
 using System.Linq;
 using Eto.Forms;
 using Plugin_FileManager.Model;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Actions
 {
@@ -11,7 +12,7 @@ namespace Plugin_FileManager.Actions
 		public ItemModifyTime(Status status)
 		{
 			ID = "modifyTime";
-			MenuText = "ModifyTime";
+			MenuText = StrRes.GetString("StrModifyTime","ModifyTime");
 			Executed += ItemModifyTime_Executed;
 
 			_status = status;

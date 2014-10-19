@@ -10,6 +10,7 @@ using Altman.Model;
 using Eto.Drawing;
 using Eto.Forms;
 using PluginFramework;
+using Plugin_DbManager.Resources;
 
 namespace Plugin_DbManager
 {
@@ -34,6 +35,8 @@ namespace Plugin_DbManager
 			_shellData = (Shell)data[0];
 			_shellSqlConn = GetShellSqlConn();
 
+			// init StrRes to translate string
+			StrRes.SetHost(_host);
             Init();			
 
             //绑定事件

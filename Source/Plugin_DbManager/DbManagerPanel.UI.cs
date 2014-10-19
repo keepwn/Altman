@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_DbManager.Resources;
 
 namespace Plugin_DbManager
 {
@@ -12,11 +13,11 @@ namespace Plugin_DbManager
 		void Init()
 		{
 			//_buttonConnect
-			_buttonConnect = new Button { Text = "Connect", Image = Icons.ConnectIcon };
+			_buttonConnect = new Button { Text = StrRes.GetString("StrConnect","Connect"), Image = Icons.ConnectIcon };
 			_buttonConnect.Click += ButtonConnect_Click;
 
 			//_buttonDisconnect
-			_buttonDisconnect = new Button { Text = "Disconnect", Image = Icons.DisconnectIcon };
+			_buttonDisconnect = new Button { Text = StrRes.GetString("StrDisconnect","Disconnect"), Image = Icons.DisconnectIcon };
 			_buttonDisconnect.Click += _buttonDisconnect_Click;
 
 			//_comboboxDbs
@@ -24,20 +25,20 @@ namespace Plugin_DbManager
 			_comboboxDbs.Size = new Size(200, -1);
 
 			//_buttonRunScript
-			_buttonRunScript = new Button {Text = "Run Sql", Image = Icons.RunScripIcon};
+			_buttonRunScript = new Button {Text = StrRes.GetString("StrExecute","Execute"), Image = Icons.RunScripIcon};
 			_buttonRunScript.Click += _buttonRunScript_Click;
 
 			//_itemSaveAsCsv
-			_itemSaveAsCsv = new ButtonMenuItem { Text = "SaveAsCsv" };
+			_itemSaveAsCsv = new ButtonMenuItem { Text = StrRes.GetString("StrSaveAsCsv","SaveAs .Csv") };
 			_itemSaveAsCsv.Click += _itemSaveAsCsv_Click;
 
 			//_itemViewTable
-			_itemViewTable = new ButtonMenuItem { Text = "ViewTable" };
+			_itemViewTable = new ButtonMenuItem { Text = StrRes.GetString("StrViewTable","ViewTable") };
 			_itemViewTable.Click += _itemViewTable_Click;
 			_itemViewTable.Enabled = false;
 
 			//_itemCopyName
-			_itemCopyName = new ButtonMenuItem { Text = "CopyName" };
+			_itemCopyName = new ButtonMenuItem { Text = StrRes.GetString("StrCopyName","CopyName") };
 			_itemCopyName.Click += _itemCopyName_Click;
 
 			//_menuDbView

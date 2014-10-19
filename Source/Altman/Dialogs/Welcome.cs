@@ -25,6 +25,8 @@ namespace Altman.Desktop.Dialogs
         {
             //_textAreaWelcome
 	        _textAreaWelcome = new TextArea() {Size = new Size(418, 277), Text = AltStrRes.Disclaimer};
+	        _textAreaWelcome.Wrap = true;
+	        _textAreaWelcome.Enabled = false;
 
             //_checkBoxNoDisplay
 			_checkBoxNoDisplay = new CheckBox() { Text = AltStrRes.DontDisplayAgain};

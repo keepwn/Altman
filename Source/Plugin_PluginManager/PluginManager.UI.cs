@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_PluginManager.Resources;
 
 namespace Plugin_PluginManager
 {
@@ -17,40 +18,40 @@ namespace Plugin_PluginManager
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
 				DataCell = new CheckBoxCell("Checked"),
-				HeaderText = "Checked",
+				HeaderText = StrRes.GetString("StrChecked","Checked"),
 				Editable = true
 			});
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("Name"), 
-				HeaderText = "Name",
+				HeaderText = StrRes.GetString("StrName","Name"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("Author"), 
-				HeaderText = "Author",
+				HeaderText = StrRes.GetString("StrAuthor","Author"),
 				AutoSize = false,
 				Width = 100
 			});
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("InstalledVersion"),
-				HeaderText = "InstalledVersion",
+				HeaderText = StrRes.GetString("StrInstalledVersion","InstalledVersion"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("FileName"), 
-				HeaderText = "FileName",
+				HeaderText = StrRes.GetString("StrFileName","FileName"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewInstalled.SelectionChanged += _gridViewInstalled_SelectionChanged;
 			_textAreatInstalledDes = new TextArea();
-			_buttonRemove = new Button {Text = "Remove"};
+			_buttonRemove = new Button {Text = StrRes.GetString("StrRemove","Remove")};
 			_buttonRemove.Click += _buttonRemove_Click;
 			page1.Add(_gridViewInstalled, true, true);
 			page1.Add(_textAreatInstalledDes, true, false);
@@ -62,49 +63,49 @@ namespace Plugin_PluginManager
 			_gridViewAvailable.Columns.Add(new GridColumn()
 			{
 				DataCell = new CheckBoxCell("Checked"),
-				HeaderText = "Checked",
+				HeaderText = StrRes.GetString("StrChecked","Checked"),
 				Editable = true
 			});
 			_gridViewAvailable.Columns.Add(new GridColumn() 
 			{
 				DataCell = new TextBoxCell("Name"), 
-				HeaderText = "Name",
+				HeaderText = StrRes.GetString("StrName","Name"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewAvailable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("Author"), 
-				HeaderText = "Author",
+				HeaderText = StrRes.GetString("StrAuthor","Author"),
 				AutoSize = false,
 				Width = 100
 			});
 			_gridViewAvailable.Columns.Add(new GridColumn() 
 			{
 				DataCell = new TextBoxCell("AvailableVersion"), 
-				HeaderText = "AvailableVersion",
+				HeaderText = StrRes.GetString("StrAvailableVersion","AvailableVersion"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewAvailable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("RequiredVersion"), 
-				HeaderText = "RequiredVersion",
+				HeaderText = StrRes.GetString("StrRequiredVersion","RequiredVersion"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewAvailable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("CanInstall"), 
-				HeaderText = "CanInstall",
+				HeaderText = StrRes.GetString("StrCanInstall","CanInstall"),
 				AutoSize = false,
 				Width = 100
 			});
 			_gridViewAvailable.SelectionChanged += _gridViewAvailable_SelectionChanged;
 			_textAreatAvailableDes = new TextArea();
-			_buttonRefresh = new Button {Text = "Refresh"};
+			_buttonRefresh = new Button {Text = StrRes.GetString("StrRefresh","Refresh")};
 			_buttonRefresh.Click += _buttonRefresh_Click;
-			_buttonInstall = new Button {Text = "Install"};
+			_buttonInstall = new Button {Text = StrRes.GetString("StrInstall","Install")};
 			_buttonInstall.Click += _buttonInstall_Click;
 			page2.Add(_gridViewAvailable, true, true);
 			page2.Add(_textAreatAvailableDes, true, false);
@@ -116,62 +117,62 @@ namespace Plugin_PluginManager
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new CheckBoxCell("Checked"),
-				HeaderText = "Checked",
+				HeaderText = StrRes.GetString("StrChecked","Checked"),
 				Editable = true
 			});
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("Name"), 
-				HeaderText = "Name",
+				HeaderText = StrRes.GetString("StrName","Name"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("Author"), 
-				HeaderText = "Author",
+				HeaderText = StrRes.GetString("StrAuthor","Author"),
 				AutoSize = false,
 				Width = 100
 			});
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("InstalledVersion"), 
-				HeaderText = "InstalledVersion",
+				HeaderText = StrRes.GetString("StrInstalledVersion","InstalledVersion"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("AvailableVersion"), 
-				HeaderText = "AvailableVersion",
+				HeaderText = StrRes.GetString("StrAvailableVersion","AvailableVersion"),
 				AutoSize = false,
 				Width = 150
 			});
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new TextBoxCell("CanUpdate"), 
-				HeaderText = "CanUpdate",
+				HeaderText = StrRes.GetString("StrCanUpdate","CanUpdate"),
 				AutoSize = false,
 				Width = 100
 			});
 			_gridViewUpdatable.SelectionChanged += _gridViewUpdatable_SelectionChanged;
 			_textAreatUpdatesDes = new TextArea();
-			_buttonUpdate = new Button {Text = "Update"};
+			_buttonUpdate = new Button {Text = StrRes.GetString("StrUpdate","Update")};
 			_buttonUpdate.Click += _buttonUpdate_Click;
 			page3.Add(_gridViewUpdatable, true, true);
 			page3.Add(_textAreatUpdatesDes, true, false);
 			page3.AddSeparateRow(null, _buttonUpdate);
 
 			//_tabPageInstalled
-			_tabPageInstalled = new TabPage {Text = "Installed"};
+			_tabPageInstalled = new TabPage {Text = StrRes.GetString("StrInstalled","Installed")};
 			_tabPageInstalled.Content = page1;
 
 			//_tabPageAvailable
-			_tabPageAvailable = new TabPage {Text = "Available"};
+			_tabPageAvailable = new TabPage {Text = StrRes.GetString("StrAvailable","Available")};
 			_tabPageAvailable.Content = page2;
 
 			//_tabPageUpdatable
-			_tabPageUpdatable = new TabPage {Text = "Updatable"};
+			_tabPageUpdatable = new TabPage {Text = StrRes.GetString("StrUpdatable","Updatable")};
 			_tabPageUpdatable.Content = page3;
 
 			//_tabControl
@@ -182,18 +183,20 @@ namespace Plugin_PluginManager
 			_tabControl.SelectedIndexChanged += _tabControl_SelectedIndexChanged;
 
 			//_buttonSetting
-			_buttonSetting = new Button {Text = "Setting"};
+			_buttonSetting = new Button {Text = StrRes.GetString("StrSetting","Setting")};
 			_buttonSetting.Click += _buttonSetting_Click;
 
 			//_buttonClose
-			_buttonClose = new Button {Text = "Close"};
+			_buttonClose = new Button {Text = StrRes.GetString("StrClose","Close")};
 			_buttonClose.Click += _buttonClose_Click;
 
 			//_labelMsg
 			_labelMsg = new Label
 			{
 				TextColor = Colors.Red,
-				Text = "Your operation will take effect when the program start next time."
+				Text =
+					StrRes.GetString("StrYourOperationWillTakeEffectWhenTheProgramStartNextTime",
+						"Your operation will take effect when the program start next time.")
 			};
 			_labelMsg.Visible = false;
 
