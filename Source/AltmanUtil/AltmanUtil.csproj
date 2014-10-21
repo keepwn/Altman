@@ -83,39 +83,6 @@
     <Compile Include="Controls\ListViewPlus.Designer.cs">
       <DependentUpon>ListViewPlus.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TabControl\CustomTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\NativeMethods.cs" />
-    <Compile Include="Controls\TabControl\TabStyle.cs" />
-    <Compile Include="Controls\TabControl\TabStyleProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleAngledProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleChromeProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleDefaultProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleIE8Provider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleNoneProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleRoundedProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVisualStudioProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\TabStyleProviders\TabStyleVS2010Provider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TabControl\ThemedColors.cs" />
     <Compile Include="Controls\TextBoxShell.cs">
       <SubType>Component</SubType>
     </Compile>

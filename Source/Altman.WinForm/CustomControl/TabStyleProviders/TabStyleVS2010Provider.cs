@@ -7,13 +7,13 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Altman.Controls.TabControl.TabStyleProviders
+namespace Altman.CustomControl.TabStyleProviders
 {
 
 	[System.ComponentModel.ToolboxItem(false)]
 	public class TabStyleVS2010Provider : TabStyleRoundedProvider
 	{
-		public TabStyleVS2010Provider(CustomTabControl tabControl) : base(tabControl){
+		public TabStyleVS2010Provider(TabControlPlus tabControl) : base(tabControl){
 			this._Radius = 3;
 			this._ShowTabCloser = true;
 			this._CloserColorActive = Color.Black;

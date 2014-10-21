@@ -1,12 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using swf=System.Windows.Forms;
-using sd=System.Drawing;
 using Altman.Desktop;
 using Eto;
 
-namespace Altman.WinForm
+namespace Altman
 {
     static class Program
     {
@@ -40,15 +38,17 @@ namespace Altman.WinForm
 			Style.Add<Eto.WinForms.Forms.Controls.GridViewHandler>(null,
 				h =>
 				{
-					h.Control.ColumnHeadersBorderStyle = swf.DataGridViewHeaderBorderStyle.None;
-					h.Control.BorderStyle = swf.BorderStyle.Fixed3D;
-					h.Control.BackgroundColor = sd.SystemColors.Window;
+					h.Control.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+					h.Control.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+					h.Control.BackgroundColor = System.Drawing.SystemColors.Window;
 				});
 
 			Style.Add<Eto.WinForms.MenuBarHandler>(null, h =>
 			{
-				h.Control.BackColor = sd.SystemColors.Control;
+				h.Control.BackColor = System.Drawing.SystemColors.Control;
 			});
+			generator.Add<Eto.Forms.TabControl.IHandler>(() => new TabControlPlusHandler());
+
 			var app = new AltmanApplication(generator);
 			app.Run();
 	    }

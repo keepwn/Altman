@@ -8,12 +8,12 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Altman.Controls.TabControl.TabStyleProviders
+namespace Altman.CustomControl.TabStyleProviders
 {
 	[System.ComponentModel.ToolboxItem(false)]
 	public class TabStyleChromeProvider : TabStyleProvider
 	{
-		public TabStyleChromeProvider(CustomTabControl tabControl) : base(tabControl){
+		public TabStyleChromeProvider(TabControlPlus tabControl) : base(tabControl){
 			this._Overlap = 16;
 			this._Radius = 16;
 			this._ShowTabCloser = true;

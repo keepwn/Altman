@@ -6,13 +6,13 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Altman.Controls.TabControl.TabStyleProviders
+namespace Altman.CustomControl.TabStyleProviders
 {
 
 	[System.ComponentModel.ToolboxItem(false)]
 	public class TabStyleDefaultProvider : TabStyleProvider
 	{
-		public TabStyleDefaultProvider(CustomTabControl tabControl) : base(tabControl){
+		public TabStyleDefaultProvider(TabControlPlus tabControl) : base(tabControl){
 			this._FocusTrack = true;
 			this._Radius = 2;
 		}

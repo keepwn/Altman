@@ -1,23 +1,18 @@
-﻿/*
- * This code is provided under the Code Project Open Licence (CPOL)
- * See http://www.codeproject.com/info/cpol10.aspx for details
- */
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using Altman.Controls.TabControl.TabStyleProviders;
+using Altman.CustomControl.TabStyleProviders;
 
-namespace Altman.Controls.TabControl
+namespace Altman.CustomControl
 {
 	[System.ComponentModel.ToolboxItem(false)]
 	public abstract class TabStyleProvider : Component
 	{
 		#region Constructor
 		
-		protected TabStyleProvider(CustomTabControl tabControl){
+		protected TabStyleProvider(TabControlPlus tabControl){
 			this._TabControl = tabControl;
 			
 			this._BorderColor = Color.Empty;
@@ -40,7 +35,7 @@ namespace Altman.Controls.TabControl
 
 		#region Factory Methods
 		
-		public static TabStyleProvider CreateProvider(CustomTabControl tabControl){
+		public static TabStyleProvider CreateProvider(TabControlPlus tabControl){
 			TabStyleProvider provider;
 			
 			//	Depending on the display style of the tabControl generate an appropriate provider.
@@ -91,7 +86,7 @@ namespace Altman.Controls.TabControl
 		#region	Protected variables
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
-		protected CustomTabControl _TabControl;
+		protected TabControlPlus _TabControl;
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
 		protected Point _Padding;

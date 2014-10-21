@@ -1,9 +1,4 @@
-﻿/*
- * This code is provided under the Code Project Open Licence (CPOL)
- * See http://www.codeproject.com/info/cpol10.aspx for details
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -12,16 +7,16 @@ using System.Drawing.Imaging;
 using System.Security.Permissions;
 using System.Windows.Forms;
 
-namespace Altman.Controls.TabControl
+namespace Altman.CustomControl
 {
 	
 	[ToolboxBitmap(typeof(System.Windows.Forms.TabControl))]
-	public class CustomTabControl : System.Windows.Forms.TabControl
+	public class TabControlPlus : System.Windows.Forms.TabControl
 	{
 		
 		#region	Construction
 
-		public CustomTabControl(){
+		public TabControlPlus(){
 			
 			this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.ResizeRedraw , true);
 			

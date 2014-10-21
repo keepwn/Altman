@@ -1,15 +1,9 @@
-﻿/*
- * This code is provided under the Code Project Open Licence (CPOL)
- * See http://www.codeproject.com/info/cpol10.aspx for details
-*/
-
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace Altman.Controls.TabControl
+namespace Altman.CustomControl
 {
-
 	internal sealed class ThemedColors
 	{
 
@@ -82,7 +76,6 @@ namespace Altman.Controls.TabControl
 			Metallic = 2,
 			NoTheme = 3
 		}
-
 	}
 
 }

@@ -6,13 +6,13 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Altman.Controls.TabControl.TabStyleProviders
+namespace Altman.CustomControl.TabStyleProviders
 {
 
 	[System.ComponentModel.ToolboxItem(false)]
 	public class TabStyleVisualStudioProvider : TabStyleProvider
 	{
-		public TabStyleVisualStudioProvider(CustomTabControl tabControl) : base(tabControl){
+		public TabStyleVisualStudioProvider(TabControlPlus tabControl) : base(tabControl){
 			this._ImageAlign = ContentAlignment.MiddleRight;
 			this._Overlap = 7;
 			

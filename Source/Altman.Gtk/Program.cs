@@ -4,7 +4,7 @@ using System.Reflection;
 using Altman.Desktop;
 using Eto;
 
-namespace Altman.Gtk
+namespace Altman
 {
     static class Program
     {
@@ -35,6 +35,8 @@ namespace Altman.Gtk
 	    static void Start()
 	    {
 			var generator = Platform.Get(Platforms.Gtk2);
+			generator.Add<Eto.Forms.TabControl.IHandler>(() => new TabControlPlusHandler());
+
 			var app = new AltmanApplication(generator);
 			app.Run();
 	    }
