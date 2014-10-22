@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml;
-using Altman.Model;
+using Altman.Plugin;
 using Eto.Forms;
-using PluginFramework;
 using Plugin_PluginManager.Model;
 using Plugin_PluginManager.Resources;
 
@@ -15,7 +14,6 @@ namespace Plugin_PluginManager
     public partial class PluginManager : Form
     {
         private IHost _host;
-        private Shell _shellData;
 
 	    private string _updateXmlPath;
 	    private string _updateXmlUrl;

@@ -1,6 +1,6 @@
 ﻿import clr
-clr.AddReference('PluginFramework')
-from PluginFramework import IPluginInfo,IPluginSetting,IControlPlugin
+clr.AddReference('Altman.Plugin')
+from Altman.Plugin import IPluginInfo,IPluginSetting,IControlPlugin
 import sys,os
 
 class PluginInfo(IPluginInfo):
@@ -25,17 +25,11 @@ class PluginSetting(IPluginSetting):
     def IsAutoLoad(self):
         return False
     @property
-    def IsNeedShellData(self):
-        return False
-    @property
-    def IsShowInRightContext(self):
-        return True
-    @property
     def IndexInList(self):
         return 1
     @property
     def LoadPath(self):
-        return 'test'
+        return ''
 
 @export(IPlugin)
 class Plugin(IControlPlugin):
@@ -56,7 +50,7 @@ class Plugin(IControlPlugin):
     def PluginSetting(self):
         return self.pluginSetting
 
-    def GetUi(self, shell):
+    def LoadGui(self, argv):
         #self._userControl = MyFirstPlugin(_host,data)
         #return self._userControl
         pass

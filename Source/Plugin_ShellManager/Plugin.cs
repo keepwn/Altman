@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_ShellManager
 {
     [PartCreationPolicy(CreationPolicy.NonShared)]
     [Export(typeof(IPlugin))]
-    public class Plugin : IControlPlugin
+	public class Plugin : IControlPlugin
     {
         private object _userControl;
         private PluginInfo _pluginInfo;
@@ -17,8 +17,8 @@ namespace Plugin_ShellManager
         public Plugin()
         {
             _pluginInfo = new PluginInfo();
-            _pluginSetting = new PluginSetting();
-			new ShellManagerService().RegisterService(this);
+            _pluginSetting = new PluginSetting();			
+			//new ShellManagerService().RegisterService(this);
         }
 
         public IPluginInfo PluginInfo
@@ -31,7 +31,7 @@ namespace Plugin_ShellManager
             get { return _pluginSetting; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
             return _userControl = new ShellManagerPanel(_host, data);
         }

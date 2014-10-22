@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Xml;
-using Altman.Desktop.Forms;
-using Altman.Web;
-using PluginFramework;
+﻿using Altman.Forms;
+using Altman.Plugin;
 
-namespace Altman.Desktop.Service
+namespace Altman.Service
 {
     public class Core : IHostCore
     {

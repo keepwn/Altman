@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_ShellManager.Resources
 {

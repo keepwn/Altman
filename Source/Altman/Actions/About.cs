@@ -1,8 +1,8 @@
 ﻿using System;
-using Altman.Desktop.Resources;
+using Altman.Resources;
 using Eto.Forms;
 
-namespace Altman.Desktop.Actions
+namespace Altman.Actions
 {
     public class About : Command
     {

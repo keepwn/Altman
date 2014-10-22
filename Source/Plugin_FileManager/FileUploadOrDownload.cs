@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using Altman.Common.AltData;
-using Altman.Common.AltEventArgs;
-using Altman.Common.AltException;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
+using Altman.Util.Common.AltData;
+using Altman.Util.Common.AltEventArgs;
+using Altman.Util.Common.AltException;
+using Altman.Webshell.Model;
 
 namespace Plugin_FileManager
 {
@@ -19,20 +19,18 @@ namespace Plugin_FileManager
         private string _sourceFilePath;
         private string _targetFilePath;
         private BackgroundWorker _backgroundWorker;
-		private Func<Shell, string, string[], byte[]> _submitCommand;
         public FileUploadOrDownload(IHost host, Shell shellData, string sourceFilePath, string targetFilePath)
         {
             _host = host;
             _shellData = shellData;
             _sourceFilePath = sourceFilePath;
             _targetFilePath = targetFilePath;
-
-			_submitCommand = PluginServiceProvider.GetService<Func<Shell, string, string[], byte[]>>("SubmitCommand");
-			if (_submitCommand == null)
-			{
-				throw new ArgumentException("Not Found `SubmitCommand` Service");
-			}
         }
+
+		private byte[] SubmitCommand(Shell shell, string funcNameXpath, string[] param)
+		{
+			return Altman.Webshell.Service.SubmitCommand(shell, funcNameXpath, param);
+		}
 
         public void StartToUploadFile()
         {
@@ -138,7 +136,7 @@ namespace Plugin_FileManager
         {
             string[] par = e.Argument as string[];
 
-			byte[] resultBytes = _submitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
+			byte[] resultBytes = SubmitCommand(_shellData, "FileManager/DownloadFileCode", new string[] { par[0] });
             byte[] fileBytes = ResultMatch.MatchResultToFile(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
             e.Result = SaveFile(par[1], fileBytes);
         }
@@ -182,7 +180,7 @@ namespace Plugin_FileManager
         private void upload_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-			byte[] resultBytes = _submitCommand(_shellData, "FileManager/UploadFileCode", par);
+			byte[] resultBytes = SubmitCommand(_shellData, "FileManager/UploadFileCode", par);
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
         private void upload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

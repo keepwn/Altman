@@ -6,10 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Altman.Model;
+using Altman.Plugin;
+using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
 using Plugin_DbManager.Resources;
 
 namespace Plugin_DbManager
@@ -436,11 +436,7 @@ namespace Plugin_DbManager
 
 		private ShellSqlConnection GetShellSqlConn()
 	    {
-			var getShellSqlConnection = PluginServiceProvider.GetService<Func<Shell, string[]>>("GetShellSqlConnection");
-			if (getShellSqlConnection == null)
-				throw new ArgumentException("Not Found `GetShellSqlConnection` Service");
-
-			var res = getShellSqlConnection(_shellData);
+			var res = Altman.Webshell.Service.GetShellSqlConnection(_shellData);
 			return new ShellSqlConnection {type = res[0]??"", conn = res[1]??""};
 	    }
 

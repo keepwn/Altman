@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.Composition;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_DeveloperTool
 {
@@ -29,7 +29,7 @@ namespace Plugin_DeveloperTool
             get { return _pluginSetting; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
             return _userControl = new DeveloperTool(_host, data);
         }

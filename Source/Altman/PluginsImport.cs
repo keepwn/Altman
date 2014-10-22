@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using PluginFramework;
+using Altman.Plugin;
 
-namespace Altman.Desktop
+namespace Altman
 {
     public class PluginsImport
     {

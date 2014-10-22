@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Altman.Desktop.Resources;
+using Altman.Resources;
 using Eto.Forms;
 
-namespace Altman.Desktop.Actions
+namespace Altman.Actions
 {
 	public class Docs : Command
 	{

@@ -5,12 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Altman.Common.AltData;
-using Altman.Desktop.CustomControls;
-using Altman.Model;
+using Altman.Plugin;
+using Altman.Util.Common.AltData;
+using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
+using Plugin_FileManager.Controls;
 using Plugin_FileManager.Model;
 using Plugin_FileManager.Resources;
 

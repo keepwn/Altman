@@ -1,11 +1,11 @@
 ﻿using System;
-using Altman.Desktop.CustomControls;
-using Altman.Desktop.Resources;
-using Altman.Logic;
+using Altman.Resources;
+using Altman.Util.Logic;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Dialogs
+namespace Altman.Dialogs
 {
 	public class Welcome : Dialog
     {
@@ -14,9 +14,9 @@ namespace Altman.Desktop.Dialogs
         private Button _buttonNo;
         private Button _buttonYes;
 
-        private Setting.Setting _setting;
+        private Setting _setting;
         
-        public Welcome(Setting.Setting setting)
+        public Welcome(Setting setting)
         {
             Init();
             this._setting = setting;

@@ -1,4 +1,4 @@
-using Altman.Model;
+using Altman.Webshell.Model;
 
 namespace Plugin_ShellManager.Model
 {

@@ -1,4 +1,4 @@
-﻿using PluginFramework;
+﻿using Altman.Plugin;
 
 namespace Plugin_FileManager
 {

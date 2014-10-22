@@ -1,17 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Altman.Desktop.Dialogs;
-using Altman.Desktop.Forms;
-using Altman.Logic;
-using Altman.Setting;
+using Altman.Dialogs;
+using Altman.Util.Logic;
+using Altman.Util.Setting;
 using Eto.Forms;
 
-namespace Altman.Desktop
+namespace Altman
 {
     internal class InitUi
     {
-		public static void InitGlobalSetting(string settingXmlPath)
+	    public static void InitCustomShellType(string customShellTypePath)
+	    {
+		    try
+		    {
+			    //初始化CustomShellType
+				Altman.Webshell.InitWorker.RegisterCustomShellType(customShellTypePath);
+		    }
+		    catch (Exception ex)
+		    {
+			    //MessageBox.Show(ex.Message);
+		    }
+	    }
+
+	    public static void InitGlobalSetting(string settingXmlPath)
         {
             try
             {
@@ -29,7 +39,7 @@ namespace Altman.Desktop
             try
             {
                 //获取setting
-                Setting.Setting tmp = (Setting.Setting)GlobalSetting.Setting;
+                Setting tmp = (Setting)GlobalSetting.Setting;
                 if (tmp.IsShowDisclaimer)
                 {
                     var w = new Welcome(tmp);
@@ -40,6 +50,6 @@ namespace Altman.Desktop
             {
                 MessageBox.Show(ex.Message);
             }
-        }       
+        }
     }
 }

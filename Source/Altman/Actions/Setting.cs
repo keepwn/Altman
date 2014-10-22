@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Altman.Desktop.Dialogs;
-using Altman.Desktop.Resources;
+using Altman.Dialogs;
+using Altman.Resources;
 using Eto.Forms;
 
-namespace Altman.Desktop.Actions
+namespace Altman.Actions
 {
     public class Setting : Command
     {

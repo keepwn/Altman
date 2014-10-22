@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
-using Altman.Common.AltData;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
+using Altman.Util.Common.AltData;
+using Altman.Webshell.Model;
 
 namespace Plugin_DbManager
 {
@@ -16,19 +16,17 @@ namespace Plugin_DbManager
         private Shell _shellData;
         private string _dbType;
 
-		private Func<Shell, string, string[], byte[]> _submitCommand;
         public DbManager(IHost host, Shell data, string dbType)
         {
             this._host = host;
             this._shellData = data;
 	        this._dbType = dbType;
-
-			_submitCommand = PluginServiceProvider.GetService<Func<Shell, string, string[], byte[]>>("SubmitCommand");
-			if (_submitCommand == null)
-			{
-				throw new ArgumentException("Not Found `SubmitCommand` Service");
-			}
         }
+
+		private byte[] SubmitCommand(Shell shell, string funcNameXpath, string[] param)
+		{
+			return Altman.Webshell.Service.SubmitCommand(shell, funcNameXpath, param);
+		}
 
         /// <summary>
         /// 将string转化为DataTable
@@ -77,7 +75,7 @@ namespace Plugin_DbManager
         private void connectDb_DoWork(object sender, DoWorkEventArgs e)
         {
             string par = e.Argument as string;
-            byte[] resultBytes = _submitCommand(_shellData, "DbManager/" + _dbType + "/ConnectDb", new string[] { par });
+            byte[] resultBytes = SubmitCommand(_shellData, "DbManager/" + _dbType + "/ConnectDb", new string[] { par });
 
             e.Result = ResultMatch.MatchResultToBool(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
         }
@@ -99,7 +97,7 @@ namespace Plugin_DbManager
         private void getDdName_DoWork(object sender, DoWorkEventArgs e)
         {
             string par = e.Argument as string;
-            byte[] resultBytes = _submitCommand(_shellData, "DbManager/" + _dbType + "/GetDbName", new string[] { par });
+            byte[] resultBytes = SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetDbName", new string[] { par });
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] dbs = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -124,7 +122,7 @@ namespace Plugin_DbManager
         private void getDdTableName_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _submitCommand(_shellData, "DbManager/" + _dbType + "/GetTableName", par);
+            byte[] resultBytes = SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetTableName", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] tables = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -149,7 +147,7 @@ namespace Plugin_DbManager
         private void getColumnType_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _submitCommand(_shellData, "DbManager/" + _dbType + "/GetColumnType", par);
+            byte[] resultBytes = SubmitCommand(_shellData, "DbManager/" + _dbType + "/GetColumnType", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             string[] columns = tmp.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -174,7 +172,7 @@ namespace Plugin_DbManager
         private void executeReader_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _submitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteReader", par);
+            byte[] resultBytes = SubmitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteReader", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             e.Result = ConvertStrToDataTable(tmp);
@@ -198,7 +196,7 @@ namespace Plugin_DbManager
         private void executeNonQuery_DoWork(object sender, DoWorkEventArgs e)
         {
             string[] par = e.Argument as string[];
-            byte[] resultBytes = _submitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteNonQuery", par);
+            byte[] resultBytes = SubmitCommand(_shellData, "DbManager/" + _dbType + "/ExecuteNonQuery", par);
             string tmp = ResultMatch.GetResultFromInterval(resultBytes, Encoding.GetEncoding(_shellData.WebCoding));
 
             e.Result = ConvertStrToDataTable(tmp);

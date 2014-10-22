@@ -1,4 +1,4 @@
-﻿using PluginFramework;
+﻿using Altman.Plugin;
 
 namespace Test_DoNetPlugin
 {

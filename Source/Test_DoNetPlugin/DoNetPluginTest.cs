@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using Altman.Model;
+using Altman.Plugin;
+using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
 
 namespace Test_DoNetPlugin
 {

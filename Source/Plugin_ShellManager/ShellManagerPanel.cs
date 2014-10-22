@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using Altman.Model;
+using Altman.Plugin;
+using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
-using Plugin_ShellManager.Core;
 using Plugin_ShellManager.Data;
 using Plugin_ShellManager.Resources;
 
@@ -26,9 +25,6 @@ namespace Plugin_ShellManager
 			// init StrRes to translate string
 			StrRes.SetHost(_host);
 			InitUi();
-
-			// init CustomShellType 
-			InitWorker.InitCustomShellType(Path.Combine(_host.App.AppCurrentDir,"CustomType"));
 
 			// 注册事件
 			_shellManager = new ShellManager(_host);
@@ -77,7 +73,7 @@ namespace Plugin_ShellManager
 
 					if (plugin is IControlPlugin)
 					{
-						object view = (plugin as IControlPlugin).Load(param);
+						object view = (plugin as IControlPlugin).LoadGui(param);
 						//创建新的tab标签
 						//设置标题为FileManager|TargetId
 						string title = plugin.PluginInfo.Name + "|" + shell.TargetId;
@@ -85,7 +81,7 @@ namespace Plugin_ShellManager
 					}
 					else if (plugin is IFormPlugin)
 					{
-						var form = (Form)(plugin as IFormPlugin).Load(param);
+						var form = (Form)(plugin as IFormPlugin).LoadGui(param);
 						form.Show();
 					}
 				}

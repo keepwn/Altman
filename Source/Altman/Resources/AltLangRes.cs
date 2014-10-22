@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using Eto;
 using Eto.Forms;
 
-namespace Altman.Desktop.Resources
+namespace Altman.Resources
 {
 	public class AltLangRes
 	{

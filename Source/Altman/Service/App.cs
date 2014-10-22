@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Reflection;
-using PluginFramework;
+using Altman.Plugin;
 
-namespace Altman.Desktop.Service
+namespace Altman.Service
 {
     public class App:IHostApp
     {

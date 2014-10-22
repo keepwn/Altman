@@ -1,5 +1,4 @@
 ﻿using System;
-using Altman.Desktop;
 using Eto;
 
 namespace Altman.Wpf

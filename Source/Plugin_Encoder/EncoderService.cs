@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_Encoder
 {

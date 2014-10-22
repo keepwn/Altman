@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Forms
+namespace Altman.Forms
 {
 	internal class PanelRequestHeaderSetting : Panel
     {
@@ -153,7 +154,7 @@ namespace Altman.Desktop.Forms
              */
         }
 
-        public void LoadHttpHeaderSetting(Setting.Setting.HttpHeaderStruct header)
+        public void LoadHttpHeaderSetting(Setting.HttpHeaderStruct header)
         {
             if (header.HttpHeaderList != null)
             {
@@ -164,9 +165,9 @@ namespace Altman.Desktop.Forms
                 }
             }
         }
-        public Setting.Setting.HttpHeaderStruct SaveHttpHeaderSetting()
+        public Setting.HttpHeaderStruct SaveHttpHeaderSetting()
         {
-            Setting.Setting.HttpHeaderStruct httpHeader = new Setting.Setting.HttpHeaderStruct();
+            Setting.HttpHeaderStruct httpHeader = new Setting.HttpHeaderStruct();
             httpHeader.HttpHeaderList = new Dictionary<string, string>();
 
             var items = _gridViewHeader.DataStore as DataStoreCollection;

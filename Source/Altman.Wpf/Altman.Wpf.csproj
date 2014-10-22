@@ -7,7 +7,7 @@
     <ProjectGuid>{B8D40D96-2D55-4701-AC80-36C1C23A5170}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Altman.Wpf</RootNamespace>
+    <RootNamespace>Altman</RootNamespace>
     <AssemblyName>Altman.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -86,9 +86,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Altman\Altman.Desktop.csproj">
+    <ProjectReference Include="..\Altman\Altman.csproj">
       <Project>{c8b447f9-e4d2-4d79-94f9-74582509e6e1}</Project>
-      <Name>Altman.Desktop</Name>
+      <Name>Altman</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

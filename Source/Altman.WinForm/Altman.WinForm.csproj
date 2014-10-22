@@ -106,9 +106,9 @@
     <Compile Include="TabControlPlusHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Altman\Altman.Desktop.csproj">
+    <ProjectReference Include="..\Altman\Altman.csproj">
       <Project>{c8b447f9-e4d2-4d79-94f9-74582509e6e1}</Project>
-      <Name>Altman.Desktop</Name>
+      <Name>Altman</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

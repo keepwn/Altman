@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.Composition;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Test_DoNetPlugin
 {
@@ -30,7 +29,7 @@ namespace Test_DoNetPlugin
             get { return _pluginSetting; }
         }
 
-	    public object Load(PluginParameter data)
+	    public object LoadGui(PluginParameter data)
 	    {
 			return _userControl = new DoNetPluginTest(_host, data);
 	    }

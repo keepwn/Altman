@@ -5,7 +5,6 @@ using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
 using Plugin_ShellManager.Resources;
-using Plugin_ShellManager.Share;
 
 namespace Plugin_ShellManager
 {
@@ -109,7 +108,7 @@ namespace Plugin_ShellManager
 
 		private void buttonTest1_Click(object sender, EventArgs e)
 		{
-			var conns = new ShellManagerService().GetDbNodeInfoList(_comboBoxScritpType.SelectedKey);
+			var conns = Altman.Webshell.Service.GetDbNodeInfoList(_comboBoxScritpType.SelectedKey);
 			_richTextBoxSetting.Text = ShellExtraStringHandle.CreateDefaultIniString(conns);
 		}
 

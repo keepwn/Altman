@@ -56,9 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+    <ProjectReference Include="..\Altman.Plugin\Altman.Plugin.csproj">
       <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
-      <Name>PluginFramework</Name>
+      <Name>Altman.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

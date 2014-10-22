@@ -73,6 +73,9 @@
     <Compile Include="Actions\ItemRefresh.cs" />
     <Compile Include="Actions\ItemRename.cs" />
     <Compile Include="Actions\ItemUpload.cs" />
+    <Compile Include="Controls\TreeViewPlus.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Dialogs\CreateDir.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
@@ -124,17 +127,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AltmanUtil\AltmanUtil.csproj">
+    <ProjectReference Include="..\Altman.Util\Altman.Util.csproj">
       <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
-      <Name>AltmanUtil</Name>
+      <Name>Altman.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Altman\Altman.Desktop.csproj">
-      <Project>{C8B447F9-E4D2-4D79-94F9-74582509E6E1}</Project>
-      <Name>Altman.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+    <ProjectReference Include="..\Altman.Plugin\Altman.Plugin.csproj">
       <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
-      <Name>PluginFramework</Name>
+      <Name>Altman.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Altman.Webshell\Altman.Webshell.csproj">
+      <Project>{e2e8c1dd-f049-4aee-978a-5ff372fedbb0}</Project>
+      <Name>Altman.Webshell</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

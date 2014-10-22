@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBFBAB99-6585-4360-AE7B-08842326A64C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Altman.Util</RootNamespace>
+    <AssemblyName>Altman.Util</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_Build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\..\Libraries\Mono\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AltData\DataCombine.cs" />
+    <Compile Include="Common\AltData\DataConvert.cs" />
+    <Compile Include="Common\AltData\ResultMatch.cs" />
+    <Compile Include="Common\AltData\ResultStruct.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_CompletedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_DownloadProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_ProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_ProxyReceiveEventArgs.cs" />
+    <Compile Include="Common\AltEventArgs\Alt_UploadProgressChangedEventArgs.cs" />
+    <Compile Include="Common\AltException\CustomException.cs" />
+    <Compile Include="Common\AltException\LocalCustomException.cs" />
+    <Compile Include="Common\AltException\RequestCustomException.cs" />
+    <Compile Include="Common\AltException\ResponseCustomException.cs" />
+    <Compile Include="Controls\ListViewPlus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewPlus.Designer.cs">
+      <DependentUpon>ListViewPlus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TextBoxShell.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxShell.Designer.cs">
+      <DependentUpon>TextBoxShell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AccessHelper.cs" />
+    <Compile Include="Data\Db.cs" />
+    <Compile Include="Data\SqliteHelper.cs" />
+    <Compile Include="Logic\InitWorker.cs" />
+    <Compile Include="Logic\SettingXmlHandle.cs" />
+    <Compile Include="Logic\XmlHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting\GlobalSetting.cs" />
+    <Compile Include="Setting\Setting.cs" />
+    <Compile Include="Share\Ini.cs" />
+    <Compile Include="Share\IniElement.cs" />
+    <Compile Include="Share\IniSettings.cs" />
+    <Compile Include="Web\Http.cs" />
+    <Compile Include="Web\HttpClient.cs" />
+    <Compile Include="Web\ProxyServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TextBoxShell.resx">
+      <DependentUpon>TextBoxShell.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

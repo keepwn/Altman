@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
+using Altman.Webshell.Model;
 
 namespace Plugin_ShellManager
 {

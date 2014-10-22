@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.Composition;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_DbManager
 {
@@ -30,7 +29,7 @@ namespace Plugin_DbManager
             get { return _pluginSetting; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
             return _userControl = new DbManagerPanel(_host, data);
         }

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.Composition;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_Encoder
 {
@@ -30,7 +30,7 @@ namespace Plugin_Encoder
             get { return _pluginSetting; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
             return _userControl = new Encoder(_host, data);
         }

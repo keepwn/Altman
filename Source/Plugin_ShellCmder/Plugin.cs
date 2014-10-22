@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_ShellCmder
 {
@@ -36,9 +35,9 @@ namespace Plugin_ShellCmder
             get { return _host; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
-            return _userControl = new ShellCmderControl(_host, data);
+            return _userControl = new ShellCmderPanel(_host, data);
         }
 
         public void Dispose()

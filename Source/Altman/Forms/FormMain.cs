@@ -5,13 +5,13 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Altman.Desktop.Resources;
-using Altman.Desktop.Service;
+using Altman.Plugin;
+using Altman.Resources;
+using Altman.Service;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
 
-namespace Altman.Desktop.Forms
+namespace Altman.Forms
 {
 	public class FormMain : Form
 	{
@@ -51,17 +51,13 @@ namespace Altman.Desktop.Forms
 			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
 			PluginProvider.Host = _host;
-			if (!PluginProvider.Compose(AppEnvironment.AppPluginPath))
-			{
-				MessageBox.Show("May be some plugins were error, please remove them.");
-				Environment.Exit(0);
-			}
+			PluginProvider.Compose(AppEnvironment.AppPluginPath,true);
 
 			//----导入插件结束----
 
 
 			//----数据初始化----
-			//InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
+			InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
 			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
 			//----数据初始化结束----
 
@@ -97,101 +93,6 @@ namespace Altman.Desktop.Forms
 				plugin.PluginInfo.Description);
 			MessageBox.Show(msg, "About " + plugin.PluginInfo.Name, MessageBoxButtons.OK);
 		}
-
-		#region MEF处理
-		/// <summary>
-		/// 组合部件
-		/// </summary>
-		//private bool Compose()
-		//{
-		//	var success = false;
-		//	var pluginDir = AppEnvironment.AppPluginPath;
-
-		//	// load .py && .dll plugins
-		//	var pythonFiles = new List<FileInfo>();
-		//	var catalog = new AggregateCatalog();
-		//	//catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-		//	catalog.Catalogs.Add(new DirectoryCatalog(pluginDir));
-		//	foreach (var dir in Directory.EnumerateDirectories(pluginDir))
-		//	{
-		//		var dirInfo = new DirectoryInfo(dir);
-		//		// add .py
-		//		var file = dirInfo.GetFiles("*.py");
-		//		pythonFiles.AddRange(file);
-		//		// add .dll
-		//		catalog.Catalogs.Add(new DirectoryCatalog(dir, "*.dll"));
-		//	}
-		//	_container = new CompositionContainer(catalog);
-
-		//	// create python
-		//	//var engine = Python.CreateEngine();
-		//	//engine.ImportModule("IronPython.Stdlib.dll");
-		//	//var paths = engine.GetSearchPaths();
-		//	//paths.Add(AppEnvironment.AppPath);
-		//	//engine.SetSearchPaths(paths);
-
-		//	// configure the engine with types
-		//	var typesYouWantPythonToHaveAccessTo = new[] { typeof(IPlugin), typeof(IHost) };
-		//	var typeExtractor = new ExtractTypesFromScript();
-
-		//	// add parts
-		//	var parts = new List<ComposablePart>();
-		//	foreach (var py in pythonFiles)
-		//	{
-		//		var exports = typeExtractor.GetPartsFromScript(py.FullName, typesYouWantPythonToHaveAccessTo);
-		//		parts.AddRange(exports);
-		//	}
-		//	var batch = new CompositionBatch(parts, new ComposablePart[] { });
-
-		//	try
-		//	{
-		//		_container.ComposeExportedValue(_host);
-		//		_container.Compose(batch);
-		//		_container.ComposeParts(_pluginsImport);
-		//		success = true;
-		//	}
-		//	catch (CompositionException compositionException)
-		//	{
-		//		Debug.WriteLine(compositionException.Message);
-		//		//_container.Dispose();
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Debug.WriteLine(ex.Message);
-		//	}
-		//	return success;
-		//}
-
-		/// <summary>
-		/// 卸载插件
-		/// </summary>
-		/// <param name="plugin"></param>
-		/// <returns></returns>
-		private bool UnLoadPlugin(IPlugin plugin)
-		{
-			bool isSuccess = false;
-			try
-			{
-				var batch = new CompositionBatch();
-				var part = AttributedModelServices.CreatePart(plugin);
-				//var part = batch.AddExportedValue<IPlugin>(plugin);
-				//var part2 = _container.GetExportedValues<IPlugin>().First();
-				//Lazy<IPlugin> part3 = _container.GetExport<IPlugin>();
-				//IPlugin tmp = part3.Value;
-				//batch.RemovePart(part);
-				batch.AddPart(part);
-				_container.Compose(batch);
-				//_container.ReleaseExport(part3);
-				isSuccess = true;
-			}
-			catch
-			{
-				isSuccess = false;
-			}
-			return isSuccess;
-		}
-
-		#endregion
 
 		public string MsgInStatusBar
 		{
@@ -306,8 +207,16 @@ namespace Altman.Desktop.Forms
 		private void AutoLoadPlugins(IEnumerable<IPlugin> plugins)
 		{
 			//IsAutoLoad
-			foreach (var plugin in plugins)
+			for(var i=0;i<plugins.ToList().Count();i++)
+			//foreach (var plugin in plugins)
 			{
+				var plugin = plugins.ToList()[i];
+				// IsService Plugin, Auto Call LoadService()
+				if (plugin is IServicePlugin)
+				{
+					var p = (plugin as IServicePlugin);
+					p.LoadService();
+				}
 				//IsAutoLoad
 				if (plugin.PluginSetting.IsAutoLoad)
 				{
@@ -316,13 +225,13 @@ namespace Altman.Desktop.Forms
 					{
 						Panel view = null;
 						var p = (plugin as IControlPlugin);
-						view = p.Load(null) as Panel;
+						view = p.LoadGui(null) as Panel;
 						//创建新的tab标签
 						CreateNewTabPage(title, view);
 					}
 					else if (plugin is IFormPlugin)
 					{
-						object form = (plugin as IFormPlugin).Load(null);
+						object form = (plugin as IFormPlugin).LoadGui(null);
 						var form1 = form as Form;
 						if (form1 != null) form1.Show();
 					}
@@ -337,7 +246,7 @@ namespace Altman.Desktop.Forms
 				return;
 			if (plugin is IControlPlugin)
 			{
-				object view = (plugin as IControlPlugin).Load(null);
+				object view = (plugin as IControlPlugin).LoadGui(null);
 				//创建新的tab标签
 				//设置标题为FileManager|TargetId
 				string title = plugin.PluginInfo.Name;
@@ -345,7 +254,7 @@ namespace Altman.Desktop.Forms
 			}
 			else if (plugin is IFormPlugin)
 			{
-				object form = (plugin as IFormPlugin).Load(null);
+				object form = (plugin as IFormPlugin).LoadGui(null);
 				var form1 = form as Form;
 				if (form1 != null) form1.Show();
 			}

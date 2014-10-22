@@ -1,23 +1,23 @@
 ﻿using System;
-using Altman.Desktop.Forms;
-using Altman.Desktop.Resources;
-using Altman.Logic;
-using Altman.Setting;
+using Altman.Forms;
+using Altman.Resources;
+using Altman.Util.Logic;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Dialogs
+namespace Altman.Dialogs
 {
 	public class DialogSetting : Dialog
     {
-        private readonly Func<Setting.Setting.UserAgentStruct> _saveUserAgentSetting;
-        private readonly Action<Setting.Setting.UserAgentStruct> _loadUserAgentSetting;
-        private readonly Func<Setting.Setting.HttpHeaderStruct> _saveHttpHeaderSetting;
-        private readonly Action<Setting.Setting.HttpHeaderStruct> _loadHttpHeaderSetting;
-        private readonly Func<Setting.Setting.PolicyStruct> _savePolicySetting;
-        private readonly Action<Setting.Setting.PolicyStruct> _loadPolicySetting;
-        private readonly Func<Setting.Setting.ProxyStruct> _saveProxySetting;
-        private readonly Action<Setting.Setting.ProxyStruct> _loadProxySetting;
+        private readonly Func<Setting.UserAgentStruct> _saveUserAgentSetting;
+        private readonly Action<Setting.UserAgentStruct> _loadUserAgentSetting;
+        private readonly Func<Setting.HttpHeaderStruct> _saveHttpHeaderSetting;
+        private readonly Action<Setting.HttpHeaderStruct> _loadHttpHeaderSetting;
+        private readonly Func<Setting.PolicyStruct> _savePolicySetting;
+        private readonly Action<Setting.PolicyStruct> _loadPolicySetting;
+        private readonly Func<Setting.ProxyStruct> _saveProxySetting;
+        private readonly Action<Setting.ProxyStruct> _loadProxySetting;
 
         private PanelUserAgentSetting _panelUserAgentSetting;
         private PanelRequestHeaderSetting _panelRequestHeaderSetting;
@@ -41,10 +41,10 @@ namespace Altman.Desktop.Dialogs
             _saveProxySetting = _panelProxySetting.SaveProxySetting;
             _loadProxySetting = _panelProxySetting.LoadProxySetting;
 
-            _loadUserAgentSetting(((Setting.Setting)GlobalSetting.Setting).GetUserAgentStruct);
-            _loadHttpHeaderSetting(((Setting.Setting)GlobalSetting.Setting).GetHttpHeaderStruct);
-            _loadPolicySetting(((Setting.Setting) GlobalSetting.Setting).GetPolicyStruct);
-            _loadProxySetting(((Setting.Setting)GlobalSetting.Setting).GetProxyStruct);
+            _loadUserAgentSetting(((Setting)GlobalSetting.Setting).GetUserAgentStruct);
+            _loadHttpHeaderSetting(((Setting)GlobalSetting.Setting).GetHttpHeaderStruct);
+            _loadPolicySetting(((Setting) GlobalSetting.Setting).GetPolicyStruct);
+            _loadProxySetting(((Setting)GlobalSetting.Setting).GetProxyStruct);
         }
 
         void Init()
@@ -95,10 +95,10 @@ namespace Altman.Desktop.Dialogs
 
         private void SaveAllSetting()
         {
-            Setting.Setting.UserAgentStruct userAgent=new Setting.Setting.UserAgentStruct();
-            Setting.Setting.HttpHeaderStruct httpHeader=new Setting.Setting.HttpHeaderStruct();
-            Setting.Setting.PolicyStruct policy=new Setting.Setting.PolicyStruct();
-            Setting.Setting.ProxyStruct proxy=new Setting.Setting.ProxyStruct();
+            Setting.UserAgentStruct userAgent=new Setting.UserAgentStruct();
+            Setting.HttpHeaderStruct httpHeader=new Setting.HttpHeaderStruct();
+            Setting.PolicyStruct policy=new Setting.PolicyStruct();
+            Setting.ProxyStruct proxy=new Setting.ProxyStruct();
             //生成userAgent
             userAgent = _saveUserAgentSetting();
             //生成httpHeader
@@ -108,7 +108,7 @@ namespace Altman.Desktop.Dialogs
             //生成proxy
             proxy = _saveProxySetting();
             //生成Setting
-            Setting.Setting setting = new Setting.Setting(userAgent, httpHeader, policy, proxy);
+            Setting setting = new Setting(userAgent, httpHeader, policy, proxy);
             //保存Setting到xml
             InitWorker.SaveSettingToXml(AppEnvironment.AppPath, setting);
             //重新初始化GlobalSetting

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Text;
 
-using Altman.Controls;
-
 namespace Plugin_ShellCmder
 {
     public class InternalCommand

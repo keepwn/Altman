@@ -6,8 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using Altman.Plugin;
 using Eto.Forms;
-using PluginFramework;
 using Plugin_PluginManager.Model;
 
 namespace Plugin_PluginManager

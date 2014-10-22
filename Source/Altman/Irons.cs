@@ -1,10 +1,10 @@
 ﻿using Eto.Drawing;
 
-namespace Altman.Desktop
+namespace Altman
 {
 	public static class Icons
 	{
-		public static string Prefix = "Altman.Desktop.";
+		public static string Prefix = "Altman.";
 		public static Icon AltmanIcon
 		{
 			get { return Icon.FromResource(Prefix + "altman.ico"); }

@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.Composition;
-using Altman.Desktop.Forms;
-using Eto.Forms;
-using PluginFramework;
+﻿using Altman.Forms;
+using Altman.Plugin;
 
-namespace Altman.Desktop.Service
+namespace Altman.Service
 {
     public class Host : IHost
     {

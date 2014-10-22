@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.Composition;
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
 
 namespace Plugin_PluginManager
 {
@@ -35,7 +34,7 @@ namespace Plugin_PluginManager
             get { return _host; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
             return _form = new PluginManager(_host, data);
         }

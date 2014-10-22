@@ -1,10 +1,10 @@
 ﻿using System;
-using Altman.Desktop.Forms;
-using Altman.Desktop.Resources;
+using Altman.Forms;
+using Altman.Resources;
 using Eto;
 using Eto.Forms;
 
-namespace Altman.Desktop
+namespace Altman
 {
     public class AltmanApplication:Application
     {

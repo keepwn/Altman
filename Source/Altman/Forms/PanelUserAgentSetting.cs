@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using Altman.Desktop.Resources;
+using Altman.Resources;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Forms
+namespace Altman.Forms
 {
 	public class PanelUserAgentSetting : Panel
     {
@@ -29,7 +30,7 @@ namespace Altman.Desktop.Forms
             this.Content = layout;
         }
 
-        public void LoadUserAgnetSetting(Setting.Setting.UserAgentStruct userAgent)
+        public void LoadUserAgnetSetting(Setting.UserAgentStruct userAgent)
         {
             checkBox_IsRandom.Checked = userAgent.IsRandom;
             foreach (var i in userAgent.UserAgentList)
@@ -48,9 +49,9 @@ namespace Altman.Desktop.Forms
             }
         }
 
-        public Setting.Setting.UserAgentStruct SaveUserAgnetSetting()
+        public Setting.UserAgentStruct SaveUserAgnetSetting()
         {
-            var userAgent = new Setting.Setting.UserAgentStruct();
+            var userAgent = new Setting.UserAgentStruct();
             userAgent.UserAgentList = new Dictionary<string, string>();
             //获取随机化开关
             userAgent.IsRandom = checkBox_IsRandom.Checked==true;

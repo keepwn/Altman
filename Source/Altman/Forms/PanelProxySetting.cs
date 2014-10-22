@@ -1,8 +1,9 @@
-﻿using Altman.Desktop.Resources;
+﻿using Altman.Resources;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Forms
+namespace Altman.Forms
 {
 	public class PanelProxySetting : Panel
     {
@@ -119,12 +120,12 @@ namespace Altman.Desktop.Forms
             _proxyPasswd = _textBoxProxyPasswd.Text.Trim();
             _proxyDomain = _textBoxProxyDomain.Text.Trim();
         }
-        public Setting.Setting.ProxyStruct SaveProxySetting()
+        public Setting.ProxyStruct SaveProxySetting()
         {
             //获取当前窗口配置
             GetProxySetting();
             //组合为ProxyStruct
-            var proxy = new Setting.Setting.ProxyStruct();
+            var proxy = new Setting.ProxyStruct();
             proxy.IsNoOrIeOrCustomProxy = _isProxy;
             proxy.ProxyAddr = _proxyAddr;
             proxy.ProxyPort = _proxyPort;
@@ -133,7 +134,7 @@ namespace Altman.Desktop.Forms
             proxy.ProxyDomain = _proxyDomain;
             return proxy;
         }
-        public void LoadProxySetting(Setting.Setting.ProxyStruct proxy)
+        public void LoadProxySetting(Setting.ProxyStruct proxy)
         {
             if (proxy.IsNoOrIeOrCustomProxy == 0)
             {

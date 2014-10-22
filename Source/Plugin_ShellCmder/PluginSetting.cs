@@ -1,4 +1,4 @@
-﻿using PluginFramework;
+﻿using Altman.Plugin;
 
 namespace Plugin_ShellCmder
 {
@@ -9,10 +9,11 @@ namespace Plugin_ShellCmder
             get { return false; }
         }
 
-        public int IndexInList
+	    public int IndexInList
         {
             get { return 2; }
         }
+
         public string LoadPath
         {
 			get { return "shellmanager"; }

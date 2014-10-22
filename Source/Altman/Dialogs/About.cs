@@ -1,11 +1,8 @@
-﻿using System;
-using System.Reflection;
-using Altman.Desktop.CustomControls;
-using Altman.Desktop.Resources;
+﻿using Altman.Resources;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Dialogs
+namespace Altman.Dialogs
 {
 	public class About : Dialog
     {

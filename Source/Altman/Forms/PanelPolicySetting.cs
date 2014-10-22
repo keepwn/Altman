@@ -1,8 +1,9 @@
-﻿using Altman.Desktop.Resources;
+﻿using Altman.Resources;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Altman.Desktop.Forms
+namespace Altman.Forms
 {
 	public class PanelPolicySetting : Panel
     {
@@ -27,14 +28,14 @@ namespace Altman.Desktop.Forms
 
             this.Content = layout;
         }
-        public void LoadPolicySetting(Setting.Setting.PolicyStruct policy)
+        public void LoadPolicySetting(Setting.PolicyStruct policy)
         {
             _checkBoxIsParamRandom.Checked = policy.IsParamRandom;
             _checkBoxIsShowDisclaimer.Checked = policy.IsShowDisclaimer;
         }
-        public Setting.Setting.PolicyStruct SavePolicySetting()
+        public Setting.PolicyStruct SavePolicySetting()
         {
-            var policy = new Setting.Setting.PolicyStruct();
+            var policy = new Setting.PolicyStruct();
             policy.IsParamRandom = _checkBoxIsParamRandom.Checked==true;
             policy.IsShowDisclaimer = _checkBoxIsShowDisclaimer.Checked==true;
             return policy;

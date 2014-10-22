@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Xml;
-using Altman.Model;
+using Altman.Plugin;
+using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
 using Plugin_ShellManager.Resources;
-using Plugin_ShellManager.Share;
 
 namespace Plugin_ShellManager
 {
@@ -162,7 +161,7 @@ namespace Plugin_ShellManager
         private void ComboBox_ScriptType_Init()
         {
             //获取可用的CustomShellType
-			foreach (var type in new ShellManagerService().GetCustomShellTypeNameList())
+			foreach (var type in Altman.Webshell.Service.GetCustomShellTypeNameList())
             {
                 _comboBoxScritpType.Items.Add(type);
             }

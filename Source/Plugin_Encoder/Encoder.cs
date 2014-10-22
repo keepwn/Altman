@@ -1,6 +1,6 @@
 ﻿using System;
+using Altman.Plugin;
 using Eto.Forms;
-using PluginFramework;
 
 namespace Plugin_Encoder
 {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Altman.Desktop.CustomControls;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_FileManager.Controls;
 using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Interface

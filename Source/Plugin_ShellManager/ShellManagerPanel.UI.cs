@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
 using Plugin_ShellManager.Resources;
 
 namespace Plugin_ShellManager

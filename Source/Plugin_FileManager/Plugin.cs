@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 
-using Altman.Model;
-using PluginFramework;
+using Altman.Plugin;
 using Plugin_FileManager.Interface;
 
 namespace Plugin_FileManager
@@ -37,7 +36,7 @@ namespace Plugin_FileManager
             get { return _host; }
         }
 
-        public object Load(PluginParameter data)
+        public object LoadGui(PluginParameter data)
         {
 			return _userControl = new FileManagerPanel(_host, data);
         }

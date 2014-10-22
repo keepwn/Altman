@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Altman.Plugin;
 using Eto.Drawing;
 using Eto.Forms;
-using PluginFramework;
 
 namespace Plugin_DeveloperTool
 {
@@ -35,7 +35,7 @@ namespace Plugin_DeveloperTool
 			_textAreaResult = new TextArea();
 			_textAreaResult.Text = "If you wanna call one service, you can do like this:\n" +
 									"Func<string, bool, string> ToBase64 = null;\n" +
-									"ToBase64 = PluginServiceProvider.GetService<Func<Shell, string, string[], byte[]>>(\"ToBase64\");\n" +
+									"ToBase64 = PluginServiceProvider.GetService<Func<string, bool, string>>(\"ToBase64\");\n" +
 									"var result = ToBase64(\"Test\",True);\n" +
 									"//result=\"VGVzdA==\"";
 			_textAreaResult.Enabled = false;

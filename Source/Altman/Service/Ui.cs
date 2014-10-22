@@ -1,9 +1,9 @@
-﻿using Altman.Desktop.Forms;
-using Altman.Desktop.Resources;
+﻿using Altman.Forms;
+using Altman.Plugin;
+using Altman.Resources;
 using Eto.Forms;
-using PluginFramework;
 
-namespace Altman.Desktop.Service
+namespace Altman.Service
 {
     public class Ui : IHostUi
     {
