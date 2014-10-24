@@ -1,4 +1,4 @@
-## Altman网站管理工具
+## Altman
 
 ```
 免责申明：本程序仅供学习和研究！
@@ -7,39 +7,40 @@
 ```
 
 ### 介绍
-**Altman** 是一款网站管理工具，网站托管于Github Pages，[点击此处移步官网](http://altman.keepwn.com)。
+**Altman** 是一款渗透测试软件，网站托管于Github Pages，[点击此处移步官网](http://altman.keepwn.com)。
 
 截至目前，它可以：
 
-- 自定义代理
-- 自定义HttpHeader
-- 自定义脚本类型和脚本功能
-- 自定义加密/编码
-- 自定义插件
-- Shell管理插件
-- 命令执行插件
-- 文件管理插件
-- 数据库管理插件
+- Webshell模块：采用xml定义的方式，可自定义脚本类型和脚本功能，自定义加密/编码
+	- Shell管理插件
+	- 命令执行插件
+	- 文件管理插件
+	- 数据库管理插件
+	- 支持的脚本类型有：asp、aspx、php、jspFull、python
+- 编码器插件
 - 插件管理中心
-
-目前支持的脚本类型有：asp、aspx、php、jspFull、python
+- 自定义插件：支持使用C#或者IronPython来编写插件或者服务
+- 插件服务机制：插件可以调用其它插件提供的服务
 
 ### 运行
-**Altman** 基于.Net4.0，兼容Mono，可以完美运行在Windows、Linux、Mac等多个平台。
+**Altman** 基于.Net4.0，依托Eto.Form可以完美运行在Windows、Linux、Mac等多个平台。
 
-在`Windows`下，需要安装.Net4.0，点击`Altman.WinForm.exe`即可运行。
+- 在`Windows`下，
+	- 运行Altman.winform.exe，需要安装.Net4.0
+	- 运行Altman.gtk.exe，需要安装.Net4.0和gtk-sharp2
+- 在`Linux`下，
+	- 运行Altman.gtk.exe，需要安装Mono(>=3.2.8),libgdiplus和gtk-sharp2
+- 在`OS X`下，
+	- 运行Altman.gtk.exe，需要安装Mono和gtk-sharp2
+	- 运行Altman.mac，需要安装Xcode
 
-在`Linux`下，需要安装Mono(>=3.2.8)，libgdiplus和gtk-sharp2，在终端输入命令`mono Altman.Gtk.exe`即可运行。
+如果开启IronPython支持，则需要安装IronPython（或者自带安装）
 
-在`Mac`下，需要安装Mono，在终端输入命令`mono Altman.Mac.exe`即可运行。
+### 插件
+**Altman**采用了MEF插件架构，同时支持IronPython。
 
-### 扩展
-**Altman**采用了MEF插件架构，脚本类型（.type）、脚本功能(.func)也是以文件形式保存。
-
-你可以：
-
-- 添加或修改脚本类型，使它支持更多脚本类型（asp、aspx、php、jsp、python等）
-- 扩展插件，只需要引用特定接口dll
+- 采用C#编写插件/服务
+- 采用IronPython编写插件/服务
 
 ### 版权
 本程序使用的是GPLv2协议，具体细节请参照根目录下的`LICENSE`文件。
