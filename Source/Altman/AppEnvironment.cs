@@ -30,6 +30,15 @@ namespace Altman
 			get { return  Path.Combine(AppPath, "Plugins"); }
 		}
 
+		public static string AppServiceDir
+		{
+			get { return "Services"; }
+		}
+		public static string AppServicePath
+		{
+			get { return Path.Combine(AppPath, "Services"); }
+		}
+
 		public static string AppPluginConfigDir
 		{
 			get { return "Config"; }

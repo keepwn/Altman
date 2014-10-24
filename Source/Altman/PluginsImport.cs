@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Altman
 {

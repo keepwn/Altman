@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_ShellManager.Resources
 {

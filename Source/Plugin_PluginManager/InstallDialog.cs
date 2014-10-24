@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Eto.Forms;
 using Plugin_PluginManager.Model;
 

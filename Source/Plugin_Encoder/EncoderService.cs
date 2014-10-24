@@ -5,13 +5,21 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_Encoder
 {
 	public class EncoderService
 	{
-		private static string Base64_Decode(string str)
+		public static string Base64_Encode(PluginParameter args)
 		{
+			var str = args[0];
+			return Convert.ToBase64String(Encoding.Default.GetBytes(str));
+		}
+
+		public static string Base64_Decode(PluginParameter args)
+		{
+			var str = args[0];
 			try
 			{
 				var bytes = Convert.FromBase64String(str);
@@ -23,26 +31,19 @@ namespace Plugin_Encoder
 			}
 		}
 
-		private static string Base64_Encode(string str)
+		public static string ToMd5_16(PluginParameter args)
 		{
-			return Convert.ToBase64String(Encoding.Default.GetBytes(str));
-		}
-
-		public static string ToBase64(string str, bool encodeOrDecode)
-		{
-			return encodeOrDecode ? Base64_Encode(str) : Base64_Decode(str);
-		}
-
-		public static string ToMd5_16(string str)
-		{
+			var str = args[0];
 			var mD5CryptoServiceProvider = new MD5CryptoServiceProvider();
 			var tmp = BitConverter.ToString(mD5CryptoServiceProvider.ComputeHash(Encoding.UTF8.GetBytes(str)), 4, 8);
 			tmp = tmp.Replace("-", "");
 			return tmp;
 		}
 
-		public static string ToMd5_32(string str)
+		public static string ToMd5_32(PluginParameter args)
 		{
+			var str = args[0];
+
 			var md5 = MD5.Create();
 			var bytes = Encoding.UTF8.GetBytes(str);
 			var array = md5.ComputeHash(bytes);
@@ -58,12 +59,10 @@ namespace Plugin_Encoder
 
 		public static void RegisterService(IPlugin plugin)
 		{
-			PluginServiceProvider.RegisterService<Func<string, bool, string>>
-				(plugin, "ToBase64", "Encode", ToBase64);
-			PluginServiceProvider.RegisterService<Func<string, string>>
-				(plugin, "ToMd5_16", "Convert", ToMd5_16);
-			PluginServiceProvider.RegisterService<Func<string, string>>
-				(plugin, "ToMd5_32", "Convert", ToMd5_32);
+			PluginServiceProvider.RegisterService(plugin, "ToBase64", "Encode", Base64_Encode);
+			PluginServiceProvider.RegisterService(plugin, "FromBase64", "Decode", Base64_Decode);
+			PluginServiceProvider.RegisterService(plugin, "ToMd5_16", "Encode", ToMd5_16);
+			PluginServiceProvider.RegisterService(plugin, "ToMd5_32", "Encode", ToMd5_32);
 		}
 	}
 }

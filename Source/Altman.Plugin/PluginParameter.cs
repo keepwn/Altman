@@ -6,14 +6,19 @@ namespace Altman.Plugin
 {
 	public class PluginParameter
 	{
-		public Dictionary<string, object> Parameters;
+		public Dictionary<string, dynamic> Parameters;
 
 		public PluginParameter()
 		{
-			Parameters = new Dictionary<string, object>();
+			Parameters = new Dictionary<string, dynamic>();
 		}
 
-		public object this[int index]
+		public PluginParameter(string key, dynamic value)
+		{
+			Parameters = new Dictionary<string, dynamic> {{key, value}};
+		}
+
+		public dynamic this[int index]
 		{
 			get
 			{
@@ -23,7 +28,7 @@ namespace Altman.Plugin
 			}
 		}
 
-		public void AddParameter(string key,object value)
+		public void AddParameter(string key, dynamic value)
 		{
 			if (!Parameters.ContainsKey(key))
 			{
@@ -31,7 +36,7 @@ namespace Altman.Plugin
 			}
 		}
 
-		public object GetParameter(string key)
+		public dynamic GetParameter(string key)
 		{
 			if (Parameters.ContainsKey(key))
 			{

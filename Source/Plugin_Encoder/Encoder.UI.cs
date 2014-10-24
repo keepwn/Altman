@@ -17,6 +17,7 @@ namespace Plugin_Encoder
 			_comboBoxServices.SelectedIndexChanged += _comboBoxServices_SelectedIndexChanged;
 
 			_radioButtonEncode = new RadioButton {Text = "Encode"};
+			_radioButtonEncode.CheckedChanged += _radioButtonEncode_CheckedChanged;
 			_radioButtonDecode = new RadioButton(_radioButtonEncode) {Text = "Decode"};
 
 			_buttonRun = new Button { Text = "Run" };
@@ -30,10 +31,10 @@ namespace Plugin_Encoder
 			var outputLayout = new DynamicLayout {Padding = new Padding(5, 5), Spacing = new Size(5, 5)};
 			outputLayout.BeginVertical();
 			outputLayout.BeginHorizontal();
-			outputLayout.Add(_comboBoxServices);
-			outputLayout.Add(null);
 			outputLayout.Add(_radioButtonEncode);
 			outputLayout.Add(_radioButtonDecode);
+			outputLayout.Add(null);
+			outputLayout.Add(_comboBoxServices);
 			outputLayout.Add(_buttonRun);
 			outputLayout.EndHorizontal();
 			outputLayout.EndVertical();

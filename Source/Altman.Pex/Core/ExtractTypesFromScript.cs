@@ -9,7 +9,7 @@ using IronPython.Runtime.Types;
 using Microsoft.CSharp.RuntimeBinder;
 using Microsoft.Scripting.Hosting;
 
-namespace Plugin_PythonEx.Core
+namespace Altman.Pex.Core
 {
 	public class ExtractTypesFromScript
 	{
@@ -37,10 +37,7 @@ namespace Plugin_PythonEx.Core
 			CompiledCode code = script.Compile();
 			var scope = _engine.CreateScope();
 
-			var types = new[]
-                                {
-                                    typeof (IronPythonImportDefinition)
-                                }.ToList();
+			var types = new[] {typeof (IronPythonImportDefinition)}.ToList();
 			if (injectTypes != null)
 			{
 				types.AddRange(injectTypes);
@@ -51,7 +48,7 @@ namespace Plugin_PythonEx.Core
 				scope.InjectType(type);
 			}
 			using (var libStream = GetType().Assembly.GetManifestResourceStream("Altman.Pex.lib.py"))
-			using (var libText = new StreamReader(libStream))
+			using ( var libText = new StreamReader(libStream))
 			{
 				var libSource = _engine.CreateScriptSourceFromString(libText.ReadToEnd());
 				libSource.Execute(scope);
@@ -82,6 +79,7 @@ namespace Plugin_PythonEx.Core
 				dynamic type = definedType.PythonType;
 				IEnumerable<object> exportObjects = new List();
 				IDictionary<string, object> importObjects = new Dictionary<string, object>();
+				IDictionary<object, object> exportMetadatas = new PythonDictionary();
 				PythonDictionary pImportObjects = null;
 
 				try
@@ -117,12 +115,23 @@ namespace Plugin_PythonEx.Core
 				{
 					continue;
 				}
+				else
+				{
+					try
+					{
+						exportMetadatas = ((PythonDictionary)type.__metadatas__);
+					}
+					catch (RuntimeBinderException)
+					{
+					}
+				}
+
 
 				var exports = exportObjects.Cast<PythonType>().Select(o => (Type)o);
 				var imports =
 					importObjects.Keys
 						.Select(key => new KeyValuePair<string, IronPythonImportDefinition>(key, (IronPythonImportDefinition)importObjects[key]));
-				yield return new IronPythonComposablePart(definedType, exports, imports);
+				yield return new IronPythonComposablePart(definedType, exports, imports, exportMetadatas);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-﻿namespace Altman.Plugin
+﻿namespace Altman.Plugin.Interface
 {
     public interface IPluginSetting
     {

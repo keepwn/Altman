@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Webshell.Model;
 
 namespace Plugin_ShellManager

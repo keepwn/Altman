@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 
-namespace Plugin_PythonEx.Core
+namespace Altman.Pex.Core
 {
 	public class IronPythonComposablePart : ComposablePart
 	{
@@ -13,7 +14,7 @@ namespace Plugin_PythonEx.Core
 		private readonly IList<ExportDefinition> _exports;
 		private readonly IronPythonTypeWrapper _typeWrapper;
 
-		public IronPythonComposablePart(IronPythonTypeWrapper typeWrapper, IEnumerable<Type> exports, IEnumerable<KeyValuePair<string, IronPythonImportDefinition>> imports)
+		public IronPythonComposablePart(IronPythonTypeWrapper typeWrapper, IEnumerable<Type> exports, IEnumerable<KeyValuePair<string, IronPythonImportDefinition>> imports, IDictionary<object, object> exportMetadatas)
 		{
 			_typeWrapper = typeWrapper;
 			_instance = typeWrapper.Activator();
@@ -25,6 +26,14 @@ namespace Plugin_PythonEx.Core
                                    {
                                        {"ExportTypeIdentity", AttributedModelServices.GetTypeIdentity(export)}
                                    };
+
+				if (exportMetadatas != null)
+				{
+					foreach (var data in exportMetadatas)
+					{
+						metadata.Add(data.Key.ToString(), data.Value);
+					}
+				}
 
 				var contractName = AttributedModelServices.GetContractName(export);
 				_exports.Add(new ExportDefinition(contractName, metadata));

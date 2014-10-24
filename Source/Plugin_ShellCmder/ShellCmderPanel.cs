@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Util.Common.AltData;
 using Altman.Webshell.Model;
 using Eto.Drawing;

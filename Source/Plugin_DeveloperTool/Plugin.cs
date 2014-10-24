@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_DeveloperTool
 {
@@ -28,6 +29,11 @@ namespace Plugin_DeveloperTool
         {
             get { return _pluginSetting; }
         }
+
+		public bool Load()
+		{
+			return true;
+		}
 
         public object LoadGui(PluginParameter data)
         {

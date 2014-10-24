@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Resources;
 using Altman.Service;
 using Eto.Drawing;
@@ -51,7 +52,7 @@ namespace Altman.Forms
 			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
 			PluginProvider.Host = _host;
-			PluginProvider.Compose(AppEnvironment.AppPluginPath,true);
+			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, true);
 
 			//----导入插件结束----
 
@@ -78,6 +79,8 @@ namespace Altman.Forms
 			//显示免责声明
 			InitUi.InitWelcome();
 
+			//auto call services
+			AutoLoadServices(PluginProvider.Services);
 			//auto load plugins
 			AutoLoadPlugins(PluginProvider.Plugins);
 		}
@@ -204,19 +207,23 @@ namespace Altman.Forms
 			return item;
 		}
 
+		private void AutoLoadServices(IEnumerable<IService> services)
+		{
+			//IsAutoLoad
+			foreach (var service in services)
+			{
+				// IsService, Auto Call Load()
+				service.Load();
+			}
+		}
+
 		private void AutoLoadPlugins(IEnumerable<IPlugin> plugins)
 		{
 			//IsAutoLoad
-			for(var i=0;i<plugins.ToList().Count();i++)
-			//foreach (var plugin in plugins)
+			foreach (var plugin in plugins)
 			{
-				var plugin = plugins.ToList()[i];
-				// IsService Plugin, Auto Call LoadService()
-				if (plugin is IServicePlugin)
-				{
-					var p = (plugin as IServicePlugin);
-					p.LoadService();
-				}
+				// IsService, Auto Call Load()
+				plugin.Load();
 				//IsAutoLoad
 				if (plugin.PluginSetting.IsAutoLoad)
 				{

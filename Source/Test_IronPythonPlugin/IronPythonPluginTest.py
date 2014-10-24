@@ -1,6 +1,6 @@
 ﻿import clr
 clr.AddReference('Altman.Plugin')
-from Altman.Plugin import IPluginInfo,IPluginSetting,IControlPlugin
+from Altman.Plugin.Interface import IPluginInfo,IPluginSetting,IControlPlugin
 import sys,os
 
 class PluginInfo(IPluginInfo):
@@ -49,6 +49,9 @@ class Plugin(IControlPlugin):
     @property
     def PluginSetting(self):
         return self.pluginSetting
+
+    def Load(self):
+        return True
 
     def LoadGui(self, argv):
         #self._userControl = MyFirstPlugin(_host,data)

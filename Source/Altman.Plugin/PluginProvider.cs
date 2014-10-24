@@ -5,6 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Altman.Plugin.Interface;
 using Altman.Plugin.Mef;
 
 namespace Altman.Plugin
@@ -23,16 +24,24 @@ namespace Altman.Plugin
 		{
 			get { return _plugins; }
 		}
+		private static List<IService> _services;
+		public static List<IService> Services
+		{
+			get { return _services; }
+		}
 
-		public static void Compose(string pluginPath, bool isLoadPy=false)
+		public static void Compose(string pluginPath, string servicesPath, bool isLoadPy=false)
 		{
 			List<IPlugin> donetPlugins;
 			List<IPlugin> pyPlugins;
-			donetPlugins = new DoNetMef().Compose(pluginPath, _host);
+			donetPlugins = new ImportDoNetPlugins().Compose(pluginPath, _host);
 			if (isLoadPy)
 			{
-				pyPlugins = new PythonMef().Compose(pluginPath, _host);
-				donetPlugins.AddRange(pyPlugins);
+				var py = new ImportPythonPlugins();
+				py.Compose(pluginPath, servicesPath, _host);
+				if (py.Plugins != null)
+					donetPlugins.AddRange(py.Plugins);
+				_services = py.Services ?? new List<IService>();
 			}
 			_plugins = donetPlugins;
 		}

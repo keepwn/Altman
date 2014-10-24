@@ -5,10 +5,11 @@ using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using Altman.Plugin.Interface;
 
 namespace Altman.Plugin.Mef
 {
-	internal class DoNetMef
+	internal class ImportDoNetPlugins
 	{
 		[ImportMany(typeof(IPlugin), AllowRecomposition = true)]
 		private List<IPlugin> Plugins = null;

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_Encoder
 {
@@ -17,7 +18,6 @@ namespace Plugin_Encoder
         {
             _pluginInfo = new PluginInfo();
             _pluginSetting = new PluginSetting();
-	        EncoderService.RegisterService(this);
         }
 
         public IPluginInfo PluginInfo
@@ -29,6 +29,12 @@ namespace Plugin_Encoder
         {
             get { return _pluginSetting; }
         }
+
+		public bool Load()
+		{
+			EncoderService.RegisterService(this);
+			return true;
+		}
 
         public object LoadGui(PluginParameter data)
         {

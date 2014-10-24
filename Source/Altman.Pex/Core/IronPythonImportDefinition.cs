@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition.Primitives;
 
-namespace Plugin_PythonEx.Core
+namespace Altman.Pex.Core
 {
 	public class IronPythonImportDefinition
 	{

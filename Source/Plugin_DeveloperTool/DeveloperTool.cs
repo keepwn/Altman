@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Eto.Drawing;
 using Eto.Forms;
 
@@ -34,9 +35,8 @@ namespace Plugin_DeveloperTool
 			_textAreaInfo.Enabled = false;
 			_textAreaResult = new TextArea();
 			_textAreaResult.Text = "If you wanna call one service, you can do like this:\n" +
-									"Func<string, bool, string> ToBase64 = null;\n" +
-									"ToBase64 = PluginServiceProvider.GetService<Func<string, bool, string>>(\"ToBase64\");\n" +
-									"var result = ToBase64(\"Test\",True);\n" +
+									"dynamic ToBase64 = PluginServiceProvider.GetService(\"ToBase64\");\n" +
+									"var result = ToBase64(new PluginParameter(\"str\", \"Test\"));\n" +
 									"//result=\"VGVzdA==\"";
 			_textAreaResult.Enabled = false;
 
@@ -55,42 +55,14 @@ namespace Plugin_DeveloperTool
 
 		void _comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var index = _comboBoxServices.SelectedIndex;
-			if (index >= 0)
-			{
-				var selectItem = (_comboBoxServices.Items[index] as ListItem);
+			//var index = _comboBoxServices.SelectedIndex;
+			//if (index >= 0)
+			//{
+			//	var selectItem = (_comboBoxServices.Items[index] as ListItem);
 
-				var builder = new StringBuilder();
-				var serviceStore = (PluginServiceProvider.ServiceStore)selectItem.Tag;
-
-				if (serviceStore.Assembly == null) return;
-				var serviceName = selectItem.Text;
-				var assembly= serviceStore.Assembly;
-				MethodInfo method = null;
-				foreach (var type in assembly.GetTypes())
-				{
-					var mes = type.GetMethods().FirstOrDefault(r => r.Name == serviceName);
-					if (mes != null)
-					{
-						method = mes;
-						break;
-					}
-				}
-				if (method != null)
-				{
-					var returnType = method.ReturnType.ToString();
-					var args = method.GetParameters();
-
-					builder.Append(returnType + " " + serviceName + "(\n");
-
-					var arguments = string.Join(
-						",\n",
-						args.Select((r, i) => "\t" + r.ParameterType +" "+ r.Name));
-					builder.Append(arguments + "\n)");
-
-					_textAreaInfo.Text = builder.ToString();
-				}
-			}
+			//	var builder = new StringBuilder();
+			//	var serviceStore = (PluginServiceProvider.ServiceStore)selectItem.Tag;
+			//}
 		}
 
 		public void LoadServices()

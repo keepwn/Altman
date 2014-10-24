@@ -1,5 +1,6 @@
 ﻿using System;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Eto.Forms;
 
 namespace Plugin_Encoder
@@ -10,6 +11,8 @@ namespace Plugin_Encoder
 
 		private Func<string, bool, string> _encodeFunc;
 		private Func<string, string> _convertFunc;
+		private ListItemCollection _encodeItem = new ListItemCollection();
+		private ListItemCollection _decodeItem = new ListItemCollection();
 		public Encoder(IHost host, PluginParameter data)
 		{
 			Init();
@@ -20,49 +23,6 @@ namespace Plugin_Encoder
 			LoadServices();
 		}
 
-		void _comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			var index = _comboBoxServices.SelectedIndex;
-			if (index >= 0)
-			{
-				var selctedService = (_comboBoxServices.Items[index] as ListItem).Tag;
-				if (selctedService is Func<string, bool, string>)
-				{
-					_radioButtonDecode.Enabled = true;
-				}
-				else if (selctedService is Func<string, string>)
-				{
-					_radioButtonEncode.Checked = true;
-					_radioButtonDecode.Enabled = false;
-				}
-			}
-		}
-
-		void _buttonRun_Click(object sender, EventArgs e)
-		{
-			var input = _textAreaInput.Text;
-			var encode = _radioButtonEncode.Checked;
-			var index = _comboBoxServices.SelectedIndex;
-
-			if (string.IsNullOrEmpty(input) || index < 0) 
-				return;
-
-			var result = "";
-			var selctedService = (_comboBoxServices.Items[index] as ListItem).Tag;
-			if (selctedService is Func<string, bool, string>)
-			{
-				_encodeFunc = (Func<string, bool, string>) selctedService;
-				result = _encodeFunc(input, encode);
-			}
-			else if (selctedService is Func<string, string>)
-			{
-				_convertFunc = (Func<string, string>)selctedService;
-				result = _convertFunc(input);
-			}
-
-			_textAreaOutput.Text = result;
-		}
-
 		public void LoadServices()
 		{
 			var encodeNames = PluginServiceProvider.GetServiceNamesByType("Encode");
@@ -71,21 +31,58 @@ namespace Plugin_Encoder
 				var item = new ListItem
 				{
 					Text = name,
-					Tag = PluginServiceProvider.GetService<Func<string, bool, string>>(name)
+					Tag = PluginServiceProvider.GetService(name)
 				};
-				_comboBoxServices.Items.Add(item);
+				_encodeItem.Add(item);
 			}
 
-			var convertName = PluginServiceProvider.GetServiceNamesByType("Convert");
+			var convertName = PluginServiceProvider.GetServiceNamesByType("Decode");
 			foreach (var name in convertName)
 			{
 				var item = new ListItem
 				{
 					Text = name,
-					Tag = PluginServiceProvider.GetService<Func<string, string>>(name)
+					Tag = PluginServiceProvider.GetService(name)
 				};
-				_comboBoxServices.Items.Add(item);
+				_decodeItem.Add(item);
 			}
+		}
+
+		void _radioButtonEncode_CheckedChanged(object sender, EventArgs e)
+		{
+			_comboBoxServices.DataStore = _radioButtonEncode.Checked ? _encodeItem : _decodeItem;
+		}
+
+		void _comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			//var index = _comboBoxServices.SelectedIndex;
+			//if (index >= 0)
+			//{
+			//	var selctedService = (_comboBoxServices.Items[index] as ListItem).Tag;
+			//	if (selctedService is Func<string, bool, string>)
+			//	{
+			//		_radioButtonDecode.Enabled = true;
+			//	}
+			//	else if (selctedService is Func<string, string>)
+			//	{
+			//		_radioButtonEncode.Checked = true;
+			//		_radioButtonDecode.Enabled = false;
+			//	}
+			//}
+		}
+
+		void _buttonRun_Click(object sender, EventArgs e)
+		{
+			var input = _textAreaInput.Text;
+			var index = _comboBoxServices.SelectedIndex;
+
+			if (string.IsNullOrEmpty(input) || index < 0) 
+				return;
+			
+			dynamic selctedService = (_comboBoxServices.Items[index] as ListItem).Tag;
+
+			var result = selctedService(new PluginParameter("str", input));
+			_textAreaOutput.Text = result;
 		}
 	}
 }

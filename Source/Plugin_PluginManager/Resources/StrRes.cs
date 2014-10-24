@@ -1,4 +1,5 @@
 ﻿using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_PluginManager.Resources
 {

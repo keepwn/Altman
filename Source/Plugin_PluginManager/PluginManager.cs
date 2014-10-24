@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Eto.Forms;
 using Plugin_PluginManager.Model;
 using Plugin_PluginManager.Resources;

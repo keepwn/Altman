@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_ShellManager
 {

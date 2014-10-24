@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Altman.Service
 {

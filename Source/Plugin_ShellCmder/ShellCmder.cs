@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Util.Common.AltData;
 using Altman.Webshell.Model;
 

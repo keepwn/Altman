@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Primitives;
 
-namespace Plugin_PythonEx.Core
+namespace Altman.Pex.Core
 {
 	public class IronPythonContractBasedImportDefinition : ContractBasedImportDefinition
 	{

@@ -2,7 +2,7 @@
 using IronPython.Runtime;
 using Microsoft.Scripting.Hosting;
 
-namespace Plugin_PythonEx.Core
+namespace Altman.Pex.Core
 {
 	public static class ScriptScopeExtensionMethods
 	{

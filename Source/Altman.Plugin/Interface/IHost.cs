@@ -1,4 +1,4 @@
-﻿namespace Altman.Plugin
+﻿namespace Altman.Plugin.Interface
 {
     /// <summary>
     /// Host程序的接口

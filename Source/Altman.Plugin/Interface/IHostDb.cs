@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace Altman.Plugin
+namespace Altman.Plugin.Interface
 {
     public interface IHostDb
     {

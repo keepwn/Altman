@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_ShellManager
 {
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     [Export(typeof(IPlugin))]
 	public class Plugin : IControlPlugin
     {
@@ -17,8 +17,7 @@ namespace Plugin_ShellManager
         public Plugin()
         {
             _pluginInfo = new PluginInfo();
-            _pluginSetting = new PluginSetting();			
-			//new ShellManagerService().RegisterService(this);
+            _pluginSetting = new PluginSetting();
         }
 
         public IPluginInfo PluginInfo
@@ -30,6 +29,12 @@ namespace Plugin_ShellManager
         {
             get { return _pluginSetting; }
         }
+
+		public bool Load()
+		{
+			//new ShellManagerService().RegisterService(this);
+			return true;
+		}
 
         public object LoadGui(PluginParameter data)
         {

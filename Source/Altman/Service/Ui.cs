@@ -1,5 +1,6 @@
 ﻿using Altman.Forms;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Resources;
 using Eto.Forms;
 

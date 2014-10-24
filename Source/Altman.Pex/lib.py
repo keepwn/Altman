@@ -21,3 +21,15 @@ def export(type):
         cls.__exports__ = exports
         return cls
     return _
+
+def export_metadata(key, value):
+    def _(cls):
+        metadatas = {}
+        try:
+            metadatas = cls.__metadatas__
+        except AttributeError:
+            pass
+        metadatas[key] = value
+        cls.__metadatas__ = metadatas
+        return cls
+    return _

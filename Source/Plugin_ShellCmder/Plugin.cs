@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 
 namespace Plugin_ShellCmder
 {
@@ -34,6 +35,11 @@ namespace Plugin_ShellCmder
         {
             get { return _host; }
         }
+
+		public bool Load()
+		{
+			return true;
+		}
 
         public object LoadGui(PluginParameter data)
         {

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;

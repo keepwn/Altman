@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Util.Common.AltData;
 using Altman.Util.Common.AltEventArgs;
 using Altman.Util.Common.AltException;

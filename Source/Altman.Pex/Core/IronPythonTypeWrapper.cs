@@ -3,7 +3,7 @@ using System.Runtime.Remoting;
 using IronPython.Runtime.Types;
 using Microsoft.Scripting.Hosting;
 
-namespace Plugin_PythonEx.Core
+namespace Altman.Pex.Core
 {
 	public class IronPythonTypeWrapper
 	{

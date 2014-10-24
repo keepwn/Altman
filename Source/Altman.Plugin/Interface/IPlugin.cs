@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Altman.Plugin
+namespace Altman.Plugin.Interface
 {
-    public interface IPlugin : IDisposable
-    {
-        IPluginInfo PluginInfo { get; }
+	public interface IPlugin : IService, IDisposable
+	{
+		IPluginInfo PluginInfo { get; }
 
-        IPluginSetting PluginSetting { get; }
-    }
+		IPluginSetting PluginSetting { get; }
+	}
 }

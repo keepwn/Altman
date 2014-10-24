@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Mac", "Altman.Mac\Al
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{A0042CF8-0BA0-4238-A6CD-BE0AD015FCD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Pex", "AltmanMef\Altman.Pex.csproj", "{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altman.Pex", "Altman.Pex\Altman.Pex.csproj", "{F7E04E19-6B7A-434E-BD12-5D50F6B1F058}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_IronPythonCollection", "Plugin_IronPythonCollection\Plugin_IronPythonCollection.csproj", "{3D6C2B2C-3E9E-498C-8DAC-2C76DA2A85FD}"
 EndProject

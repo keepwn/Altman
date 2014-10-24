@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;

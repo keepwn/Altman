@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Altman.Plugin;
+using Altman.Plugin.Interface;
 using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
