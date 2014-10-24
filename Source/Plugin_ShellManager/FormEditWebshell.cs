@@ -49,25 +49,26 @@ namespace Plugin_ShellManager
 
             this.Id = shellArray.Id;
             _textBoxName.Text = shellArray.TargetId;
+	        _comboBoxLevel.Text = shellArray.TargetLevel;
             _comboBoxLevel.Items.Add(shellArray.TargetLevel);
-			_comboBoxScritpType.SelectedKey = shellArray.ShellType;
+			_dropDownScritpType.SelectedKey = shellArray.ShellType;
 
             _textBoxShellPath.Text = shellArray.ShellUrl;
             _textBoxShellPass.Text = shellArray.ShellPwd;
 
             _textBoxRemark.Text = shellArray.Remark;
 
-	        if (_comboBoxServerCoding.Items.FirstOrDefault(r => r.Key == shellArray.ServerCoding) == null)
+	        if (_dropDownServerCoding.Items.FirstOrDefault(r => r.Key == shellArray.ServerCoding) == null)
 	        {
-				_comboBoxServerCoding.Items.Add(shellArray.ServerCoding);
+				_dropDownServerCoding.Items.Add(shellArray.ServerCoding);
 	        }
-			_comboBoxServerCoding.SelectedKey = shellArray.ServerCoding;
+			_dropDownServerCoding.SelectedKey = shellArray.ServerCoding;
 
-	        if (_comboBoxWebCoding.Items.FirstOrDefault(r => r.Key == shellArray.WebCoding) == null)
+	        if (_dropDownWebCoding.Items.FirstOrDefault(r => r.Key == shellArray.WebCoding) == null)
 	        {
-				_comboBoxWebCoding.Items.Add(shellArray.WebCoding);
+				_dropDownWebCoding.Items.Add(shellArray.WebCoding);
 	        }
-			_comboBoxWebCoding.SelectedKey = shellArray.WebCoding;
+			_dropDownWebCoding.SelectedKey = shellArray.WebCoding;
 
 			_richTextBoxSetting.Text = shellArray.ShellExtraString;
         }
@@ -86,7 +87,7 @@ namespace Plugin_ShellManager
 			shell.Id = this.Id;
 		    shell.TargetId = _textBoxName.Text.Trim();//*
 			shell.TargetLevel = _comboBoxLevel.Text;
-		    shell.ShellType = _comboBoxScritpType.SelectedKey ?? "";//*
+		    shell.ShellType = _dropDownScritpType.SelectedKey ?? "";//*
 
 			shell.ShellUrl = _textBoxShellPath.Text.Trim();//*
 			shell.ShellPwd = _textBoxShellPass.Text.Trim();//*
@@ -94,8 +95,8 @@ namespace Plugin_ShellManager
 			shell.ShellExtraString = _richTextBoxSetting.Text;
 			shell.Remark = _textBoxRemark.Text;
 
-		    shell.ServerCoding = _comboBoxServerCoding.SelectedKey ?? "";//*
-		    shell.WebCoding = _comboBoxWebCoding.SelectedKey ?? "";//*
+		    shell.ServerCoding = _dropDownServerCoding.SelectedKey ?? "";//*
+		    shell.WebCoding = _dropDownWebCoding.SelectedKey ?? "";//*
 
 			var time = DateTime.Now.Date.ToShortDateString();
 			if (time.Contains("/"))
@@ -164,7 +165,7 @@ namespace Plugin_ShellManager
             //获取可用的CustomShellType
 			foreach (var type in Altman.Webshell.Service.GetCustomShellTypeNameList())
             {
-                _comboBoxScritpType.Items.Add(type);
+                _dropDownScritpType.Items.Add(type);
             }
         }
     }

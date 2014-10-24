@@ -56,15 +56,24 @@ namespace Altman
 		{
 			Close.Clicked += delegate
 			{
-				_parent.RemovePage(_parent.CurrentPage);
+				//_parent.RemovePage(_parent.CurrentPage);
+				OnTabClosing(new TabControlCancelEventArgs(_parent.CurrentPage, false));
 			};
 		}
 
+		public void OnTabClosing(TabControlCancelEventArgs e)
+		{
+			if (TabClosing != null)
+				TabClosing(this, e);
+		}
+
+		public event EventHandler<TabControlCancelEventArgs> TabClosing;
 		public bool Active;
 	}
 
 	public class TabControlPlusHandler : GtkContainer<Notebook, TabControl, TabControl.ICallback>, TabControl.IHandler
 	{
+		private MultiTab multiTab;
 		public TabControlPlusHandler()
 		{
 			Control = new Notebook();
@@ -120,19 +129,23 @@ namespace Altman
 		public void InsertTab(int index, TabPage page)
 		{
 			var pageHandler = (TabPageHandler) page.Handler;
-
 			if (Widget.Loaded)
 			{
 				pageHandler.ContainerControl.ShowAll();
 				pageHandler.LabelControl.ShowAll();
 			}
+			var tab = new MultiTab(pageHandler.Text, Control);
+			tab.TabClosing += (sender, e) =>
+			{
+				Callback.OnTabClosing(Widget, new TabControlCancelEventArgs(e.TabPageIndex, e.Cancel));
+			};
 
 			if (index == -1)
 				//Control.AppendPage(pageHandler.ContainerControl, pageHandler.LabelControl);
-				Control.AppendPage(pageHandler.ContainerControl, new MultiTab(pageHandler.Text, Control));
+				Control.AppendPage(pageHandler.ContainerControl, tab);
 			else
 				//Control.InsertPage(pageHandler.ContainerControl, pageHandler.LabelControl, index);
-				Control.AppendPage(pageHandler.ContainerControl, new MultiTab(pageHandler.Text, Control));
+				Control.AppendPage(pageHandler.ContainerControl, tab);
 		}
 
 		public void ClearTabs()

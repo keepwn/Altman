@@ -20,9 +20,9 @@ namespace Plugin_DbManager
 			_buttonDisconnect = new Button { Text = StrRes.GetString("StrDisconnect","Disconnect"), Image = Icons.DisconnectIcon };
 			_buttonDisconnect.Click += _buttonDisconnect_Click;
 
-			//_comboboxDbs
-			_comboboxDbs = new ComboBox();
-			_comboboxDbs.Size = new Size(200, -1);
+			//_dropDownDbs
+			_dropDownDbs = new DropDown();
+			_dropDownDbs.Size = new Size(200, -1);
 
 			//_buttonRunScript
 			_buttonRunScript = new Button {Text = StrRes.GetString("StrExecute","Execute"), Image = Icons.RunScripIcon};
@@ -83,7 +83,7 @@ namespace Plugin_DbManager
 			topLayout.BeginHorizontal();
 			topLayout.Add(_buttonConnect);
 			topLayout.Add(_buttonDisconnect);
-			topLayout.Add(_comboboxDbs);
+			topLayout.Add(_dropDownDbs);
 			topLayout.Add(_buttonRunScript);
 			topLayout.Add(null);
 			topLayout.EndVertical();
@@ -115,7 +115,7 @@ namespace Plugin_DbManager
 
 		private Button _buttonConnect;
 		private Button _buttonDisconnect;
-		private ComboBox _comboboxDbs;
+		private DropDown _dropDownDbs;
 		private Button _buttonRunScript;
 
 		private TreeView _treeViewDbs;

@@ -25,6 +25,10 @@ namespace Altman
 				if (!disableSelectedIndexChanged)
 					Callback.OnSelectedIndexChanged(Widget, e);
 			};
+			Control.TabClosing += (sender, e) =>
+			{
+				Callback.OnTabClosing(Widget, new EF.TabControlCancelEventArgs(e.TabPageIndex, e.Cancel));
+			};
 		}
 
 		public int SelectedIndex

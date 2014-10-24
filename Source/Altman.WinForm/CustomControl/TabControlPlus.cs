@@ -435,6 +435,7 @@ namespace Altman.CustomControl
 		[Category("Action")] public event ScrollEventHandler HScroll;
 		[Category("Action")] public event EventHandler<TabControlEventArgs> TabImageClick;
 		[Category("Action")] public event EventHandler<TabControlCancelEventArgs> TabClosing;
+		[Category("Action")] public event EventHandler<EventArgs> TabClosed;
 		
 		#endregion
 
@@ -616,6 +617,7 @@ namespace Altman.CustomControl
 				if (!args.Cancel){
 					this.TabPages.Remove(tab);
 					tab.Dispose();
+					this.OnTabClosed(new EventArgs());
 				}
 			} else {
 				//	Fire the base event
@@ -633,7 +635,14 @@ namespace Altman.CustomControl
 			if (this.TabClosing != null){
 				this.TabClosing(this, e);
 			}
-		}		
+		}
+
+		protected virtual void OnTabClosed(EventArgs e)
+		{
+			if (this.TabClosed != null){
+				this.TabClosed(this, e);
+			}
+		}	
 		
 		protected virtual void OnHScroll(ScrollEventArgs e){
 			//	repaint the moved tabs

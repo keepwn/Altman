@@ -5,6 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Altman.CustomControls;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Altman.Resources;
@@ -337,10 +338,17 @@ namespace Altman.Forms
 		TabControl DefaultTabs()
 		{
 			var control = new TabControl();
-			control.Pages.Add(new TabPage { Text = "Index" });
 			control.MouseDoubleClick += control_MouseDoubleClick;
+			control.TabClosing += (sender, e) =>
+			{
+				_tabControl.Pages.RemoveAt(e.TabPageIndex);
+				e.Cancel = false;
+			};
+
+			control.Pages.Add(new TabPage { Text = "Index" });
 			return control;
 		}
+
 		public void CreateNewTabPage(string name, object userControl)
 		{
 			//create new tabpage

@@ -229,8 +229,8 @@ namespace Plugin_DbManager
 			selected.Expanded = true;
 			_treeViewDbs.RefreshItem(selected);
             //刷新数据库选择框
-			_comboboxDbs.Items.Clear();
-			_comboboxDbs.Items.AddRange(dbs.Select(db => new ListItem { Text = db, Key = db }));
+			_dropDownDbs.Items.Clear();
+			_dropDownDbs.Items.AddRange(dbs.Select(db => new ListItem { Text = db, Key = db }));
         }
         private void RefreshTablesInDbTree(TreeItem selected, string[] tables)
         {
@@ -298,7 +298,7 @@ namespace Plugin_DbManager
 			var type = (string)(select.Tag ?? "");
 			if (type == "db")
 			{
-				_comboboxDbs.SelectedKey = select.Key;
+				_dropDownDbs.SelectedKey = select.Key;
 			}
 		}
         #endregion
@@ -329,7 +329,7 @@ namespace Plugin_DbManager
 			{
 				MessageBox.Show("the query sql cannot be empty");
 			}
-			else if (_comboboxDbs.SelectedIndex == -1)
+			else if (_dropDownDbs.SelectedIndex == -1)
 			{
 				MessageBox.Show("please select one database");
 			}
@@ -339,7 +339,7 @@ namespace Plugin_DbManager
 				_gridViewResult.DataStore = null;
 				_gridViewResult.Columns.Clear();
 
-				var dbName = _comboboxDbs.SelectedKey;
+				var dbName = _dropDownDbs.SelectedKey;
 				if (sql.ToLower().StartsWith("select"))
 				{
 					_dbManager.ExecuteReader(_shellSqlConn.conn, dbName, sql);

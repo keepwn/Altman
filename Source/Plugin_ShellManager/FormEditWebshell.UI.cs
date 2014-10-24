@@ -32,8 +32,8 @@ namespace Plugin_ShellManager
 			buttonTest2.Click += buttonTest2_Click;
 
 			_textBoxName = new TextBox { PlaceholderText = "*Name", Size = new Size(200, -1) };
-			_comboBoxLevel = new ComboBox(true) { Size = new Size(50, -1), };
-			_comboBoxScritpType = new ComboBox { Size = new Size(120, -1) };
+			_comboBoxLevel = new ComboBox(true) { Size = new Size(100, -1), };
+			_dropDownScritpType = new DropDown { Size = new Size(120, -1) };
 			_textBoxShellPath = new TextBox { PlaceholderText = "*Shell Url", Size = new Size(300, -1) };
 			_textBoxShellPass = new TextBox { PlaceholderText = "*Pass" };
 			_textBoxRemark = new TextBox { PlaceholderText = "Remark" };
@@ -43,18 +43,18 @@ namespace Plugin_ShellManager
 				new ListItem {Text = "UTF-8"},
 				new ListItem {Text = "GB2312"}
 			};
-			_comboBoxServerCoding = new ComboBox();
-			_comboBoxServerCoding.Items.AddRange(codeList);
-			_comboBoxServerCoding.SelectedIndex = 0;
-			_comboBoxWebCoding = new ComboBox();
-			_comboBoxWebCoding.Items.AddRange(codeList);
-			_comboBoxWebCoding.SelectedIndex = 0;
+			_dropDownServerCoding = new DropDown();
+			_dropDownServerCoding.Items.AddRange(codeList);
+			_dropDownServerCoding.SelectedIndex = 0;
+			_dropDownWebCoding = new DropDown();
+			_dropDownWebCoding.Items.AddRange(codeList);
+			_dropDownWebCoding.SelectedIndex = 0;
 			_richTextBoxSetting = new TextArea();
 
 			//_panelAdvanced
 			_panelAdvanced = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
-			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrServerCoding", "ServerCoding"), VerticalAlign = VerticalAlign.Middle }, _comboBoxServerCoding);
-			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrWebCoding", "WebCoding"), VerticalAlign = VerticalAlign.Middle }, _comboBoxWebCoding);
+			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrServerCoding", "ServerCoding"), VerticalAlign = VerticalAlign.Middle }, _dropDownServerCoding);
+			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrWebCoding", "WebCoding"), VerticalAlign = VerticalAlign.Middle }, _dropDownWebCoding);
 			_panelAdvanced.AddSeparateRow(_richTextBoxSetting);
 
 			var panel1 = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
@@ -63,7 +63,7 @@ namespace Plugin_ShellManager
 			panel1.BeginHorizontal();
 			panel1.Add(_textBoxName, true);
 			panel1.Add(_comboBoxLevel);
-			panel1.Add(_comboBoxScritpType);
+			panel1.Add(_dropDownScritpType);
 			panel1.EndHorizontal();
 			panel1.EndVertical();
 			//line 2
@@ -108,7 +108,7 @@ namespace Plugin_ShellManager
 
 		private void buttonTest1_Click(object sender, EventArgs e)
 		{
-			var conns = Altman.Webshell.Service.GetDbNodeInfoList(_comboBoxScritpType.SelectedKey);
+			var conns = Altman.Webshell.Service.GetDbNodeInfoList(_dropDownScritpType.SelectedKey);
 			_richTextBoxSetting.Text = ShellExtraStringHandle.CreateDefaultIniString(conns);
 		}
 
@@ -127,9 +127,9 @@ namespace Plugin_ShellManager
 		private TextBox _textBoxShellPass;
 		private TextArea _richTextBoxSetting;
 		private TextBox _textBoxRemark;
-		private ComboBox _comboBoxScritpType;
-		private ComboBox _comboBoxServerCoding;
-		private ComboBox _comboBoxWebCoding;
+		private DropDown _dropDownScritpType;
+		private DropDown _dropDownServerCoding;
+		private DropDown _dropDownWebCoding;
 		private Splitter _p12;
 		private DynamicLayout _panelAdvanced;
 	}

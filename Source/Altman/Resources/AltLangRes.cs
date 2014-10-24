@@ -184,7 +184,7 @@ namespace Altman.Resources
 				{
 					(obj as TextControl).Text = (string)table[tmp];
 				}
-			}		
+			}
 		}
 
 		private static void UpdateMenu(IEnumerable<MenuItem> menuItems, Hashtable table)
