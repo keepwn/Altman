@@ -46,7 +46,7 @@ namespace Altman
 			{
 				h.Control.BackColor = System.Drawing.SystemColors.Control;
 			});
-			generator.Add<Eto.Forms.TabControl.IHandler>(() => new TabControlPlusHandler());
+			generator.Add<Eto.Forms.TabControlPlus.IHandler>(() => new TabControlPlusHandler());
 
 			var app = new AltmanApplication(generator);
 			app.Run();

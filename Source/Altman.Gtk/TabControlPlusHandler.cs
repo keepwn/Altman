@@ -1,4 +1,5 @@
 ﻿using System;
+using Altman.CustomControls;
 using Cairo;
 using Eto.Forms;
 using Eto.GtkSharp;
@@ -56,8 +57,13 @@ namespace Altman
 		{
 			Close.Clicked += delegate
 			{
-				//_parent.RemovePage(_parent.CurrentPage);
-				OnTabClosing(new TabControlCancelEventArgs(_parent.CurrentPage, false));
+				var arg = new TabControlCancelEventArgs(_parent.CurrentPage, false);
+				OnTabClosing(arg);
+				if (!arg.Cancel)
+				{
+					_parent.RemovePage(_parent.CurrentPage);
+					OnTabClosed(new TabControlEventArgs(_parent.CurrentPage));
+				}
 			};
 		}
 
@@ -67,11 +73,17 @@ namespace Altman
 				TabClosing(this, e);
 		}
 
+		public void OnTabClosed(TabControlEventArgs e)
+		{
+			if (TabClosed != null)
+				TabClosed(this, e);
+		}
+
 		public event EventHandler<TabControlCancelEventArgs> TabClosing;
-		public bool Active;
+		public event EventHandler<TabControlEventArgs> TabClosed;
 	}
 
-	public class TabControlPlusHandler : GtkContainer<Notebook, TabControl, TabControl.ICallback>, TabControl.IHandler
+	public class TabControlPlusHandler : GtkContainer<Notebook, TabControlPlus, TabControlPlus.ICallback>, TabControlPlus.IHandler
 	{
 		private MultiTab multiTab;
 		public TabControlPlusHandler()
@@ -129,6 +141,7 @@ namespace Altman
 		public void InsertTab(int index, TabPage page)
 		{
 			var pageHandler = (TabPageHandler) page.Handler;
+			var controlHandler = (TabControlPlus) page.Parent;
 			if (Widget.Loaded)
 			{
 				pageHandler.ContainerControl.ShowAll();
@@ -137,14 +150,12 @@ namespace Altman
 			var tab = new MultiTab(pageHandler.Text, Control);
 			tab.TabClosing += (sender, e) =>
 			{
-				Callback.OnTabClosing(Widget, new TabControlCancelEventArgs(e.TabPageIndex, e.Cancel));
+				controlHandler.Pages.RemoveAt(e.TabPageIndex);
+				e.Cancel = true;
 			};
-
 			if (index == -1)
-				//Control.AppendPage(pageHandler.ContainerControl, pageHandler.LabelControl);
 				Control.AppendPage(pageHandler.ContainerControl, tab);
 			else
-				//Control.InsertPage(pageHandler.ContainerControl, pageHandler.LabelControl, index);
 				Control.AppendPage(pageHandler.ContainerControl, tab);
 		}
 

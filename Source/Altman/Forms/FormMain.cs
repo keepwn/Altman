@@ -23,7 +23,7 @@ namespace Altman.Forms
 		private IHost _host;
 
 		private ButtonMenuItem _pluginsMenuItem;
-		private TabControl _tabControl;
+		private TabControlPlus _tabControl;
 		private Label _showMsgLabel;
 		public FormMain()
 		{
@@ -317,7 +317,7 @@ namespace Altman.Forms
 		Control GenerateContent()
 		{
 			var layout = new DynamicLayout();
-			layout.Add(_tabControl = DefaultTabs(), yscale: true);
+			layout.Add(DefaultTabs(), yscale: true);
 			layout.Add(StatusBar());
 
 			return layout;
@@ -335,16 +335,9 @@ namespace Altman.Forms
 			return layout;
 		}
 
-		TabControl DefaultTabs()
+		Control DefaultTabs()
 		{
-			var control = new TabControl();
-			control.MouseDoubleClick += control_MouseDoubleClick;
-			control.TabClosing += (sender, e) =>
-			{
-				_tabControl.Pages.RemoveAt(e.TabPageIndex);
-				e.Cancel = false;
-			};
-
+			var control = _tabControl = new TabControlPlus();
 			control.Pages.Add(new TabPage { Text = "Index" });
 			return control;
 		}
@@ -358,40 +351,11 @@ namespace Altman.Forms
 				Text = name,
 				Content = userControl as Panel
 			};
-			//newTabpage.MouseDoubleClick += newTabpage_MouseDoubleClick;
 			_tabControl.Pages.Add(newTabpage);
 			_tabControl.SelectedPage = newTabpage;
 		}
 
 		#region Event
-		void newTabpage_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			if (_tabControl.SelectedPage.Text != "Index" && _tabControl.SelectedPage.Text != "shellManager")
-			{
-				int index = _tabControl.SelectedIndex;
-				_tabControl.Pages.Remove(_tabControl.SelectedPage);
-				if (index - 1 >= 0)
-					_tabControl.SelectedIndex = index - 1;
-			}
-		}
-
-		void control_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			/*
-			var tabControl = sender as TabControl;
-			PointF pt = e.Location;
-
-			for (int i = 0; i < tabControl.Pages.Count; i++)
-			{
-				Rectangle recTab = tabControl.Pages[0].Bounds;
-				if (recTab.Contains())
-				{
-					tabcontrol.tabpage.remove(rectab);
-					return;
-				}
-			}
-			 */
-		}
 
 		private void Tsmi_Setting_Click(object sender, EventArgs e)
 		{

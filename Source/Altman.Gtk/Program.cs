@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Altman.CustomControls;
 using Eto;
+using Eto.Forms;
 
 namespace Altman
 {
@@ -34,7 +36,7 @@ namespace Altman
 	    static void Start()
 	    {
 			var generator = Platform.Get(Platforms.Gtk2);
-			generator.Add<Eto.Forms.TabControl.IHandler>(() => new TabControlPlusHandler());
+			generator.Add<TabControlPlus.IHandler>(() => new TabControlPlusHandler());
 
 			var app = new AltmanApplication(generator);
 			app.Run();

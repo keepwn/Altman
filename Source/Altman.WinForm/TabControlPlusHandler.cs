@@ -11,12 +11,13 @@ using EF = Eto.Forms;
 
 namespace Altman
 {
-	public class TabControlPlusHandler : EWF.WindowsContainer<TabControlPlus, EF.TabControl, EF.TabControl.ICallback>, EF.TabControl.IHandler
+	public class TabControlPlusHandler : EWF.WindowsContainer<TabControlPlus, EF.TabControlPlus, EF.TabControlPlus.ICallback>, EF.TabControlPlus.IHandler
 	{
 		bool disableSelectedIndexChanged;
+		EF.TabControlPlus controlPlus;
 		public TabControlPlusHandler()
 		{
-			this.Control = new TabControlPlus();
+			this.Control =new TabControlPlus();
 			this.Control.DisplayStyle = TabStyle.Default;
 			this.Control.DisplayStyleProvider.ShowTabCloser = true;
 			this.Control.ImageList = new SWF.ImageList { ColorDepth = SWF.ColorDepth.Depth32Bit };
@@ -27,7 +28,8 @@ namespace Altman
 			};
 			Control.TabClosing += (sender, e) =>
 			{
-				Callback.OnTabClosing(Widget, new EF.TabControlCancelEventArgs(e.TabPageIndex, e.Cancel));
+				controlPlus.Pages.RemoveAt(e.TabPageIndex);
+				e.Cancel = true;
 			};
 		}
 
@@ -40,6 +42,7 @@ namespace Altman
 		public void InsertTab(int index, EF.TabPage page)
 		{
 			var pageHandler = (TabPageHandler)page.Handler;
+			controlPlus = (EF.TabControlPlus) page.Parent;
 			if (index == -1 || index == Control.TabPages.Count)
 				Control.TabPages.Add(pageHandler.Control);
 			else
