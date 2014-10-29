@@ -94,6 +94,9 @@
     <Compile Include="Dialogs\About.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="Forms\FormMain.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Irons.cs" />
     <Compile Include="Resources\AltLangRes.cs" />
     <Compile Include="Resources\AltStrRes.cs" />
