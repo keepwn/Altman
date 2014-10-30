@@ -12,6 +12,7 @@ using Altman.Util.Common.AltData;
 using Altman.Webshell.Model;
 using Eto.Drawing;
 using Eto.Forms;
+using Plugin_ShellCmder.Controls;
 
 namespace Plugin_ShellCmder
 {
@@ -39,13 +40,14 @@ namespace Plugin_ShellCmder
 
         void Init()
         {
-            shellTextBox_Cmder = new ConsoleBox()
-            {
-                IsWin = true,
-                Prompt = ">>> >>> >>> > > > > > > ",
-                ShellTextBackColor = Colors.Black,
-                ShellTextForeColor = Color.FromArgb(224, 224, 224)
-            };
+	        shellTextBox_Cmder = new ConsoleBox()
+	        {
+		        IsWin = true,
+		        Prompt = ">>> >>> >>> > > > > > > ",
+		        ShellTextBackColor = Colors.Black,
+		        ShellTextForeColor = Color.FromArgb(192, 192, 192),
+		        ShellTextFont = new Font(FontFamilies.Monospace, 10, style: FontStyle.Bold)
+	        };
 
             var layout = new DynamicLayout { Padding = new Padding(0) };
             layout.Add(shellTextBox_Cmder);

@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleBox.cs">
+    <Compile Include="Controls\ConsoleBox.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="InternalCommand.cs" />

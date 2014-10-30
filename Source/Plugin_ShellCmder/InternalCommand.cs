@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Plugin_ShellCmder.Controls;
 
 namespace Plugin_ShellCmder
 {

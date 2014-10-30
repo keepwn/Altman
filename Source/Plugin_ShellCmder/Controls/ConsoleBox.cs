@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Plugin_ShellCmder
+namespace Plugin_ShellCmder.Controls
 {
     public class ConsoleBox : TextArea
     {
@@ -108,7 +106,8 @@ namespace Plugin_ShellCmder
             {
                 MoveCaretToEndOfText();
             }
-            if (e.Key == Keys.Backspace && !IsCaretAtWritablePosition())
+			//不允许退格符移动到提示文字之前
+			if (e.Key == Keys.Backspace && IsCaretJustBeforePrompt())
             {
                 e.Handled = true;
             }
@@ -117,6 +116,10 @@ namespace Plugin_ShellCmder
             {
                 e.Handled = true;
             }
+	        if (e.Key == Keys.Space && IsCaretJustBeforePrompt())
+	        {
+				e.Handled = true;
+	        }
             else if (e.Key == Keys.Down)
             {
                 //历史命令记录
@@ -151,12 +154,6 @@ namespace Plugin_ShellCmder
             }
 
             //处理空格和enter按键
-            //不允许开头空格
-            if (e.KeyChar == (char)8 && IsCaretJustBeforePrompt())
-            {
-                e.Handled = true;
-                return;
-            }
             //如果是执行按键
             if (IsTerminatorKey(e.Key))
             {
@@ -305,7 +302,8 @@ namespace Plugin_ShellCmder
         /// </summary>
         private string GetTextAtPrompt()
         {
-            return GetCurrentLine().Substring(_prompt.Length);
+			//去除开始的空白字符
+            return GetCurrentLine().Substring(_prompt.Length).TrimStart();
         }
         /// <summary>
         /// 判断当前行是否以Prompt开头

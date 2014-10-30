@@ -88,9 +88,6 @@
     <Compile Include="CustomControls\TabControlPlus.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="CustomControls\TreeViewPlus.cs">
-      <SubType>Eto.Forms</SubType>
-    </Compile>
     <Compile Include="Dialogs\About.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
