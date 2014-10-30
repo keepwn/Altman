@@ -10,6 +10,7 @@ using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Altman.Resources;
 using Altman.Service;
+using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
@@ -23,8 +24,6 @@ namespace Altman.Forms
 
 		public FormMain()
 		{
-			Init();
-
 			//InitializeComponent();
 			//CheckForIllegalCrossThreadCalls = false;
 
@@ -38,32 +37,28 @@ namespace Altman.Forms
 			if (!Directory.Exists(AppEnvironment.AppLanguagePath))
 				Directory.CreateDirectory(AppEnvironment.AppLanguagePath);
 
+			//----数据初始化----
+			InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
+			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
+			//----数据初始化结束----
+
+			//语言初始化
+			var lang = (GlobalSetting.Setting as Setting).Language;
+			AltLangRes.ReadLanguageResource(lang);
+			AltStrRes.SetTranslatedStrings(AltLangRes.Table);
+
+			//UI处理
+			Init();
+
+
 			//----导入插件----
 			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
 			PluginProvider.Host = _host;
 			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, false);
 
-			//----导入插件结束----
-
-
-			//----数据初始化----
-			InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
-			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
-			//----数据初始化结束----
-
-
-			//----UI处理----       
-
-			//treenode
-			//TreeView treeViewFunc = new TreeView();
-			//TreeItem treeItem = InitUi.GetCustomShellTypeTree();
-			//treeItem.Text = "ShellType";
-			//treeViewFunc.DataStore = treeItem;
-
-			//plugins
 			LoadPluginsInUi();
-			//----UI处理结束----
+			//----导入插件结束----
 
 
 			//显示免责声明

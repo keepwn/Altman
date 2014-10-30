@@ -18,9 +18,6 @@ namespace Altman
         {
             base.OnInitialized(e);
 
-	        AltLangRes.ReadLanguageResource("CN");
-			AltStrRes.SetTranslatedStrings(AltLangRes.Table);
-
             this.MainForm = new FormMain();
 			//this.MainForm.Load += (sender,ea) => Language.UpdateLanguage(MainForm);
             this.MainForm.Show();

@@ -94,6 +94,12 @@
     <Compile Include="Forms\FormMain.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="Forms\PanelBasicSetting.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Forms\PanelBasicSetting.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Irons.cs" />
     <Compile Include="Resources\AltLangRes.cs" />
     <Compile Include="Resources\AltStrRes.cs" />

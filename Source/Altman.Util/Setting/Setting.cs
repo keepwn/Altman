@@ -8,6 +8,11 @@ namespace Altman.Util.Setting
     public class Setting
     {
         #region struct
+
+	    public struct BasicStruct
+	    {
+		    public string Language;
+	    }
         public struct UserAgentStruct
         {
             public bool IsRandom;
@@ -34,11 +39,16 @@ namespace Altman.Util.Setting
         }
         #endregion
 
+	    private BasicStruct _basic;
         private UserAgentStruct _userAgent;
         private HttpHeaderStruct _httpHeader;
         private PolicyStruct _policy;
         private ProxyStruct _proxy;
 
+		public BasicStruct GetBasic
+		{
+			get { return _basic; }
+		}
         public UserAgentStruct GetUserAgentStruct
         {
             get { return _userAgent; }
@@ -86,6 +96,11 @@ namespace Altman.Util.Setting
             }
         }
 
+	    public string Language
+	    {
+			get { return _basic.Language; }
+			set { _basic.Language = value; }
+	    }
         public bool IsParamRandom
         {
             get { return _policy.IsParamRandom; }
@@ -131,8 +146,9 @@ namespace Altman.Util.Setting
             }
         }
 
-        public Setting(UserAgentStruct userAgent,HttpHeaderStruct httpHeader,PolicyStruct policy,ProxyStruct proxy)
+        public Setting(BasicStruct basic, UserAgentStruct userAgent,HttpHeaderStruct httpHeader,PolicyStruct policy,ProxyStruct proxy)
         {
+	        _basic = basic;
             _userAgent = userAgent;
             _httpHeader = httpHeader;
             _policy = policy;

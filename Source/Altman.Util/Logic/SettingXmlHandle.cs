@@ -20,6 +20,16 @@ namespace Altman.Util.Logic
 
                 xmlWriter.WriteStartElement("AltmanSetting");
                 {
+					//Basic
+					xmlWriter.WriteStartElement("Basic");
+					{
+						xmlWriter.WriteStartElement("language");
+						xmlWriter.WriteString(setting.GetBasic.Language);
+						xmlWriter.WriteEndElement();
+					}
+					xmlWriter.WriteEndElement();
+
+
                     //UserAgent
                     xmlWriter.WriteStartElement("UserAgent");
                     {
@@ -141,6 +151,7 @@ namespace Altman.Util.Logic
         public static Setting.Setting ReadXml(string fileName, string basePathDir)
         {
             string filePath = basePathDir + fileName;
+			Setting.Setting.BasicStruct basic = new Setting.Setting.BasicStruct();
             Setting.Setting.UserAgentStruct userAgent=new Setting.Setting.UserAgentStruct();
             Setting.Setting.HttpHeaderStruct httpHeader=new Setting.Setting.HttpHeaderStruct();
             Setting.Setting.PolicyStruct policy=new Setting.Setting.PolicyStruct();
@@ -154,7 +165,11 @@ namespace Altman.Util.Logic
                 XmlNodeList childlist = root.ChildNodes; //获取节点下所有直接子节点
                 foreach (XmlNode child in childlist)
                 {
-                    if (child.Name == "UserAgent")
+					if (child.Name == "Basic")
+					{
+						basic = ReadBasicNode(child);
+					}
+                    else if (child.Name == "UserAgent")
                     {
                         userAgent = ReadUserAgentNode(child);
                     }
@@ -171,7 +186,7 @@ namespace Altman.Util.Logic
                         proxy = ReadProxyNode(child);
                     }
                 }
-                Setting.Setting setting = new Setting.Setting(userAgent, httpHeader,policy,proxy);
+				Setting.Setting setting = new Setting.Setting(basic, userAgent, httpHeader, policy, proxy);
                 return setting;
             }
             catch (Exception ex)
@@ -180,6 +195,19 @@ namespace Altman.Util.Logic
             }
         }
 
+		private static Setting.Setting.BasicStruct ReadBasicNode(XmlNode child)
+		{
+			//初始化一下userAgent
+			Setting.Setting.BasicStruct basic = new Setting.Setting.BasicStruct();
+			foreach (XmlNode c in child.ChildNodes)
+			{
+				if (c.Name == "language")
+				{
+					basic.Language = c.InnerText;
+				}
+			}
+			return basic;
+		}
 
         private static Setting.Setting.UserAgentStruct ReadUserAgentNode(XmlNode child)
         {
