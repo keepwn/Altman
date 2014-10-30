@@ -50,15 +50,15 @@ namespace Plugin_Encoder
 
 		void _radioButtonEncode_CheckedChanged(object sender, EventArgs e)
 		{
-			_comboBoxServices.DataStore = _radioButtonEncode.Checked ? _encodeItem : _decodeItem;
+			_dropDownServices.DataStore = _radioButtonEncode.Checked ? _encodeItem : _decodeItem;
 		}
 
-		void _comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
+		void DropDownServicesSelectedIndexChanged(object sender, EventArgs e)
 		{
-			//var index = _comboBoxServices.SelectedIndex;
+			//var index = _dropDownServices.SelectedIndex;
 			//if (index >= 0)
 			//{
-			//	var selctedService = (_comboBoxServices.Items[index] as ListItem).Tag;
+			//	var selctedService = (_dropDownServices.Items[index] as ListItem).Tag;
 			//	if (selctedService is Func<string, bool, string>)
 			//	{
 			//		_radioButtonDecode.Enabled = true;
@@ -74,12 +74,12 @@ namespace Plugin_Encoder
 		void _buttonRun_Click(object sender, EventArgs e)
 		{
 			var input = _textAreaInput.Text;
-			var index = _comboBoxServices.SelectedIndex;
+			var index = _dropDownServices.SelectedIndex;
 
 			if (string.IsNullOrEmpty(input) || index < 0) 
 				return;
 			
-			dynamic selctedService = (_comboBoxServices.Items[index] as ListItem).Tag;
+			dynamic selctedService = (_dropDownServices.Items[index] as ListItem).Tag;
 
 			var result = selctedService(new PluginParameter("str", input));
 			_textAreaOutput.Text = result;

@@ -12,6 +12,14 @@ namespace Plugin_ShellManager
 	{
 		void InitUi()
 		{
+			// input
+			_textBoxName = new TextBox {PlaceholderText = "*Name", Size = new Size(200, -1)};
+			_comboBoxLevel = new ComboBox(true) {Size = new Size(100, -1)};
+			_dropDownScritpType = new DropDown {Size = new Size(120, -1)};
+			_textBoxShellPath = new TextBox { PlaceholderText = "*Shell Url", Size = new Size(300, -1) };
+			_textBoxShellPass = new TextBox { PlaceholderText = "*Pass" };
+			_textBoxRemark = new TextBox { PlaceholderText = "Remark" };
+
 			//_buttonAdd
 			_buttonAdd = new Button { Text = StrRes.GetString("StrAdd", "Add") };
 			_buttonAdd.Click += buttonAdd_Click;
@@ -30,13 +38,6 @@ namespace Plugin_ShellManager
 			//buttonTest
 			var buttonTest2 = new Button { Text = "Test2" };
 			buttonTest2.Click += buttonTest2_Click;
-
-			_textBoxName = new TextBox { PlaceholderText = "*Name", Size = new Size(200, -1) };
-			_comboBoxLevel = new ComboBox(true) { Size = new Size(100, -1), };
-			_dropDownScritpType = new DropDown { Size = new Size(120, -1) };
-			_textBoxShellPath = new TextBox { PlaceholderText = "*Shell Url", Size = new Size(300, -1) };
-			_textBoxShellPass = new TextBox { PlaceholderText = "*Pass" };
-			_textBoxRemark = new TextBox { PlaceholderText = "Remark" };
 
 			var codeList = new List<IListItem>
 			{
@@ -61,7 +62,7 @@ namespace Plugin_ShellManager
 			//line 1
 			panel1.BeginVertical();
 			panel1.BeginHorizontal();
-			panel1.Add(_textBoxName, true);
+			panel1.Add(_textBoxName, xscale: true);
 			panel1.Add(_comboBoxLevel);
 			panel1.Add(_dropDownScritpType);
 			panel1.EndHorizontal();

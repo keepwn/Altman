@@ -46,6 +46,22 @@ namespace Altman
 			{
 				h.Control.BackColor = System.Drawing.SystemColors.Control;
 			});
+			Style.Add<Eto.WinForms.DropDownHandler>(null, h =>
+			{
+				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 10.5F, System.Drawing.FontStyle.Regular);
+			});
+			Style.Add<Eto.WinForms.ComboBoxHandler>(null, h =>
+			{
+				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 10.5F, System.Drawing.FontStyle.Regular);
+			});
+			Style.Add<Eto.WinForms.TextBoxHandler>(null, h =>
+			{
+				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 9.5F, System.Drawing.FontStyle.Regular);
+			});
+			//Style.Add<Eto.WinForms.ButtonHandler>(null, h =>
+			//{
+			//	h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 9.5F, System.Drawing.FontStyle.Regular);
+			//});
 			generator.Add<Eto.Forms.TabControlPlus.IHandler>(() => new TabControlPlusHandler());
 
 			var app = new AltmanApplication(generator);

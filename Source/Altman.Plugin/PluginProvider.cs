@@ -22,12 +22,12 @@ namespace Altman.Plugin
 		private static List<IPlugin> _plugins;
 		public static List<IPlugin> Plugins
 		{
-			get { return _plugins; }
+			get { return _plugins ?? new List<IPlugin>(); }
 		}
 		private static List<IService> _services;
 		public static List<IService> Services
 		{
-			get { return _services; }
+			get { return _services ?? new List<IService>(); }
 		}
 
 		public static void Compose(string pluginPath, string servicesPath, bool isLoadPy=false)

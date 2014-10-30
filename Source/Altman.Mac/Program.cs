@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Altman.Desktop;
 using Eto;
 using Eto.Mac.Forms.Controls;
 using Eto.Mac.Forms;

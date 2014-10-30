@@ -22,7 +22,7 @@ namespace Plugin_DbManager
 
 			//_dropDownDbs
 			_dropDownDbs = new DropDown();
-			_dropDownDbs.Size = new Size(200, -1);
+			_dropDownDbs.Size = new Size(200, _dropDownDbs.Size.Height);
 
 			//_buttonRunScript
 			_buttonRunScript = new Button {Text = StrRes.GetString("StrExecute","Execute"), Image = Icons.RunScripIcon};
@@ -81,10 +81,10 @@ namespace Plugin_DbManager
 			//topLayout
 			var topLayout = new DynamicLayout();
 			topLayout.BeginHorizontal();
-			topLayout.Add(_buttonConnect);
-			topLayout.Add(_buttonDisconnect);
-			topLayout.Add(_dropDownDbs);
-			topLayout.Add(_buttonRunScript);
+			topLayout.AddCentered(_buttonConnect, horizontalCenter: false);
+			topLayout.AddCentered(_buttonDisconnect, horizontalCenter: false);
+			topLayout.AddCentered(_dropDownDbs, horizontalCenter: false);
+			topLayout.AddCentered(_buttonRunScript, horizontalCenter: false);
 			topLayout.Add(null);
 			topLayout.EndVertical();
 

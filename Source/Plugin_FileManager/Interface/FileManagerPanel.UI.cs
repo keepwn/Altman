@@ -90,8 +90,8 @@ namespace Plugin_FileManager.Interface
 			var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
 			layout.BeginVertical();
 			layout.BeginHorizontal();
-			layout.Add(_textboxUrl, true);
-			layout.Add(_buttonDir);
+			layout.AddCentered(_textboxUrl, xscale: true, horizontalCenter: false);
+			layout.AddCentered(_buttonDir, horizontalCenter: false);
 			layout.EndHorizontal();
 			layout.EndVertical();
 

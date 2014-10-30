@@ -78,9 +78,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Altman\Altman.Desktop.csproj">
+    <ProjectReference Include="..\Altman\Altman.csproj">
       <Project>{C8B447F9-E4D2-4D79-94F9-74582509E6E1}</Project>
-      <Name>Altman.Desktop</Name>
+      <Name>Altman</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

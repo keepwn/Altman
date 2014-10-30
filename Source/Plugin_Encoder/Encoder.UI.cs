@@ -13,8 +13,9 @@ namespace Plugin_Encoder
 		{
 			_textAreaInput = new TextArea();
 
-			_comboBoxServices = new ComboBox();
-			_comboBoxServices.SelectedIndexChanged += _comboBoxServices_SelectedIndexChanged;
+			_dropDownServices = new DropDown();
+			_dropDownServices.Size = new Size(200, _dropDownServices.Size.Height);
+			_dropDownServices.SelectedIndexChanged += DropDownServicesSelectedIndexChanged;
 
 			_radioButtonEncode = new RadioButton {Text = "Encode"};
 			_radioButtonEncode.CheckedChanged += _radioButtonEncode_CheckedChanged;
@@ -31,11 +32,11 @@ namespace Plugin_Encoder
 			var outputLayout = new DynamicLayout {Padding = new Padding(5, 5), Spacing = new Size(5, 5)};
 			outputLayout.BeginVertical();
 			outputLayout.BeginHorizontal();
-			outputLayout.Add(_radioButtonEncode);
-			outputLayout.Add(_radioButtonDecode);
+			outputLayout.AddCentered(_radioButtonEncode, horizontalCenter: false);
+			outputLayout.AddCentered(_radioButtonDecode, horizontalCenter: false);
 			outputLayout.Add(null);
-			outputLayout.Add(_comboBoxServices);
-			outputLayout.Add(_buttonRun);
+			outputLayout.AddCentered(_dropDownServices, horizontalCenter: false);
+			outputLayout.AddCentered(_buttonRun, horizontalCenter: false);
 			outputLayout.EndHorizontal();
 			outputLayout.EndVertical();
 			outputLayout.AddSeparateRow(_textAreaOutput);
@@ -54,7 +55,7 @@ namespace Plugin_Encoder
 		private TextArea _textAreaInput;
 		private TextArea _textAreaOutput;
 
-		private ComboBox _comboBoxServices;
+		private DropDown _dropDownServices;
 		private RadioButton _radioButtonEncode;
 		private RadioButton _radioButtonDecode;
 		private Button _buttonRun;

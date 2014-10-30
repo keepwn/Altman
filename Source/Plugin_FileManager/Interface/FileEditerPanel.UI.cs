@@ -26,12 +26,12 @@ namespace Plugin_FileManager.Interface
 			//_textAreaBody
 			_textAreaBody = new TextArea();
 
-			var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
+			var layout = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
 			layout.BeginVertical();
 			layout.BeginHorizontal();
-			layout.Add(_textBoxUrl, true);
-			layout.Add(_buttonReadFile);
-			layout.Add(_buttonSaveFile);
+			layout.AddCentered(_textBoxUrl, xscale: true, horizontalCenter: false);
+			layout.AddCentered(_buttonReadFile, horizontalCenter: false);
+			layout.AddCentered(_buttonSaveFile, horizontalCenter: false);
 			layout.EndBeginHorizontal();
 			layout.EndVertical();
 
