@@ -8,6 +8,7 @@ namespace Plugin_Encoder.Interface
 		void Init()
 		{
 			_textAreaInput = new TextArea();
+			_textAreaInput.Font = new Font(FontFamilies.Monospace, 10);
 
 			_dropDownServices = new DropDown();
 			_dropDownServices.Size = new Size(200, _dropDownServices.Size.Height);
@@ -21,6 +22,7 @@ namespace Plugin_Encoder.Interface
 			_buttonRun.Click += _buttonRun_Click;
 
 			_textAreaOutput = new TextArea();
+			_textAreaOutput.Font = new Font(FontFamilies.Monospace, 10);
 
 			var inputLayout = new DynamicLayout {Padding = new Padding(5, 5, 5, 0), Spacing = new Size(5, 5)};
 			inputLayout.AddSeparateRow(_textAreaInput);
@@ -42,7 +44,7 @@ namespace Plugin_Encoder.Interface
 				Panel1 = inputLayout,
 				Panel2 = outputLayout,
 				Orientation = SplitterOrientation.Vertical,
-				Position = 150
+				Position = 130
 			};
 
 			Content = layout;

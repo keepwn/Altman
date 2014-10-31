@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AltmanSetting>
+  <Basic>
+    <language>EN</language>
+  </Basic>
   <UserAgent>
     <type>1</type>
     <option name="Custom" selected="True">altman2.0-user-agent</option>

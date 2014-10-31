@@ -55,7 +55,7 @@ namespace Altman.Forms
 			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
 			PluginProvider.Host = _host;
-			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, false);
+			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, true);
 
 			LoadPluginsInUi();
 			//----导入插件结束----
