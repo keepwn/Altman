@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
+using Plugin_PluginManager.Interface;
 
 namespace Plugin_PluginManager
 {
@@ -42,7 +43,7 @@ namespace Plugin_PluginManager
 
         public object LoadGui(PluginParameter data)
         {
-            return _form = new PluginManager(_host, data);
+            return _form = new PanelPluginManager(_host, data);
         }
 
         public void Dispose()

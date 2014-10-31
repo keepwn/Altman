@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Eto.Drawing;
 using Plugin_FileManager.Interface;
+using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Model
 {

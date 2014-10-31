@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Altman.Webshell.Model;
-using Eto.Drawing;
 using Eto.Forms;
 using Plugin_ShellManager.Data;
 using Plugin_ShellManager.Resources;
 
-namespace Plugin_ShellManager
+namespace Plugin_ShellManager.Interface
 {
-	public partial class ShellManagerPanel : Panel
+	public partial class PanelShellManager : Panel
 	{
 		private IHost _host;
 		private ShellManager _shellManager = null;
 
-		public ShellManagerPanel(IHost host, PluginParameter data)
+		public PanelShellManager(IHost host, PluginParameter data)
 		{
 			_host = host;
 

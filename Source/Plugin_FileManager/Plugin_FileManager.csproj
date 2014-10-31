@@ -88,19 +88,18 @@
     <Compile Include="Interface\FileEditerPanel.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="FileManagerControl.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="FileUploadOrDownload.cs" />
     <Compile Include="Dialogs\FormWget.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Interface\FileManagerPanel.cs">
+    <Compile Include="Interface\PanelFileManager.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Interface\FileManagerPanel.UI.cs">
+    <Compile Include="Interface\PanelFileManager.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Interface\Icons.cs" />
+    <Compile Include="Resources\Icons.cs" />
     <Compile Include="Model\FileInfoView.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Plugin.cs" />
@@ -112,12 +111,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Interface\FileEditerPanel.resx">
       <DependentUpon>FileEditerPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FileManagerControl.resx">
-      <DependentUpon>FileManagerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FileManagerControl.zh-CN.resx">
-      <DependentUpon>FileManagerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FormWget.resx">
       <DependentUpon>FormWget.cs</DependentUpon>

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Eto.Drawing;
 using Eto.Forms;
 using Plugin_ShellManager.Resources;
 
-namespace Plugin_ShellManager
+namespace Plugin_ShellManager.Interface
 {
 	public partial class FormEditWebshell
 	{

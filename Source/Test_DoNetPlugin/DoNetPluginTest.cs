@@ -77,7 +77,7 @@ namespace Test_DoNetPlugin
 
         private void btn_createNewTabPage_Click(object sender, EventArgs e)
         {
-            _host.Ui.CreateNewTabPage(_tbxMsg.Text, new UserControl1());
+            _host.Ui.CreateNewTabPage(_tbxMsg.Text, new NewPanel());
         }
     }
 }

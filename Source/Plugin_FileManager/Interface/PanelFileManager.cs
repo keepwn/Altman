@@ -17,7 +17,7 @@ using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Interface
 {
-	public partial class FileManagerPanel : Panel
+	public partial class PanelFileManager : Panel
 	{
 		private IHost _host;
 		private Shell _shellData;
@@ -30,7 +30,7 @@ namespace Plugin_FileManager.Interface
 		private string _oldMTime;
 		private DataStoreCollection _dataStore;
 
-		public FileManagerPanel(IHost host, PluginParameter data)
+		public PanelFileManager(IHost host, PluginParameter data)
 		{
 			_host = host;
 			_shellData = (Shell)data[0];

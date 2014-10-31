@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Encoder.cs">
+    <Compile Include="Interface\PanelEncoder.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Encoder.UI.cs">
+    <Compile Include="Interface\PanelEncoder.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="EncoderService.cs" />
@@ -61,6 +61,7 @@
       <Name>Altman.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\$(TargetName)

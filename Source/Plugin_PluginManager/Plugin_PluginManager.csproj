@@ -60,19 +60,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstallDialog.cs">
+    <Compile Include="Interface\InstallDialog.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="InstallForm.UI.cs">
+    <Compile Include="Interface\InstallForm.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Model\PluginModel.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
-    <Compile Include="PluginManager.cs">
+    <Compile Include="Interface\PanelPluginManager.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="PluginManager.UI.cs">
+    <Compile Include="Interface\PanelPluginManager.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="PluginSetting.cs" />

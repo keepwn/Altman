@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Eto.Drawing;
+﻿using Eto.Drawing;
 using Eto.Forms;
 using Plugin_DbManager.Resources;
 
-namespace Plugin_DbManager
+namespace Plugin_DbManager.Interface
 {
-	partial class DbManagerPanel
+	partial class PanelDbManager
 	{
 		void Init()
 		{

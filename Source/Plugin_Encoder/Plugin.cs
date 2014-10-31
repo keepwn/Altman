@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
+using Plugin_Encoder.Interface;
 
 namespace Plugin_Encoder
 {
@@ -38,7 +39,7 @@ namespace Plugin_Encoder
 
         public object LoadGui(PluginParameter data)
         {
-            return _userControl = new Encoder(_host, data);
+            return _userControl = new PanelEncoder(_host, data);
         }
 
         public void Dispose()

@@ -10,9 +10,9 @@ using Eto.Forms;
 using Plugin_PluginManager.Model;
 using Plugin_PluginManager.Resources;
 
-namespace Plugin_PluginManager
+namespace Plugin_PluginManager.Interface
 {
-    public partial class PluginManager : Form
+    public partial class PanelPluginManager : Form
     {
         private IHost _host;
 
@@ -21,7 +21,7 @@ namespace Plugin_PluginManager
         private UpdateInfo[] _updateInfos = null;
         private IEnumerable<IPlugin> _installedPlugins = null;
 
-		public PluginManager(IHost host, PluginParameter data)
+		public PanelPluginManager(IHost host, PluginParameter data)
         {
 			this._host = host;
 

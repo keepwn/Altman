@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Eto.Drawing;
+﻿using Eto.Drawing;
 using Eto.Forms;
 
-namespace Plugin_Encoder
+namespace Plugin_Encoder.Interface
 {
-	partial class Encoder
+	partial class PanelEncoder
 	{
 		void Init()
 		{

@@ -63,27 +63,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataConvert.cs" />
-    <Compile Include="FormEditWebshell.UI.cs">
+    <Compile Include="Interface\FormEditWebshell.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Resources\StrRes.cs" />
     <Compile Include="PluginSetting.cs" />
     <Compile Include="Model\ShellView.cs" />
     <Compile Include="ShellExtraStringHandle.cs" />
-    <Compile Include="ShellManagerPanel.UI.cs">
+    <Compile Include="Interface\PanelShellManager.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="ShellManager.cs" />
-    <Compile Include="ShellManagerPanel.cs">
+    <Compile Include="Interface\PanelShellManager.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="FormEditWebshell.cs">
+    <Compile Include="Interface\FormEditWebshell.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShellManagerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Altman.Webshell\Altman.Webshell.csproj">

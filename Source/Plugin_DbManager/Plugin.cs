@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
+using Plugin_DbManager.Interface;
 
 namespace Plugin_DbManager
 {
@@ -37,7 +38,7 @@ namespace Plugin_DbManager
 
         public object LoadGui(PluginParameter data)
         {
-            return _userControl = new DbManagerPanel(_host, data);
+            return _userControl = new PanelDbManager(_host, data);
         }
 
         public void Dispose()

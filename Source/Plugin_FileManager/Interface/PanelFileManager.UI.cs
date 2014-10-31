@@ -9,7 +9,7 @@ using Plugin_FileManager.Resources;
 
 namespace Plugin_FileManager.Interface
 {
-	partial class FileManagerPanel
+	partial class PanelFileManager
 	{
 		void Init()
 		{

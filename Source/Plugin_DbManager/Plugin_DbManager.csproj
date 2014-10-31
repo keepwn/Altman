@@ -61,10 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbManagerPanel.cs">
+    <Compile Include="Interface\PanelDbManager.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="DbManagerPanel.UI.cs">
+    <Compile Include="Interface\PanelDbManager.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="DbManager.cs" />

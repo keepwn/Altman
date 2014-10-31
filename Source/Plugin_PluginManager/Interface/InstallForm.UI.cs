@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Eto.Drawing;
+﻿using Eto.Drawing;
 using Eto.Forms;
 
-namespace Plugin_PluginManager
+namespace Plugin_PluginManager.Interface
 {
 	partial class InstallDialog
 	{

@@ -64,12 +64,15 @@
     <Compile Include="Controls\ConsoleBox.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="Interface\PanelShellCmder.UI..cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="InternalCommand.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShellCmderPanel.cs">
+    <Compile Include="Interface\PanelShellCmder.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="ShellCmder.cs" />

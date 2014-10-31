@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Eto.Drawing;
+﻿using Eto.Drawing;
 using Eto.Forms;
 using Plugin_PluginManager.Resources;
 
-namespace Plugin_PluginManager
+namespace Plugin_PluginManager.Interface
 {
-	partial class PluginManager
+	partial class PanelPluginManager
 	{
 		void Init()
 		{

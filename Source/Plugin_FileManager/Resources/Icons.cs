@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using Eto.Drawing;
+﻿using Eto.Drawing;
 
-namespace Plugin_FileManager.Interface
+namespace Plugin_FileManager.Resources
 {
 	public static class Icons
 	{

@@ -44,7 +44,7 @@ namespace Plugin_FileManager
 
         public object LoadGui(PluginParameter data)
         {
-			return _userControl = new FileManagerPanel(_host, data);
+			return _userControl = new PanelFileManager(_host, data);
         }
 
         public void Dispose()

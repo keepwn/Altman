@@ -5,17 +5,15 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Altman.Webshell.Model;
-using Eto.Drawing;
 using Eto.Forms;
 using Plugin_DbManager.Resources;
 
-namespace Plugin_DbManager
+namespace Plugin_DbManager.Interface
 {
-    public partial class DbManagerPanel : Panel
+    public partial class PanelDbManager : Panel
     {
         private IHost _host;
         private Shell _shellData;
@@ -30,7 +28,7 @@ namespace Plugin_DbManager
 
         private DbManager _dbManager;
 		
-        public DbManagerPanel(IHost host, PluginParameter data)
+        public PanelDbManager(IHost host, PluginParameter data)
         {
 			_host = host;
 			_shellData = (Shell)data[0];

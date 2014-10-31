@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
-using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Eto.Forms;
 using Plugin_PluginManager.Model;
 
-namespace Plugin_PluginManager
+namespace Plugin_PluginManager.Interface
 {
     public partial class InstallDialog : Dialog
     {

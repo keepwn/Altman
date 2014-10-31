@@ -3,9 +3,9 @@ using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Eto.Forms;
 
-namespace Plugin_Encoder
+namespace Plugin_Encoder.Interface
 {
-	public partial class Encoder : Panel
+	public partial class PanelEncoder : Panel
 	{
 		private IHost _host;
 
@@ -13,7 +13,7 @@ namespace Plugin_Encoder
 		private Func<string, string> _convertFunc;
 		private ListItemCollection _encodeItem = new ListItemCollection();
 		private ListItemCollection _decodeItem = new ListItemCollection();
-		public Encoder(IHost host, PluginParameter data)
+		public PanelEncoder(IHost host, PluginParameter data)
 		{
 			Init();
 

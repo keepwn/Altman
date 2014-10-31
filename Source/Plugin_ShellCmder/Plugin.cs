@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
+using Plugin_ShellCmder.Interface;
 
 namespace Plugin_ShellCmder
 {
@@ -43,7 +44,7 @@ namespace Plugin_ShellCmder
 
         public object LoadGui(PluginParameter data)
         {
-            return _userControl = new ShellCmderPanel(_host, data);
+            return _userControl = new PanelShellCmder(_host, data);
         }
 
         public void Dispose()
