@@ -35,6 +35,9 @@ namespace Altman.Resources
 			_httpHeader = GetString(table, "StrHttpHeader", _httpHeader);
 			_policy = GetString(table, "StrPolicy", _policy);
 			_proxy = GetString(table, "StrProxy", _proxy);
+			_language = GetString(table, "StrLanguage", _language);
+			_isShowDisclaimer = GetString(table, "StrIsShowDisclaimer", _isShowDisclaimer);
+			_isOpenIPythonSupport = GetString(table, "StrIsOpenIPythonSupport", _isOpenIPythonSupport);
 			_isUserAgentRandom = GetString(table, "StrIsUserAgentRandom", _isUserAgentRandom);
 			_userAgentList = GetString(table, "StrUserAgentList", _userAgentList);
 			_isParamRandom = GetString(table, "StrIsParamRandom", _isParamRandom);
@@ -183,11 +186,6 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _isParamRandom; }
 		}
 
-		public static string IsShowDisclaimer
-		{
-			get { return _isShowDisclaimer; }
-		}
-
 		public static string NotUseProxy
 		{
 			get { return _notUseProxy; }
@@ -218,6 +216,21 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _docs; }
 		}
 
+		public static string Language
+		{
+			get { return _language; }
+		}
+
+		public static string IsShowDisclaimer
+		{
+			get { return _isShowDisclaimer; }
+		}
+
+		public static string IsOpenIPythonSupport
+		{
+			get { return _isOpenIPythonSupport; }
+		}
+
 		private static string _title = @"Altman";
 
 		private static string _aboutAltman = @"About Altman";
@@ -244,10 +257,12 @@ This statement applies to local laws, users and software authors agreed to obey 
 		private static string _httpHeader = @"HttpHeader";
 		private static string _policy = @"Policy";
 		private static string _proxy = @"Proxy";
-		private static string _isUserAgentRandom = @"Is UserAgent Random";
+		private static string _language = @"Language";
+		private static string _isOpenIPythonSupport = @"Open IronPython Support";
+		private static string _isUserAgentRandom = @"UserAgent Random";
 		private static string _userAgentList = @"UserAgent List";
 		private static string _isParamRandom = @"Is Param Random";
-		private static string _isShowDisclaimer = @"Is ShowDisclaimer";
+		private static string _isShowDisclaimer = @"Show Disclaimer";
 		private static string _notUseProxy = @"Not Use Proxy";
 		private static string _useSystemProxySetting = @"Use System Proxy Setting";
 		private static string _useCustomProxySetting = @"Use Custom Proxy Setting";

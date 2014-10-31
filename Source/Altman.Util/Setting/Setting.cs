@@ -12,6 +12,8 @@ namespace Altman.Util.Setting
 	    public struct BasicStruct
 	    {
 		    public string Language;
+			public bool IsShowDisclaimer;
+		    public bool IsOpenIPythonSupport;
 	    }
         public struct UserAgentStruct
         {
@@ -26,7 +28,6 @@ namespace Altman.Util.Setting
         public struct PolicyStruct
         {
             public bool IsParamRandom;
-            public bool IsShowDisclaimer;
         }
         public struct ProxyStruct
         {
@@ -101,55 +102,56 @@ namespace Altman.Util.Setting
             }
         }
 
+		public IWebProxy Proxy
+		{
+			get
+			{
+				IWebProxy proxy = null;
+				int type = _proxy.IsNoOrIeOrCustomProxy;
+				switch (type)
+				{
+					case 1:
+						proxy = WebRequest.GetSystemWebProxy();
+						break;
+					case 2:
+						var uri = new Uri("http://" + _proxy.ProxyAddr + ":" + _proxy.ProxyPort);
+						var currentWebProxy = new WebProxy(uri, false);
+						if (string.IsNullOrEmpty(_proxy.ProxyUser) && string.IsNullOrEmpty(_proxy.ProxyPassword))
+						{
+							currentWebProxy.Credentials = new NetworkCredential(_proxy.ProxyUser,
+								_proxy.ProxyPassword,
+								_proxy.ProxyDomain);
+						}
+						else
+						{
+							currentWebProxy.Credentials = CredentialCache.DefaultCredentials;
+						}
+						proxy = currentWebProxy;
+						break;
+					default:
+						proxy = null;
+						break;
+				}
+				return proxy;
+			}
+		}
+
 	    public string Language
 	    {
 			get { return _basic.Language; }
 			set { _basic.Language = value; }
 	    }
-        public bool IsParamRandom
-        {
-            get { return _policy.IsParamRandom; }
-            set { _policy.IsParamRandom = value; }
-        }
         public bool IsShowDisclaimer
         {
-            get { return _policy.IsShowDisclaimer; }
-            set { _policy.IsShowDisclaimer = value; }
+			get { return _basic.IsShowDisclaimer; }
+			set { _basic.IsShowDisclaimer = value; }
         }
 
-        public IWebProxy Proxy
-        {
-            get
-            {
-                IWebProxy proxy=null;
-                int type = _proxy.IsNoOrIeOrCustomProxy;
-                switch (type)
-                {
-                    case 1:
-                        proxy = WebRequest.GetSystemWebProxy();
-                        break;
-                    case 2:
-                        Uri uri = new Uri("http://" + _proxy.ProxyAddr + ":" + _proxy.ProxyPort);
-                        WebProxy currentWebProxy = new WebProxy(uri, false);
-                        if (string.IsNullOrEmpty(_proxy.ProxyUser) && string.IsNullOrEmpty(_proxy.ProxyPassword))
-                        {
-                            currentWebProxy.Credentials = new System.Net.NetworkCredential(_proxy.ProxyUser,
-                                _proxy.ProxyPassword,
-                                _proxy.ProxyDomain);
-                        }
-                        else
-                        {
-                            currentWebProxy.Credentials = System.Net.CredentialCache.DefaultCredentials;                        
-                        }
-                        proxy = currentWebProxy;
-                        break;
-                    default:
-                        proxy = null;
-                        break;
-                }
-                return proxy;
-            }
-        }
+	    public bool IsOpenIPythonSupport
+	    {
+			get { return _basic.IsOpenIPythonSupport; }
+			set { _basic.IsOpenIPythonSupport = value; }
+	    }
 
 	    public Setting()
 	    {

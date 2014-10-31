@@ -16,7 +16,7 @@ namespace Altman.Forms
 			_comboBoxUserAgentList = new ComboBox();
 			_comboBoxUserAgentList.Size = new Size(300, _comboBoxUserAgentList.Size.Height);
 
-			var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
+			var layout = new DynamicLayout { Padding = new Padding(20, 20), Spacing = new Size(10, 10) };
 
 			layout.AddRow(_checkBoxIsRandom);
 			layout.AddRow(new Label { Text = AltStrRes.UserAgentList });

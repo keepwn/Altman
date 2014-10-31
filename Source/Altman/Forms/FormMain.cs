@@ -40,10 +40,11 @@ namespace Altman.Forms
 			//----数据初始化----
 			InitUi.InitCustomShellType(AppEnvironment.AppCustomShellTypePath);
 			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
+			var basicSetting = (GlobalSetting.Setting as Setting).BasicSetting;
 			//----数据初始化结束----
 
 			//语言初始化
-			var lang = (GlobalSetting.Setting as Setting).Language;
+			var lang = basicSetting.Language;
 			AltLangRes.ReadLanguageResource(lang);
 			AltStrRes.SetTranslatedStrings(AltLangRes.Table);
 
@@ -55,7 +56,7 @@ namespace Altman.Forms
 			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
 			PluginProvider.Host = _host;
-			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, true);
+			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, basicSetting.IsOpenIPythonSupport);
 
 			LoadPluginsInUi();
 			//----导入插件结束----

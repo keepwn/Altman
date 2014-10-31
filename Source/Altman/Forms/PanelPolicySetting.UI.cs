@@ -13,18 +13,14 @@ namespace Altman.Forms
 		void Init()
 		{
 			_checkBoxIsParamRandom = new CheckBox() { Text = AltStrRes.IsParamRandom };
-			_checkBoxIsShowDisclaimer = new CheckBox() { Text = AltStrRes.IsShowDisclaimer };
 
-			var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
-
+			var layout = new DynamicLayout { Padding = new Padding(20, 20), Spacing = new Size(10, 10) };
 			layout.AddRow(_checkBoxIsParamRandom);
-			layout.AddRow(_checkBoxIsShowDisclaimer);
 			layout.Add(null);
 
-			this.Content = layout;
+			Content = layout;
 		}
 
 		private CheckBox _checkBoxIsParamRandom;
-		private CheckBox _checkBoxIsShowDisclaimer;
 	}
 }

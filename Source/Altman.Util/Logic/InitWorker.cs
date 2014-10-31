@@ -26,8 +26,7 @@ namespace Altman.Util.Logic
             GlobalSetting.Clear();
             GlobalSetting.UserAgent = setting.UserAgent;
             GlobalSetting.HttpHeader = setting.HttpHeader;
-            GlobalSetting.IsParamRandom = setting.IsParamRandom;
-            GlobalSetting.IsShowDisclaimer = setting.IsShowDisclaimer;
+            GlobalSetting.IsParamRandom = setting.PolicySetting.IsParamRandom;
             GlobalSetting.Proxy = setting.Proxy;
             GlobalSetting.Setting = setting;
         }

@@ -19,14 +19,12 @@ namespace Altman.Forms
 			var policy = setting.PolicySetting;
 
             _checkBoxIsParamRandom.Checked = policy.IsParamRandom;
-            _checkBoxIsShowDisclaimer.Checked = policy.IsShowDisclaimer;
         }
         public Setting SaveSetting()
         {
             var policy = new Setting.PolicyStruct
             {
-	            IsParamRandom = _checkBoxIsParamRandom.Checked == true,
-	            IsShowDisclaimer = _checkBoxIsShowDisclaimer.Checked == true
+	            IsParamRandom = _checkBoxIsParamRandom.Checked == true
             };
 
 			var setting = new Setting {PolicySetting = policy};

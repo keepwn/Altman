@@ -21,19 +21,22 @@ namespace Altman.Forms
 			};
 			_dropDownLang.Items.AddRange(lanList);
 
-			var layout = new DynamicLayout {Padding = new Padding(20, 10), Spacing = new Size(10, 10)};
+			_checkBoxIsShowDisclaimer = new CheckBox { Text = AltStrRes.IsShowDisclaimer };
+			_checkBoxIsOpenIPythonSupport = new CheckBox {Text = AltStrRes.IsOpenIPythonSupport};
 
-			layout.AddRow(
-				new Label
-				{
-					Text = AltStrRes.GetString("StrLanguage", "Language"),
-					VerticalAlign = VerticalAlign.Middle
-				}, _dropDownLang, null);
+			var layout = new DynamicLayout {Padding = new Padding(20, 20), Spacing = new Size(10, 10)};
+			layout.AddSeparateRow(
+				new Label {Text = AltStrRes.Language, VerticalAlign = VerticalAlign.Middle},
+				_dropDownLang, null);
+			layout.AddRow(_checkBoxIsShowDisclaimer, null);
+			layout.AddRow(_checkBoxIsOpenIPythonSupport, null);
 			layout.Add(null);
 
 			Content = layout;
 		}
 
 		private DropDown _dropDownLang;
+		private CheckBox _checkBoxIsShowDisclaimer;
+		private CheckBox _checkBoxIsOpenIPythonSupport;
 	}
 }

@@ -58,7 +58,7 @@ namespace Altman.Forms
 
 			_groupBoxSetting = new GroupBox {Text = AltStrRes.Setting, Content = proxysetting};
 
-			var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
+			var layout = new DynamicLayout { Padding = new Padding(20, 20), Spacing = new Size(10, 10) };
 			layout.AddRow(_radioButtonNoProxy);
 			layout.AddRow(_radioButtonIeProxy);
 			layout.AddRow(_radioButtonCustomProxy);
