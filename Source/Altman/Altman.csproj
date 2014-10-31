@@ -106,7 +106,7 @@
     <Compile Include="Forms\PanelProxySetting.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Forms\PanelRequestHeaderSetting.UI.cs">
+    <Compile Include="Forms\PanelHttpHeaderSetting.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Forms\PanelUserAgentSetting.UI.cs">
@@ -122,7 +122,7 @@
     <Compile Include="Forms\PanelProxySetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
-    <Compile Include="Forms\PanelRequestHeaderSetting.cs">
+    <Compile Include="Forms\PanelHttpHeaderSetting.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Forms\PanelUserAgentSetting.cs">
@@ -130,7 +130,7 @@
     </Compile>
     <Compile Include="Service\Core.cs" />
     <Compile Include="Service\Db.cs" />
-    <Compile Include="Dialogs\DialogSetting.cs">
+    <Compile Include="Dialogs\Options.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Service\Ui.cs" />

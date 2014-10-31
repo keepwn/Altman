@@ -24,7 +24,7 @@ namespace Altman.Util.Logic
 					xmlWriter.WriteStartElement("Basic");
 					{
 						xmlWriter.WriteStartElement("language");
-						xmlWriter.WriteString(setting.GetBasic.Language);
+						xmlWriter.WriteString(setting.BasicSetting.Language);
 						xmlWriter.WriteEndElement();
 					}
 					xmlWriter.WriteEndElement();
@@ -34,10 +34,10 @@ namespace Altman.Util.Logic
                     xmlWriter.WriteStartElement("UserAgent");
                     {
                         xmlWriter.WriteStartElement("type");
-                        xmlWriter.WriteString(Convert.ToInt32(setting.GetUserAgentStruct.IsRandom).ToString());
+                        xmlWriter.WriteString(Convert.ToInt32(setting.UserAgentSetting.IsRandom).ToString());
                         xmlWriter.WriteEndElement();
 
-                        foreach (var i in setting.GetUserAgentStruct.UserAgentList)
+                        foreach (var i in setting.UserAgentSetting.UserAgentList)
                         {
                             xmlWriter.WriteStartElement("option");
                             {
@@ -47,7 +47,7 @@ namespace Altman.Util.Logic
                                 xmlWriter.WriteEndAttribute();
 
                                 //如果name和selected中保存的一致，则添加selected属性
-                                if (i.Key == setting.GetUserAgentStruct.Selected.Key)
+                                if (i.Key == setting.UserAgentSetting.Selected.Key)
                                 {
                                     xmlWriter.WriteStartAttribute("selected");
                                     xmlWriter.WriteString("True");
@@ -64,7 +64,7 @@ namespace Altman.Util.Logic
                     //HttpHeader
                     xmlWriter.WriteStartElement("HttpHeader");
                     {
-                        foreach (var i in setting.GetHttpHeaderStruct.HttpHeaderList)
+                        foreach (var i in setting.HttpHeaderSetting.HttpHeaderList)
                         {
                             xmlWriter.WriteStartElement("key");
                             {
@@ -85,11 +85,11 @@ namespace Altman.Util.Logic
                     xmlWriter.WriteStartElement("Policy");
                     {
                         xmlWriter.WriteStartElement("isParamRandom");
-                        xmlWriter.WriteString(Convert.ToInt32(setting.GetPolicyStruct.IsParamRandom).ToString());
+                        xmlWriter.WriteString(Convert.ToInt32(setting.PolicySetting.IsParamRandom).ToString());
                         xmlWriter.WriteEndElement();
 
                         xmlWriter.WriteStartElement("isShowDisclaimer");
-                        xmlWriter.WriteString(Convert.ToInt32(setting.GetPolicyStruct.IsShowDisclaimer).ToString());
+                        xmlWriter.WriteString(Convert.ToInt32(setting.PolicySetting.IsShowDisclaimer).ToString());
                         xmlWriter.WriteEndElement();
                     }
                     xmlWriter.WriteEndElement();
@@ -98,34 +98,34 @@ namespace Altman.Util.Logic
                     xmlWriter.WriteStartElement("Proxy");
                     {
                         xmlWriter.WriteStartElement("type");
-                        xmlWriter.WriteString(setting.GetProxyStruct.IsNoOrIeOrCustomProxy.ToString());
+                        xmlWriter.WriteString(setting.ProxySetting.IsNoOrIeOrCustomProxy.ToString());
                         xmlWriter.WriteEndElement();
 
                         xmlWriter.WriteStartElement("customProxy");
                         {
                             //添加address属性
                             xmlWriter.WriteStartAttribute("address");
-                            xmlWriter.WriteString(setting.GetProxyStruct.ProxyAddr);
+                            xmlWriter.WriteString(setting.ProxySetting.ProxyAddr);
                             xmlWriter.WriteEndAttribute();
 
                             //添加port属性
                             xmlWriter.WriteStartAttribute("port");
-                            xmlWriter.WriteString(setting.GetProxyStruct.ProxyPort);
+                            xmlWriter.WriteString(setting.ProxySetting.ProxyPort);
                             xmlWriter.WriteEndAttribute();
 
                             //添加user属性
                             xmlWriter.WriteStartAttribute("user");
-                            xmlWriter.WriteString(setting.GetProxyStruct.ProxyUser);
+                            xmlWriter.WriteString(setting.ProxySetting.ProxyUser);
                             xmlWriter.WriteEndAttribute();
 
                             //添加password属性
                             xmlWriter.WriteStartAttribute("password");
-                            xmlWriter.WriteString(setting.GetProxyStruct.ProxyPassword);
+                            xmlWriter.WriteString(setting.ProxySetting.ProxyPassword);
                             xmlWriter.WriteEndAttribute();
 
                             //添加domain属性
                             xmlWriter.WriteStartAttribute("domain");
-                            xmlWriter.WriteString(setting.GetProxyStruct.ProxyDomain);
+                            xmlWriter.WriteString(setting.ProxySetting.ProxyDomain);
                             xmlWriter.WriteEndAttribute();
 
                         }                

@@ -45,25 +45,30 @@ namespace Altman.Util.Setting
         private PolicyStruct _policy;
         private ProxyStruct _proxy;
 
-		public BasicStruct GetBasic
+		public BasicStruct BasicSetting
 		{
 			get { return _basic; }
+			set { _basic = value; }
 		}
-        public UserAgentStruct GetUserAgentStruct
+        public UserAgentStruct UserAgentSetting
         {
             get { return _userAgent; }
+			set { _userAgent = value; }
         }
-        public HttpHeaderStruct GetHttpHeaderStruct
+        public HttpHeaderStruct HttpHeaderSetting
         {
             get { return _httpHeader; }
+			set { _httpHeader = value; }
         }
-        public PolicyStruct GetPolicyStruct
+        public PolicyStruct PolicySetting
         {
             get { return _policy; }
+			set { _policy = value; }
         }
-        public ProxyStruct GetProxyStruct
+        public ProxyStruct ProxySetting
         {
             get { return _proxy; }
+			set { _proxy = value; }
         }
 
         public List<string> UserAgent
@@ -146,6 +151,10 @@ namespace Altman.Util.Setting
             }
         }
 
+	    public Setting()
+	    {
+		    
+	    }
         public Setting(BasicStruct basic, UserAgentStruct userAgent,HttpHeaderStruct httpHeader,PolicyStruct policy,ProxyStruct proxy)
         {
 	        _basic = basic;

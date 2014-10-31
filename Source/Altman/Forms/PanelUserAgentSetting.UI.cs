@@ -14,7 +14,7 @@ namespace Altman.Forms
 		{
 			_checkBoxIsRandom = new CheckBox() { Text = AltStrRes.IsUserAgentRandom };
 			_comboBoxUserAgentList = new ComboBox();
-			_comboBoxUserAgentList.Size = new Size(330, _comboBoxUserAgentList.Size.Height);
+			_comboBoxUserAgentList.Size = new Size(300, _comboBoxUserAgentList.Size.Height);
 
 			var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
 

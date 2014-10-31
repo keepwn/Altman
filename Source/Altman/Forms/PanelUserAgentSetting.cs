@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Altman.Dialogs;
 using Altman.Resources;
 using Altman.Util.Setting;
 using Eto.Drawing;
@@ -6,15 +7,16 @@ using Eto.Forms;
 
 namespace Altman.Forms
 {
-	public partial class PanelUserAgentSetting : Panel
+	public partial class PanelUserAgentSetting : Panel, IOptions
     {
         public PanelUserAgentSetting()
         {
             Init();
         }
 
-        public void LoadUserAgnetSetting(Setting.UserAgentStruct userAgent)
+        public void LoadSetting(Setting setting)
         {
+	        var userAgent = setting.UserAgentSetting;
             _checkBoxIsRandom.Checked = userAgent.IsRandom;
             foreach (var i in userAgent.UserAgentList)
             {
@@ -32,7 +34,7 @@ namespace Altman.Forms
             }
         }
 
-        public Setting.UserAgentStruct SaveUserAgnetSetting()
+        public Setting SaveSetting()
         {
             var userAgent = new Setting.UserAgentStruct();
             userAgent.UserAgentList = new Dictionary<string, string>();
@@ -59,7 +61,9 @@ namespace Altman.Forms
                     userAgent.UserAgentList.Add(item.Key, item.Text);
                 }
             }
-            return userAgent;
+
+			var setting = new Setting {UserAgentSetting = userAgent};
+	        return setting;
         }
     }
 }

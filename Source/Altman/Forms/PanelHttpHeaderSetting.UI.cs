@@ -7,23 +7,35 @@ using Eto.Forms;
 
 namespace Altman.Forms
 {
-	partial class PanelRequestHeaderSetting
+	partial class PanelHttpHeaderSetting
 	{
 		void Init()
 		{
+			//_contextMenuRightMenu
+			_contextMenuRightMenu = new ContextMenu();
+			var addItem = new ButtonMenuItem {Text = "Add"};
+			addItem.Click += addItem_Click;
+			var delItem = new ButtonMenuItem {Text = "Delete"};
+			delItem.Click += delItem_Click;
+			_contextMenuRightMenu.Items.Add(addItem);
+			_contextMenuRightMenu.Items.Add(delItem);
+
 			//_gridViewHeader
-			_gridViewHeader = new GridView()
+			_gridViewHeader = new GridView
 			{
 				AllowMultipleSelection = false,
 				BackgroundColor = Colors.White,
-				Size = new Size(200, 200)
+				Size = new Size(200, 200),
+				ShowCellBorders = true
 			};
-			_gridViewHeader.ShowCellBorders = true;
+			//_gridViewHeader.CellEditing += _gridViewHeader_CellEditing;
+			//_gridViewHeader.CellEdited += _gridViewHeader_CellEdited;
+
 			_gridViewHeader.Columns.Add(new GridColumn
 			{
 				HeaderText = "Key",
 				DataCell = new TextBoxCell("Key"),
-				Editable = false,
+				Editable = true,
 				Sortable = true,
 				AutoSize = true
 			});
@@ -36,19 +48,15 @@ namespace Altman.Forms
 				AutoSize = false,
 				Width = 200
 			});
-
-			var items = new DataStoreCollection();
-			//items.Add(new HeaderItem("Accept", "*"));
-			//items.Add(new HeaderItem("User-Agent", "IE8.0"));
-			//items.Add(new HeaderItem(null, null));
-			_gridViewHeader.DataStore = items;
-
-			_gridViewHeader.CellEditing += _gridViewHeader_CellEditing;
-			_gridViewHeader.CellEdited += _gridViewHeader_CellEdited;
-
-			//_contextMenuRightMenu
-			_contextMenuRightMenu = new ContextMenu();
-			var add = _contextMenuRightMenu.Items.GetSubmenu("Add");
+			_gridViewHeader.ContextMenu = _contextMenuRightMenu;
+			_gridViewHeader.MouseUp += (sender, e) =>
+			{
+				if (e.Buttons == MouseButtons.Alternate)
+				{
+					if (_gridViewHeader.ContextMenu != null)
+						_gridViewHeader.ContextMenu.Show(this);
+				}
+			};
 
 			var layout = new DynamicLayout { Padding = new Padding(20, 10), Spacing = new Size(10, 10) };
 			layout.AddRow(_gridViewHeader);

@@ -24,9 +24,13 @@ namespace Altman.Resources
 			_close = GetString(table, "StrClose", _close);
 			_saveAndExit = GetString(table, "StrSaveAndExit", _saveAndExit);
 			_menu = GetString(table, "StrMenu", _menu);
+			_options = GetString(table, "StrOptions", _options);
 			_setting = GetString(table, "StrSetting", _setting);
 			_plugin = GetString(table, "StrPlugin", _plugin);
 			_help = GetString(table, "StrHelp", _help);
+
+			// options
+			_basic = GetString(table, "StrBasic", _basic);
 			_userAgent = GetString(table, "StrUserAgent", _userAgent);
 			_httpHeader = GetString(table, "StrHttpHeader", _httpHeader);
 			_policy = GetString(table, "StrPolicy", _policy);
@@ -104,6 +108,11 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _quit; }
 		}
 
+		public static string Options
+		{
+			get { return _options; }
+		}
+
 		public static string Setting
 		{
 			get { return _setting; }
@@ -112,6 +121,11 @@ This statement applies to local laws, users and software authors agreed to obey 
 		public static string Close
 		{
 			get { return _close; }
+		}
+
+		public static string Basic
+		{
+			get { return _basic; }
 		}
 
 		public static string UserAgent
@@ -220,10 +234,12 @@ This statement applies to local laws, users and software authors agreed to obey 
 		private static string _saveAndExit = @"SaveAndExit";
 
 		private static string _menu = @"Menu";
+		private static string _options = @"Options";
 		private static string _setting = @"Setting";
 		private static string _plugin = @"Plugin";
 		private static string _help = @"Help";
 
+		private static string _basic = @"Basic";
 		private static string _userAgent = @"User-Agent";
 		private static string _httpHeader = @"HttpHeader";
 		private static string _policy = @"Policy";

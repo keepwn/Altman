@@ -1,11 +1,12 @@
-﻿using Altman.Resources;
+﻿using Altman.Dialogs;
+using Altman.Resources;
 using Altman.Util.Setting;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace Altman.Forms
 {
-	public partial class PanelProxySetting : Panel
+	public partial class PanelProxySetting : Panel, IOptions
     {
 		private int _isProxy;
 		private string _proxyAddr;
@@ -46,44 +47,47 @@ namespace Altman.Forms
             _proxyDomain = _textBoxProxyDomain.Text.Trim();
         }
 
-        public Setting.ProxyStruct SaveProxySetting()
+		public void LoadSetting(Setting setting)
+		{
+			var proxy = setting.ProxySetting;
+			switch (proxy.IsNoOrIeOrCustomProxy)
+			{
+				case 0:
+					_radioButtonNoProxy.Checked = true;
+					break;
+				case 1:
+					_radioButtonIeProxy.Checked = true;
+					break;
+				case 2:
+					_radioButtonCustomProxy.Checked = true;
+					break;
+				default:
+					_radioButtonNoProxy.Checked = true;
+					break;
+			}
+			_textBoxProxyAddr.Text = proxy.ProxyAddr;
+			_textBoxProxyPort.Text = proxy.ProxyPort;
+			_textBoxProxyUser.Text = proxy.ProxyUser;
+			_textBoxProxyPasswd.Text = proxy.ProxyPassword;
+			_textBoxProxyDomain.Text = proxy.ProxyDomain;
+		}
+
+        public Setting SaveSetting()
         {
             //获取当前窗口配置
             GetProxySetting();
-            //组合为ProxyStruct
-            var proxy = new Setting.ProxyStruct();
-            proxy.IsNoOrIeOrCustomProxy = _isProxy;
-            proxy.ProxyAddr = _proxyAddr;
-            proxy.ProxyPort = _proxyPort;
-            proxy.ProxyUser = _proxyUser;
-            proxy.ProxyPassword = _proxyPasswd;
-            proxy.ProxyDomain = _proxyDomain;
-            return proxy;
-        }
+            var proxy = new Setting.ProxyStruct
+            {
+	            IsNoOrIeOrCustomProxy = _isProxy,
+	            ProxyAddr = _proxyAddr,
+	            ProxyPort = _proxyPort,
+	            ProxyUser = _proxyUser,
+	            ProxyPassword = _proxyPasswd,
+	            ProxyDomain = _proxyDomain
+            };
 
-        public void LoadProxySetting(Setting.ProxyStruct proxy)
-        {
-            if (proxy.IsNoOrIeOrCustomProxy == 0)
-            {
-                _radioButtonNoProxy.Checked = true;
-            }
-            else if (proxy.IsNoOrIeOrCustomProxy == 1)
-            {
-                _radioButtonIeProxy.Checked = true;
-            }
-            else if (proxy.IsNoOrIeOrCustomProxy == 2)
-            {
-                _radioButtonCustomProxy.Checked = true;
-            }
-            else
-            {
-                _radioButtonNoProxy.Checked = true;
-            }
-            _textBoxProxyAddr.Text = proxy.ProxyAddr;
-            _textBoxProxyPort.Text = proxy.ProxyPort;
-            _textBoxProxyUser.Text = proxy.ProxyUser;
-            _textBoxProxyPasswd.Text = proxy.ProxyPassword;
-            _textBoxProxyDomain.Text = proxy.ProxyDomain;
+			var setting = new Setting {ProxySetting = proxy};
+	        return setting;
         }
     }
 }

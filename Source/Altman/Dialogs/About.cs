@@ -14,10 +14,10 @@ namespace Altman.Dialogs
 
             var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };
 
-            layout.AddCentered(new ImageView
-            {
-				Image = Icons.AltmanBigPng
-			}, true, false);
+	        layout.AddCentered(new ImageView
+	        {
+		        Image = Icons.AltmanBigPng
+	        }, xscale: true, yscale: false);
 
             layout.Add(new Label
             {

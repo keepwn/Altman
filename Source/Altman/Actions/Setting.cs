@@ -9,14 +9,14 @@ namespace Altman.Actions
     {
         public Setting()
         {
-			MenuText = AltStrRes.Setting;
+			MenuText = AltStrRes.Options;
             Shortcut = Keys.S | Application.Instance.CommonModifier;
             Executed += Setting_Executed;
         }
 
         void Setting_Executed(object sender, EventArgs e)
         {
-	        new DialogSetting().ShowModal(Application.Instance.MainForm);
+	        new Options().ShowModal(Application.Instance.MainForm);
         }
     }
 }
