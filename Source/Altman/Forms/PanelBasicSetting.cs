@@ -7,7 +7,7 @@ using Eto.Forms;
 
 namespace Altman.Forms
 {
-	partial class PanelBasicSetting:Panel
+	public partial class PanelBasicSetting:Panel
 	{
 		public PanelBasicSetting()
 		{
