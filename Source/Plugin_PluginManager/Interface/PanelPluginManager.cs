@@ -74,7 +74,9 @@ namespace Plugin_PluginManager.Interface
 			var items = _gridViewInstalled.DataStore as List<PluginModel>;
 			if (items != null && items.Any(r => r.Checked))
 			{
-				DialogResult result = MessageBox.Show("You Will Remove This/These Plugins, Continue?",
+				DialogResult result = MessageBox.Show(
+					this,
+					"You Will Remove This/These Dir Of Plugins , Continue?",
 					"Warning",
 					MessageBoxButtons.YesNo,
 					MessageBoxType.Error);
