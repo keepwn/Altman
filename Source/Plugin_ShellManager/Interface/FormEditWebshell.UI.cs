@@ -18,24 +18,17 @@ namespace Plugin_ShellManager.Interface
 			_textBoxShellPass = new TextBox { PlaceholderText = "*Pass" };
 			_textBoxRemark = new TextBox { PlaceholderText = "Remark" };
 
-			//_buttonAdd
+			// _buttonAdd
 			_buttonAdd = new Button { Text = StrRes.GetString("StrAdd", "Add") };
 			_buttonAdd.Click += buttonAdd_Click;
 
-			//_buttonAlter
+			// _buttonAlter
 			_buttonAlter = new Button { Text = StrRes.GetString("StrAlter", "Alter") };
 			_buttonAlter.Click += _buttonAlter_Click;
 
-			//_buttonAdvanced
+			// _buttonAdvanced
 			_buttonAdvanced = new Button { Text = StrRes.GetString("StrAdvanced","Advanced") };
 			_buttonAdvanced.Click += _buttonAdvanced_Click;
-
-			//buttonTest
-			var buttonTest1 = new Button {Text = "Test1"};
-			buttonTest1.Click += buttonTest1_Click;
-			//buttonTest
-			var buttonTest2 = new Button { Text = "Test2" };
-			buttonTest2.Click += buttonTest2_Click;
 
 			var codeList = new List<IListItem>
 			{
@@ -48,12 +41,36 @@ namespace Plugin_ShellManager.Interface
 			_dropDownWebCoding = new DropDown();
 			_dropDownWebCoding.Items.AddRange(codeList);
 			_dropDownWebCoding.SelectedIndex = 0;
-			_richTextBoxSetting = new TextArea();
 
-			//_panelAdvanced
+			// _buttonDefault
+			_buttonDefault = new Button { Text = "Default" };
+			_buttonDefault.Click += _buttonDefault_Click;
+
+			// _richTextBoxSetting
+			_richTextBoxSetting = new TextArea {Wrap = false};
+
+			// _panelAdvanced
 			_panelAdvanced = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
-			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrServerCoding", "ServerCoding"), VerticalAlign = VerticalAlign.Middle }, _dropDownServerCoding);
-			_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrWebCoding", "WebCoding"), VerticalAlign = VerticalAlign.Middle }, _dropDownWebCoding);
+			_panelAdvanced.BeginVertical();
+			_panelAdvanced.BeginHorizontal();
+			_panelAdvanced.AddAutoSized(new Label
+			{
+				Text = StrRes.GetString("StrServerCoding", "ServerCoding"),
+				VerticalAlign = VerticalAlign.Middle
+			}, centered: true);
+			_panelAdvanced.AddAutoSized(_dropDownServerCoding, centered: true);
+			_panelAdvanced.AddAutoSized(new Label
+			{
+				Text = StrRes.GetString("StrWebCoding", "WebCoding"),
+				VerticalAlign = VerticalAlign.Middle
+			}, centered: true);
+			_panelAdvanced.AddAutoSized(_dropDownWebCoding, centered: true);
+			_panelAdvanced.Add(null);
+			_panelAdvanced.AddAutoSized(_buttonDefault, centered: true);
+			_panelAdvanced.EndHorizontal();
+			_panelAdvanced.EndVertical();
+			//_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrServerCoding", "ServerCoding"), VerticalAlign = VerticalAlign.Middle }, _dropDownServerCoding);
+			//_panelAdvanced.AddSeparateRow(new Label { Text = StrRes.GetString("StrWebCoding", "WebCoding"), VerticalAlign = VerticalAlign.Middle }, _dropDownWebCoding);
 			_panelAdvanced.AddSeparateRow(_richTextBoxSetting);
 
 			var panel1 = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
@@ -78,8 +95,6 @@ namespace Plugin_ShellManager.Interface
 			panel1.BeginVertical();
 			panel1.BeginHorizontal();
 			panel1.Add(_buttonAdvanced);
-			panel1.Add(buttonTest1);
-			panel1.Add(buttonTest2);
 			panel1.Add(null, true);
 			panel1.Add(_buttonAdd);
 			panel1.Add(_buttonAlter);
@@ -105,31 +120,21 @@ namespace Plugin_ShellManager.Interface
 			Icon = Application.Instance.MainForm.Icon;
 		}
 
-		private void buttonTest1_Click(object sender, EventArgs e)
-		{
-			var conns = Altman.Webshell.Service.GetDbNodeInfoList(_dropDownScritpType.SelectedKey);
-			_richTextBoxSetting.Text = ShellExtraStringHandle.CreateDefaultIniString(conns);
-		}
-
-		void buttonTest2_Click(object sender, EventArgs e)
-		{
-			var str = _richTextBoxSetting.Text;
-		}
-
-		private Button _buttonAdvanced;
-		private Button _buttonReturn;
-		private Button _buttonAdd;
-		private Button _buttonAlter;
 		private TextBox _textBoxName;
 		private ComboBox _comboBoxLevel;
+		private DropDown _dropDownScritpType;
 		private TextBox _textBoxShellPath;
 		private TextBox _textBoxShellPass;
-		private TextArea _richTextBoxSetting;
+		private Button _buttonAdvanced;
+		private Button _buttonAdd;
+		private Button _buttonAlter;		
+
 		private TextBox _textBoxRemark;
-		private DropDown _dropDownScritpType;
 		private DropDown _dropDownServerCoding;
 		private DropDown _dropDownWebCoding;
-		private Splitter _p12;
+		private Button _buttonDefault;
+		private TextArea _richTextBoxSetting;
 		private DynamicLayout _panelAdvanced;
+		private Splitter _p12;
 	}
 }

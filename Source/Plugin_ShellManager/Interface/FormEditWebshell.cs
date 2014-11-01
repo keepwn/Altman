@@ -70,13 +70,6 @@ namespace Plugin_ShellManager.Interface
 
 			_richTextBoxSetting.Text = shellArray.ShellExtraString;
         }
-        
-
-		void _buttonAdvanced_Click(object sender, EventArgs e)
-		{
-			_panelAdvanced.Visible = !_panelAdvanced.Visible;
-			ClientSize = _panelAdvanced.Visible ? new Size(500, 300) : new Size(500, 130);
-		}
 
 	    private Shell GetShellConfigFromPanel()
 	    {
@@ -117,6 +110,7 @@ namespace Plugin_ShellManager.Interface
 		    {
 			    success = false;
 			    MessageBox.Show(
+					this,
 					StrRes.GetString("StrPleaseFillOutTheProjectWith*","Please fill out the project with *"),
 					MessageBoxType.Error);
 		    }
@@ -134,6 +128,7 @@ namespace Plugin_ShellManager.Interface
             OnWebshellChange(EventArgs.Empty);
             Close();
         }
+
 		private void _buttonAlter_Click(object sender, EventArgs e)
         {
 			var shell = GetShellConfigFromPanel();
@@ -145,6 +140,28 @@ namespace Plugin_ShellManager.Interface
             OnWebshellChange(EventArgs.Empty);
             Close();
         }
+
+		private void _buttonAdvanced_Click(object sender, EventArgs e)
+		{
+			_panelAdvanced.Visible = !_panelAdvanced.Visible;
+			ClientSize = new Size(ClientSize.Width, _panelAdvanced.Visible ? ClientSize.Height + 200 : 130);
+		}
+
+		private void _buttonDefault_Click(object sender, EventArgs e)
+		{
+			if (_dropDownScritpType.SelectedIndex != -1)
+			{
+				var conns = Altman.Webshell.Service.GetDbNodeInfoList(_dropDownScritpType.SelectedKey);
+				_richTextBoxSetting.Text = ShellExtraStringHandle.CreateDefaultIniString(conns);
+			}
+			else
+			{
+				MessageBox.Show(
+					this,
+					StrRes.GetString("StrPleaseSelectScriptTypeFirst", "Please select script type first"),
+					MessageBoxType.Error);
+			}
+		}
 
         public event WebshellWatchEventHandler WebshellWatchEvent;
         private void OnWebshellChange(EventArgs e)

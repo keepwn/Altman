@@ -34,14 +34,17 @@ namespace Altman
 	    static void Start()
 	    {
 			var generator = Platform.Get(Platforms.WinForms);
-			Style.Add<Eto.WinForms.Forms.Controls.GridViewHandler>(null,
-				h =>
-				{
-					h.Control.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-					h.Control.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-					h.Control.BackgroundColor = System.Drawing.SystemColors.Window;
-				});
 
+		    Style.Add<Eto.WinForms.Forms.Controls.GridViewHandler>(null, h =>
+		    {
+				h.Control.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+				h.Control.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+				h.Control.BackgroundColor = System.Drawing.SystemColors.Window;
+		    });
+		    Style.Add<Eto.WinForms.FormHandler>(null, h =>
+		    {
+				h.Control.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+		    });
 			Style.Add<Eto.WinForms.MenuBarHandler>(null, h =>
 			{
 				h.Control.BackColor = System.Drawing.SystemColors.Control;

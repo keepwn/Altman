@@ -174,16 +174,14 @@ namespace Plugin_ShellManager.Interface
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
-				/*
 				var shell = _gridViewShell.SelectedItem as Shell;
-				string code = _host.Core.GetCustomShellTypeServerCode(shell.ShellType);
+				string code = Altman.Webshell.Service.GetCustomShellTypeServerCode(shell.ShellType);
 
 				if (string.IsNullOrWhiteSpace(code))
 				{
 					MessageBox.Show("ServerCode is NULL!");
 				}
 				new Clipboard().Text = code;
-				 */
 			}
 		}
 		#endregion

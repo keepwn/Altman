@@ -25,14 +25,14 @@ namespace Plugin_ShellManager
 			ini["HttpHeader"]["User-Agent"] = "IE9.0";
 			ini["HttpHeader"]["Cookie"] = "Test:Test123";
 
-			ini["Post"].Comment = "设置提交的Post包";
+			ini["Post"].Comment = "设置提交的Post包(正在开发中)";
 			ini["Post"]["post"] = "A=a&B=b&C=c";
 
 			ini["SqlConnection"].Comment = "设置数据库连接\n" +
 											"type为数据库类型\n" +
 											"conn为连接字符串";
-			ini["SqlConnection"]["type"] = "mysql";
-			ini["SqlConnection"]["conn"] = "127.0.0.1;root;password;utf-8;";
+			//ini["SqlConnection"]["type"] = "mysql";
+			//ini["SqlConnection"]["conn"] = "127.0.0.1;root;password;utf-8;";
 
 			foreach (var conn in conns)
 			{
