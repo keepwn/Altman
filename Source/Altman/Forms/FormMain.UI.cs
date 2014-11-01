@@ -17,7 +17,7 @@ namespace Altman.Forms
 			//this.ToolBar = GenerateToolBar();
 			this.Content = GenerateContent();
 
-			this.Title = AltStrRes.Title;
+			this.Title = AltStrRes.Title + " [alpha 2014.11.1]";
 			this.Style = "main";
 			this.Icon = Icons.AltmanIcon;
 			this.ClientSize = new Size(800, 500);
@@ -74,13 +74,11 @@ namespace Altman.Forms
 			if (Platform.IsWinForms || Platform.IsGtk)
 			{
 				var tabControl = new TabControlPlus();
-				tabControl.Pages.Add(new TabPage {Text = "Index"});
 				_tabControl = tabControl;
 			}
 			else
 			{
 				var tabControl = new TabControl();
-				tabControl.Pages.Add(new TabPage { Text = "Index" });
 				_tabControl = tabControl;
 			}
 

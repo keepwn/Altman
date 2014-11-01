@@ -48,16 +48,14 @@ namespace Altman.Forms
 			AltLangRes.ReadLanguageResource(lang);
 			AltStrRes.SetTranslatedStrings(AltLangRes.Table);
 
-			//UI处理
-			Init();
-
-
 			//----导入插件----
 			//_pluginsImport = new PluginsImport();
 			_host = new Host(this);
 			PluginProvider.Host = _host;
 			PluginProvider.Compose(AppEnvironment.AppPluginPath, AppEnvironment.AppServicePath, basicSetting.IsOpenIPythonSupport);
 
+			//UI处理
+			Init();
 			LoadPluginsInUi();
 			//----导入插件结束----
 
@@ -265,13 +263,23 @@ namespace Altman.Forms
 
 			if (Platform.IsWinForms || Platform.IsGtk)
 			{
-				(_tabControl as TabControlPlus).Pages.Add(newTabpage);
-				(_tabControl as TabControlPlus).SelectedPage = newTabpage;
+				var tab = _tabControl as TabControlPlus;
+				if (!tab.Pages.Any())
+				{
+					tab.Pages.Add(new TabPage { Text = "Index", Content = new PanelIndex() });
+				}
+				tab.Pages.Add(newTabpage);
+				tab.SelectedPage = newTabpage;
 			}
 			else
 			{
-				(_tabControl as TabControl).Pages.Add(newTabpage);
-				(_tabControl as TabControl).SelectedPage = newTabpage;
+				var tab = _tabControl as TabControl;
+				if (!tab.Pages.Any())
+				{
+					tab.Pages.Add(new TabPage { Text = "Index", Content = new PanelIndex() });
+				}
+				tab.Pages.Add(newTabpage);
+				tab.SelectedPage = newTabpage;
 			}
 
 		}

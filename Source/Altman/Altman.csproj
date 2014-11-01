@@ -67,6 +67,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -98,6 +99,9 @@
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Forms\PanelBasicSetting.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Forms\PanelIndex.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Forms\PanelPolicySetting.UI.cs">

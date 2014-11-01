@@ -49,10 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Eto">
-      <HintPath>..\..\..\Libraries\Eto\Eto.dll</HintPath>
+      <HintPath>..\..\Libraries\Eto\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\..\..\Libraries\Ionic.Zip\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>..\..\Libraries\Ionic.Zip\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
