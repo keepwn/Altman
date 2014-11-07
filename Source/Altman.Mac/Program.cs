@@ -48,34 +48,30 @@ namespace Altman.Mac
 		static void AddStyles()
 		{
 			// support full screen mode!
-			Style.Add<FormHandler>("main", handler =>
-				{
-					handler.Control.CollectionBehavior |= NSWindowCollectionBehavior.FullScreenPrimary;
-				});
+			Style.Add<FormHandler> ("main", handler => {
+				handler.Control.CollectionBehavior |= NSWindowCollectionBehavior.FullScreenPrimary;
+			});
 
-			Style.Add<ApplicationHandler>("application", handler =>
-				{
-					handler.EnableFullScreen();
-				});
+			Style.Add<ApplicationHandler> ("application", handler => {
+				handler.EnableFullScreen ();
+			});
 
 			// other styles
-			Style.Add<TreeGridViewHandler>("sectionList", handler =>
-				{
-					handler.ScrollView.BorderType = NSBorderType.NoBorder;
-					handler.Control.SelectionHighlightStyle = NSTableViewSelectionHighlightStyle.SourceList;
-				});
+			Style.Add<TreeGridViewHandler> ("sectionList", handler => {
+				handler.ScrollView.BorderType = NSBorderType.NoBorder;
+				handler.Control.SelectionHighlightStyle = NSTableViewSelectionHighlightStyle.SourceList;
+			});
 
-			Style.Add<ButtonToolItemHandler>(null, handler =>
-				{
-					// use standard textured/round buttons, and make the image grayscale
-					handler.UseStandardButton(grayscale: true);
-				});
-
-			Style.Add<ToolBarHandler>(null, handler =>
-				{
-					// change display mode or other options
-					//handler.Control.DisplayMode = NSToolbarDisplayMode.Icon;
-				});
+			Style.Add<ButtonToolItemHandler> (null, handler => {
+				// use standard textured/round buttons, and make the image grayscale
+				handler.UseStandardButton (grayscale: true);
+			});
+			Style.Add<DropDownHandler> (null, handler => {
+				handler.Size=new Eto.Drawing.Size(120,26);
+			});
+			Style.Add<ComboBoxHandler> (null, handler => {
+				handler.Size=new Eto.Drawing.Size(120,26);
+			});
 		}
 	}
 }	
