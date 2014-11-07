@@ -58,7 +58,16 @@ namespace Altman.Plugin.Mef
 				// create python
 				var engine = Python.CreateEngine();
 				var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-				engine.Runtime.LoadAssembly(Assembly.LoadFrom(Path.Combine(path, "IronPython.Stdlib.dll")));
+				var dlla = Path.Combine(path, "IronPython.Stdlib.dll");
+				var dllb = Path.Combine(path, "Bin", "IronPython.Stdlib.dll");
+				if (File.Exists(dlla))
+				{
+					engine.Runtime.LoadAssembly(Assembly.LoadFrom(dlla));
+				}
+				else if (File.Exists(dllb))
+				{
+					engine.Runtime.LoadAssembly(Assembly.LoadFrom(dllb));
+				}
 				//var paths = engine.GetSearchPaths();
 				//paths.Add(currentDir);
 				//engine.SetSearchPaths(paths);

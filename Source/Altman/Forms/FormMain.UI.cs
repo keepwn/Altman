@@ -17,7 +17,7 @@ namespace Altman.Forms
 			//this.ToolBar = GenerateToolBar();
 			this.Content = GenerateContent();
 
-			this.Title = AltStrRes.Title + " [alpha 2014.11.1]";
+			this.Title = AltStrRes.Title + " [alpha 2014.11.7]";
 			this.Style = "main";
 			this.Icon = Icons.AltmanIcon;
 			this.ClientSize = new Size(800, 500);
