@@ -10,8 +10,7 @@ namespace Plugin_Encoder.Interface
 			_textAreaInput = new TextArea();
 			_textAreaInput.Font = new Font(FontFamilies.Monospace, 10);
 
-			_dropDownServices = new DropDown();
-			_dropDownServices.Size = new Size(200, _dropDownServices.Size.Height);
+		    _dropDownServices = new DropDown {Width = 200};
 			_dropDownServices.SelectedIndexChanged += DropDownServicesSelectedIndexChanged;
 
 			_radioButtonEncode = new RadioButton {Text = "Encode"};

@@ -17,8 +17,7 @@ namespace Plugin_DbManager.Interface
 			_buttonDisconnect.Click += _buttonDisconnect_Click;
 
 			//_dropDownDbs
-			_dropDownDbs = new DropDown();
-			_dropDownDbs.Size = new Size(200, _dropDownDbs.Size.Height);
+		    _dropDownDbs = new DropDown {Width = 200};
 
 			//_buttonRunScript
 			_buttonRunScript = new Button {Text = StrRes.GetString("StrExecute","Execute"), Image = Icons.RunScripIcon};

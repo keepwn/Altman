@@ -11,10 +11,10 @@ namespace Plugin_ShellManager.Interface
 		void InitUi()
 		{
 			// input
-			_textBoxName = new TextBox {PlaceholderText = "*Name", Size = new Size(200, -1)};
-			_comboBoxLevel = new ComboBox(true) {Size = new Size(100, -1)};
-			_dropDownScritpType = new DropDown {Size = new Size(120, -1)};
-			_textBoxShellPath = new TextBox { PlaceholderText = "*Shell Url", Size = new Size(300, -1) };
+            _textBoxName = new TextBox { PlaceholderText = "*Name", Width = 200};
+		    _comboBoxLevel = new ComboBox {Width = 100};
+		    _dropDownScritpType = new DropDown {Width = 120};
+		    _textBoxShellPath = new TextBox {PlaceholderText = "*Shell Url", Width = 300};
 			_textBoxShellPass = new TextBox { PlaceholderText = "*Pass" };
 			_textBoxRemark = new TextBox { PlaceholderText = "Remark" };
 

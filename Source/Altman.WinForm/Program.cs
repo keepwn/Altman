@@ -53,7 +53,7 @@ namespace Altman
 			{
 				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 10.5F, System.Drawing.FontStyle.Regular);
 			});
-			Style.Add<Eto.WinForms.ComboBoxHandler>(null, h =>
+			Style.Add<Eto.WinForms.Forms.ComboBoxHandler>(null, h =>
 			{
 				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 10.5F, System.Drawing.FontStyle.Regular);
 			});

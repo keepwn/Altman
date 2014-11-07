@@ -12,8 +12,7 @@ namespace Altman.Forms
 	{
 		void Init()
 		{
-			_dropDownLang = new DropDown();
-			_dropDownLang.Size = new Size(200, _dropDownLang.Size.Height);
+		    _dropDownLang = new DropDown {Width = 200};
 			var lanList = new List<IListItem>
 			{
 				new ListItem {Text = "EN",Key="EN"},
