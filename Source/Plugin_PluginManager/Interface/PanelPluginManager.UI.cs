@@ -11,6 +11,7 @@ namespace Plugin_PluginManager.Interface
 			//page1
 			var page1 = new DynamicLayout();
 			_gridViewInstalled = new GridView();
+			_gridViewInstalled.ColumnHeaderClick += _gridViewInstalled_ColumnHeaderClick;
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
 				DataCell = new CheckBoxCell("Checked"),
@@ -19,8 +20,10 @@ namespace Plugin_PluginManager.Interface
 			});
 			_gridViewInstalled.Columns.Add(new GridColumn()
 			{
-				DataCell = new TextBoxCell("Name"), 
-				HeaderText = StrRes.GetString("StrName","Name"),
+				ID = "Name",
+				DataCell = new TextBoxCell("Name"),
+				HeaderText = StrRes.GetString("StrName", "Name"),
+				Sortable = true,
 				AutoSize = false,
 				Width = 150
 			});
@@ -56,6 +59,7 @@ namespace Plugin_PluginManager.Interface
 			//page2
 			var page2 = new DynamicLayout();
 			_gridViewAvailable = new GridView();
+			_gridViewAvailable.ColumnHeaderClick += _gridViewAvailable_ColumnHeaderClick;
 			_gridViewAvailable.Columns.Add(new GridColumn()
 			{
 				DataCell = new CheckBoxCell("Checked"),
@@ -64,8 +68,10 @@ namespace Plugin_PluginManager.Interface
 			});
 			_gridViewAvailable.Columns.Add(new GridColumn() 
 			{
+				ID = "Name",
 				DataCell = new TextBoxCell("Name"), 
 				HeaderText = StrRes.GetString("StrName","Name"),
+				Sortable = true,
 				AutoSize = false,
 				Width = 150
 			});
@@ -110,6 +116,7 @@ namespace Plugin_PluginManager.Interface
 			//page3
 			var page3 = new DynamicLayout();
 			_gridViewUpdatable = new GridView();
+			_gridViewUpdatable.ColumnHeaderClick += _gridViewUpdatable_ColumnHeaderClick;
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
 				DataCell = new CheckBoxCell("Checked"),
@@ -118,8 +125,10 @@ namespace Plugin_PluginManager.Interface
 			});
 			_gridViewUpdatable.Columns.Add(new GridColumn()
 			{
+				ID = "Name",
 				DataCell = new TextBoxCell("Name"), 
 				HeaderText = StrRes.GetString("StrName","Name"),
+				Sortable = true,
 				AutoSize = false,
 				Width = 150
 			});

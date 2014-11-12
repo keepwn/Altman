@@ -357,5 +357,44 @@ namespace Plugin_PluginManager.Interface
             return updateXmlNode == null ? defaultUpate : updateXmlNode.InnerText;
         }
 		#endregion
+
+		#region Sort Columns
+		void _gridViewUpdatable_ColumnHeaderClick(object sender, GridColumnEventArgs e)
+		{
+			Sort(_gridViewUpdatable, e.Column.ID);
+		}
+
+		void _gridViewAvailable_ColumnHeaderClick(object sender, GridColumnEventArgs e)
+		{
+			Sort(_gridViewAvailable, e.Column.ID);
+		}
+
+		void _gridViewInstalled_ColumnHeaderClick(object sender, GridColumnEventArgs e)
+		{
+			Sort(_gridViewInstalled, e.Column.ID);
+		}
+
+		private bool _nameIsAscending;
+		public static int SortStringAscending(string x, string y, bool isAscending)
+		{
+			if (isAscending)
+				return String.Compare(x, y, StringComparison.Ordinal);
+			return -String.Compare(x, y, StringComparison.Ordinal);
+		}
+
+		public void Sort(GridView gridView, string columnText)
+	    {
+			var items = gridView.DataStore as List<PluginModel>;
+			if (items == null) return;
+			switch (columnText)
+			{
+				case "Name":
+					_nameIsAscending = !_nameIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.Name, b.Name, _nameIsAscending));
+					gridView.DataStore = items;
+					break;
+			}			
+	    }
+		#endregion
 	}
 }
