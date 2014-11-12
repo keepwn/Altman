@@ -44,7 +44,8 @@ namespace Plugin_ShellManager.Interface
 					_gridViewShell.ContextMenu.Show(_gridViewShell);
 				}
 			};
-			_gridViewShell.CellDoubleClick += _gridViewShell_CellDoubleClick;
+			//_gridViewShell.CellDoubleClick += _gridViewShell_CellDoubleClick;
+			//_gridViewShell.ColumnHeaderClick += _gridViewShell_ColumnHeaderClick;
 
 			var layout = new DynamicLayout { Padding = new Padding(0), Spacing = new Size(10, 10) };
 			layout.Add(_gridViewShell);
@@ -61,6 +62,8 @@ namespace Plugin_ShellManager.Interface
 				BackgroundColor = Colors.White,
 				ShowCellBorders = false,
 			};
+			gridView.ColumnHeaderClick += _gridViewShell_ColumnHeaderClick;
+			gridView.CellDoubleClick += _gridViewShell_CellDoubleClick;
 			//Id
 			gridView.Columns.Add(new GridColumn
 			{
@@ -68,7 +71,7 @@ namespace Plugin_ShellManager.Interface
 				DataCell = new TextBoxCell("Id"),
 				Editable = false,
 				Sortable = true,
-				AutoSize = true
+				AutoSize = true,
 			});
 			//Name
 			gridView.Columns.Add(new GridColumn
@@ -106,7 +109,7 @@ namespace Plugin_ShellManager.Interface
 				HeaderText = "ShellUrl",
 				DataCell = new TextBoxCell("ShellUrl"),
 				Editable = false,
-				Sortable = true,
+				Sortable = false,
 				AutoSize = false,
 				Width = 250
 			});
@@ -126,7 +129,7 @@ namespace Plugin_ShellManager.Interface
 				HeaderText = "Remark",
 				DataCell = new TextBoxCell("Remark"),
 				Editable = false,
-				Sortable = true,
+				Sortable = false,
 				AutoSize = false,
 				Width = 100
 			});

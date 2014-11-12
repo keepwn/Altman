@@ -97,7 +97,7 @@ namespace Plugin_ShellManager.Interface
 			{
 				return;
 			}
-			var item = new DataStoreCollection();
+			var item = new DataStoreCollection<Shell>();
 			foreach (DataRow row in dataTable.Rows)
 			{
 				Shell shell = DataConvert.ConvertDataRowToShellStruct(row);
@@ -106,6 +106,99 @@ namespace Plugin_ShellManager.Interface
 
 			_gridViewShell.DataStore = item;
 		}
+
+		#region 重排序
+		public static int SortIntAscending(string x, string y, bool isAscending)
+		{
+			if (string.IsNullOrWhiteSpace(x))
+			{
+				if (string.IsNullOrWhiteSpace(y))
+					return 0;
+				return isAscending ? - 1 : 1;
+			}
+			else
+			{
+				if (string.IsNullOrWhiteSpace(y))
+				{
+					return isAscending ? 1 : -1;
+				}
+				try
+				{
+					var a = Int32.Parse(x);
+					var b = Int32.Parse(y);
+					return isAscending ? (a - b) : -(a - b);
+				}
+				catch
+				{
+					return 0;
+				}
+			}
+		}
+		public static int SortIntAscending(int x, int y, bool isAscending)
+		{
+			return isAscending ? (x - y) : -(x - y);
+		}
+		public static int SortStringAscending(string x, string y, bool isAscending)
+		{
+			if (isAscending)
+				return String.Compare(x, y, StringComparison.Ordinal);
+			return -String.Compare(x, y, StringComparison.Ordinal);
+		}
+		public static int SortTimeAscending(string x, string y, bool isAscending)
+		{
+			try
+			{
+				var a = DateTime.Parse(x);
+				var b = DateTime.Parse(y);
+				return isAscending ? DateTime.Compare(a, b) : -DateTime.Compare(a, b);
+			}
+			catch
+			{
+				return 0;
+			}
+		}
+
+		private bool _idIsAscending;
+		private bool _nameIsAscending;
+		private bool _levelIsAscending;
+		private bool _statusIsAscending;
+		private bool _typeIsAscending;
+		private bool _addTimeIsAscending;
+		void _gridViewShell_ColumnHeaderClick(object sender, GridColumnEventArgs e)
+		{
+			var items = _gridViewShell.DataStore as DataStoreCollection<Shell>;
+			if (items == null) return;
+			switch (e.Column.HeaderText)
+			{
+				case "Id":
+					_idIsAscending = !_idIsAscending;
+					items.Sort((a, b) => SortIntAscending(a.Id, b.Id, _idIsAscending));
+					break;
+				case "Name":
+					_nameIsAscending = !_nameIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.TargetId, b.TargetId, _nameIsAscending));
+					break;
+				case "Level":
+					_levelIsAscending = !_levelIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.TargetLevel, b.TargetLevel, _levelIsAscending));
+					break;
+				case "Status":
+					_statusIsAscending = !_statusIsAscending;
+					items.Sort((a, b) => SortIntAscending(a.Status, b.Status, _statusIsAscending));
+					break;
+				case "Type":
+					_typeIsAscending = !_typeIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.ShellType, b.ShellType, _typeIsAscending));
+					break;
+				case "AddTime":
+					_addTimeIsAscending = !_addTimeIsAscending;
+					items.Sort((a, b) => SortTimeAscending(a.AddTime, b.AddTime, _addTimeIsAscending));
+					break;
+				default:
+					break;
+			}
+		}
+		#endregion
 
 		#region 数据获取/插入/删除/更新事件
 		private void ShellManagerUpdateCompletedToDo(object sender, ShellManager.CompletedEventArgs e)
@@ -194,7 +287,7 @@ namespace Plugin_ShellManager.Interface
 		private void RefreshAllStatus()
 		{
 			if (_gridViewShell.DataStore == null) return;
-			foreach (var item in _gridViewShell.DataStore as DataStoreCollection)
+			foreach (var item in _gridViewShell.DataStore as DataStoreCollection<Shell>)
 			{
 				Thread thread = new Thread(RefreshStatus);
 				thread.Start(item);
