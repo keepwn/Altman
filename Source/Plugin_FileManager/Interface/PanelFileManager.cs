@@ -28,7 +28,7 @@ namespace Plugin_FileManager.Interface
 		private string _oldName;
 		private string[] _oldFiles;
 		private string _oldMTime;
-		private DataStoreCollection _dataStore;
+		private DataStoreCollection<FileInfoView> _dataStore;
 
 		public PanelFileManager(IHost host, PluginParameter data)
 		{
@@ -61,7 +61,7 @@ namespace Plugin_FileManager.Interface
 
 			_gridViewFile.ContextMenu = CreateFileRightMenu(_status);
 			//_dataStore = new List<FileInfoView>();
-			_gridViewFile.DataStore = _dataStore = new DataStoreCollection();
+			_gridViewFile.DataStore = _dataStore = new DataStoreCollection<FileInfoView>();
 
 			//获取根路径
 			_fileManager.GetWwwRootPath();
@@ -293,14 +293,14 @@ namespace Plugin_FileManager.Interface
 		void _gridViewFile_CellEditing(object sender, GridViewCellEventArgs e)
 		{
 			_oldName = ((sender as GridView).SelectedItem as FileInfoView).Name;
-			_oldFiles = ((sender as GridView).DataStore as DataStoreCollection).Select(r => (r as FileInfoView).Name).ToArray();
+			_oldFiles = ((sender as GridView).DataStore as DataStoreCollection<FileInfoView>).Select(r => r.Name).ToArray();
 			_oldMTime = ((sender as GridView).SelectedItem as FileInfoView).FileMTime;
 		}
 
 		void _gridViewFile_CellEdited(object sender, GridViewCellEventArgs e)
 		{
 			var editFile = e.Item as FileInfoView;
-			var items = (sender as GridView).DataStore;
+			var items = (sender as GridView).DataStore as DataStoreCollection<FileInfoView>;
 			if (e.Column == 1) //edit name
 			{
 				if (editFile.IsCreateing) //create dir
@@ -374,25 +374,114 @@ namespace Plugin_FileManager.Interface
 			EditMTime,
 			CreateDir
 		}
-		void Undo(IEnumerable<object> dataStore, int row, string oldText, EditType editType)
+		void Undo(DataStoreCollection<FileInfoView> dataStore, int row, string oldText, EditType editType)
 		{
 			if (editType == EditType.Rename)
 			{
-				(((DataStoreCollection)dataStore)[row] as FileInfoView).Name= oldText;
+				(dataStore)[row].Name= oldText;
 				//((List<FileInfoView>) dataStore)[row].Name = oldText;
 			}		
 			else if (editType == EditType.EditMTime)
 			{
-				(((DataStoreCollection)dataStore)[row] as FileInfoView).FileMTime = oldText;
+				(dataStore)[row].FileMTime = oldText;
 				//((List<FileInfoView>) dataStore)[row].FileMTime = oldText;
 			}
 			else if (editType == EditType.CreateDir)
 			{
-				((DataStoreCollection)dataStore).RemoveAt(row);
+				dataStore.RemoveAt(row);
 				//Application.Instance.Invoke(() =>((DataStoreCollection)dataStore).RemoveAt(row));
 			}
 		}
 
+		#endregion
+
+		#region Sort Columns
+		private bool _typeIsAscending;
+		private bool _nameIsAscending;
+		private bool _timeIsAscending;
+		private bool _sizeIsAscending;
+		private bool _attributeIsAscending;
+
+		public static int SortIntAscending(string x, string y, bool isAscending)
+		{
+			if (string.IsNullOrWhiteSpace(x))
+			{
+				if (string.IsNullOrWhiteSpace(y))
+					return 0;
+				return isAscending ? -1 : 1;
+			}
+			else
+			{
+				if (string.IsNullOrWhiteSpace(y))
+				{
+					return isAscending ? 1 : -1;
+				}
+				try
+				{
+					var a = Int32.Parse(x);
+					var b = Int32.Parse(y);
+					return isAscending ? (a - b) : -(a - b);
+				}
+				catch
+				{
+					return 0;
+				}
+			}
+		}
+		public static int SortIntAscending(int x, int y, bool isAscending)
+		{
+			return isAscending ? (x - y) : -(x - y);
+		}
+		public static int SortStringAscending(string x, string y, bool isAscending)
+		{
+			if (isAscending)
+				return String.Compare(x, y, StringComparison.Ordinal);
+			return -String.Compare(x, y, StringComparison.Ordinal);
+		}
+		public static int SortTimeAscending(string x, string y, bool isAscending)
+		{
+			try
+			{
+				var a = DateTime.Parse(x);
+				var b = DateTime.Parse(y);
+				return isAscending ? DateTime.Compare(a, b) : -DateTime.Compare(a, b);
+			}
+			catch
+			{
+				return 0;
+			}
+		}
+
+		void _gridViewFile_ColumnHeaderClick(object sender, GridColumnEventArgs e)
+		{
+			var items = _gridViewFile.DataStore as DataStoreCollection<FileInfoView>;
+			if (items == null) return;
+			switch (e.Column.ID)
+			{
+				case "Image": //type
+					_typeIsAscending = !_typeIsAscending;
+					items.Sort((a, b) => SortIntAscending((int)a.Type, (int)b.Type, _typeIsAscending));
+					break;
+				case "Name":
+					_nameIsAscending = !_nameIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.Name, b.Name, _nameIsAscending));
+					break;
+				case "Time":
+					_timeIsAscending = !_timeIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.FileMTime, b.FileMTime, _timeIsAscending));
+					break;
+				case "Size":
+					_sizeIsAscending = !_sizeIsAscending;
+					items.Sort((a, b) => SortIntAscending(a.FileSizeInt, b.FileSizeInt, _sizeIsAscending));
+					break;
+				case "Attribute":
+					_attributeIsAscending = !_attributeIsAscending;
+					items.Sort((a, b) => SortStringAscending(a.FileAttributes, b.FileAttributes, _attributeIsAscending));
+					break;
+				default:
+					break;
+			}
+		}
 		#endregion
 
 		private void SetPathSeparator(bool isWin)
@@ -567,7 +656,7 @@ namespace Plugin_FileManager.Interface
 		{
 			_dataStore.Clear();
 
-			var item = new DataStoreCollection();
+			var item = new DataStoreCollection<FileInfoView>();
 			//显示dirs
 			foreach (OsFile dir in dirs)
 			{

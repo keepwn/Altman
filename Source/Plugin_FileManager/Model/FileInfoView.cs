@@ -82,6 +82,7 @@ namespace Plugin_FileManager.Model
 		public bool IsCreateing { get; set; }
 		public string FileMTime { get; set; }
 		public string FileSize { get; set; }
+		public string FileSizeInt { get; set; }
 		public string FileAttributes { get; set; }
 		public FileType Type { get; set; }
 		public Image Image { get; set; }
@@ -100,6 +101,9 @@ namespace Plugin_FileManager.Model
 
 			//FileMTime
 			FileMTime = mtime;
+
+			//FileSizeInt
+			FileSizeInt = fileSize;
 
 			//FileSize
 			FileSize = ConvertSize(fileSize);

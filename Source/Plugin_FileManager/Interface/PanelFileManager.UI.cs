@@ -34,17 +34,21 @@ namespace Plugin_FileManager.Interface
 			_gridViewFile.CellEditing += _gridViewFile_CellEditing;
 			_gridViewFile.CellEdited += _gridViewFile_CellEdited;
 			_gridViewFile.CellDoubleClick += _gridViewFile_CellDoubleClick;
+			_gridViewFile.ColumnHeaderClick += _gridViewFile_ColumnHeaderClick;
 
 			_gridViewFile.Columns.Add(new GridColumn
 			{
-				HeaderText = "",
+				ID = "Image",
+				HeaderText = ">",
 				//DataCell = new ImageTextCell("Image","Name"),
 				DataCell = new ImageViewCell("Image"),
+				Sortable = true,
 				Resizable = false,
 				Width = 21
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
+				ID = "Name",
 				HeaderText = StrRes.GetString("StrName","Name"),
 				DataCell = new TextBoxCell("Name"),
 				Sortable = true,
@@ -54,6 +58,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
+				ID = "Time",
 				HeaderText = StrRes.GetString("StrTime","Time"),
 				DataCell = new TextBoxCell("FileMTime"),
 				Sortable = true,
@@ -63,6 +68,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
+				ID = "Size",
 				HeaderText = StrRes.GetString("StrSize","Size"),
 				DataCell = new TextBoxCell("FileSize"),
 				Sortable = true,
@@ -71,6 +77,7 @@ namespace Plugin_FileManager.Interface
 			});
 			_gridViewFile.Columns.Add(new GridColumn
 			{
+				ID = "Attribute",
 				HeaderText = StrRes.GetString("StrAttribute","Attribute"),
 				DataCell = new TextBoxCell("FileAttributes"),
 				Sortable = true,

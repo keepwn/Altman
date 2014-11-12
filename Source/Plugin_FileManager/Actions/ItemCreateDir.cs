@@ -29,7 +29,7 @@ namespace Plugin_FileManager.Actions
 
 			if (!Platform.Instance.IsWinForms)
 			{
-				var items = _status.FileGridView.DataStore as DataStoreCollection;
+				var items = _status.FileGridView.DataStore as DataStoreCollection<FileInfoView>;
 				items.Add(newItem);
 
 				var row = items.IndexOf(newItem);
