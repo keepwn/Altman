@@ -4,9 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Altman.CustomControl;
-using Eto.WinForms.Forms.Controls;
 using SWF = System.Windows.Forms;
-using EWF = Eto.WinForms;
+using EWFC = Eto.WinForms.Forms.Controls;
+using EWF = Eto.WinForms.Forms;
+using EW = Eto.WinForms;
 using EF = Eto.Forms;
 
 namespace Altman
@@ -41,7 +42,7 @@ namespace Altman
 
 		public void InsertTab(int index, EF.TabPage page)
 		{
-			var pageHandler = (TabPageHandler)page.Handler;
+			var pageHandler = (EWFC.TabPageHandler)page.Handler;
 			controlPlus = (EF.TabControlPlus) page.Parent;
 			if (index == -1 || index == Control.TabPages.Count)
 				Control.TabPages.Add(pageHandler.Control);

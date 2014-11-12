@@ -3,6 +3,8 @@ using Altman.CustomControls;
 using Cairo;
 using Eto.Forms;
 using Eto.GtkSharp;
+using Eto.GtkSharp.Forms;
+using Eto.GtkSharp.Forms.Controls;
 using Gdk;
 using Gtk;
 using Button = Gtk.Button;

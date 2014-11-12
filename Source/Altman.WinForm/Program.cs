@@ -2,6 +2,10 @@
 using System.IO;
 using System.Reflection;
 using Eto;
+using Eto.Forms;
+using Eto.WinForms.Forms;
+using Eto.WinForms.Forms.Controls;
+using Eto.WinForms.Forms.Menu;
 
 namespace Altman
 {
@@ -41,23 +45,23 @@ namespace Altman
 				h.Control.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 				h.Control.BackgroundColor = System.Drawing.SystemColors.Window;
 		    });
-		    Style.Add<Eto.WinForms.FormHandler>(null, h =>
+		    Style.Add<FormHandler>(null, h =>
 		    {
 				h.Control.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 		    });
-			Style.Add<Eto.WinForms.MenuBarHandler>(null, h =>
+			Style.Add<MenuBarHandler>(null, h =>
 			{
 				h.Control.BackColor = System.Drawing.SystemColors.Control;
 			});
-			Style.Add<Eto.WinForms.DropDownHandler>(null, h =>
+			Style.Add<DropDownHandler>(null, h =>
 			{
 				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 10.5F, System.Drawing.FontStyle.Regular);
 			});
-			Style.Add<Eto.WinForms.Forms.ComboBoxHandler>(null, h =>
+			Style.Add<ComboBoxHandler>(null, h =>
 			{
 				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 10.5F, System.Drawing.FontStyle.Regular);
 			});
-			Style.Add<Eto.WinForms.TextBoxHandler>(null, h =>
+			Style.Add<TextBoxHandler>(null, h =>
 			{
 				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 9.5F, System.Drawing.FontStyle.Regular);
 				h.Control.ImeMode = System.Windows.Forms.ImeMode.Disable;
@@ -66,7 +70,7 @@ namespace Altman
 			//{
 			//	h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 9.5F, System.Drawing.FontStyle.Regular);
 			//});
-			generator.Add<Eto.Forms.TabControlPlus.IHandler>(() => new TabControlPlusHandler());
+			generator.Add<TabControlPlus.IHandler>(() => new TabControlPlusHandler());
 
 			var app = new AltmanApplication(generator);
 			app.Run();

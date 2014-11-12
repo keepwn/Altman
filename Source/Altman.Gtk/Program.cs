@@ -4,6 +4,7 @@ using System.Reflection;
 using Altman.CustomControls;
 using Eto;
 using Eto.Forms;
+using Eto.GtkSharp.Forms.Controls;
 
 namespace Altman
 {
@@ -38,19 +39,19 @@ namespace Altman
 			var generator = Platform.Get(Platforms.Gtk2);
 			generator.Add<TabControlPlus.IHandler>(() => new TabControlPlusHandler());
 
-            Style.Add<Eto.GtkSharp.ButtonHandler>(null, h =>
+            Style.Add<ButtonHandler>(null, h =>
             {
                 h.Size = new Eto.Drawing.Size(80, 27);
             });
-            Style.Add<Eto.GtkSharp.Forms.Controls.DropDownHandler>(null, h =>
+            Style.Add<DropDownHandler>(null, h =>
             {
                 h.Size = new Eto.Drawing.Size(120, 25);
             });
-            Style.Add<Eto.GtkSharp.Forms.Controls.ComboBoxHandler>(null, h =>
+            Style.Add<ComboBoxHandler>(null, h =>
             {
                 h.Size = new Eto.Drawing.Size(120, 25);
             });
-            Style.Add<Eto.GtkSharp.TextBoxHandler>(null, h =>
+            Style.Add<TextBoxHandler>(null, h =>
             {
                 h.Size = new Eto.Drawing.Size(120, 25);
             });

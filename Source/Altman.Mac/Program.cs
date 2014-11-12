@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using Eto;
+using Eto.Mac.Forms.ToolBar;
 using Eto.Mac.Forms.Controls;
 using Eto.Mac.Forms;
 using Eto.Mac;
