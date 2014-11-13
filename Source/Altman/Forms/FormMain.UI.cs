@@ -25,13 +25,16 @@ namespace Altman.Forms
 		MenuBar GenerateMenuBar()
 		{
 			//创建标准系统菜单
-			var menu = MenuBar.CreateStandardMenu();
-			menu.Trim = false;
+			var menuBar = MenuBar.CreateStandardMenu();
+			menuBar.Trim = false;
 
 			//添加菜单内容
-			var file = menu.Items.GetSubmenu(AltStrRes.Menu, 100);
-			_pluginsMenuItem = menu.Items.GetSubmenu(AltStrRes.Plugin, 300);
-			var help = menu.Items.GetSubmenu(AltStrRes.Help, 1000);
+			var menu = menuBar.Items.GetSubmenu(AltStrRes.Menu, 0);
+			menu.ID = "Menu";
+			var plugins = _pluginsMenuItem = menuBar.Items.GetSubmenu(AltStrRes.Plugins, 1);
+			plugins.ID = "Plugins";
+			var help = menuBar.Items.GetSubmenu(AltStrRes.Help, 1000);
+			help.ID = "Help";
 
 			var about = new Actions.About();
 			var docs = new Actions.Docs();
@@ -41,7 +44,7 @@ namespace Altman.Forms
 			if (Platform.IsMac)
 			{
 				//适合 OS X style
-				var main = menu.Items.GetSubmenu(Application.Instance.Name, 0);
+				var main = menuBar.Items.GetSubmenu(Application.Instance.Name, 0);
 				main.Items.Add(about, 0);
 				main.Items.AddSeparator();
 				main.Items.Add(setting, 100);
@@ -50,12 +53,12 @@ namespace Altman.Forms
 			}
 
 			//适合 windows/gtk style
-			file.Items.Add(setting);
-			file.Items.Add(quit);
+			menu.Items.Add(setting);
+			menu.Items.Add(quit);
 			help.Items.Add(about);
 			help.Items.Add(docs);
 
-			return menu;
+			return menuBar;
 		}
 
 		ToolBar GenerateToolBar()

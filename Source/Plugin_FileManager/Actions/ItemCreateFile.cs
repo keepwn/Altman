@@ -23,7 +23,7 @@ namespace Plugin_FileManager.Actions
 		{
 			string newFile = _status.CurrentDirPath+ _status.PathSeparator+"NewFile.txt";
 			var fileEditer = new FileEditerPanel(_status.Host, _status.ShellData, newFile, false);
-			_status.Host.Ui.CreateNewTabPage("FileEdit", fileEditer);
+			_status.Host.Ui.OpenTabPage("FileEdit", fileEditer);
 		}
 	}
 }

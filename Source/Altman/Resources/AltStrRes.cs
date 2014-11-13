@@ -26,7 +26,7 @@ namespace Altman.Resources
 			_menu = GetString(table, "StrMenu", _menu);
 			_options = GetString(table, "StrOptions", _options);
 			_setting = GetString(table, "StrSetting", _setting);
-			_plugin = GetString(table, "StrPlugin", _plugin);
+			_plugins = GetString(table, "StrPlugins", _plugins);
 			_help = GetString(table, "StrHelp", _help);
 
 			// options
@@ -171,9 +171,9 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _menu; }
 		}
 
-		public static string Plugin
+		public static string Plugins
 		{
-			get { return _plugin; }
+			get { return _plugins; }
 		}
 
 		public static string Help
@@ -249,7 +249,7 @@ This statement applies to local laws, users and software authors agreed to obey 
 		private static string _menu = @"Menu";
 		private static string _options = @"Options";
 		private static string _setting = @"Setting";
-		private static string _plugin = @"Plugin";
+		private static string _plugins = @"Plugins";
 		private static string _help = @"Help";
 
 		private static string _basic = @"Basic";

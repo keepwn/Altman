@@ -32,10 +32,13 @@ namespace Test_DoNetPlugin
 
 		public bool Load()
 		{
+			_host.Ui.GetMenuButton(
+				string.Format("Plugins/ShellManager/Childs/{0}/Option", _pluginInfo.Name),
+				() => new PanelOption().ShowModal());
 			return true;
 		}
 
-	    public object LoadGui(PluginParameter data)
+	    public object Show(PluginParameter data)
 	    {
 			return _userControl = new DoNetPluginTest(_host, data);
 	    }

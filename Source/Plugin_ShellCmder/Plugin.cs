@@ -42,7 +42,7 @@ namespace Plugin_ShellCmder
 			return true;
 		}
 
-        public object LoadGui(PluginParameter data)
+        public object Show(PluginParameter data)
         {
             return _userControl = new PanelShellCmder(_host, data);
         }

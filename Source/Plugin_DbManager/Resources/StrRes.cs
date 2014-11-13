@@ -16,7 +16,7 @@ namespace Plugin_DbManager.Resources
 		{
 			if (_host != null)
 			{
-				return _host.Ui.GetTranslatedString(strName, strDefault);
+				return _host.Ui.GetTranslatedText(strName, strDefault);
 			}
 			return strDefault;
 		}

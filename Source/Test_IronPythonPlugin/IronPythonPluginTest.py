@@ -53,7 +53,7 @@ class Plugin(IControlPlugin):
     def Load(self):
         return True
 
-    def LoadGui(self, argv):
+    def Show(self, argv):
         #self._userControl = MyFirstPlugin(_host,data)
         #return self._userControl
         pass

@@ -20,7 +20,7 @@ namespace Plugin_ShellManager.Resources
 		{
 			if (_host != null)
 			{
-				return _host.Ui.GetTranslatedString(strName, strDefault);
+				return _host.Ui.GetTranslatedText(strName, strDefault);
 			}
 			return strDefault;
 		}

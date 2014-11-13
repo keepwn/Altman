@@ -41,7 +41,7 @@ namespace Plugin_PluginManager
 			return true;
 		}
 
-        public object LoadGui(PluginParameter data)
+        public object Show(PluginParameter data)
         {
             return _form = new PanelPluginManager(_host, data);
         }

@@ -25,7 +25,7 @@ namespace Plugin_FileManager.Actions
 			{
 				var webFile = selectFile.FullName;
 				var fileEditer = new FileEditerPanel(_status.Host,_status.ShellData, webFile, true);
-				_status.Host.Ui.CreateNewTabPage("FileEdit", fileEditer);
+				_status.Host.Ui.OpenTabPage("FileEdit", fileEditer);
 			}
 		}
 	}

@@ -36,7 +36,7 @@ namespace Plugin_DbManager
 			return true;
 		}
 
-        public object LoadGui(PluginParameter data)
+        public object Show(PluginParameter data)
         {
             return _userControl = new PanelDbManager(_host, data);
         }

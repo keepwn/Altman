@@ -31,23 +31,41 @@ namespace Test_DoNetPlugin
         {
 	        _tbxShellData = new TextArea {Size = new Size(-1, 200)};
             _tbxMsg = new TextBox();
-            _btnShowMsgInStatus = new Button() {Text = "Show Msg In Status"};
+	        _btnShowMsgInStatus = new Button {Text = "Show Msg In Status", Width = 150};
             _btnShowMsgInStatus.Click+=btn_showMsgInStatus_Click;
-            _btnShowMessageBox = new Button() {Text = "Show Msg In Message"};
+			_btnShowMessageBox = new Button { Text = "Show Msg In Message", Width = 150 };
             _btnShowMessageBox.Click+=btn_showMessageBox_Click;
-            _btnCreateNewTabPage = new Button(){Text = "Create New TabPage"};
+			_btnCreateNewTabPage = new Button { Text = "Create New TabPage", Width = 150 };
             _btnCreateNewTabPage.Click+=btn_createNewTabPage_Click;
+
+			// Test
+	        var btnTest = new Button {Text = "Test", Width = 150};
+			btnTest.Click += btnTest_Click;
 
 	        var layout = new DynamicLayout {Padding = new Padding(10, 10), Size = new Size(10, 10)};
             layout.AddRow(new Label() { Text = "ShellData"});
 			layout.AddRow(_tbxShellData);
 			layout.AddSeparateRow(new Label() { Text = "Msg", VerticalAlign = VerticalAlign.Middle }, _tbxMsg, null);
-			layout.AddSeparateRow(_btnShowMsgInStatus, _btnShowMessageBox, _btnCreateNewTabPage, null);
+	        layout.AddAutoSized(_btnShowMsgInStatus);
+	        layout.AddAutoSized(_btnShowMessageBox);
+	        layout.AddAutoSized(_btnCreateNewTabPage);
+			layout.AddAutoSized(btnTest);
 			layout.Add(null);
 
             this.Content = layout;
         }
 
+		void btnTest_Click(object sender, EventArgs e)
+		{
+//			_host.Ui.GetMenuButton(
+//				string.Format("Plugins/ShellManager/Childs/{0}/Option", (new PluginInfo()).Name),
+//				ShowMenu);
+		}
+
+		public void ShowMenu()
+	    {
+			_host.Ui.ShowMsgInAppDialog("Test to add menu");
+	    }
 
 		private void ShowShellTypeDataInLable(Shell data)
         {
@@ -77,7 +95,7 @@ namespace Test_DoNetPlugin
 
         private void btn_createNewTabPage_Click(object sender, EventArgs e)
         {
-            _host.Ui.CreateNewTabPage(_tbxMsg.Text, new NewPanel());
+            _host.Ui.OpenTabPage(_tbxMsg.Text, new NewPanel());
         }
     }
 }

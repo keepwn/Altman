@@ -57,9 +57,9 @@ namespace Plugin_ShellCmder.Interface
                 //获取系统信息
                 var info = _shellCmder.GetSysInfo();
 	            var str = string.Format("{0}: {1}\n{2}: {3}",
-		            _host.Ui.GetTranslatedString("StrPlatform", "Platform"),
+		            _host.Ui.GetTranslatedText("StrPlatform", "Platform"),
 		            info.Platform,
-					_host.Ui.GetTranslatedString("StrCurrentUser", "CurrentUser"),
+					_host.Ui.GetTranslatedText("StrCurrentUser", "CurrentUser"),
 		            info.CurrentUser);
                 //设置系统平台
                 _isWin = info.DirSeparators == @"\";

@@ -7,6 +7,6 @@
 		/// </summary>
 		/// <param name="param"></param>
 		/// <returns>返回为Panel类型的对象</returns>
-	    object LoadGui(PluginParameter param);
+	    object Show(PluginParameter param);
     }
 }

@@ -72,15 +72,15 @@ namespace Plugin_ShellManager.Interface
 
 					if (plugin is IControlPlugin)
 					{
-						object view = (plugin as IControlPlugin).LoadGui(param);
+						object view = (plugin as IControlPlugin).Show(param);
 						//创建新的tab标签
 						//设置标题为FileManager|TargetId
 						string title = plugin.PluginInfo.Name + "|" + shell.TargetId;
-						_host.Ui.CreateNewTabPage(title, view);
+						_host.Ui.OpenTabPage(title, view);
 					}
 					else if (plugin is IFormPlugin)
 					{
-						var form = (Form)(plugin as IFormPlugin).LoadGui(param);
+						var form = (Form)(plugin as IFormPlugin).Show(param);
 						form.Show();
 					}
 				}

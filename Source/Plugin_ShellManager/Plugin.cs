@@ -37,7 +37,7 @@ namespace Plugin_ShellManager
 			return true;
 		}
 
-        public object LoadGui(PluginParameter data)
+        public object Show(PluginParameter data)
         {
             return _userControl = new PanelShellManager(_host, data);
         }

@@ -131,6 +131,7 @@ namespace Altman.Forms
 			var item = new ButtonMenuItem();
 
 			var title = plugin.PluginInfo.Name;
+			item.ID = title;
 			item.Text = title;
 			item.Order = plugin.PluginSetting.IndexInList;
 
@@ -139,6 +140,7 @@ namespace Altman.Forms
 			{
 				var pluginRun = new Command()
 				{
+					ID = "Run",
 					MenuText = "Run",
 					Tag = plugin,
 				};
@@ -149,6 +151,7 @@ namespace Altman.Forms
 			// 添加About按钮
 			var pluginAbout = new Command()
 			{
+				ID = "About",
 				MenuText = "About",
 				Tag = plugin,
 			};
@@ -163,7 +166,8 @@ namespace Altman.Forms
 				item.Items.AddSeparator();
 				var pluginChild = new ButtonMenuItem()
 				{
-					Text = "Child Plugins",
+					ID = "Childs",
+					Text = "Child Plugins"
 				};
 				foreach (var c in childs)
 				{
@@ -177,7 +181,8 @@ namespace Altman.Forms
 			{
 				var pluginService = new ButtonMenuItem()
 				{
-					Text = "Services",
+					ID = "Services", 
+					Text = "Services"
 				};
 				foreach (var name in serviceNames)
 				{
@@ -216,13 +221,13 @@ namespace Altman.Forms
 					{
 						Panel view = null;
 						var p = (plugin as IControlPlugin);
-						view = p.LoadGui(null) as Panel;
+						view = p.Show(null) as Panel;
 						//创建新的tab标签
 						CreateNewTabPage(title, view);
 					}
 					else if (plugin is IFormPlugin)
 					{
-						object form = (plugin as IFormPlugin).LoadGui(null);
+						object form = (plugin as IFormPlugin).Show(null);
 						var form1 = form as Form;
 						if (form1 != null) form1.Show();
 					}
@@ -237,7 +242,7 @@ namespace Altman.Forms
 				return;
 			if (plugin is IControlPlugin)
 			{
-				object view = (plugin as IControlPlugin).LoadGui(null);
+				object view = (plugin as IControlPlugin).Show(null);
 				//创建新的tab标签
 				//设置标题为FileManager|TargetId
 				string title = plugin.PluginInfo.Name;
@@ -245,7 +250,7 @@ namespace Altman.Forms
 			}
 			else if (plugin is IFormPlugin)
 			{
-				object form = (plugin as IFormPlugin).LoadGui(null);
+				object form = (plugin as IFormPlugin).Show(null);
 				var form1 = form as Form;
 				if (form1 != null) form1.Show();
 			}

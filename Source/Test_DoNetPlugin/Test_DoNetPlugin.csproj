@@ -83,6 +83,9 @@
     <Compile Include="DoNetPluginTest.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="PanelOption.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginSetting.cs" />

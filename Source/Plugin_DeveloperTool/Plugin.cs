@@ -35,7 +35,7 @@ namespace Plugin_DeveloperTool
 			return true;
 		}
 
-        public object LoadGui(PluginParameter data)
+        public object Show(PluginParameter data)
         {
             return _userControl = new DeveloperTool(_host, data);
         }
