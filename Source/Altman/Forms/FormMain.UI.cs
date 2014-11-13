@@ -31,7 +31,9 @@ namespace Altman.Forms
 			//添加菜单内容
 			var menu = menuBar.Items.GetSubmenu(AltStrRes.Menu, 0);
 			menu.ID = "Menu";
-			var plugins = _pluginsMenuItem = menuBar.Items.GetSubmenu(AltStrRes.Plugins, 1);
+			var services = _servicesMenuItem = menuBar.Items.GetSubmenu(AltStrRes.Services, 10);
+			services.ID = "Services";
+			var plugins = _pluginsMenuItem = menuBar.Items.GetSubmenu(AltStrRes.Plugins, 20);
 			plugins.ID = "Plugins";
 			var help = menuBar.Items.GetSubmenu(AltStrRes.Help, 1000);
 			help.ID = "Help";
@@ -53,8 +55,8 @@ namespace Altman.Forms
 			}
 
 			//适合 windows/gtk style
-			menu.Items.Add(setting);
-			menu.Items.Add(quit);
+			menu.Items.Add(setting, 0);
+			menu.Items.Add(quit, 10);
 			help.Items.Add(about);
 			help.Items.Add(docs);
 
@@ -106,6 +108,7 @@ namespace Altman.Forms
 		}
 
 		private ButtonMenuItem _pluginsMenuItem;
+		private ButtonMenuItem _servicesMenuItem;
 		private Control _tabControl;
 		private Label _showMsgLabel;
 	}

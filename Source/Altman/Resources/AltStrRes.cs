@@ -25,6 +25,7 @@ namespace Altman.Resources
 			_saveAndExit = GetString(table, "StrSaveAndExit", _saveAndExit);
 			_menu = GetString(table, "StrMenu", _menu);
 			_options = GetString(table, "StrOptions", _options);
+			_services = GetString(table, "StrServices", _services);
 			_setting = GetString(table, "StrSetting", _setting);
 			_plugins = GetString(table, "StrPlugins", _plugins);
 			_help = GetString(table, "StrHelp", _help);
@@ -171,6 +172,11 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _menu; }
 		}
 
+		public static string Services
+		{
+			get { return _services; }
+		}
+
 		public static string Plugins
 		{
 			get { return _plugins; }
@@ -249,6 +255,7 @@ This statement applies to local laws, users and software authors agreed to obey 
 		private static string _menu = @"Menu";
 		private static string _options = @"Options";
 		private static string _setting = @"Setting";
+		private static string _services = @"Services";
 		private static string _plugins = @"Plugins";
 		private static string _help = @"Help";
 

@@ -57,8 +57,9 @@ namespace Altman.Forms
 			//UI处理
 			Init();
 			LoadPluginsInUi();
+			InitPlugins(PluginProvider.Plugins);
+			LoadServicesInUi();
 			//----导入插件结束----
-
 
 			//显示免责声明
 			InitUi.InitWelcome();
@@ -124,8 +125,8 @@ namespace Altman.Forms
 			{
 				var pluginRun = new Command()
 				{
-					ID = "Run",
-					MenuText = "Run",
+					ID = "Show",
+					MenuText = "Show",
 					Tag = plugin,
 				};
 				pluginRun.Executed += pluginRun_Click;
@@ -159,30 +160,37 @@ namespace Altman.Forms
 				}
 				item.Items.Add(pluginChild);
 			}
+			return item;
+		}
 
-			var serviceNames = PluginServiceProvider.GetServiceNames(title).ToList();
+		private void LoadServicesInUi()
+		{
+			var serviceNames = PluginServiceProvider.GetServiceNames().ToList();
 			if (serviceNames.Any())
 			{
-				var pluginService = new ButtonMenuItem()
-				{
-					ID = "Services", 
-					Text = "Services"
-				};
 				foreach (var name in serviceNames)
 				{
 					var serviceType = PluginServiceProvider.GetServiceTypeName(name);
-					var text = string.IsNullOrEmpty(serviceType) ? name : "[Type: " + serviceType + " ] " + name;
-					pluginService.Items.Add(new ButtonMenuItem {Text = text});
+					var provider = PluginServiceProvider.GetServiceProvider(name).PluginInfo.Name;
+					var text = string.Format("[Provider:{0}] [Type:{1}] {2}", provider, serviceType, name);
+					_servicesMenuItem.Items.Add(new ButtonMenuItem { Text = text });
 				}
-				item.Items.Add(pluginService);
 			}
+		}
 
-			return item;
+		private void InitPlugins(IEnumerable<IPlugin> plugins)
+		{
+			//Init Plugins
+			foreach (var plugin in plugins)
+			{
+				// IsService, Auto Call Load()
+				plugin.Load();
+			}
 		}
 
 		private void AutoLoadServices(IEnumerable<IService> services)
 		{
-			//IsAutoLoad
+			//IsAutoLoad, only python
 			foreach (var service in services)
 			{
 				// IsService, Auto Call Load()
@@ -195,8 +203,6 @@ namespace Altman.Forms
 			//IsAutoLoad
 			foreach (var plugin in plugins)
 			{
-				// IsService, Auto Call Load()
-				plugin.Load();
 				//IsAutoLoad
 				if (plugin.PluginSetting.IsAutoLoad)
 				{
