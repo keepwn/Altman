@@ -81,22 +81,6 @@ namespace Altman.Forms
 			MessageBox.Show(msg, "About " + plugin.PluginInfo.Name, MessageBoxButtons.OK);
 		}
 
-		public string MsgInStatusBar
-		{
-			get { return _showMsgLabel.Text; }
-			set { _showMsgLabel.Text = value; }
-		}
-
-		public ContextMenu RightMenu
-		{
-			get { return this.ContextMenu; }
-		}
-
-		public IEnumerable<IPlugin> Plugins
-		{
-			get { return PluginProvider.Plugins; }
-		}
-
 		/*
 		public void RefreshPlugins()
 		{
@@ -223,7 +207,7 @@ namespace Altman.Forms
 						var p = (plugin as IControlPlugin);
 						view = p.Show(null) as Panel;
 						//创建新的tab标签
-						CreateNewTabPage(title, view);
+						CreateTabPage(title, view);
 					}
 					else if (plugin is IFormPlugin)
 					{
@@ -246,7 +230,7 @@ namespace Altman.Forms
 				//创建新的tab标签
 				//设置标题为FileManager|TargetId
 				string title = plugin.PluginInfo.Name;
-				CreateNewTabPage(title, view);
+				CreateTabPage(title, view);
 			}
 			else if (plugin is IFormPlugin)
 			{
@@ -256,7 +240,43 @@ namespace Altman.Forms
 			}
 		}
 
-		public void CreateNewTabPage(string name, object userControl)
+		#region Event
+
+		private void Tsmi_Setting_Click(object sender, EventArgs e)
+		{
+			//FormGlobalSetting setting = new FormGlobalSetting();
+			//setting.ShowDialog();
+		}
+
+		private void Tsmi_developerMode_Click(object sender, EventArgs e)
+		{
+			//splitContainer1.Panel1Collapsed = !Tsmi_developerMode.Checked;
+		}
+
+		private void Tsmi_ReloadShellType_Click(object sender, EventArgs e)
+		{
+			//InitUi.InitCustomShellType(AppEnvironment.AppPath);
+		}
+
+		private void Tsmi_ReloadSetting_Click(object sender, EventArgs e)
+		{
+			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
+		}
+		#endregion
+
+		#region IHost
+		public string MsgInStatusBar
+		{
+			get { return _showMsgLabel.Text; }
+			set { _showMsgLabel.Text = value; }
+		}
+
+		public ContextMenu RightMenu
+		{
+			get { return this.ContextMenu; }
+		}
+
+		public void CreateTabPage(string name, object userControl)
 		{
 			//create new tabpage
 			var newTabpage = new TabPage
@@ -289,27 +309,28 @@ namespace Altman.Forms
 
 		}
 
-		#region Event
-
-		private void Tsmi_Setting_Click(object sender, EventArgs e)
+		public void CloseTabPage(string tabPageName)
 		{
-			//FormGlobalSetting setting = new FormGlobalSetting();
-			//setting.ShowDialog();
-		}
-
-		private void Tsmi_developerMode_Click(object sender, EventArgs e)
-		{
-			//splitContainer1.Panel1Collapsed = !Tsmi_developerMode.Checked;
-		}
-
-		private void Tsmi_ReloadShellType_Click(object sender, EventArgs e)
-		{
-			//InitUi.InitCustomShellType(AppEnvironment.AppPath);
-		}
-
-		private void Tsmi_ReloadSetting_Click(object sender, EventArgs e)
-		{
-			InitUi.InitGlobalSetting(AppEnvironment.AppPath);
+			if (Platform.IsWinForms || Platform.IsGtk)
+			{
+				var tab = _tabControl as TabControlPlus;
+				if (!tab.Pages.Any()) return;
+				var page = tab.Pages.FirstOrDefault(r => r.Text == tabPageName);
+				if (page != null)
+				{
+					tab.Pages.Remove(page);
+				}
+			}
+			else
+			{
+				var tab = _tabControl as TabControl;
+				if (tab.Pages.Any()) return;
+				var page = tab.Pages.FirstOrDefault(r => r.Text == tabPageName);
+				if (page != null)
+				{
+					tab.Pages.Remove(page);
+				}
+			}
 		}
 		#endregion
 	}

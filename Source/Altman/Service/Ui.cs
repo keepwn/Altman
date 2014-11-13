@@ -25,17 +25,12 @@ namespace Altman.Service
 		}
 		public void OpenTabPage(string tabPageName, object control)
 		{
-			_mainForm.CreateNewTabPage(tabPageName, control);
+			_mainForm.CreateTabPage(tabPageName, control);
 		}
 
 		public void CloseTabPage(string tabPageName)
 		{
-			//TODO: CloseTabPage
-		}
-
-		public void CloseTagPage(int index)
-		{
-			//TODO: CloseTabPage
+			_mainForm.CloseTabPage(tabPageName);
 		}
 
 		public object GetRightMenu()
