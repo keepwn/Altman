@@ -1,4 +1,4 @@
-## Altman
+## Altman3
 
 ```
 免责申明：本程序仅供学习和研究！
@@ -7,7 +7,7 @@
 ```
 
 ### 介绍
-**Altman** 是一款渗透测试软件，网站托管于Github Pages，[点击此处移步官网](http://altman.keepwn.com)。
+**Altman3** 是一款渗透测试软件，网站托管于Github Pages，[点击此处移步官网](http://altman.keepwn.com)。
 
 截至目前，它可以：
 
@@ -23,7 +23,7 @@
 - 插件服务机制：插件可以调用其它插件提供的服务
 
 ### 运行
-**Altman** 基于.Net4.0，依托Eto.Form可以完美运行在Windows、Linux、Mac等多个平台。
+**Altman3** 基于.Net4.0，依托Eto.Form可以完美运行在Windows、Linux、Mac等多个平台。
 
 - 在`Windows`下，
 	- 运行Altman.winform.exe，需要安装.Net4.0
@@ -32,12 +32,12 @@
 	- 运行Altman.gtk.exe，需要安装Mono(>=3.2.8),libgdiplus和gtk-sharp2
 - 在`OS X`下，
 	- 运行Altman.gtk.exe，需要安装Mono和gtk-sharp2
-	- 运行Altman.mac，需要安装Xcode
+	- 运行Altman.mac，需要安装Mono
 
 如果开启IronPython支持，则需要安装IronPython（或者自带安装）
 
 ### 插件
-**Altman**采用了MEF插件架构，同时支持IronPython。
+**Altman3**采用了MEF插件架构，同时支持IronPython。
 
 - 采用C#编写插件/服务
 - 采用IronPython编写插件/服务
