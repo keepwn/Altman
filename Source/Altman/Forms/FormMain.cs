@@ -58,7 +58,6 @@ namespace Altman.Forms
 			Init();
 			LoadPluginsInUi();
 			InitPlugins(PluginProvider.Plugins);
-			LoadServicesInUi();
 			//----导入插件结束----
 
 			//显示免责声明
@@ -66,6 +65,9 @@ namespace Altman.Forms
 
 			//auto call services
 			AutoLoadServices(PluginProvider.Services);
+
+			LoadServicesInUi();
+
 			//auto load plugins
 			AutoLoadPlugins(PluginProvider.Plugins);
 		}
@@ -171,8 +173,12 @@ namespace Altman.Forms
 				foreach (var name in serviceNames)
 				{
 					var serviceType = PluginServiceProvider.GetServiceTypeName(name);
-					var provider = PluginServiceProvider.GetServiceProvider(name).PluginInfo.Name;
-					var text = string.Format("[Provider:{0}] [Type:{1}] {2}", provider, serviceType, name);
+					var provider = PluginServiceProvider.GetServiceProvider(name);
+					var text = string.Format(
+						"[Provider:{0}] [Type:{1}] {2}",
+						provider != null ? provider.PluginInfo.Name : "",
+						serviceType,
+						name);
 					_servicesMenuItem.Items.Add(new ButtonMenuItem { Text = text });
 				}
 			}
