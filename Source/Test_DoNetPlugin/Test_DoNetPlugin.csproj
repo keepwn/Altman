@@ -72,7 +72,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -95,10 +94,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Altman.Util\Altman.Util.csproj">
-      <Project>{fbfbab99-6585-4360-ae7b-08842326a64c}</Project>
-      <Name>Altman.Util</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Altman.Plugin\Altman.Plugin.csproj">
       <Project>{86d5e7b9-d58b-41eb-81d9-fc548f055ee5}</Project>
       <Name>Altman.Plugin</Name>
