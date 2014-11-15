@@ -11,7 +11,7 @@
         /// </summary>
         int IndexInList { get; }
         /// <summary>
-        /// 加载路径
+        /// 插件装载点，默认为空，如果需要作为子插件，则可以填写父插件名。
         /// </summary>
         string LoadPath { get; }
     }
