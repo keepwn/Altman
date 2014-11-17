@@ -42,7 +42,7 @@
 - 采用C#编写插件/服务
 - 采用IronPython编写插件/服务
 
-**访问[wiki]来获取有关插件开发的帮助**
+**访问[wiki](https://github.com/keepwn/Altman/wiki)来获取有关插件开发的帮助**
 
 ### 版权
 本程序使用的是GPLv2协议，具体细节请参照根目录下的`LICENSE`文件。
