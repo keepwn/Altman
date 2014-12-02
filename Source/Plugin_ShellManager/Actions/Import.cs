@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Text;
+using Altman.Util.Data;
 using Altman.Webshell.Model;
 using Eto.Forms;
 using Plugin_ShellManager.Data;
@@ -120,28 +121,46 @@ namespace Plugin_ShellManager.Actions
 			}
 		}
 
+
+		private static DataTable GetAltmanDataTable()
+		{
+			try
+			{
+				var sql = string.Format("select * from {0};", "shell");
+				return SqliteHelper.ExecuteDataTable(sql, null);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			return new DataTable();
+		}
+
+		private static Shell ConvertAltmanDataRowToShell(DataRow row)
+		{
+			var shell = DataConvert.ConvertDataRowToShellStruct(row);
+			return shell;
+		}
+
 		public static void ImportAltmanShell()
 		{
 			var openFileDialog = new OpenFileDialog
 			{
 				Title = "Select Altman Database To Import",
-				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Altman Databases", ".db") }
+				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Altman Databases", ".db3") }
 			};
 			if (openFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)
 			{
 				var srcfile = openFileDialog.FileName;
-				var connString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;" +
-											   "Data Source={0};" +
-											   "Mode=Share Deny Read|Share Deny Write;Persist Security Info=False;" +
-											   "Jet OLEDB:Database Password=\"{1}\"", srcfile, pwd);
-				AccessHelper.ConnString = connString;
+				var connString = string.Format("Data Source={0}", srcfile);
+				SqliteHelper.DbConStr = connString;
 				try
 				{
-					var sites = GetCaiDaoSite();
+					var datas = GetAltmanDataTable();
 					var shellList = new List<Shell>();
-					foreach (DataRow row in sites.Rows)
+					foreach (DataRow row in datas.Rows)
 					{
-						shellList.Add(ConvertCaiDaoDataRowToShell(row));
+						shellList.Add(ConvertAltmanDataRowToShell(row));
 					}
 					foreach (var shell in shellList)
 					{
@@ -150,9 +169,6 @@ namespace Plugin_ShellManager.Actions
 					if (shellList.Count > 0)
 					{
 						MessageBox.Show(string.Format("Imported {0} Shell(s)", shellList.Count));
-						MessageBox.Show(
-							StrRes.GetString("StrImportCaidaoShellInfo",
-							"Although the data of caidao be imported successfully, but it's scriptType and Config are not compatible with altman, you may still need to modify some data manually."));
 					}
 				}
 				catch (Exception ex)

@@ -7,9 +7,9 @@ namespace Altman.Util.Data
     /// <summary>
     ///access数据库帮助类
     /// </summary>
-    internal static class AccessHelper
+	public static class AccessHelper
     {
-        private const string ConnString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=data.mdb";
+		private static string _connString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=data.mdb";
         private static OleDbConnection _conn = null;
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace Altman.Util.Data
         /// </summary>
         private static void OpenConnection()
         {
-            _conn = new OleDbConnection(ConnString); //创建实例
+            _conn = new OleDbConnection(_connString); //创建实例
             if (_conn.State == ConnectionState.Closed)
             {
                 try
@@ -37,13 +37,19 @@ namespace Altman.Util.Data
         /// </summary>
         private static void CloseConnection()
         {
-            if (_conn.State == ConnectionState.Open)
+			if (_conn!=null && _conn.State == ConnectionState.Open)
             {
                 _conn.Close();
                 _conn.Dispose();
             }
         }
-        
+
+	    public static string ConnString
+	    {
+			get { return _connString; }
+			set { _connString = value; }
+	    }
+
         /// <summary>
         /// 执行sql语句
         /// </summary>
@@ -97,7 +103,26 @@ namespace Altman.Util.Data
             }
             return flag;
 
-        }       
+        }
+
+		public static string ExecuteScalar(OleDbCommand cmd)
+		{
+			try
+			{
+				OpenConnection();
+				cmd.Connection = _conn;
+				object value = cmd.ExecuteScalar();
+				return value != null ? value.ToString() : "";
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+			finally
+			{
+				CloseConnection();
+			}
+		}
 
         /// <summary>
         /// 返回指定sql语句的OleDbDataReader对象，使用时请注意关闭这个对象
@@ -196,7 +221,7 @@ namespace Altman.Util.Data
         /// <summary>
         /// 返回指定sql语句的datatable
         /// </summary>
-        public static DataTable GetDataTable(OleDbCommand cmd, string sqlstr)
+        public static DataTable GetDataTable(OleDbCommand cmd)
         {
             DataTable dt = new DataTable();
             OleDbDataAdapter da = new OleDbDataAdapter();

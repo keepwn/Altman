@@ -10,7 +10,7 @@ namespace Altman.Util.Data
     /// <summary>
     /// sqlite数据库帮助类
     /// </summary>
-    internal class SqliteHelper
+    public static class SqliteHelper
     {
         /// <summary>
         /// 数据库连接配置
