@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
+using Plugin_ShellManager.Actions;
 using Plugin_ShellManager.Interface;
 
 namespace Plugin_ShellManager
@@ -13,7 +14,7 @@ namespace Plugin_ShellManager
         private PluginInfo _pluginInfo;
         private IPluginSetting _pluginSetting;
 		[Import(typeof(IHost))]
-        private IHost _host;
+		private IHost _host;
 
         public Plugin()
         {
@@ -33,13 +34,19 @@ namespace Plugin_ShellManager
 
 		public bool Load()
 		{
-			//new ShellManagerService().RegisterService(this);
+			ShellManager.Init(_host);
+			_host.Ui.GetMenuButton(
+				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Import CaiDao's Shells"),
+				Import.ImportCaidaoShell);
+			_host.Ui.GetMenuButton(
+				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Export Shells to Xml"),
+				Export.ExportShell);
 			return true;
 		}
 
         public object Show(PluginParameter data)
         {
-            return _userControl = new PanelShellManager(_host, data);
+	        return _userControl = new PanelShellManager(data);
         }
 
         public void Dispose()

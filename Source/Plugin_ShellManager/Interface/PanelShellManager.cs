@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading;
 using Altman.Plugin;
 using Altman.Plugin.Interface;
@@ -14,23 +18,15 @@ namespace Plugin_ShellManager.Interface
 {
 	public partial class PanelShellManager : Panel
 	{
-		private IHost _host;
-		private ShellManager _shellManager = null;
-
-		public PanelShellManager(IHost host, PluginParameter data)
+		public PanelShellManager(PluginParameter data)
 		{
-			_host = host;
-
-			// init StrRes to translate string
-			StrRes.SetHost(_host);
 			InitUi();
 
 			// 注册事件
-			_shellManager = new ShellManager(_host);
-			_shellManager.GetDataTableCompletedToDo += ShellManagerGetDataTableCompletedToDo;
-			_shellManager.DeleteCompletedToDo += ShellManagerDeleteCompletedToDo;
-			_shellManager.InsertCompletedToDo += ShellManagerInsertCompletedToDo;
-			_shellManager.UpdateCompletedToDo += ShellManagerUpdateCompletedToDo;
+			ShellManager.GetDataTableCompletedToDo += ShellManagerGetDataTableCompletedToDo;
+			ShellManager.DeleteCompletedToDo += ShellManagerDeleteCompletedToDo;
+			ShellManager.InsertCompletedToDo += ShellManagerInsertCompletedToDo;
+			ShellManager.UpdateCompletedToDo += ShellManagerUpdateCompletedToDo;
 
 			// 载入shell数据
 			LoadWebshellData();
@@ -76,7 +72,7 @@ namespace Plugin_ShellManager.Interface
 						//创建新的tab标签
 						//设置标题为FileManager|TargetId
 						string title = plugin.PluginInfo.Name + "|" + shell.TargetId;
-						_host.Ui.OpenTabPage(title, view);
+						ShellManager.Host.Ui.OpenTabPage(title, view);
 					}
 					else if (plugin is IFormPlugin)
 					{
@@ -92,7 +88,7 @@ namespace Plugin_ShellManager.Interface
 		/// </summary>
 		public void LoadWebshellData()
 		{
-			DataTable dataTable = _shellManager.GetDataTable();
+			DataTable dataTable = ShellManager.GetDataTable();
 			if (dataTable == null)
 			{
 				return;
@@ -239,7 +235,7 @@ namespace Plugin_ShellManager.Interface
 		}
 		void _itemAdd_Click(object sender, EventArgs e)
 		{
-			var editwebshell = new FormEditWebshell(_host);
+			var editwebshell = new FormEditWebshell();
 			editwebshell.WebshellWatchEvent += OnWebshellChange;
 			editwebshell.Show();
 		}
@@ -249,7 +245,7 @@ namespace Plugin_ShellManager.Interface
 			{
 				Shell shell = (Shell)_gridViewShell.SelectedItem;
 
-				FormEditWebshell editwebshell = new FormEditWebshell(_host, shell);
+				FormEditWebshell editwebshell = new FormEditWebshell(shell);
 				editwebshell.WebshellWatchEvent += OnWebshellChange;
 				editwebshell.Show();
 			}
@@ -259,7 +255,7 @@ namespace Plugin_ShellManager.Interface
 			if (_gridViewShell.SelectedItems.Any())
 			{
 				int id = int.Parse(((Shell)_gridViewShell.SelectedItem).Id);
-				_shellManager.Delete(id);
+				ShellManager.Delete(id);
 				LoadWebshellData();
 			}
 		}
@@ -335,7 +331,7 @@ namespace Plugin_ShellManager.Interface
 		private void RefreshShellStatusInListView(Shell item, string status)
 		{
 			item.Status = status;
-			_shellManager.Update(int.Parse(item.Id), item);
+			ShellManager.Update(int.Parse(item.Id), item);
 		}
 		#endregion
 

@@ -10,10 +10,15 @@ namespace Plugin_ShellManager
     /// <summary>
     /// ShellManager类,用于管理webshell
     /// </summary>
-    public class ShellManager
+    public static class ShellManager
     {
-        private IHost _host;
+        private static IHost _host;
         private const string Tablename = "shell";
+
+	    public static IHost Host
+	    {
+			get { return _host; }
+	    }
 
         public class CompletedEventArgs : EventArgs
         {
@@ -28,21 +33,15 @@ namespace Plugin_ShellManager
             }
         }
 
-        public event EventHandler<CompletedEventArgs> DeleteCompletedToDo;
-        public event EventHandler<CompletedEventArgs> InsertCompletedToDo;
-        public event EventHandler<CompletedEventArgs> UpdateCompletedToDo;
-        public event EventHandler<CompletedEventArgs> GetDataTableCompletedToDo;
-        public event EventHandler<CompletedEventArgs> RefreshShellStatusCompletedToDo;
+        public static event EventHandler<CompletedEventArgs> DeleteCompletedToDo;
+        public static event EventHandler<CompletedEventArgs> InsertCompletedToDo;
+        public static event EventHandler<CompletedEventArgs> UpdateCompletedToDo;
+        public static event EventHandler<CompletedEventArgs> GetDataTableCompletedToDo;
+        public static event EventHandler<CompletedEventArgs> RefreshShellStatusCompletedToDo;
 
-
-        public ShellManager(IHost host)
+		public static void Init(IHost host)
         {
-            this._host = host;
-            Init();
-        }
-
-        private void Init()
-        {
+			_host = host;
             List<string> definition = new List<string>
             {
                 "id INTEGER PRIMARY KEY",
@@ -59,14 +58,14 @@ namespace Plugin_ShellManager
                 "remark TEXT",
                 "add_time TEXT NOT NULL"
             };
-            _host.Database.InitTable(Tablename, definition.ToArray());
+			_host.Database.InitTable(Tablename, definition.ToArray());
         }
 
         /// <summary>
         /// 删除数据
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(int id)
+		public static void Delete(int id)
         {
             Exception error = null;
             try
@@ -82,13 +81,13 @@ namespace Plugin_ShellManager
                     DeleteCompletedToDo(null, new CompletedEventArgs(error));
                 }
             }
-
         }
+
         /// <summary>
         /// 插入数据
         /// </summary>
         /// <param name="model"></param>
-        public void Insert(Shell model)
+		public static void Insert(Shell model)
         {
             Exception error = null;
             try
@@ -120,12 +119,13 @@ namespace Plugin_ShellManager
                 }
             }
         }
+
         /// <summary>
         /// 更新数据
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public void Update(int id, Shell model)
+		public static void Update(int id, Shell model)
         {
             Exception error = null;
             try
@@ -158,11 +158,12 @@ namespace Plugin_ShellManager
                 }
             }
         }
+
         /// <summary>
         /// 获取数据库表
         /// </summary>
         /// <returns></returns>
-        public DataTable GetDataTable()
+		public static DataTable GetDataTable()
         {
             Exception error = null;
             try

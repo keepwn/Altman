@@ -14,15 +14,9 @@ namespace Plugin_ShellManager.Interface
     {
         private string Id;
 
-        private IHost _host;
-        private ShellManager _shellManager = null;
-
-        public FormEditWebshell(IHost host)
+        public FormEditWebshell()
         {
             InitUi();
-            
-            this._host = host;
-            _shellManager = new ShellManager(_host);
 
             //init
             ComboBox_ScriptType_Init();
@@ -31,13 +25,9 @@ namespace Plugin_ShellManager.Interface
             _buttonAlter.Enabled = false;
         }
 
-        public FormEditWebshell(IHost host, Shell shellArray)
+        public FormEditWebshell(Shell shellArray)
         {
             InitUi();
-
-            this._host = host;
-            _shellManager = new ShellManager(_host);
-
 
             //init
             ComboBox_ScriptType_Init();
@@ -124,7 +114,7 @@ namespace Plugin_ShellManager.Interface
 			if (!VerifyShell(shell))
 		        return;
 
-            _shellManager.Insert(shell);
+	        ShellManager.Insert(shell);
             OnWebshellChange(EventArgs.Empty);
             Close();
         }
@@ -136,7 +126,7 @@ namespace Plugin_ShellManager.Interface
 			if (!VerifyShell(shell))
 				return;
 
-            _shellManager.Update(int.Parse(shell.Id), shell);
+			ShellManager.Update(int.Parse(shell.Id), shell);
             OnWebshellChange(EventArgs.Empty);
             Close();
         }
