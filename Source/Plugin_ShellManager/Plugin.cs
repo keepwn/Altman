@@ -39,8 +39,11 @@ namespace Plugin_ShellManager
 				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Import CaiDao's Shells"),
 				Import.ImportCaidaoShell);
 			_host.Ui.GetMenuButton(
-				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Import Altman's Shells"),
+				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Import Altman's Shells From db3"),
 				Import.ImportAltmanShell);
+			_host.Ui.GetMenuButton(
+				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Import Altman's Shells From Xml"),
+				Import.ImportAltmanShellFromXml);
 			_host.Ui.GetMenuButton(
 				string.Format("Plugins/{0}/{1}", _pluginInfo.Name, "Export Shells to Xml"),
 				Export.ExportShell);

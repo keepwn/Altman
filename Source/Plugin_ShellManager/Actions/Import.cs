@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using Altman.Util.Data;
 using Altman.Webshell.Model;
 using Eto.Forms;
@@ -14,6 +16,8 @@ namespace Plugin_ShellManager.Actions
 {
 	public class Import
 	{
+		#region ImportCaidaoShell
+
 		private static DataTable GetCaiDaoSite()
 		{
 			var cmd = "select SITE.ID, " +
@@ -121,6 +125,9 @@ namespace Plugin_ShellManager.Actions
 			}
 		}
 
+		#endregion
+
+		#region ImportAltmanShell
 
 		private static DataTable GetAltmanDataTable()
 		{
@@ -177,5 +184,76 @@ namespace Plugin_ShellManager.Actions
 				}
 			}
 		}
+
+		#endregion
+
+		#region MyRegion
+
+		private static string GetAltmanXml(string path)
+		{
+			var xmldoc = new XmlDocument();
+			xmldoc.Load(path);
+			return xmldoc.OuterXml;
+		}
+
+		private static DataTable ConvertXmlToDataTable(string xmlData)
+		{
+			StringReader stream = null;
+			XmlTextReader reader = null;
+			try
+			{
+				var ds = new DataSet();
+				stream = new StringReader(xmlData);
+				reader = new XmlTextReader(stream);
+				ds.ReadXml(reader);
+				return ds.Tables[0];
+			}
+			catch (Exception ex)
+			{
+				return new DataTable();
+			}
+			finally
+			{
+				if (reader != null)
+					reader.Close();
+			}
+		}
+
+		public static void ImportAltmanShellFromXml()
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				Title = "Select Altman Xml To Import",
+				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Altman Xml", ".xml") }
+			};
+			if (openFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)
+			{
+				var srcfile = openFileDialog.FileName;
+				try
+				{
+					var xmlString = GetAltmanXml(srcfile);
+					var datas = ConvertXmlToDataTable(xmlString);
+					var shellList = new List<Shell>();
+					foreach (DataRow row in datas.Rows)
+					{
+						shellList.Add(ConvertAltmanDataRowToShell(row));
+					}
+					foreach (var shell in shellList)
+					{
+						ShellManager.Insert(shell);
+					}
+					if (shellList.Count > 0)
+					{
+						MessageBox.Show(string.Format("Imported {0} Shell(s)", shellList.Count));
+					}
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+				}
+			}
+		}
+
+		#endregion
 	}
 }
