@@ -7,6 +7,7 @@ namespace Altman.Util.Data
     public static class Db
     {
         private static string _databasePath = "";
+	    private static string _connectionString = "";
 
 		public static void Init(string databasePath)
 		{
@@ -27,7 +28,7 @@ namespace Altman.Util.Data
                 SqliteHelper.CreateDb(dbPath);
             }
             //设置数据库连接语句
-            SqliteHelper.DbConStr=string.Format("Data Source={0}", _databasePath);
+			_connectionString = string.Format("Data Source={0}", _databasePath);
         }
         /// <summary>
         /// 检查数据库表
@@ -35,7 +36,7 @@ namespace Altman.Util.Data
         public static bool CheckTable(string tableName)
         {
             //判断数据库是否含有指定表
-            DataTable dt = SqliteHelper.GetSchema();
+			DataTable dt = SqliteHelper.GetSchema(_connectionString);
             bool isAvailableDb = false;
             foreach (DataRow row in dt.Rows)
             {
@@ -52,28 +53,28 @@ namespace Altman.Util.Data
         /// </summary>
         public static bool InitTable(string tableName, string[] definition)
         {
-            return CheckTable(tableName) || SqliteHelper.CreateTable(tableName, definition);
+			return CheckTable(tableName) || SqliteHelper.CreateTable(_connectionString, tableName, definition);
         }
         /// <summary>
         /// 删除数据
         /// </summary>
         public static bool Delete(string tableName, KeyValuePair<string,object> where)
         {
-            return SqliteHelper.Delete(tableName, where);
+			return SqliteHelper.Delete(_connectionString, tableName, where);
         }
         /// <summary>
         /// 插入数据
         /// </summary>
         public static bool Insert(string tableName, Dictionary<string, object> data)
         {
-            return SqliteHelper.Insert(tableName, data);
+			return SqliteHelper.Insert(_connectionString, tableName, data);
         }
         /// <summary>
         /// 更新数据
         /// </summary>
         public static bool Updata(string tableName, Dictionary<string, object> data, KeyValuePair<string,object> where)
         {
-            return SqliteHelper.Update(tableName, data, where);
+			return SqliteHelper.Update(_connectionString, tableName, data, where);
         }
         /// <summary>
         /// 获取数据库表
@@ -81,7 +82,7 @@ namespace Altman.Util.Data
         public static DataTable GetDataTable(string tableName)
         {
             string sql = string.Format("select * from {0};", tableName);
-            return SqliteHelper.ExecuteDataTable(sql,null);
+	        return SqliteHelper.ExecuteDataTable(_connectionString, sql, null);
         }
     }
 }

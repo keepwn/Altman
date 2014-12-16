@@ -13,12 +13,12 @@ namespace Plugin_ShellManager.Actions
 {
 	public class Export
 	{
-		private static DataTable GetAltmanDataTable()
+		private static DataTable GetAltmanDataTable(string connectionString)
 		{
 			try
 			{
 				var sql = string.Format("select * from {0};", "shell");
-				return SqliteHelper.ExecuteDataTable(sql, null);
+				return SqliteHelper.ExecuteDataTable(connectionString, sql, null);
 			}
 			catch (Exception ex)
 			{
@@ -74,10 +74,9 @@ namespace Plugin_ShellManager.Actions
 			{
 				var srcfile = saveFileDialog.FileName;
 				var connString = string.Format("Data Source={0}", Path.Combine(ShellManager.Host.App.AppCurrentDir, "data.db3"));
-				SqliteHelper.DbConStr = connString;
 				try
 				{
-					var dt = GetAltmanDataTable();
+					var dt = GetAltmanDataTable(connString);
 					if (dt.Rows.Count > 0)
 					{
 						var xmlString = ConvertAltmanDataTableToXml(dt);

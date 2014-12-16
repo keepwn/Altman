@@ -129,12 +129,12 @@ namespace Plugin_ShellManager.Actions
 
 		#region ImportAltmanShell
 
-		private static DataTable GetAltmanDataTable()
+		private static DataTable GetAltmanDataTable(string connectionString)
 		{
 			try
 			{
 				var sql = string.Format("select * from {0};", "shell");
-				return SqliteHelper.ExecuteDataTable(sql, null);
+				return SqliteHelper.ExecuteDataTable(connectionString, sql, null);
 			}
 			catch (Exception ex)
 			{
@@ -160,10 +160,9 @@ namespace Plugin_ShellManager.Actions
 			{
 				var srcfile = openFileDialog.FileName;
 				var connString = string.Format("Data Source={0}", srcfile);
-				SqliteHelper.DbConStr = connString;
 				try
 				{
-					var datas = GetAltmanDataTable();
+					var datas = GetAltmanDataTable(connString);
 					var shellList = new List<Shell>();
 					foreach (DataRow row in datas.Rows)
 					{

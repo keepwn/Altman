@@ -12,16 +12,6 @@ namespace Altman.Util.Data
     /// </summary>
     public static class SqliteHelper
     {
-        /// <summary>
-        /// 数据库连接配置
-        /// </summary>
-        private static string _dbConStr = "";
-        public static string DbConStr
-        {
-            get { return _dbConStr; }
-            set { _dbConStr = value; }
-        }
-
         private static SqliteParameter CreateParameter(string paramName, DbType paramType, object paramValue)
         {
             var param = new SqliteParameter();
@@ -145,9 +135,9 @@ namespace Altman.Util.Data
         /// 获取所有数据类型信息
         /// </summary>
         /// <returns></returns>
-        public static DataTable GetSchema()
+		public static DataTable GetSchema(string connectionString)
         {
-            using (var connection = new SqliteConnection(_dbConStr))
+			using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
                 DataTable dt = connection.GetSchema("TABLES");
@@ -155,15 +145,16 @@ namespace Altman.Util.Data
             }
         }
 
-        /// <summary>
-        /// 执行查询语句，返回IDataReader实例
-        /// </summary>
-        /// <param name="sql">查询语句</param>
-        /// <param name="sqlParams">查询语句所需要的参数</param>
-        /// <returns></returns>
-        public static IDataReader ExecuteReader(string sql, object[] sqlParams)
+	    /// <summary>
+	    /// 执行查询语句，返回IDataReader实例
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="sql">查询语句</param>
+	    /// <param name="sqlParams">查询语句所需要的参数</param>
+	    /// <returns></returns>
+	    public static IDataReader ExecuteReader(string connectionString, string sql, object[] sqlParams)
         {
-            using (var connection = new SqliteConnection(_dbConStr))
+			using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
 
@@ -172,15 +163,16 @@ namespace Altman.Util.Data
             }
         }
 
-        /// <summary>
-        /// 执行查询语句，获取包含查询结果的datatable
-        /// </summary>
-        /// <param name="sql">查询语句</param>
-        /// <param name="sqlParams">查询语句所需要的参数</param>
-        /// <returns></returns>
-        public static DataTable ExecuteDataTable(string sql, object[] sqlParams)
+	    /// <summary>
+	    /// 执行查询语句，获取包含查询结果的datatable
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="sql">查询语句</param>
+	    /// <param name="sqlParams">查询语句所需要的参数</param>
+	    /// <returns></returns>
+	    public static DataTable ExecuteDataTable(string connectionString, string sql, object[] sqlParams)
         {
-            using (var connection = new SqliteConnection(_dbConStr))
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
 
@@ -196,15 +188,16 @@ namespace Altman.Util.Data
             }
         }
 
-        /// <summary>
-        /// 执行查询语句，返回查询结果的第一行第一列
-        /// </summary>
-        /// <param name="sql">查询语句</param>
-        /// <param name="sqlParams">查询语句所需要的参数</param>
-        /// <returns></returns>
-        public static string ExecuteScalar(string sql, object[] sqlParams)
+	    /// <summary>
+	    /// 执行查询语句，返回查询结果的第一行第一列
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="sql">查询语句</param>
+	    /// <param name="sqlParams">查询语句所需要的参数</param>
+	    /// <returns></returns>
+	    public static string ExecuteScalar(string connectionString, string sql, object[] sqlParams)
         {
-            using (var connection = new SqliteConnection(_dbConStr))
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
 
@@ -214,16 +207,17 @@ namespace Altman.Util.Data
             }
         }
 
-        /// <summary>
-        /// 执行查询语句，返回受影响的行数
-        /// </summary>
-        /// <param name="sql">查询语句</param>
-        /// <param name="sqlParams">查询语句所需要的参数</param>
-        /// <returns></returns>
-        public static int ExecuteNonQuery(string sql, object[] sqlParams)
+	    /// <summary>
+	    /// 执行查询语句，返回受影响的行数
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="sql">查询语句</param>
+	    /// <param name="sqlParams">查询语句所需要的参数</param>
+	    /// <returns></returns>
+	    public static int ExecuteNonQuery(string connectionString, string sql, object[] sqlParams)
         {
             int affectedRows = 0;
-            using (var connection = new SqliteConnection(_dbConStr))
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
                 using (var transaction = connection.BeginTransaction())
@@ -237,14 +231,15 @@ namespace Altman.Util.Data
         }
 
 
-        /// <summary>
-        /// 更新操作
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="data">需要更新的键值对（列名，列值）</param>
-        /// <param name="where">判断表达式</param>
-        /// <returns></returns>
-        public static bool Update(string tableName, Dictionary<string, object> data, KeyValuePair<string, object> where)
+	    /// <summary>
+	    /// 更新操作
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="tableName">表名</param>
+	    /// <param name="data">需要更新的键值对（列名，列值）</param>
+	    /// <param name="where">判断表达式</param>
+	    /// <returns></returns>
+	    public static bool Update(string connectionString, string tableName, Dictionary<string, object> data, KeyValuePair<string, object> where)
         {
             bool returnCode = true;
 
@@ -257,7 +252,7 @@ namespace Altman.Util.Data
             try
             {
                 string sql = string.Format("update {0} set {1} where {2};", tableName, columnsStr, whereStr);
-                ExecuteNonQuery(sql, valuesList.ToArray());
+				ExecuteNonQuery(connectionString, sql, valuesList.ToArray());
             }
             catch
             {
@@ -265,13 +260,15 @@ namespace Altman.Util.Data
             }
             return returnCode;
         }
-        /// <summary>
-        /// 删除操作
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="where">判断表达式</param>
-        /// <returns></returns>
-        public static bool Delete(string tableName, KeyValuePair<string, object> where)
+
+	    /// <summary>
+	    /// 删除操作
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="tableName">表名</param>
+	    /// <param name="where">判断表达式</param>
+	    /// <returns></returns>
+	    public static bool Delete(string connectionString, string tableName, KeyValuePair<string, object> where)
         {
             bool returnCode = true;
 
@@ -279,7 +276,7 @@ namespace Altman.Util.Data
             try
             {
                 string sql = string.Format("delete from {0} where {1};", tableName, whereStr);
-                ExecuteNonQuery(sql, new object[]{where.Value});
+                ExecuteNonQuery(connectionString, sql, new object[]{where.Value});
             }
             catch
             {
@@ -287,13 +284,15 @@ namespace Altman.Util.Data
             }
             return returnCode;
         }
-        /// <summary>
-        /// 插入操作
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="data">需要插入的键值对（列名，列值）</param>
-        /// <returns></returns>
-        public static bool Insert(string tableName, Dictionary<string, object> data)
+
+	    /// <summary>
+	    /// 插入操作
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="tableName">表名</param>
+	    /// <param name="data">需要插入的键值对（列名，列值）</param>
+	    /// <returns></returns>
+	    public static bool Insert(string connectionString, string tableName, Dictionary<string, object> data)
         {
             bool returnCode = true;
 
@@ -304,7 +303,7 @@ namespace Altman.Util.Data
             try
             {
                 string sql = string.Format("insert into {0}({1}) values({2});", tableName, columnsStr,paramsStr);
-                ExecuteNonQuery(sql,valuesList.ToArray());
+                ExecuteNonQuery(connectionString, sql,valuesList.ToArray());
             }
             catch
             {
@@ -330,20 +329,22 @@ namespace Altman.Util.Data
             }
             return returnCode;
         }
-        /// <summary>
-        /// 创建表
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="definition">表的定义</param>
-        /// <returns></returns>
-        public static bool CreateTable(string tableName, string[] definition)
+
+	    /// <summary>
+	    /// 创建表
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="tableName">表名</param>
+	    /// <param name="definition">表的定义</param>
+	    /// <returns></returns>
+	    public static bool CreateTable(string connectionString, string tableName, string[] definition)
         {
             bool returnCode = true;
             try
             {
                 string values = string.Join(", ", definition);
                 string sql = string.Format("create table {0}({1});", tableName, values);
-                ExecuteNonQuery(sql,null);
+	            ExecuteNonQuery(connectionString, sql, null);
             }
             catch
             {
@@ -351,18 +352,20 @@ namespace Altman.Util.Data
             }
             return returnCode;
         }
-        /// <summary>
-        /// 清空表
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <returns></returns>
-        public static bool ClearTable(string tableName)
+
+	    /// <summary>
+	    /// 清空表
+	    /// </summary>
+	    /// <param name="connectionString"></param>
+	    /// <param name="tableName">表名</param>
+	    /// <returns></returns>
+	    public static bool ClearTable(string connectionString, string tableName)
         {
             bool returnCode = true;
             try
             {
                 string sql = string.Format("delete from {0};", tableName);
-                ExecuteNonQuery(sql,null);
+	            ExecuteNonQuery(connectionString, sql, null);
             }
             catch
             {
@@ -374,16 +377,16 @@ namespace Altman.Util.Data
         /// 清空数据库
         /// </summary>
         /// <returns></returns>
-        public static bool ClearDb()
+        public static bool ClearDb(string connectionString)
         {
             bool returnCode = true;
             try
             {
                 string sql = "select NAME from SQLITE_MASTER where type='table' order by NAME;";
-                DataTable tables = ExecuteDataTable(sql,null);
+				DataTable tables = ExecuteDataTable(connectionString, sql, null);
                 foreach (DataRow table in tables.Rows)
                 {
-                    ClearTable(table["NAME"].ToString());
+	                ClearTable(connectionString, table["NAME"].ToString());
                 }
             }
             catch
