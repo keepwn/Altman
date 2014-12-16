@@ -186,7 +186,7 @@ namespace Plugin_ShellManager.Actions
 
 		#endregion
 
-		#region MyRegion
+		#region ImportAltmanShellFromXml
 
 		private static string GetAltmanXml(string path)
 		{
