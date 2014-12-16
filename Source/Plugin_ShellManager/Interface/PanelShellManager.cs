@@ -243,6 +243,7 @@ namespace Plugin_ShellManager.Interface
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
+				// only get first row
 				Shell shell = (Shell)_gridViewShell.SelectedItem;
 
 				FormEditWebshell editwebshell = new FormEditWebshell(shell);
@@ -254,8 +255,12 @@ namespace Plugin_ShellManager.Interface
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
-				int id = int.Parse(((Shell)_gridViewShell.SelectedItem).Id);
-				ShellManager.Delete(id);
+				// can multi-row
+				foreach (var item in _gridViewShell.SelectedItems.OfType<Shell>())
+				{
+					int id = int.Parse(item.Id);
+					ShellManager.Delete(id);
+				}
 				LoadWebshellData();
 			}
 		}
@@ -263,6 +268,7 @@ namespace Plugin_ShellManager.Interface
 		{
 			if (_gridViewShell.SelectedItems.Any())
 			{
+				// only get first row
 				var shell = _gridViewShell.SelectedItem as Shell;
 				string code = Altman.Webshell.Service.GetCustomShellTypeServerCode(shell.ShellType);
 
@@ -278,15 +284,22 @@ namespace Plugin_ShellManager.Interface
 		#region 批量检测shell状态
 		void _itemRefreshStatus_Click(object sender, EventArgs e)
 		{
-			RefreshAllStatus();
+			RefreshStatusOfSelectedRows();
 		}
-		private void RefreshAllStatus()
+		private void RefreshStatusOfSelectedRows()
 		{
-			if (_gridViewShell.DataStore == null) return;
-			foreach (var item in _gridViewShell.DataStore as DataStoreCollection<Shell>)
+			if (_gridViewShell.SelectedItems.Any())
 			{
-				Thread thread = new Thread(RefreshStatus);
-				thread.Start(item);
+				// can multi-row
+				foreach (var item in _gridViewShell.SelectedItems.OfType<Shell>())
+				{
+					Thread thread = new Thread(RefreshStatus);
+					thread.Start(item);
+				}
+			}
+			else
+			{
+				MessageBox.Show(_gridViewShell, "please select at least one shell");
 			}
 		}
 		private void RefreshStatus(object shellData)
@@ -330,8 +343,11 @@ namespace Plugin_ShellManager.Interface
 
 		private void RefreshShellStatusInListView(Shell item, string status)
 		{
+			// update status to database
 			item.Status = status;
 			ShellManager.Update(int.Parse(item.Id), item);
+			// refresh
+			Application.Instance.Invoke(LoadWebshellData);
 		}
 		#endregion
 

@@ -58,7 +58,7 @@ namespace Plugin_ShellManager.Interface
 			//_gridViewHeader
 			var gridView = new GridView()
 			{
-				AllowMultipleSelection = false,
+				AllowMultipleSelection = true,
 				BackgroundColor = Colors.White,
 				ShowCellBorders = false,
 			};
