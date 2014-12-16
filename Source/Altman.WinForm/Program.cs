@@ -64,7 +64,7 @@ namespace Altman
 			Style.Add<TextBoxHandler>(null, h =>
 			{
 				h.Control.Font = new System.Drawing.Font(h.Control.Font.FontFamily, 9.5F, System.Drawing.FontStyle.Regular);
-				h.Control.ImeMode = System.Windows.Forms.ImeMode.Disable;
+				//h.Control.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			});
 			//Style.Add<Eto.WinForms.ButtonHandler>(null, h =>
 			//{
