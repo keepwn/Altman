@@ -25,7 +25,12 @@ namespace Plugin_FileManager.Actions
 			var openFileDialog = new OpenFileDialog
 			{
 				Title = "Select File To Upload",
-				Filters = GetFilters(),
+				Filters =
+				{
+					new FileDialogFilter("Script Files", ".asp", ".aspx", ".php", ".jsp"),
+					new FileDialogFilter("Program", ".exe", ".bat"),
+					new FileDialogFilter("All Files", ".*")
+				}
 			};
 			if (openFileDialog.ShowDialog(_status.FileGridView) == DialogResult.Ok)
 			{
@@ -35,13 +40,6 @@ namespace Plugin_FileManager.Actions
 				string targetFilePath = Path.Combine(currentDirPath, fileName);
 				UploadFile(srcfile, targetFilePath);
 			}
-		}
-
-		private static IEnumerable<IFileDialogFilter> GetFilters()
-		{
-			yield return new FileDialogFilter("Script Files", ".asp", ".aspx", ".php", ".jsp");
-			yield return new FileDialogFilter("Program", ".exe",".bat");
-			yield return new FileDialogFilter("All Files", ".*");
 		}
 
 		private void UploadFile(string sourceFilePath, string targetFilePath)

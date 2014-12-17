@@ -12,7 +12,7 @@ class PluginInfo(IPluginInfo):
         return 'IronPythonPluginTest.py'
     @property
     def Version(self):
-        return '1.0' 
+        return '1.4.0' 
     @property
     def Author(self):
         return 'Keepwn'

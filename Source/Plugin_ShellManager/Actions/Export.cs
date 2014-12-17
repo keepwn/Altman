@@ -67,7 +67,7 @@ namespace Plugin_ShellManager.Actions
 			var saveFileDialog = new SaveFileDialog
 			{
 				Title = "Export to ...",
-				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Altman Xml", ".xml") }
+				Filters = {new FileDialogFilter("Altman Xml", ".xml")}
 			};
 
 			if (saveFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)

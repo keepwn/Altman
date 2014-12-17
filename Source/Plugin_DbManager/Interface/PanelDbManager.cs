@@ -412,9 +412,10 @@ namespace Plugin_DbManager.Interface
 			object dataSource = _gridViewResult.DataStore;
 			if (dataSource != null)
 			{
-				var saveFileDialog = new SaveFileDialog();
-				var filters = new List<IFileDialogFilter> {new FileDialogFilter("CSV|*.CSV")};
-				saveFileDialog.Filters = filters;
+				var saveFileDialog = new SaveFileDialog
+				{
+					Filters = { new FileDialogFilter("CSV|*.CSV") }
+				};
 				if (DialogResult.Ok == saveFileDialog.ShowDialog(_gridViewResult))
 				{
 					var fileName = saveFileDialog.FileName;

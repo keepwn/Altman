@@ -86,7 +86,7 @@ namespace Plugin_ShellManager.Actions
 			var openFileDialog = new OpenFileDialog
 			{
 				Title = "Select Caidao Databse To Import",
-				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Caidao Databses", ".mdb") }
+				Filters = {new FileDialogFilter("Caidao Databses", ".mdb")}
 			};
 			if (openFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)
 			{
@@ -154,7 +154,7 @@ namespace Plugin_ShellManager.Actions
 			var openFileDialog = new OpenFileDialog
 			{
 				Title = "Select Altman Database To Import",
-				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Altman Databases", ".db3") }
+				Filters = {new FileDialogFilter("Altman Databases", ".db3")}
 			};
 			if (openFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)
 			{
@@ -223,7 +223,7 @@ namespace Plugin_ShellManager.Actions
 			var openFileDialog = new OpenFileDialog
 			{
 				Title = "Select Altman Xml To Import",
-				Filters = new List<IFileDialogFilter> { new FileDialogFilter("Altman Xml", ".xml") }
+				Filters = {new FileDialogFilter("Altman Xml", ".xml")}
 			};
 			if (openFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)
 			{
