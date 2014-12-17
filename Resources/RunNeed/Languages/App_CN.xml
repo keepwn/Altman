@@ -23,7 +23,7 @@ Altman工具支持插件扩展，作为插件的开发者，需严格遵循本�
         <String id="StrQuit" >退出</String>
         <String id="StrClose" >关闭</String>
         <String id="StrSaveAndExit" >保存并退出</String>
-        <String id="StrMenu" >菜单</String>
+        <String id="StrFile" >文件</String>
         <String id="StrOptions" >选项</String>
         <String id="StrSetting" >设置</String>
         <String id="StrServices" >服务</String>

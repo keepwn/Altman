@@ -24,41 +24,46 @@ namespace Altman.Forms
 		}
 		MenuBar GenerateMenuBar()
 		{
-			//创建标准系统菜单
-			var menuBar = MenuBar.CreateStandardMenu();
-			menuBar.Trim = false;
-
-			//添加菜单内容
-			var menu = menuBar.Items.GetSubmenu(AltStrRes.Menu, 0);
-			menu.ID = "Menu";
-			var services = _servicesMenuItem = menuBar.Items.GetSubmenu(AltStrRes.Services, 10);
-			services.ID = "Services";
-			var plugins = _pluginsMenuItem = menuBar.Items.GetSubmenu(AltStrRes.Plugins, 20);
-			plugins.ID = "Plugins";
-			var help = menuBar.Items.GetSubmenu(AltStrRes.Help, 1000);
-			help.ID = "Help";
-
-			var about = new Actions.About();
 			var docs = new Actions.Docs();
+			var about = new Actions.About();
 			var quit = new Actions.Quit();
 			var setting = new Actions.Setting();
 
-			if (Platform.IsMac)
+			//var file = new ButtonMenuItem {Text = AltStrRes.File, ID = "File"};
+			var service = _servicesMenuItem = new ButtonMenuItem { Text = AltStrRes.Services, ID = "Services" };
+			var plugin = _pluginsMenuItem = new ButtonMenuItem { Text = AltStrRes.Plugins, ID = "Plugins" };
+			//var help = new ButtonMenuItem { Text = AltStrRes.Help, ID = "Help" };
+
+			var menuBar = new MenuBar
 			{
-				//适合 OS X style
-				var main = menuBar.Items.GetSubmenu(Application.Instance.Name, 0);
-				main.Items.Add(about, 0);
-				main.Items.AddSeparator();
-				main.Items.Add(setting, 100);
-				main.Items.AddSeparator();
-				main.Items.Add(quit, 1000);
+				Trim = false,
+				Items =
+				{
+					service,
+					plugin
+				},
+				ApplicationItems =
+				{
+					setting
+				},
+				HelpItems =
+				{
+					docs
+				},
+				QuitItem = quit,
+				AboutItem = about,
+				IncludeSystemItems = MenuBarSystemItems.None
+			};
+			var file = menuBar.ApplicationMenu;
+			file.ID = "File";
+			if (!Platform.IsMac)
+			{
+				file.Text = AltStrRes.File;
 			}
 
-			//适合 windows/gtk style
-			menu.Items.Add(setting, 0);
-			menu.Items.Add(quit, 10);
-			help.Items.Add(about);
-			help.Items.Add(docs);
+			var help = menuBar.HelpMenu;
+			help.ID = "Help";
+			help.Text = AltStrRes.Help;
 
 			return menuBar;
 		}

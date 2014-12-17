@@ -23,7 +23,7 @@ namespace Altman.Resources
 			_quit = GetString(table, "StrQuit", _quit);
 			_close = GetString(table, "StrClose", _close);
 			_saveAndExit = GetString(table, "StrSaveAndExit", _saveAndExit);
-			_menu = GetString(table, "StrMenu", _menu);
+			_file = GetString(table, "StrFile", _file);
 			_options = GetString(table, "StrOptions", _options);
 			_services = GetString(table, "StrServices", _services);
 			_setting = GetString(table, "StrSetting", _setting);
@@ -167,9 +167,9 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _title; }
 		}
 
-		public static string Menu
+		public static string File
 		{
-			get { return _menu; }
+			get { return _file; }
 		}
 
 		public static string Services
@@ -252,7 +252,7 @@ This statement applies to local laws, users and software authors agreed to obey 
 		private static string _close = @"Close";
 		private static string _saveAndExit = @"SaveAndExit";
 
-		private static string _menu = @"Menu";
+		private static string _file = @"File";
 		private static string _options = @"Options";
 		private static string _setting = @"Setting";
 		private static string _services = @"Services";
