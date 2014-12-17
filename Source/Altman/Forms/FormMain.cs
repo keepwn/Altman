@@ -128,33 +128,23 @@ namespace Altman.Forms
 				var pluginRun = new Command()
 				{
 					ID = "Show",
-					MenuText = "Show",
+					MenuText = "Show " + title,
 					Tag = plugin,
 				};
 				pluginRun.Executed += pluginRun_Click;
 				item.Items.Add(pluginRun);
 			}
 
-			// 添加About按钮
-			var pluginAbout = new Command()
-			{
-				ID = "About",
-				MenuText = "About",
-				Tag = plugin,
-			};
-			pluginAbout.Executed += pluginAbout_Click;
-			pluginAbout.Tag = plugin;
-			item.Items.Add(pluginAbout);
-
 			// 添加子插件按钮
 			var childs = PluginProvider.GetChildPlugins(plugin);
 			if (childs.Any())
 			{
-				item.Items.AddSeparator();
+				item.Items.AddSeparator(80000 - 1);
 				var pluginChild = new ButtonMenuItem()
 				{
 					ID = "Childs",
-					Text = "Child Plugins"
+					Text = "Child Plugins",
+					Order = 80000
 				};
 				foreach (var c in childs)
 				{
@@ -162,6 +152,19 @@ namespace Altman.Forms
 				}
 				item.Items.Add(pluginChild);
 			}
+			// 添加分隔符
+			item.Items.AddSeparator(90000 - 1);
+			// 添加About按钮
+			var pluginAbout = new Command()
+			{
+				ID = "About",
+				MenuText = "About",
+				Tag = plugin
+			};
+			pluginAbout.Executed += pluginAbout_Click;
+			pluginAbout.Tag = plugin;
+			item.Items.Add(pluginAbout, 90000);
+		
 			return item;
 		}
 
