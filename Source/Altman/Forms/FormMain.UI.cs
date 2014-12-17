@@ -75,18 +75,18 @@ namespace Altman.Forms
 
 		Control GenerateContent()
 		{
-
 			if (Platform.IsWinForms || Platform.IsGtk)
 			{
 				var tabControl = new TabControlPlus();
+				tabControl.Pages.Add(new TabPage { Text = "Index", Content = new PanelIndex() });
 				_tabControl = tabControl;
 			}
 			else
 			{
 				var tabControl = new TabControl();
+				tabControl.Pages.Add(new TabPage { Text = "Index", Content = new PanelIndex() });
 				_tabControl = tabControl;
 			}
-
 
 			var layout = new DynamicLayout();
 			layout.Add(_tabControl, yscale: true);

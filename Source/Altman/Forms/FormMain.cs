@@ -301,22 +301,20 @@ namespace Altman.Forms
 			if (Platform.IsWinForms || Platform.IsGtk)
 			{
 				var tab = _tabControl as TabControlPlus;
-				if (!tab.Pages.Any())
+				if (tab != null)
 				{
-					tab.Pages.Add(new TabPage { Text = "Index", Content = new PanelIndex() });
+					tab.Pages.Add(newTabpage);
+					tab.SelectedPage = newTabpage;
 				}
-				tab.Pages.Add(newTabpage);
-				tab.SelectedPage = newTabpage;
 			}
 			else
 			{
 				var tab = _tabControl as TabControl;
-				if (!tab.Pages.Any())
+				if (tab != null)
 				{
-					tab.Pages.Add(new TabPage { Text = "Index", Content = new PanelIndex() });
+					tab.Pages.Add(newTabpage);
+					tab.SelectedPage = newTabpage;
 				}
-				tab.Pages.Add(newTabpage);
-				tab.SelectedPage = newTabpage;
 			}
 
 		}
