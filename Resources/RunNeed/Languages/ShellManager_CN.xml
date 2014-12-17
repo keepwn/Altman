@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Resource>
+    <Strings>
+        <String id="StrRefreshStatus" >刷新状态</String>
+        <String id="StrCopyServerCode" >复制服务端代码</String>
+        <String id="StrAdd" >添加</String>
+        <String id="StrEdit" >编辑</String>
+        <String id="StrDelete" >删除</String>
+        <String id="StrAlter" >修改</String>
+        <String id="StrAdvanced" >高级</String>
+        <String id="StrServerCoding" >服务端编码</String>
+        <String id="StrWebCoding" >网页端编码</String>
+        <String id="StrPleaseFillOutTheProjectWith*" >请将带*的项目填写完整</String>
+        <String id="StrPleaseSelectScriptTypeFirst*" >请先选择脚本类型</String>
+        <String id="StrDelete" >删除</String>
+        <String id="StrImportCaidaoShellInfo" >尽管成功导入了菜刀的数据，但是它的脚本类型、配置与Altman并不兼容，你可能仍然需要手动修改这些数据。</String>
+    </Strings>
+</Resource>

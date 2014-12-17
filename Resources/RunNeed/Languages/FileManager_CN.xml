@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Resource>
+    <Strings>
+        <String id="StrDir" >目录</String>
+        <String id="StrName" >名字</String>
+        <String id="StrTime" >时间</String>
+        <String id="StrSize" >大小</String>
+        <String id="StrAttribute" >属性</String>
+        <String id="StrLoad" >载入</String>
+        <String id="StrSave" >保存</String>
+        <String id="StrNew" >新建</String>
+        <String id="StrCopy" >复制</String>
+        <String id="StrCreateDir" >新建目录</String>
+        <String id="StrCreateFile" >新建文件</String>
+        <String id="StrDelete" >删除</String>
+        <String id="StrDownload" >下载</String>
+        <String id="StrDownloadToServer" >下载到服务器</String>
+        <String id="StrEdit" >编辑</String>
+        <String id="StrModifyTime" >修改时间</String>
+        <String id="StrPaste" >粘贴</String>
+        <String id="StrRefresh" >刷新</String>
+        <String id="StrRename" >重命名</String>
+        <String id="StrUpload" >上传</String>
+    </Strings>
+</Resource>

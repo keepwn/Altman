@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Resource>
+    <Strings>
+        <String id="StrChecked" >选中</String>
+        <String id="StrName" >名字</String>
+        <String id="StrAuthor" >作者</String>
+        <String id="StrInstalledVersion" >已安装版本</String>
+        <String id="StrAvailableVersion" >可用版本</String>
+        <String id="StrRequiredVersion" >最低版本</String>
+        <String id="StrFileName" >文件名</String>
+        <String id="StrRemove" >卸载</String>
+        <String id="StrCanInstall" >能否安装</String>
+        <String id="StrCanUpdate" >能否升级</String>
+        <String id="StrRefresh" >刷新</String>
+        <String id="StrInstall" >安装</String>
+        <String id="StrUpdate" >升级</String>
+        <String id="StrInstalled" >已安装</String>
+        <String id="StrAvailable" >可用的</String>
+        <String id="StrUpdatable" >可升级</String>
+        <String id="StrSetting" >设置</String>
+        <String id="StrClose" >关闭</String>
+        <String id="StrYourOperationWillTakeEffectWhenTheProgramStartNextTime" >你的操作将会在程序下次启动的时候生效.</String>
+    </Strings>
+</Resource>

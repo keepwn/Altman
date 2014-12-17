@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Resource>
+    <Strings>
+        <String id="StrTitle" >Altman</String>
+        <String id="StrDisclaimer" >欢迎您使用Altman网站管理工具，以下简称Altman工具！
+请您仔细阅读以下声明，您在使用Altman工具时，表明您对以下内容的接受：
+第一条
+Altman工具是实验性产品。软件作者针对现有的网站管理工具，对其进行了分析，研究和改进，写出了本工具。
+第二条
+Altman工具支持插件扩展，作为插件的开发者，需严格遵循本声明以及国家相关法律法规，软件作者不承担任何法律及连带责任。
+第三条
+本程序(附带插件)部分功能可能带有攻击性，仅供安全研究与教学之用！请使用者遵守国家相关法律法规！
+使用者将本程序（附带插件）做其他用途的，由使用者承担全部法律及连带责任，软件作者不承担任何法律及连带责任。
+
+本声明适用当地法律，使用者和软件作者一致同意服从当地法律。我们保留随时更改上述免责及其他条款的权利。</String>
+        <String id="StrDontDisplayAgain" >不再显示</String>
+        <String id="StrNo" >否</String>
+        <String id="StrYes" >是</String>
+        <String id="StrCancel" >取消</String>
+        <String id="StrWelcome" >欢迎</String>
+        <String id="StrAboutAltman" >关于Altman</String>
+        <String id="StrDocs" >Altman文档</String>
+        <String id="StrQuit" >退出</String>
+        <String id="StrClose" >关闭</String>
+        <String id="StrSaveAndExit" >保存并退出</String>
+        <String id="StrMenu" >菜单</String>
+        <String id="StrOptions" >选项</String>
+        <String id="StrSetting" >设置</String>
+        <String id="StrServices" >服务</String>
+        <String id="StrPlugins" >插件</String>
+        <String id="StrHelp" >帮助</String>
+        <String id="StrBasic" >基本</String>
+        <String id="StrUserAgent" >浏览器标识</String>
+        <String id="StrHttpHeader" >Http头</String>
+        <String id="StrPolicy" >策略</String>
+        <String id="StrProxy" >代理</String>
+        <String id="StrLanguage" >语言</String>
+        <String id="StrIsShowDisclaimer" >显示免责声明</String>
+        <String id="StrIsOpenIPythonSupport" >开启IronPython支持</String>
+        <String id="StrIsUserAgentRandom" >UserAgent随机化</String>
+        <String id="StrUserAgentList" >UserAgent列表</String>
+        <String id="StrIsParamRandom" >参数随机化</String>
+        <String id="StrNotUseProxy" >不使用代理</String>
+        <String id="StrUseSystemProxySetting" >使用系统代理设置</String>
+        <String id="StrUseCustomProxySetting" >使用自定义代理设置</String>
+    </Strings>
+</Resource>
