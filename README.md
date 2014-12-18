@@ -45,6 +45,7 @@
 	- 双击运行Altman.Mac，需要安装Mono
 - [**如何更简单的安装mono环境**](http://www.mono-project.com/download/)
 - 如果需要开启IronPython支持，则需要安装[IronPython](http://ironpython.codeplex.com/)（如果程序已经自带IronPython，则不需要额外安装）
+- 常见错误，请访问[FAQ](https://github.com/keepwn/Altman/wiki/FAQ)
 
 ### 插件
 **Altman3**采用了MEF插件架构，同时支持IronPython。
