@@ -16,15 +16,9 @@ namespace Altman.Dialogs
 
 	        layout.AddCentered(new ImageView
 	        {
-		        Image = Icons.AltmanBigPng
+		        Image = Icons.AltmanAboutPng
 	        }, xscale: true, yscale: false);
 
-            layout.Add(new Label
-            {
-                Text = "Altman",
-                Font = new Font(SystemFont.Bold, 20),
-                HorizontalAlign = HorizontalAlign.Center
-            });
 			//Version
 			layout.Add(new Label
 			{
@@ -33,7 +27,7 @@ namespace Altman.Dialogs
 			});
 	        layout.Add(new Label
 	        {
-		        Text = "    " + AppEnvironment.AppVersion,
+		        Text = "  " + AppEnvironment.AppVersion,
 		        Font = new Font(SystemFont.Default, 10),
 	        });
 
@@ -45,7 +39,7 @@ namespace Altman.Dialogs
 			});
 	        layout.Add(new Label
 	        {
-		        Text = "    " + "Released under the GNU General Public License v2",
+		        Text = "  " + "Released under the GNU General Public License v2",
 		        Font = new Font(SystemFont.Default, 10),
 	        });
 
@@ -57,7 +51,7 @@ namespace Altman.Dialogs
 			});
             layout.Add(new Label
             {
-				Text = "    " + "(C) 2013-2014 by KeePwn",
+				Text = "  " + "(C) 2013-2014 by KeePwn",
                 Font = new Font(SystemFont.Default, 10),
             });
 

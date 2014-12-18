@@ -189,7 +189,7 @@
     <EmbeddedResource Include="altman.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="altman_big.png" />
+    <EmbeddedResource Include="altman_about.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

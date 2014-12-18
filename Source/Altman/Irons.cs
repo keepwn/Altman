@@ -15,9 +15,9 @@ namespace Altman
 			get { return Bitmap.FromResource(Prefix + "altman.png"); }
 		}
 
-		public static Bitmap AltmanBigPng
+		public static Bitmap AltmanAboutPng
 		{
-			get { return Bitmap.FromResource(Prefix + "altman_big.png"); }
+			get { return Bitmap.FromResource(Prefix + "altman_about.png"); }
 		}
 	}
 }
