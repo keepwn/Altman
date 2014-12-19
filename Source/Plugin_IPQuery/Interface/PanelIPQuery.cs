@@ -37,44 +37,45 @@ namespace Plugin_IPQuery.Interface
 			}
 		}
 
-		async void _buttonOnline_Click(object sender, System.EventArgs e)
+		void _buttonOnline_Click(object sender, System.EventArgs e)
 		{
 			var ip = _textBoxInput.Text;
 			if (!string.IsNullOrWhiteSpace(ip))
 			{
-				Get17mon(ip);
-				GetTaobao(ip);
-				GetTencent(ip);
-				GetSina(ip);
+				//clear
+				_lableIp.Text = "";
+				_labelA.Text = "";
+				_labelB.Text = "";
+				_labelC.Text = "";
+
+				var query = new IPOnlineQuery();
+				query.OnQueryCompleted += client_UploadDataCompleted;
+
+				query.GetIpInfo(ip, "17mon");
+				query.GetIpInfo(ip, "taobao");
+				query.GetIpInfo(ip, "tencent");
+				query.GetIpInfo(ip, "sina");
 			}
 		}
 
-		private async void Get17mon(string ip)
+		void client_UploadDataCompleted(object sender, IPOnlineQuery.QueryCompletedEventArgs e)
 		{
-			var query = new IPOnlineQuery();
-			var result = await query.GetIpInfo(ip, "17mon");
-			_lableIp.Text = result != "" ? result : "empty";
-		}
-
-		private async void GetTaobao(string ip)
-		{
-			var query = new IPOnlineQuery();
-			var result = await query.GetIpInfo(ip, "taobao");
-			_labelA.Text = result != "" ? result : "empty";
-		}
-
-		private async void GetTencent(string ip)
-		{
-			var query = new IPOnlineQuery();
-			var result = await query.GetIpInfo(ip, "tencent");
-			_labelB.Text = result != "" ? result : "empty";
-		}
-
-		private async void GetSina(string ip)
-		{
-			var query = new IPOnlineQuery();
-			var result = await query.GetIpInfo(ip, "sina");
-			_labelC.Text = result != "" ? result : "empty";
+			var result =  e.Result!= "" ? e.Result : "empty";
+			switch (e.Token)
+			{
+				case "taobao":
+					_labelA.Text = result;
+					break;
+				case "tencent":
+					_labelB.Text = result;
+					break;
+				case "sina":
+					_labelC.Text = result;
+					break;
+				case "17mon":
+					_lableIp.Text = result;
+					break;
+			}
 		}
 	}
 }
