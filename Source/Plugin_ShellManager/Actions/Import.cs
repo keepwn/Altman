@@ -20,7 +20,7 @@ namespace Plugin_ShellManager.Actions
 
 		private static DataTable GetCaiDaoSite()
 		{
-			var cmd = "select SITE.ID, " +
+			var cmd = "SELECT SITE.ID, " +
 			          "SITE.nCodePage, " +
 			          "SITE.SiteUrl, " +
 			          "SITE.SitePass, " +
@@ -28,9 +28,9 @@ namespace Plugin_ShellManager.Actions
 			          "SITE.nScript, " +
 			          "SITE.AccessTime, " +
 			          "SITE.Note, " +
-			          "TYPE.TypeName " +
-					  "from SITE, TYPE " +
-					  "where SITE.nType = TYPE.ID";
+					  "Switch(ISNULL(TYPE.TypeName),'Default',True,TYPE.TypeName) AS TypeName " +
+					  "FROM SITE LEFT OUTER JOIN TYPE " +
+					  "ON SITE.nType = TYPE.ID";
 			using (var command = new OleDbCommand(cmd))
 			{
 				return AccessHelper.GetDataTable(command);
@@ -70,7 +70,17 @@ namespace Plugin_ShellManager.Actions
 
 			shell.Area = "";
 			shell.Remark = row["Note"].ToString();
-			shell.AddTime = row["AccessTime"].ToString();
+
+			// convert time
+			DateTime time;
+			var success = DateTime.TryParse(row["AccessTime"].ToString(), out time);
+			if (!success) time = DateTime.Now;
+			var timeStr = time.Date.ToShortDateString();
+			if (timeStr.Contains("/"))
+			{
+				timeStr = timeStr.Replace("/", "-");
+			}
+			shell.AddTime = timeStr;
 
 			return shell;
 		}
