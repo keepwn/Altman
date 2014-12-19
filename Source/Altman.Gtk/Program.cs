@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Security;
+using System.Security.Permissions;
 using Altman.CustomControls;
 using Eto;
 using Eto.Forms;
@@ -24,8 +26,11 @@ namespace Altman
 				setup.ShadowCopyFiles = "true";
 				setup.CachePath = Path.Combine(Path.GetTempPath(), "__cache__");
 				setup.ShadowCopyDirectories = Path.Combine(path, "Plugins") + ";" + Path.Combine(path, "Bin");
+				setup.ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
 
-				var appDomain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup);
+				//从Web下载时，程序会设置为远程程序集。须手动设置loadFromRemoteSources属性为真
+				var trustedLoadFromRemoteSource = new PermissionSet(PermissionState.Unrestricted);
+				var appDomain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup, trustedLoadFromRemoteSource);
 				appDomain.ExecuteAssembly(Assembly.GetExecutingAssembly().CodeBase);
 			}
 			else
