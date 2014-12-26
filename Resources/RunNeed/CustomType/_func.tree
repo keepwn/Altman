@@ -14,79 +14,50 @@
 	<node>
 		<path>/DbManager/access</path>
 		<type>aspEval,aspEval_Cookie</type>
-		<info><![CDATA[<sqlConnection>
-<type>access</type>
-<conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=access
+conn=Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/mssql</path>
 		<type>aspEval,aspEval_Cookie</type>
-		<info><![CDATA[<sqlConnection>
-<type>mssql</type>
-<conn>Provider=sqloledb;User ID=sa;Password=passwd;Initial Catalog=AdventureWorks;Data Source=(local);</conn>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=mssql
+conn=Provider=sqloledb;Data Source=(local);User ID=sa;Password=passwd;Initial Catalog=AdventureWorks;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/access_oledb</path>
 		<type>aspxEval</type>
-		<info><![CDATA[<sqlConnection>
-<type>access_oledb</type>
-<conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn>
-</sqlConnection>]]></info>
-	</node>
-  	<node>
-		<path>/DbManager/access_oledb</path>
-		<type>aspxEval</type>
-		<info><![CDATA[<sqlConnection>
-<type>access_oledb</type>
-<conn>Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;</conn>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=access_oledb
+conn=Provider=Microsoft.Jet.OLEDB.4.0; Data Source=my.mdb; Jet OLEDB:Database Password=passwd;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/mssql_oledb</path>
 		<type>aspxEval</type>
-		<info><![CDATA[<sqlConnection>
-<type>mssql_oledb</type>
-<conn>Provider=sqloledb;User ID=sa;Password=passwd;Initial Catalog=master;Data Source=(local);</conn>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=mssql_oledb
+conn=Provider=sqloledb;Data Source=(local);User ID=sa;Password=passwd;Initial Catalog=master;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/mysql_oledb</path>
 		<type>aspxEval</type>
-		<info><![CDATA[<sqlConnection>
-<type>mysql_oledb</type>
-<conn>Provider=MySQLProv; Data Source=mydb; User Id=user; Password=passwd;</conn>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=mysql_oledb
+conn=Provider=MySQLProv; Data Source=mydb; User Id=user; Password=passwd;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/oracle_oledb</path>
 		<type>aspxEval</type>
-		<info><![CDATA[<sqlConnection>
-<type>oracle_oledb</type>
-<conn>Provider=OraOLEDB.Oracle; Data Source=MyOracleDB; User Id=user; Password=passwd;</conn>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=oracle_oledb
+conn=Provider=OraOLEDB.Oracle; Data Source=MyOracleDB; User Id=user; Password=passwd;></info>
 	</node>
 	<node>
 		<path>/DbManager/mysql</path>
 		<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
-		<info><![CDATA[<sqlConnection>
-<type>mysql</type>
-<host>127.0.0.1</host>
-<user>root</user>
-<pass>passwd</pass>
-<language>utf-8</language>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=mysql
+conn=127.0.0.1;root;password;utf-8;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/mssql_sqlsrv</path>
 		<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
-		<info><![CDATA[<sqlConnection>
-<type>mssql_sqlsrv</type>
-<host>(local)</host>
-<user>sa</user>
-<pass>passwd</pass>
-</sqlConnection>]]></info>
+		<info><![CDATA[type=mssql_sqlsrv
+conn=127.0.0.1;root;password;utf-8;]]></info>
 	</node>
   </funcTreeInfo>
 </customShellType>
