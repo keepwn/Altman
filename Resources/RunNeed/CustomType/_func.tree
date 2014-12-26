@@ -45,7 +45,7 @@ conn=Provider=MySQLProv; Data Source=mydb; User Id=user; Password=passwd;]]></in
 		<path>/DbManager/oracle_oledb</path>
 		<type>aspxEval</type>
 		<info><![CDATA[type=oracle_oledb
-conn=Provider=OraOLEDB.Oracle; Data Source=MyOracleDB; User Id=user; Password=passwd;></info>
+conn=Provider=OraOLEDB.Oracle; Data Source=MyOracleDB; User Id=user; Password=passwd;]]></info>
 	</node>
 	<node>
 		<path>/DbManager/mysql</path>
