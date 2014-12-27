@@ -8,9 +8,10 @@ namespace Altman.Webshell.Core
     {
 		static ShellExtraHandle()
 		{
-			IniSettings.CommentChars = new[] {"#", "//"};
+			IniSettings.CommentChars = new[] {"#"};
 			IniSettings.DefaultValueFormatting = "? = $		;";
 			IniSettings.SeparateHeader = false;
+			IniSettings.AllowInlineComments = false;
 		}
 
         private static Ini GetShellExtraIni(string shellExtraString)

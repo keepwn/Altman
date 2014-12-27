@@ -11,15 +11,16 @@ namespace Plugin_ShellManager
 	{
 		static ShellExtraStringHandle()
 		{
-			IniSettings.CommentChars = new[] {"#", "//"};
+			IniSettings.CommentChars = new[] {"#"};
 			IniSettings.DefaultValueFormatting = "? = $		;";
 			IniSettings.SeparateHeader = false;
+			IniSettings.AllowInlineComments = false;
 		}
 
 		public static string CreateDefaultIniString(IEnumerable<string> conns)
 		{
 			var ini = new Ini();
-			ini.Header = "Shell高级设置";
+			ini.Header = "Shell高级设置\n以#开头则为注释行";
 			ini["HttpHeader"].Comment = "设置全局Http头\n键值可以自己添加，e.g. Accept:*/*";
 			ini["HttpHeader"]["Accept"] = "*/*";
 			ini["HttpHeader"]["User-Agent"] = "IE9.0";
