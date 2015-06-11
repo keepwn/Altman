@@ -23,9 +23,9 @@ namespace Plugin_DbManager.Interface
 			_buttonRunScript = new Button {Text = StrRes.GetString("StrExecute","Execute"), Image = Icons.RunScripIcon};
 			_buttonRunScript.Click += _buttonRunScript_Click;
 
-			//_itemSaveAsCsv
-			_itemSaveAsCsv = new ButtonMenuItem { Text = StrRes.GetString("StrSaveAsCsv","SaveAs .Csv") };
-			_itemSaveAsCsv.Click += _itemSaveAsCsv_Click;
+			//_itemSaveAs
+			_itemSaveAs = new ButtonMenuItem { Text = StrRes.GetString("StrSaveAs","SaveAs...") };
+			_itemSaveAs.Click += _itemSaveAs_Click;
 
 			//_itemViewTable
 			_itemViewTable = new ButtonMenuItem { Text = StrRes.GetString("StrViewTable","ViewTable") };
@@ -43,7 +43,7 @@ namespace Plugin_DbManager.Interface
 
 			//_menuResultView
 			_menuResultView = new ContextMenu();
-			_menuResultView.Items.Add(_itemSaveAsCsv);
+			_menuResultView.Items.Add(_itemSaveAs);
 
 			//_treeViewDbs
 			_treeViewDbs = new TreeView();
@@ -117,7 +117,7 @@ namespace Plugin_DbManager.Interface
 		private TextArea _textAreaSql;
 		private GridView _gridViewResult;
 
-		private MenuItem _itemSaveAsCsv;
+		private MenuItem _itemSaveAs;
 		private MenuItem _itemViewTable;
 		private MenuItem _itemCopyName;
 

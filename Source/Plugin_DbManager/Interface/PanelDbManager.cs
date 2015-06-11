@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,8 @@ namespace Plugin_DbManager.Interface
 	    private ShellSqlConnection _shellSqlConn;
 
         private DbManager _dbManager;
+
+        private DataTable _dataTableResult;
 		
         public PanelDbManager(IHost host, PluginParameter data)
         {
@@ -184,7 +187,9 @@ namespace Plugin_DbManager.Interface
 			}
 
 			var tmp = dataTable.Rows.Cast<DataRow>().Select(x => x.ItemArray.Select(y => y.ToString()).ToArray());
-			_gridViewResult.DataStore = tmp;			
+			_gridViewResult.DataStore = tmp;
+
+	        _dataTableResult = dataTable;
 	    }
         private void RefreshServerStatus(bool isConnected)
         {
@@ -371,7 +376,7 @@ namespace Plugin_DbManager.Interface
                 }
             }
 		}
-        private void SaveAsCsv(DataTable dt, string fileName)
+        private void SaveAs(DataTable dt, string fileName, string separator=",")
         {
             var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
             var sw = new StreamWriter(fs, Encoding.Default);
@@ -383,7 +388,7 @@ namespace Plugin_DbManager.Interface
                 data += dt.Columns[i].ColumnName;
                 if (i < dt.Columns.Count - 1)
                 {
-                    data += ",";
+                    data += separator;
                 }
             }
             sw.WriteLine(data);
@@ -397,7 +402,7 @@ namespace Plugin_DbManager.Interface
                     data += dt.Rows[i][j].ToString();
                     if (j < dt.Columns.Count - 1)
                     {
-                        data += ",";
+                        data += separator;
                     }
                 }
                 sw.WriteLine(data);
@@ -407,19 +412,31 @@ namespace Plugin_DbManager.Interface
             fs.Close();
             MessageBox.Show("Save Ok!");
         }
-		void _itemSaveAsCsv_Click(object sender, EventArgs e)
+		void _itemSaveAs_Click(object sender, EventArgs e)
 		{
-			object dataSource = _gridViewResult.DataStore;
-			if (dataSource != null)
+		    var data = _dataTableResult;
+			if (data != null)
 			{
 				var saveFileDialog = new SaveFileDialog
 				{
-					Filters = { new FileDialogFilter("CSV|*.CSV") }
+					Filters =
+					{
+					    new FileDialogFilter("CSV(Comma Separated Values)|*.csv"),
+					    new FileDialogFilter("TSV(Tab Separated Values)|*.txt")
+					}
 				};
 				if (DialogResult.Ok == saveFileDialog.ShowDialog(_gridViewResult))
 				{
 					var fileName = saveFileDialog.FileName;
-					SaveAsCsv(dataSource as DataTable, fileName);
+				    switch (saveFileDialog.CurrentFilterIndex)
+				    {
+				        case 0:
+				            SaveAs(data, fileName);
+				            break;
+				        case 1:
+				            SaveAs(data, fileName, "\t");
+				            break;
+				    }
 				}
 			}
 		}

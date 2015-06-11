@@ -4,7 +4,7 @@
         <String id="StrConnect" >连接</String>
         <String id="StrDisconnect" >断开</String>
         <String id="StrExecute" >执行</String>
-        <String id="StrSaveAsCsv" >保存为Csv</String>
+        <String id="StrSaveAsCsv" >保存为...</String>
         <String id="StrViewTable" >查看表</String>
         <String id="StrCopyName" >复制</String>
     </Strings>
