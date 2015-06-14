@@ -27,7 +27,7 @@ namespace Eto.Forms
 		}
 	}
 
-	[ContentProperty("TabPages")]
+	[ContentProperty("Pages")]
 	[Handler(typeof(TabControlPlus.IHandler))]
 	public class TabControlPlus : Container
 	{
@@ -71,24 +71,6 @@ namespace Eto.Forms
 		{
 		}
 
-		[Obsolete("Use default constructor instead")]
-		public TabControlPlus(Generator generator)
-			: this(generator, typeof(IHandler))
-		{
-		}
-
-		[Obsolete("Use default constructor and HandlerAttribute instead")]
-		protected TabControlPlus(Generator generator, Type type, bool initialize = true)
-			: base(generator, type, initialize)
-		{
-		}
-
-		[Obsolete("Use TabControl(ITabControl) instead")]
-		protected TabControlPlus(Generator generator, IHandler handler, bool initialize = true)
-			: base(generator, handler, initialize)
-		{
-		}
-
 		public int SelectedIndex
 		{
 			get { return Handler.SelectedIndex; }
@@ -99,12 +81,6 @@ namespace Eto.Forms
 		{
 			get { return SelectedIndex < 0 ? null : Pages[SelectedIndex]; }
 			set { SelectedIndex = pages.IndexOf(value); }
-		}
-
-		[Obsolete("Use Pages instead")]
-		public Collection<TabPage> TabPages
-		{
-			get { return pages ?? (pages = new TabPageCollection(this)); }
 		}
 
 		public Collection<TabPage> Pages

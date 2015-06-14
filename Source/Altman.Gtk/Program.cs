@@ -44,21 +44,27 @@ namespace Altman
 			var generator = Platform.Get(Platforms.Gtk2);
 			generator.Add<TabControlPlus.IHandler>(() => new TabControlPlusHandler());
 
-            Style.Add<ButtonHandler>(null, h =>
+            //Style.Add<ButtonHandler>(null, h =>
+            //{
+            //    h.Size = new Eto.Drawing.Size(80, 27);
+            //});
+            //Style.Add<DropDownHandler>(null, h =>
+            //{
+            //    h.Size = new Eto.Drawing.Size(120, 25);
+            //});
+            //Style.Add<ComboBoxHandler>(null, h =>
+            //{
+            //    h.Size = new Eto.Drawing.Size(120, 25);
+            //});
+            //Style.Add<TextBoxHandler>(null, h =>
+            //{
+            //    h.Size = new Eto.Drawing.Size(120, 25);
+            //});
+
+            //Temporary Solutions, Eto.Form's bug
+            Style.Add<Dialog>(null, h =>
             {
-                h.Size = new Eto.Drawing.Size(80, 27);
-            });
-            Style.Add<DropDownHandler>(null, h =>
-            {
-                h.Size = new Eto.Drawing.Size(120, 25);
-            });
-            Style.Add<ComboBoxHandler>(null, h =>
-            {
-                h.Size = new Eto.Drawing.Size(120, 25);
-            });
-            Style.Add<TextBoxHandler>(null, h =>
-            {
-                h.Size = new Eto.Drawing.Size(120, 25);
+                h.Resizable = true;
             });
 
 			var app = new AltmanApplication(generator);
