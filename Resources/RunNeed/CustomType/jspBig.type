@@ -30,8 +30,8 @@
 		String s = d+"\t";
 		if (!d.substring(0, 1).equals("/")) {
 			File[] roots = File.listRoots();
-			for (File file:roots) {
-				s+=file.getPath().substring(0,2)+" ";
+			for (int i = 0; i < roots.length; i++) {
+				s+=roots[i].toString().substring(0, 2)+" ";
 			}
 		}
 		else{
