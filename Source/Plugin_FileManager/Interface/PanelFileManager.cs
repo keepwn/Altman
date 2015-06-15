@@ -290,17 +290,24 @@ namespace Plugin_FileManager.Interface
 			}
 		}
 
-		void _gridViewFile_CellEditing(object sender, GridViewCellEventArgs e)
-		{
-			_oldName = ((sender as GridView).SelectedItem as FileInfoView).Name;
-			_oldFiles = ((sender as GridView).DataStore as DataStoreCollection<FileInfoView>).Select(r => r.Name).ToArray();
-			_oldMTime = ((sender as GridView).SelectedItem as FileInfoView).FileMTime;
-		}
+	    void _gridViewFile_CellEditing(object sender, GridViewCellEventArgs e)
+	    {
+	        var gridView = sender as GridView;
+	        if (gridView == null)
+	            return;
+	        _oldName = (gridView.SelectedItem as FileInfoView).Name;
+	        _oldFiles = (gridView.DataStore as DataStoreCollection<FileInfoView>).Select(r => r.Name).ToArray();
+	        _oldMTime = (gridView.SelectedItem as FileInfoView).FileMTime;
+	    }
 
-		void _gridViewFile_CellEdited(object sender, GridViewCellEventArgs e)
+	    void _gridViewFile_CellEdited(object sender, GridViewCellEventArgs e)
 		{
 			var editFile = e.Item as FileInfoView;
-			var items = (sender as GridView).DataStore as DataStoreCollection<FileInfoView>;
+            var gridView = sender as GridView;
+            // winform: sometimes doubleclick in editing cell also trigger CellEdited event
+            if (gridView ==null || editFile == null)
+		        return;
+            var items = gridView.DataStore as DataStoreCollection<FileInfoView>;
 			if (e.Column == 1) //edit name
 			{
 				if (editFile.IsCreateing) //create dir
