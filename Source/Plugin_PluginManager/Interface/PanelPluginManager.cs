@@ -46,6 +46,23 @@ namespace Plugin_PluginManager.Interface
 			//throw new NotImplementedException();
 		}
 
+        void _buttonInstallFrom_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Select Altman Plugin To Install",
+                Filters = {new FileDialogFilter("Altman Plugin Zip File", ".zip")}
+            };
+            if (openFileDialog.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok)
+            {
+                var srcfiles = openFileDialog.Filenames;
+
+                var install = new InstallDialog(_host);
+                install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);               
+                install.Show();
+                install.InstallOffline(srcfiles);
+            }
+        }
 
 		void _buttonClose_Click(object sender, EventArgs e)
 		{
@@ -82,19 +99,20 @@ namespace Plugin_PluginManager.Interface
 					MessageBoxType.Error);
 				if (result == DialogResult.Yes)
 				{
-					foreach (var item in items)
-					{
-						if (item.Checked)
-						{
-							var plugin = item.Plugin;
-							//删除插件所在文件夹
-							var dirPath = Path.Combine(_host.App.AppPluginDir, plugin.PluginInfo.Name);
-							if(Directory.Exists(dirPath))
-								Directory.Delete(dirPath);
-							items.Remove(item);
-						}				
-					}
-					_labelMsg.Visible = true;
+				    for (var i = 0; i < items.Count; i++)
+				    {
+				        var item = items[i];
+				        if (item.Checked)
+				        {
+				            var plugin = item.Plugin;
+				            //删除插件所在文件夹
+				            var dirPath = Path.Combine(_host.App.AppPluginDir, plugin.PluginInfo.Name);
+				            if (Directory.Exists(dirPath))
+				                Directory.Delete(dirPath, true);
+				            items.Remove(item);
+				        }
+				    }
+				    _labelMsg.Visible = true;
 				}
 			}
 		}
@@ -110,7 +128,7 @@ namespace Plugin_PluginManager.Interface
             var infos = new List<UpdateInfo>();
             try
             {
-                XmlDocument xml = new XmlDocument(); //初始化一个xml实例
+                var xml = new XmlDocument(); //初始化一个xml实例
                 xml.Load(filePath); //导入指定xml文件
                 XmlNode root = xml.SelectSingleNode("/update/plugins"); //指定一个节点
                 XmlNodeList childlist = root.ChildNodes; //获取节点下所有直接子节点
@@ -118,51 +136,35 @@ namespace Plugin_PluginManager.Interface
                 {
                     if (child.Name == "plugin")
                     {
-                        UpdateInfo info = new UpdateInfo();
+                        var info = new UpdateInfo();
 
                         //判断name属性是否存在
                         if (child.Attributes["name"] == null) continue;
-                        string name = child.Attributes["name"].Value;
+                        var name = child.Attributes["name"].Value;
 
                         XmlNode authorNode = child.SelectSingleNode("author");
                         if (authorNode == null) continue;
-                        string author = authorNode.InnerText;
+                        var author = authorNode.InnerText;
 
                         XmlNode desNode = child.SelectSingleNode("description");
                         if (desNode == null) continue;
-                        string des = desNode.InnerText;
+                        var des = desNode.InnerText;
 
                         XmlNode versionNode = child.SelectSingleNode("version");
                         if (versionNode == null) continue;
-                        string version = versionNode.Attributes["number"].Value;
-                        string required = versionNode.Attributes["required"].Value;
-                        string md5 = versionNode.Attributes["md5"].Value;
+                        var version = versionNode.Attributes["number"].Value;
+                        var required = versionNode.Attributes["required"].Value;
+                        var md5 = versionNode.Attributes["md5"].Value;
 
                         XmlNode downloadNode = child.SelectSingleNode("download");
                         if (downloadNode == null) continue;
-                        string download = downloadNode.InnerText;
-
-                        XmlNodeList installNode = child.SelectNodes("install/copy");
-                        if (installNode == null) continue;
-                        KeyValuePair<string, string>[] copys =
-                            (from XmlNode node in installNode
-                             select new KeyValuePair<string, string>(PreprocessString(node.Attributes["from"].Value), PreprocessString(node.Attributes["to"].Value))
-                             ).ToArray();
-
-                        XmlNodeList uninstallNode = child.SelectNodes("uninstall/delete");
-                        if (uninstallNode == null) continue;
-                        string[] deletes =
-                            (from XmlNode node in uninstallNode
-                             select PreprocessString(node.Attributes["file"].Value)
-                             ).ToArray();
+                        var download = downloadNode.InnerText;
 
                         info.Name = name;
                         info.Author = author;
                         info.Description = des;
                         info.Version = new UpdateInfo.VersionInfo(version, required, md5);
                         info.DownloadUrl = download;
-                        info.Install.CopyFiles = copys;
-                        info.Uninstall.DeleteFiles = deletes;
 
                         infos.Add(info);
                     }
@@ -270,9 +272,10 @@ namespace Plugin_PluginManager.Interface
 	        {
 				var infos = items.Select(r => (r.Tag as UpdateInfo)).Where(r => r.CanUpdate).ToArray();
 				if (infos.Length <= 0) return;
-				var install = new InstallDialog(_host, infos);
+	            var install = new InstallDialog(_host);
 				install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
-		        install.ShowModal(this);
+		        install.Show();
+                install.InstallOnline(infos.Select(r => r.DownloadUrl));
 	        }
 		}
         /// <summary>
@@ -335,9 +338,10 @@ namespace Plugin_PluginManager.Interface
 			{
 				var infos = items.Select(r => (r.Tag as UpdateInfo)).Where(r => r.CanUpdate).ToArray();
 				if (infos.Length <= 0) return;
-				var install = new InstallDialog(_host, infos);
+				var install = new InstallDialog(_host);
 				install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
-				install.ShowModal(this);
+				install.Show();
+                install.InstallOnline(infos.Select(r => r.DownloadUrl));
 			}
 		}
         #endregion
