@@ -24,6 +24,23 @@ namespace Plugin_FileManager.Interface
 			_treeViewDirs = new TreeViewPlus();
 			_treeViewDirs.Activated += _treeViewDirs_Activated;
 
+            //_itemCopyNodePath
+            _itemCopyNodePath = new ButtonMenuItem { Text = StrRes.GetString("StrCopyNodePath", "Copy Path") };
+            _itemCopyNodePath.Click += _itemCopyNodePath_Click;
+
+            //rightMenu_TreeViewDirs
+            var rightMenuTreeViewDirs = new ContextMenu();
+            rightMenuTreeViewDirs.Items.Add(_itemCopyNodePath);
+
+            _treeViewDirs.ContextMenu = rightMenuTreeViewDirs;
+            _treeViewDirs.MouseUp += (sender, e) =>
+            {
+                if (e.Buttons == MouseButtons.Alternate)
+                {
+                    _treeViewDirs.ContextMenu.Show(_treeViewDirs);
+                }
+            };
+
 			_gridViewFile = new GridView
 			{
 				AllowMultipleSelection = false,
@@ -115,6 +132,7 @@ namespace Plugin_FileManager.Interface
 
 		TextBox _textboxUrl;
 		Button _buttonDir;
+	    ButtonMenuItem _itemCopyNodePath;
 		TreeViewPlus _treeViewDirs;
 		GridView _gridViewFile;
 	}
