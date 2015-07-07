@@ -9,7 +9,7 @@ namespace Altman.Dialogs
         public About()
         {
 			this.Title = AltStrRes.AboutAltman;
-            //this.Resizable = false;
+            this.Resizable = false;
 	        //this.Size = new Size(300, 300);
 
             var layout = new DynamicLayout { Padding = new Padding(0, 0), Spacing = new Size(5, 5) };

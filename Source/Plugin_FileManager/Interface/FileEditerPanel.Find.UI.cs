@@ -73,7 +73,7 @@ namespace Plugin_FileManager.Interface
             Maximizable = false;
             Topmost = true;
             ClientSize = new Size(350, 90);
-            //Resizable = false;     
+            Resizable = false;     
 		}
 
 		private TextBox _textBoxFindText;
