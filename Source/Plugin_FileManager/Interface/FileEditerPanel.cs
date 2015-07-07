@@ -46,6 +46,8 @@ namespace Plugin_FileManager.Interface
 			set { _textBoxUrl.Text = value; }
 	    }
 
+        #region Event
+
 		void _buttonSaveFile_Click(object sender, EventArgs e)
 		{
 			if (Url != null)
@@ -71,6 +73,19 @@ namespace Plugin_FileManager.Interface
 			}
 		}
 
+        void findCommand_Executed(object sender, EventArgs e)
+        {
+            var findForm = new FileEditerFindForm();
+            findForm.FindNextClick += findForm_FindNextClick;
+            findForm.Show();
+        }
+
+        void findForm_FindNextClick(object sender, FindContentEventArgs e)
+        {
+            FindText(_textAreaBody, e.FindContent, _textAreaBody.CaretIndex, e.CaseSensitive,
+                e.FindDirection == FindContentEventArgs.Direction.Up);
+        }
+
         /// <summary>
         /// 载入完成事件
         /// </summary>
@@ -84,10 +99,11 @@ namespace Plugin_FileManager.Interface
             {
                 var content = e.Result as string;
 				Body = content;
-
+                _textAreaBody.Focus();
 				_host.Ui.ShowMsgInStatusBar("load file success");
             }
         }
+
         /// <summary>
         /// 保存文件完成事件
         /// </summary>
@@ -109,6 +125,8 @@ namespace Plugin_FileManager.Interface
             }
         }
 
+        #endregion
+
         /// <summary>
         /// 载入文件
         /// </summary>
@@ -118,6 +136,7 @@ namespace Plugin_FileManager.Interface
 			Body = "loading";
             _fileManager.ReadFile(filePath);
         }
+
         /// <summary>
         /// 保存文件
         /// </summary>
@@ -126,6 +145,51 @@ namespace Plugin_FileManager.Interface
         public void SaveFile(string filePath, string fileData)
         {
             _fileManager.WriteFile(filePath, fileData);
+        }
+
+        /// <summary>
+        /// 查找字符串
+        /// </summary>
+        /// <param name="textArea"></param>
+        /// <param name="findContent"></param>
+        /// <param name="curIndex"></param>
+        /// <param name="caseSensitive"></param>
+        /// <param name="isUp"></param>
+        public void FindText(TextArea textArea, string findContent, int curIndex, bool caseSensitive, bool isUp)
+        {
+            string searchText;
+            
+            // pre
+            if (isUp)
+            {
+                searchText = textArea.Text.Substring(0, curIndex);
+            }
+            else
+            {
+                curIndex += textArea.Selection.Length();
+                searchText = textArea.Text.Substring(curIndex);
+            }
+           
+            if (!caseSensitive)
+            {
+                searchText = searchText.ToLower();
+                findContent = findContent.ToLower();
+            }
+
+            // find
+            var index = isUp
+                ? searchText.LastIndexOf(findContent, StringComparison.Ordinal)
+                : searchText.IndexOf(findContent, StringComparison.Ordinal);
+            if (index != -1)
+            {
+                var selectionStart = isUp ? index : index + curIndex;
+                textArea.Selection = new Range<int>(selectionStart, selectionStart + findContent.Length - 1);
+                textArea.Focus();
+            }
+            else
+            {
+                MessageBox.Show(string.Format("Not Found \"{0}\" ", findContent));
+            }
         }
     }
 }

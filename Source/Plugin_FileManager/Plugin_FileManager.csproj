@@ -100,6 +100,12 @@
     <Compile Include="Dialogs\Wget.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
+    <Compile Include="Interface\FileEditerPanel.Find.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
+    <Compile Include="Interface\FileEditerPanel.Find.UI.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Interface\FileEditerPanel.UI.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>

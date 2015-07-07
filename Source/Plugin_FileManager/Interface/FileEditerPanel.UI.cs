@@ -25,6 +25,15 @@ namespace Plugin_FileManager.Interface
 
 			//_textAreaBody
 			_textAreaBody = new TextArea();
+            //rightMenu_Body
+            var rightMenuBody = new ContextMenu();
+		    var findCommand = new Command
+		    {
+		        MenuText = StrRes.GetString("StrFind", "Find"),
+		        Shortcut = Keys.F | Application.Instance.CommonModifier
+		    };
+            findCommand.Executed += findCommand_Executed;
+            rightMenuBody.Items.Add(findCommand);
 
 			var layout = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
 			layout.BeginVertical();
@@ -35,10 +44,22 @@ namespace Plugin_FileManager.Interface
 			layout.EndBeginHorizontal();
 			layout.EndVertical();
 
-			layout.AddRow(_textAreaBody);
+            layout.AddRow(_textAreaBody);
+
+            // bug in gtk2
+            layout.ContextMenu = rightMenuBody;
+            layout.MouseUp += (sender, e) =>
+            {
+                if (e.Buttons == MouseButtons.Alternate)
+                {
+                    layout.ContextMenu.Show(_textAreaBody);
+                }
+            };
 
 			Content = layout;
 		}
+
+        
 
 		private TextBox _textBoxUrl;
 		private Button _buttonReadFile;
