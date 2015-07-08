@@ -15,6 +15,7 @@ namespace Plugin_FileManager.Interface
 		{
 			//_textboxUrl
 			_textboxUrl = new TextBox();
+            _textboxUrl.KeyDown += _textboxUrl_KeyDown;
 
 			//_buttonDir
 			_buttonDir = new Button {Text = StrRes.GetString("StrDir","Dir")};

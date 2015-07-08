@@ -18,9 +18,9 @@ namespace Plugin_FileManager.Controls
 			get
 			{
 				var path = string.Empty;
-				if (this.SelectedItem == null)
+				if (SelectedItem == null)
 					return path;
-				var treeItem = this.SelectedItem;
+				var treeItem = SelectedItem;
 				if (treeItem == null)
 					return path;
 				path = treeItem.Text;
@@ -28,7 +28,7 @@ namespace Plugin_FileManager.Controls
 				{
 					path = treeItem.Text + _pathSeparator + path;
 				}
-				return path;
+			    return path.StartsWith("//") ? path.Remove(0, 1) : path;
 			}
 		}
 
@@ -47,6 +47,7 @@ namespace Plugin_FileManager.Controls
 			{
 				(item as TreeItem).Expanded = true;
 			}
+            RefreshData();
 		}
 	}
 }

@@ -27,9 +27,9 @@ namespace Plugin_FileManager.Actions
 				Title = "Select File To Upload",
 				Filters =
 				{
+                    new FileDialogFilter("All Files", ".*"),
 					new FileDialogFilter("Script Files", ".asp", ".aspx", ".php", ".jsp"),
-					new FileDialogFilter("Program", ".exe", ".bat"),
-					new FileDialogFilter("All Files", ".*")
+					new FileDialogFilter("Program", ".exe", ".bat")		
 				}
 			};
 			if (openFileDialog.ShowDialog(_status.FileGridView) == DialogResult.Ok)

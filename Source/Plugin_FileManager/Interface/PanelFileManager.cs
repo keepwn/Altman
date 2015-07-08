@@ -252,27 +252,43 @@ namespace Plugin_FileManager.Interface
 			contextMenu.Items.Add(new Actions.ItemDownload(status));
 			contextMenu.Items.Add(new Actions.ItemDownloadToServer(status));
 			contextMenu.Items.AddSeparator();
-			contextMenu.Items.Add(new Actions.ItemDelete(status));
 			contextMenu.Items.Add(new Actions.ItemEdit(status));
-			contextMenu.Items.Add(new Actions.ItemCopy(status));
-			contextMenu.Items.Add(new Actions.ItemPaste(status));
 			contextMenu.Items.Add(new Actions.ItemRename(status));
 			contextMenu.Items.Add(new Actions.ItemModifyTime(status));
-
+            contextMenu.Items.AddSeparator();
+            contextMenu.Items.Add(new Actions.ItemCopy(status));
+            contextMenu.Items.Add(new Actions.ItemPaste(status));
+            contextMenu.Items.AddSeparator();
 			var create = contextMenu.Items.GetSubmenu(StrRes.GetString("StrNew", "New"));
 			create.Items.Add(new Actions.ItemCreateDir(status));
 			create.Items.Add(new Actions.ItemCreateFile(status));
+            contextMenu.Items.Add(new Actions.ItemDelete(status));
 
 			return contextMenu;
 		}
 
 		void _buttonDir_Click(object sender, EventArgs e)
 		{
-			if (GetCurrentDirPath() != "")
+            var current = GetCurrentDirPath();
+            if (current != "")
 			{
-				_fileManager.GetFileTree(GetCurrentDirPath());
+                SetCurrentDirPath(current);
+                _fileManager.GetFileTree(current);
 			}
 		}
+
+        void _textboxUrl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Keys.Enter)
+            {
+                var current = GetCurrentDirPath();
+                if (current != "")
+                {
+                    SetCurrentDirPath(current);
+                    _fileManager.GetFileTree(current);
+                }
+            }
+        }
 
 		void _treeViewDirs_Activated(object sender, TreeViewItemEventArgs e)
 		{
@@ -522,21 +538,23 @@ namespace Plugin_FileManager.Interface
 			}
 		}
 
-		private void ShowWwwRootDir(TreeView treeView, IEnumerable<string> drives, string wwwRootDir, bool isWin)
+        private void ShowWwwRootDir(TreeViewPlus treeView, IEnumerable<string> driveNames, string wwwRootDirPath, bool isWin)
 		{
 			var treeItem = new TreeItem();
 
-			AddDriveInDirTree(treeItem, drives);
-			AddDirInDirTree(treeItem, wwwRootDir, isWin);
-			treeView.DataStore = treeItem;
+			AddDrivesInDirTree(treeItem, driveNames);
+            var foot = AddDirInDirTree(treeItem, wwwRootDirPath, isWin);
 
-			//RefreshAllFiles(GetCurrentDirPath());
-			new Actions.ItemRefresh(_status).Execute();
+			treeView.DataStore = treeItem;
+            treeView.Expand(foot);
+
+            // refresh
+		    new Actions.ItemRefresh(_status).Execute();
 		}
 		
-		private void AddDriveInDirTree(TreeItem treeItem, IEnumerable<string> drives)
+		private void AddDrivesInDirTree(TreeItem treeItem, IEnumerable<string> driveNames)
 		{
-			foreach (var drive in drives)
+			foreach (var drive in driveNames)
 			{
 				var tmp = new TreeItem
 				{
@@ -546,54 +564,82 @@ namespace Plugin_FileManager.Interface
 				treeItem.Children.Add(tmp);
 			}
 		}
-		
-		private void AddDirInDirTree(TreeItem treeItem, string dirFullPath, bool isWin)
-		{
-			string[] paths = dirFullPath.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
-			List<string> pathsList = new List<string>(paths);
-			TreeItem tmp = null;
-			if (!isWin)
-			{
-				//若为linux主机，直接用第一个节点赋值（根节点"/"）
-				tmp = treeItem.Children[0] as TreeItem;
-			}
-			else
-			{
-				//若为windows主机，数组[0]为磁盘
-				tmp = treeItem.Children.FirstOrDefault(r => r.Text == pathsList[0]) as TreeItem;
-				if (tmp == null)
-					return;
-				else
-					pathsList.RemoveAt(0);
-			}
-			int index = 0;
-			while (index < pathsList.Count)
-			{
-				string tmpNodeName = pathsList[index];
 
-				var find = tmp.Children.FirstOrDefault(r => r.Text == tmpNodeName) as TreeItem;
-				if (find == null)
-				{
-					var newItem = new TreeItem
-					{
-						Text = tmpNodeName,
-						Image = Icons.TreeType.FloderIcon
-					};
-					tmp.Children.Add(newItem);
-					tmp = newItem;
-				}
-				else
-					tmp = find;
-				index++;
-			}
+        private TreeItem AddDirInDirTree(TreeItem treeItem, string dirFullPath, bool isWin)
+		{
+		    var result = ConvertTreePathToTreeNode(treeItem, dirFullPath, isWin);
+            if (result.Item2 == null)
+            {
+                return result.Item1;
+            }
+		    else
+		    {
+		        var tmp = result.Item1;
+		        var dirsList = result.Item2;
+                var index = 0;
+
+                while (index < dirsList.Count)
+                {
+                    var tmpNodeName = dirsList[index];
+
+                    var find = tmp.Children.FirstOrDefault(r => r.Text == tmpNodeName) as TreeItem;
+                    if (find == null)
+                    {
+                        var newItem = new TreeItem
+                        {
+                            Text = tmpNodeName,
+                            Image = Icons.TreeType.FloderIcon
+                        };
+                        tmp.Children.Add(newItem);
+                        tmp = newItem;
+                    }
+                    else
+                    {
+                        tmp = find;
+                    }                   
+                    index++;
+                }
+		        return tmp;
+		    }
 		}
 
-		private TreeItem AddDirInDirTree(TreeItem treeItem, IEnumerable<string> dirs, string currentDir, bool isWin)
+        private TreeItem FindDirInDirTree(TreeItem treeItem, string dirFullPath, bool isWin)
+        {
+            var result = ConvertTreePathToTreeNode(treeItem, dirFullPath, isWin);
+            return result.Item2 == null ? result.Item1 : null;
+        }
+
+        private Tuple<TreeItem, List<string>> ConvertTreePathToTreeNode(TreeItem treeItem, string dirFullPath, bool isWin)
+	    {
+            var pathsList = dirFullPath.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            if(!isWin)
+                pathsList.Insert(0, "/");
+
+            TreeItem tmp = treeItem;
+            int index = 0;
+            while (index < pathsList.Count)
+            {
+                string tmpNodeName = pathsList[index];
+
+                var find = tmp.Children.FirstOrDefault(r => r.Text == tmpNodeName) as TreeItem;
+                if (find == null)
+                {
+                    pathsList.RemoveRange(0, index);
+                    return new Tuple<TreeItem, List<string>>(tmp, pathsList);
+                }
+                else
+                    tmp = find;
+                index++;
+            }
+            return new Tuple<TreeItem, List<string>>(tmp, null);
+	    }
+
+		private TreeItem AddSubDirsInDirTree(TreeItem treeItem, IEnumerable<string> subDirNames, string currentDirFullPath, bool isWin)
 		{
-			TreeItem selectedNode = FindDirInDirTree(treeItem, currentDir, isWin);
+			var selectedNode = FindDirInDirTree(treeItem, currentDirFullPath, isWin);
 			if (selectedNode != null)
 			{
-				foreach (string dir in dirs)
+				foreach (var dir in subDirNames)
 				{
 					var find = selectedNode.Children.FirstOrDefault(r => r.Text == dir) as TreeItem;
 					if (find == null)
@@ -610,60 +656,22 @@ namespace Plugin_FileManager.Interface
 			return selectedNode;
 		}
 
-		private TreeItem FindDirInDirTree(TreeItem treeItem, string dirFullPath, bool isWin)
-		{
-			string[] paths = dirFullPath.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
-			List<string> pathsList = new List<string>(paths);
-			TreeItem tmp = null;
-			if (!isWin)
-			{
-				//若为linux主机，直接用第一个节点赋值（根节点"/"）
-				tmp = treeItem.Children[0] as TreeItem;
-			}
-			else
-			{
-				//若为windows主机，数组[0]为磁盘
-				tmp = treeItem.Children.FirstOrDefault(r => r.Text == pathsList[0]) as TreeItem;
-				if (tmp == null)
-					return null;
-				else
-					pathsList.RemoveAt(0);
-			}
-			int index = 0;
-			while (index < pathsList.Count)
-			{
-				string tmpNodeName = pathsList[index];
-
-				var find = tmp.Children.FirstOrDefault(r => r.Text == tmpNodeName) as TreeItem;
-				if (find == null)
-				{
-					return null;
-				}
-				else
-					tmp = find;
-				index++;
-			}
-			return tmp;
-		}
-
 		private void ShowFilesAndDirs(TreeViewPlus dirView, GridView fileView, List<OsFile> dirs, List<OsFile> files, bool isWin)
 		{
 			//show dirs in DirTree
-			List<string> newDirs = dirs.Select(dir => dir.FileName.Remove(dir.FileName.Length - 1, 1)).ToList();
-			string currentDir = GetCurrentDirPath();
+			var newDirs = dirs.Select(dir => dir.FileName.Remove(dir.FileName.Length - 1, 1)).ToList();
+			var currentDir = GetCurrentDirPath();
 			var treeItem = dirView.DataStore as TreeItem;
-			var selectedNode = AddDirInDirTree(treeItem, newDirs, currentDir, isWin);
+			var selectedNode = AddSubDirsInDirTree(treeItem, newDirs, currentDir, isWin);
 			if (selectedNode == null)
 				return;
 
 			//show dirs,files in fileview
-			//_gridViewFile.DataStore = AddDirsInListViewFile(dirs, files, currentDir);
-			//_gridViewFile.DataStore = AddDirsInListViewFile(dirs, files, currentDir);
 			AddDirsInListViewFile(dirs, files, currentDir);
 
 			//expanded
-			dirView.Expand(selectedNode);
-			dirView.RefreshItem(treeItem);
+		    selectedNode.Expanded = true;
+            dirView.RefreshItem(selectedNode);
 		}
 
 		private void AddDirsInListViewFile(IEnumerable<OsFile> dirs, IEnumerable<OsFile> files, string parentPath)
