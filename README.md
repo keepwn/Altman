@@ -33,7 +33,8 @@
 7. **如果需要编译成Mac版本**，则在Debug或运行前，需要手动将`Build`目录下所有文件（除Altman.Mac文件）复制到`Build\Altman.Mac\Contents\MonoBundle`目录下
 
 
-###examples
+examples
+----
 
 
 ####Windows(cygwin reference to the following)
@@ -47,15 +48,15 @@
 
 ####Linux
 
-> ###Installation mono environment:
+>>Installation mono environment:
 
-> > Ubuntu or Debian
-
-
-> > #### sudo apt-get install mono-devel mono-complete monodevelop ####
+>>Ubuntu or Debian
 
 
-> > Other linux : <<http://www.mono-project.com/download/>>
+>>####sudo apt-get install mono-devel mono-complete monodevelop
+
+
+>>Other linux : <<http://www.mono-project.com/download/>>
 
 
 - git clone <https://github.com/keepwn/Altman.git>
