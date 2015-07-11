@@ -191,6 +191,10 @@ namespace Plugin_PluginManager.Interface
 			_buttonSetting = new Button {Text = StrRes.GetString("StrSetting","Setting")};
 			_buttonSetting.Click += _buttonSetting_Click;
 
+            //_buttonInstallFrom
+            _buttonInstallFrom = new Button { Text = StrRes.GetString("StrInstallPluginFrom", "InstallPluginFrom") };
+            _buttonInstallFrom.Click += _buttonInstallFrom_Click;
+
 			//_buttonClose
 			_buttonClose = new Button {Text = StrRes.GetString("StrClose","Close")};
 			_buttonClose.Click += _buttonClose_Click;
@@ -207,7 +211,7 @@ namespace Plugin_PluginManager.Interface
 
 			var layout = new DynamicLayout { Padding = new Padding(5, 5), Spacing = new Size(5, 5) };
 			layout.Add(_tabControl, true, true);
-			layout.AddSeparateRow(_buttonSetting, _labelMsg, null, _buttonClose);
+		    layout.AddSeparateRow(_buttonSetting, _buttonInstallFrom, _labelMsg, null, _buttonClose);
 
 			Content = layout;
 			Size = new Size(610, 430);
@@ -234,6 +238,7 @@ namespace Plugin_PluginManager.Interface
 		private Button _buttonUpdate;
 
 		private Button _buttonSetting;
+	    private Button _buttonInstallFrom;
 		private Button _buttonClose;
 		private Label _labelMsg;
 	}

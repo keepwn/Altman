@@ -19,23 +19,11 @@ namespace Plugin_PluginManager.Model
             }
         }
 
-        public struct InstallInfo
-        {
-            public KeyValuePair<string, string>[] CopyFiles;
-        }
-
-        public struct UninstallInfo
-        {
-            public string[] DeleteFiles;
-        }
-
         public string Name;
         public string Author;
         public string Description;
         public VersionInfo Version;
         public string DownloadUrl;
-        public InstallInfo Install;
-        public UninstallInfo Uninstall;
         public bool CanUpdate;
     }
 }

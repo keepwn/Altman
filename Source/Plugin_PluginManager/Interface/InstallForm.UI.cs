@@ -19,6 +19,7 @@ namespace Plugin_PluginManager.Interface
 
 			Content = layout;
 			Icon = Application.Instance.MainForm.Icon;
+            WindowStyle = WindowStyle.None;
 		}
 
 		private ProgressBar _progressBarDownload;

@@ -280,6 +280,13 @@ namespace Plugin_FileManager.Interface
 			_fileManager.GetFileTree(GetCurrentDirPath());
 		}
 
+        void _itemCopyNodePath_Click(object sender, EventArgs e)
+        {
+            var path = _treeViewDirs.SelectedFullPath;
+            if (!string.IsNullOrEmpty(path))
+                new Clipboard().Text = path;
+        }
+
 		void _gridViewFile_CellDoubleClick(object sender, GridViewCellEventArgs e)
 		{
 			var selectFile = e.Item as FileInfoView;
