@@ -21,7 +21,7 @@
 - 插件服务机制：插件可以调用其它插件提供的服务
 
 ### 编译
-1. 新建`Build`目录
+1. 新建`Build`,  `Build\Bin`,  `Build\Plugins` 目录
 2. 复制`Resources\RunNeed`目录下的所有文件到`Build`目录
 3. 复制`Libraries\IronPython`目录下所有文件到`Build\Bin`目录（如果本机已经安装IronPython，则跳过此步骤）
 4. 复制`Libraries\Sqlite3`目录下所有文件到`Build`目录
@@ -31,6 +31,46 @@
   - 你可以将*.csproj文件中的`copy`改为`cp`，然后重新再编译
   - 或者你也可以忽略这个错误，手动将编译好的插件dll复制到`Plugins`目录下，路径务必类似于`Plugins\ShellCmder\ShellCmder.dll`
 7. **如果需要编译成Mac版本**，则在Debug或运行前，需要手动将`Build`目录下所有文件（除Altman.Mac文件）复制到`Build\Altman.Mac\Contents\MonoBundle`目录下
+
+
+###examples
+
+
+####Windows(cygwin reference to the following)
+
+
+- git clone https://github.com/keepwn/Altman.git
+- cd Altman/
+- **run**  batch.bat
+- Using VS2012 (or the latest version) Open [Source / SecurityTools.sln] compiler
+
+
+####Linux
+
+> ###Installation mono environment:
+
+> > Ubuntu or Debian
+
+
+> > #### sudo apt-get install mono-devel mono-complete monodevelop ####
+
+
+> > Other linux : <<http://www.mono-project.com/download/>>
+
+
+- git clone <https://github.com/keepwn/Altman.git>
+- cd Altman/
+- ./batch
+- monodevelop Source/SecurityTools.sln  
+- Use monodevelop compile Altman
+
+
+**Compiled output:**
+
+- Altman/Build/Altman.Gtk.exe (gtk)
+- Altman/Build/Altman.WinForm.exe (windows)
+
+
 
 ### 运行
 **Altman3** 基于.Net4.0，依托[Eto.Form](https://github.com/picoe/Eto)可以完美运行在Windows、Linux、Mac等多个平台。
