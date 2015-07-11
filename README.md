@@ -21,6 +21,7 @@
 - 插件服务机制：插件可以调用其它插件提供的服务
 
 ### 编译
+
 1. 新建`Build`目录
 2. 复制`Resources\RunNeed`目录下的所有文件到`Build`目录
 3. 复制`Libraries\IronPython`目录下所有文件到`Build\Bin`目录（如果本机已经安装IronPython，则跳过此步骤）
@@ -30,7 +31,31 @@
   由于linux或者mac下不支持`copy`命令，所以
   - 你可以将*.csproj文件中的`copy`改为`cp`，然后重新再编译
   - 或者你也可以忽略这个错误，手动将编译好的插件dll复制到`Plugins`目录下，路径务必类似于`Plugins\ShellCmder\ShellCmder.dll`
-7. **如果需要编译成Mac版本**，则在Debug或运行前，需要手动将`Build`目录下所有文件（除Altman.Mac文件）复制到`Build\Altman.Mac\Contents\MonoBundle`目录下
+7. **如果需要编译成Mac版本**，则在Debug或运行前，需要手动将`Build`目录下所有文件（除Altman.Mac文件）复制到`Build\Altman.Mac\Contents\MonoBundle`目录
+
+examples
+--------------------------
+
+Windows (cygwin reference to the following)
+
+git clone https://github.com/keepwn/Altman.git
+cd Altman/
+mkdir Build/ Build/Bin & xcopy Resources/RunNeed/* Build/ /s /e
+xcopy Libraries/IronPython/* Build/ /s /e
+xcopy Libraries/Sqlite3/* Build/ /s /e
+使用VS2012（或以上版本)编译
+(use VS2012 or the latest version of the compiler)
+
+Linux
+
+git clone https://github.com/keepwn/Altman.git
+cd Altman/
+mkdir Build/ Build/Bin && cp Resources/RunNeed/* Build/
+cp Libraries/IronPython/* Build/
+cp Libraries/Sqlite3/* Build/
+monodevelop Source/SecurityTools.sln
+
+
 
 ### 运行
 **Altman3** 基于.Net4.0，依托[Eto.Form](https://github.com/picoe/Eto)可以完美运行在Windows、Linux、Mac等多个平台。
