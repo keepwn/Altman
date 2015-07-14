@@ -536,6 +536,7 @@ namespace Plugin_FileManager.Interface
 			{
 				_status.CurrentDirPath = _textboxUrl.Text = dir + sep;
 			}
+		    _textboxUrl.CaretIndex = _textboxUrl.Text.Length;
 		}
 
         private void ShowWwwRootDir(TreeViewPlus treeView, IEnumerable<string> driveNames, string wwwRootDirPath, bool isWin)
