@@ -33,41 +33,35 @@
 7. **如果需要编译成Mac版本**，则在Debug或运行前，需要手动将`Build`目录下所有文件（除Altman.Mac文件）复制到`Build\Altman.Mac\Contents\MonoBundle`目录下
 
 
-examples
-----
+#### examples
 
+##### Windows(cygwin reference to the following)
 
-####Windows(cygwin reference to the following)
+```sh
+git clone https://github.com/keepwn/Altman.git
+cd Altman/
+# run  batch.bat
+# Using VS2012 (or the latest version) Open [Source / SecurityTools.sln] compiler
+```
 
+##### Linux
+> Installation mono environment:
 
-- git clone https://github.com/keepwn/Altman.git
-- cd Altman/
-- **run**  batch.bat
-- Using VS2012 (or the latest version) Open [Source / SecurityTools.sln] compiler
+> Ubuntu or Debian
 
+> `sudo apt-get install mono-devel mono-complete monodevelop`
 
-####Linux
+> Other linux : <<http://www.mono-project.com/download/>>
 
->>Installation mono environment:
-
->>Ubuntu or Debian
-
-
->>####sudo apt-get install mono-devel mono-complete monodevelop
-
-
->>Other linux : <<http://www.mono-project.com/download/>>
-
-
-- git clone <https://github.com/keepwn/Altman.git>
-- cd Altman/
-- ./batch
-- monodevelop Source/SecurityTools.sln  
-- Use monodevelop compile Altman
-
+```sh
+git clone <https://github.com/keepwn/Altman.git>
+cd Altman/
+./batch
+monodevelop Source/SecurityTools.sln  
+# Use monodevelop compile Altman
+```
 
 **Compiled output:**
-
 - Altman/Build/Altman.Gtk.exe (gtk)
 - Altman/Build/Altman.WinForm.exe (windows)
 
