@@ -185,9 +185,17 @@
 		return d+"\t"+serverName+"\t"+serverInfo+"\t"+separator;
 	}
 	
+	boolean isWin ()
+        {
+                String osname = System.getProperty("os.name");
+                osname = osname.toLowerCase();
+                if(osname.startsWith("win")) return true;
+                return false;
+        }
+
 	String ExecuteCommandCode(String cmdPath, String command) throws Exception {
 		StringBuffer sb = new StringBuffer("");
-		String[] c = { cmdPath, File.separator=="/"?"-c":"/c", command };
+		String[] c = { cmdPath, !isWin()?"-c":"/c", command };
 		Process p = Runtime.getRuntime().exec(c);
 		CopyInputStream(p.getInputStream(), sb);
 		CopyInputStream(p.getErrorStream(), sb);
