@@ -14,6 +14,7 @@ namespace Altman.Resources
 			_title = GetString(table, "StrTitle", _title);
 			_aboutAltman = GetString(table, "StrAboutAltman", _aboutAltman);
 			_docs = GetString(table, "StrDocs", _docs);
+            _checkUpdate = GetString(table, "StrCheckUpdate", _checkUpdate);
 			_disclaimer = GetString(table, "StrDisclaimer", _disclaimer);
 			_dontDisplayAgain = GetString(table, "StrDontDisplayAgain", _dontDisplayAgain);
 			_no = GetString(table, "StrNo", _no);
@@ -222,6 +223,11 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _docs; }
 		}
 
+        public static string CheckUpdate
+        {
+            get { return _checkUpdate; }
+        }
+
 		public static string Language
 		{
 			get { return _language; }
@@ -237,10 +243,11 @@ This statement applies to local laws, users and software authors agreed to obey 
 			get { return _isOpenIPythonSupport; }
 		}
 
-		private static string _title = @"Altman";
+	    private static string _title = @"Altman";
 
 		private static string _aboutAltman = @"About Altman";
 		private static string _docs = @"Altman Docs";
+        private static string _checkUpdate = @"Check Update";
 
 		private static string _welcome = @"Welcome";
 		private static string _dontDisplayAgain = @"don't display again";

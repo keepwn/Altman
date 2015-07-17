@@ -99,6 +99,7 @@
     <Compile Include="Actions\Docs.cs" />
     <Compile Include="Actions\Quit.cs" />
     <Compile Include="Actions\Setting.cs" />
+    <Compile Include="Actions\CheckUpdate.cs" />
     <Compile Include="AltmanApplication.cs" />
     <Compile Include="AppEnvironment.cs" />
     <Compile Include="CustomControls\Custom.cs">

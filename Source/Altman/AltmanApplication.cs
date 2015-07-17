@@ -26,11 +26,10 @@ namespace Altman
         protected override void OnTerminating(System.ComponentModel.CancelEventArgs e)
 		{
 			base.OnTerminating(e);
-			/*
+
 			var result = MessageBox.Show(MainForm, "Are you sure you want to quit?", MessageBoxButtons.YesNo, MessageBoxType.Question);
 			if (result == DialogResult.No)
 				e.Cancel = true;
-            */
 		}
     }
 }

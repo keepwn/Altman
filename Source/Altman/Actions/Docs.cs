@@ -15,7 +15,7 @@ namespace Altman.Actions
 
 		void Docs_Executed(object sender, EventArgs e)
 		{
-			var web = "http://altman.keepwn.com/docs/info/";
+            var web = "https://github.com/keepwn/Altman/wiki";
 			System.Diagnostics.Process.Start(web);
 		}
 	}

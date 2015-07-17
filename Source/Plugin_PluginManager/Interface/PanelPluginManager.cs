@@ -349,7 +349,7 @@ namespace Plugin_PluginManager.Interface
         #region Init
         public string ReadConfigXml()
         {
-			var defaultUpate = "http://www.keepwn.com/files/altman/update.xml";
+            var defaultUpate = "http://altman.keepwn.com/update.xml";
 			var configPath = Path.Combine(_host.App.AppPluginDir, new PluginInfo().Name, "PluginManager.xml");
 			if (!File.Exists(configPath))
             {

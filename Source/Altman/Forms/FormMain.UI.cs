@@ -25,6 +25,7 @@ namespace Altman.Forms
 		MenuBar GenerateMenuBar()
 		{
 			var docs = new Actions.Docs();
+            var checkUpdate = new Actions.CheckUpdate();
 			var about = new Actions.About();
 			var quit = new Actions.Quit();
 			var setting = new Actions.Setting();
@@ -48,7 +49,8 @@ namespace Altman.Forms
 				},
 				HelpItems =
 				{
-					docs
+					docs,
+                    checkUpdate
 				},
 				QuitItem = quit,
 				AboutItem = about,
