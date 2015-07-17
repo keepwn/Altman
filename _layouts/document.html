@@ -1,18 +1,20 @@
 ---
 layout: default
 ---
-<div class="container bs-docs-container">
-<div class="row">
-    <div class="page-content"> 
-        <div class="col-md-9" role="main">
-            <div class="box">
-                <div class="cell slim page-box">
-                    <div class="markdown docs-markdown">
-                    {{ content }}
-                    </div>
-                </div>
-            </div>
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1 id="docs-markdown-title"></h1>
+            <div id="docs-markdown-body"><div>
+            {{ content }}
+            <!--div class="body-footer" id="docs-markdown-footer">Last updated on 2015/01/01</div-->
+        </div>
+        <div class="hidden-xs col-sm-3 col-md-2">
+            <nav id="docs-subnavbar" class="affix-top">
+            </nav>
         </div>
     </div>
 </div>
-</div>
+

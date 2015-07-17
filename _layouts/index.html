@@ -1,72 +1,117 @@
 ---
 layout: default
 ---
-<div class="main-header bs-docs-masthead">
-    <div class="container">
-                <span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">A</span>
-                <div class="title">
-                    {{ site.soft.name }}
-                </div>
-                <p class="desc">
-                    {{ site.soft.description }}
+    <div class="jumbotron home">
+        <div class="container">
+            <h1>网站管理，重新出发。</h1>
+            <p class="lead">用于配置和管理多种类型网站。免费、开源，运行在你喜爱的平台上 - Linux, Mac OSX, and Windows。</p>
+            <div class="download-hero">
+                <a class="link-button" href="" id="download-platform">Download for Windows</a>
+                <!--p class="version">当前版本：{{ site.soft.version }} | 更新时间：{{ site.soft.update }}</p-->
+
+                <p class="subtext">Available on 
+                    <a href="#alt-downloads">other platforms</a>
                 </p>
-                <div class="actions">
-                    <a href="https://github.com/keepwn/Altman" class="btn btn-lg btn-info">
-                        View on GitHub
-                    </a>
-                    <a href="https://github.com/keepwn/Altman/releases/latest" class="btn btn-lg btn-success">
-                        Download latest
-                    </a>
-                </div>
-				<p class="version">当前版本：{{ site.soft.version }} | 更新时间：{{ site.soft.update }}</p>
-    </div>
-</div>
-<div class="container">
-    <div class="row home-box">
-            <h2>
-                工具特性
-            </h2>
+            </div>
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="feature">
-                        <h3 class="title">
-                            全开源
-                        </h3>
-                        <p class="content">
-                            代码全部托管在Github上，任何人都可以随时随地查看和下载源代码，我们愿意为传播开源精神献出一份力。
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="feature">
-                        <h3 class="title">
-                            跨平台
-                        </h3>
-                        <p class="content">
-                            基于Mono For .Net开发，经测试，可以运行在Windows、Linux、Osx等多个平台上。
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="feature">
-                        <h3 class="title">
-                            插件化
-                        </h3>
-                        <p class="content">
-                            采用插件式架构，自带了多个常用插件，包括Shell管理、命令执行、文件管理、数据库管理等强大的插件，同时还拥有插件管理中心，使插件扩展成为无限可能。
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="feature">
-                        <h3 class="title">
-                            自定义
-                        </h3>
-                        <p class="content">
-                            自定义最大化是程序的设计理念，支持自定义HttpHeader、自定义脚本类型和脚本功能、自定义加密/编码等各种自定义操作。
-                        </p>
+                <div class="hero-screenshot col-md-10 col-md-offset-1">                
+                    <div class="screenshot windows" id="screenshot-platform">
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-</div>
+
+    <div class="themes">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 header">
+                    <h2>可配置<b>+</b>可扩展 <b>=</b> 无限可能</h2>
+                    <p>Altman基于配置文件开发，采用插件式架构，支持配置文件的自定义和插件无限扩展。</p>
+                </div>
+                <div class="col-lg-8">
+                    <div id="themes-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#themes-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#themes-carousel" data-slide-to="1" class=""></li>
+                            <li data-target="#themes-carousel" data-slide-to="2" class=""></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <div class="screenshot customshelltype"></div>
+                                <div class="carousel-caption">
+                                    <h3>自定义配置</h3>
+                                    <p>自定义最大化是Altman的设计理念，支持自定义HttpHeader、自定义脚本类型和脚本功能、自定义加密/编码等各种自定义操作。</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="screenshot filemanager"></div>
+                                <div class="carousel-caption">
+                                    <h3>内置强大模块</h3>
+                                    <p>支持命令执行、文件管理、数据库管理等强大的功能，且针对实际应用中的常用操作进行了优化，媲美本机操作。</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="screenshot pluginmanager"></div>
+                                <div class="carousel-caption">
+                                    <h3>插件中心</h3>
+                                    <p>Altman采用插件式架构，支持C#与IronPython编写的插件。除内置的多个插件外，同时还拥有插件管理中心，使插件扩展成为无限可能。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#themes-carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#themes-carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="getting-started">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <p class="logo netframework-logo"></p>
+                </div>
+                <div class="col-xs-6">
+                    <p class="logo ironpython-logo"></p>
+                </div>
+            </div>
+            <div class="row caption">
+                <div class="col-md-12">
+                    <h2>选择你喜欢的语言，快速地开发Altman的插件吧</h2>
+                    <a class="link-button" href="https://github.com/keepwn/Altman/wiki">Get started now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alt-downloads" class="alt-downloads">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="buttons">
+                        <div class="download">
+                            <div class="logo windows"></div>
+                            <a class="link-button" href="" id="download-windows">Download for Windows</a>
+                        </div>
+                        <div class="download">
+                            <div class="logo osx"></div>
+                            <a class="link-button" href="" id="download-osx">Download for OSX</a>
+                        </div>
+                        <div class="download">
+                            <div class="logo linux"></div>
+                            <a class="link-button" href="" id="download-linux">Download for Linux</a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

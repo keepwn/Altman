@@ -4,15 +4,25 @@
 <head>
     <!-- Title,CSS,etc -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
     <meta name="renderer" content="webkit">
     <meta name="description" content="jelyll theme">
     <meta name="author" content="keepwn">
     <link href="/static/favicon.ico" rel="shortcut icon">
     <!-- Bootstrap Css-->
+    <!--
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+    -->
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+
     <!-- etc -->
+    <!--
     <link rel="stylesheet" type="text/css" href="/static/css/base.css">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css">
     <link rel="stylesheet" type="text/css" href="/static/css/toc.css">
@@ -20,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/prettify.css">
     <link rel="stylesheet" type="text/css" href="/static/css/markdown.css">
     <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+-->
 
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -27,27 +38,178 @@
 </head>
 
 <body>
-    <!-- Doc -->
-    <div class="wrapper">
-        <!-- Doc Header-->
-        {% include header.md %}
-        <!-- Doc Main-->
-        <div id="page-main">
-            {{ content }}
-        </div>
-        <!-- Doc Footer-->
-        <div class="page-footer">
-            {% include footer.md %}
-        </div>
-    </div>
+<div class="main-container">
+    {% include banner.md %}
+    {{ content }}
+    {% include footer.md %}
+</div>
     <!-- Bootstrap Js -->
+    <!--
     <script src="/static/js/jquery-1.8.2.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script src="/static/js/prettify.js"></script>
     <script src="/static/js/main.js"></script>
     <script src="/static/js/jquery.toc.js"></script>
+
+<script>
+    String.prototype.format = function(args) {
+        var result = this;
+        if (arguments.length > 0) {    
+            if (arguments.length == 1 && typeof (args) == "object") {
+                for (var key in args) {
+                    if(args[key]!=undefined){
+                        var reg = new RegExp("({" + key + "})", "g");
+                        result = result.replace(reg, args[key]);
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < arguments.length; i++) {
+                    if (arguments[i] != undefined) {
+　　　　　　　　　　　　    var reg= new RegExp("({)" + i + "(})", "g");
+                        result = result.replace(reg, arguments[i]);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+Platform = "windows";
+WindowsDownloadUrl = "https://github.com/keepwn/Altman/releases/latest";
+OsxDownloadUrl = "https://github.com/keepwn/Altman/releases/latest";
+LinuxDownloadUrl = "https://github.com/keepwn/Altman/releases/latest";
+
+function ShowScreenshot(){
+    var u = navigator.userAgent;
+    var m = u.indexOf("Macintosh") >= 0;
+    var l = u.indexOf("Linux") >= 0;
+    var w = u.indexOf("Windows") >= 0;
+
+    var msg = "Download for {0}";
+    if (m){
+        $("#download-platform").text(msg.format("OSX"));
+        $("#screenshot-platform").attr("class", "screenshot osx");
+        Platform = "osx";
+    }
+    else if (l){
+        $("#download-platform").text(msg.format("Linux"));
+        $("#screenshot-platform").attr("class", "screenshot linux");
+        Platform = "linux";
+    }
+}
+
+function GetReleasesLatestApi(){
+    return $.ajax({
+        url: "https://api.github.com/repos/keepwn/Altman/releases/latest",
+        type: 'GET',
+        //async: false
+    });
+}
+
+function RenderMarkdownDocumentApi(text){
+    return $.ajax({
+        url: "https://api.github.com/markdown",
+        type: "POST",
+        //async: false,
+        contentType: "application/json",
+        data: JSON.stringify({'text': text})
+    });
+}
+
+function ShowMarkdown(){
+    var doc = $("#docs-markdown-body");
+    var docTitle = $("#docs-markdown-title");
+    var docFooter = $("#docs-markdown-footer");
+
+    GetReleasesLatestApi()
+    .done(function(data){
+        var title = "Altman {0}".format(data['name']);
+        var body = data['body'];
+        var footer = data['published_at'];
+
+        docTitle.text(title);
+        RenderMarkdownDocumentApi(body)
+        .done(function(text){
+            doc.html(text);
+        });
+    })
+}
+
+function ShowUpdateMsg(){
+    var latestLogUrl = "/latest";
+    var message = "Altman {0} is available. Check out the <a href='{1}'>new changes</a> now.";
+    
+    GetReleasesLatestApi()
+    .done(function(data){
+        var version = data['name'];
+        var tmp = message.format(version, latestLogUrl);
+
+        $('#update-message').html(tmp);
+        $('#update-message').show();
+    });
+}
+
+function SetDownloadUrl(){
+    GetReleasesLatestApi()
+    .done(function(data){
+        var assets = data['assets'];
+        for(var i = 0; i < assets.length; i++){
+            var name = assets[i]['name'].toLowerCase();
+            if (name.indexOf("winform") >= 0){
+                WindowsDownloadUrl = assets[i]['browser_download_url'];
+            }
+            if (name.indexOf("gtk") >= 0){
+                LinuxDownloadUrl = assets[i]['browser_download_url'];
+            }
+            if (name.indexOf("mac") >= 0 || name.indexOf("osx") >= 0 ){
+                OsxDownloadUrl = assets[i]['browser_download_url'];
+            }
+        }
+
+        var mainDownload;
+        if(Platform == "osx"){
+            mainDownload = OsxDownloadUrl;
+        }
+        else if(Platform == "linux"){
+            mainDownload = LinuxDownloadUrl;
+        }
+        else{
+            mainDownload = WindowsDownloadUrl;
+        }
+        $("#download-platform").attr("href", mainDownload);
+
+        $("#download-windows").attr("href", WindowsDownloadUrl);
+        $("#download-osx").attr("href", OsxDownloadUrl);
+        $("#download-linux").attr("href", LinuxDownloadUrl);
+    });
+}
+
+// init
+$(function(){
+    var screenshot = $("#screenshot-platform");
+    if (screenshot.length > 0){
+        ShowScreenshot();
+    }
+
+    var markdown = $("#docs-markdown-body");
+    if (markdown.length > 0){
+        ShowMarkdown();
+    }
+    
+    SetDownloadUrl();
+    ShowUpdateMsg();
+})
+
+
+
+</script>
+
     <!-- Google Analytics -->
-    {% include google_analysis.md %}
+    <!--{% include google_analysis.md %}-->
 </body>
 </html>
