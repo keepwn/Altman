@@ -54,7 +54,7 @@ cd Altman/
 > Other linux : <<http://www.mono-project.com/download/>>
 
 ```sh
-git clone <https://github.com/keepwn/Altman.git>
+git clone https://github.com/keepwn/Altman.git
 cd Altman/
 ./batch
 monodevelop Source/SecurityTools.sln  
