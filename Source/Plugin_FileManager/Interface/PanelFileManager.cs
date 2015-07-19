@@ -285,6 +285,7 @@ namespace Plugin_FileManager.Interface
                 if (current != "")
                 {
                     SetCurrentDirPath(current);
+                    MoveCareIndexToEnd();
                     _fileManager.GetFileTree(current);
                 }
             }
@@ -514,6 +515,13 @@ namespace Plugin_FileManager.Interface
 		}
 		#endregion
 
+	    private void MoveCareIndexToEnd()
+	    {
+            // move caretIndex to end (winform and gtk)
+            // textbox must on focus (mac)
+            _textboxUrl.CaretIndex = _textboxUrl.Text.Length;
+	    }
+
 		private void SetPathSeparator(bool isWin)
 		{
 			_status.PathSeparator = _treeViewDirs.PathSeparator = isWin ? "\\" : "/";
@@ -536,7 +544,6 @@ namespace Plugin_FileManager.Interface
 			{
 				_status.CurrentDirPath = _textboxUrl.Text = dir + sep;
 			}
-		    _textboxUrl.CaretIndex = _textboxUrl.Text.Length;
 		}
 
         private void ShowWwwRootDir(TreeViewPlus treeView, IEnumerable<string> driveNames, string wwwRootDirPath, bool isWin)
