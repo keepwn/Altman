@@ -31,7 +31,7 @@ Up to now, the software is capable of:
 3. Copy all the files under the `Libraries\IronPython` directory to the `Build\Bin` directory (if you have already installed IronPython on the host, skip this step).
 4. Copy all the files under the `Libraries\Sqlite3` directory to the `Build` directory
 5. Use VS2012 (or higher version) or MonoDevelop to compile
-6. **If the host uses Linux or Mac**, it may report errors due to the incompatibleness in command between Linux or Mac and windows.
+6. **For host of Linux or Mac**, errors may be reported during plugin compiling as windows commands are incompatible in Linux or Mac.
 
   - Thus you can change the word `copy` in file *.csproj to `cp`,and the word `call` to `sh`, and then recompile.
   - Or you can ignore this error and manually copy the compiled dll plugin to the `Plugins` directory, where the path must be similar to the `Plugins\ShellCmder\ShellCmder.dll`
