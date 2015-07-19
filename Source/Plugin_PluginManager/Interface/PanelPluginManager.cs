@@ -99,20 +99,22 @@ namespace Plugin_PluginManager.Interface
 					MessageBoxType.Error);
 				if (result == DialogResult.Yes)
 				{
-				    for (var i = 0; i < items.Count; i++)
-				    {
-				        var item = items[i];
-				        if (item.Checked)
-				        {
-				            var plugin = item.Plugin;
-				            //删除插件所在文件夹
-				            var dirPath = Path.Combine(_host.App.AppPluginDir, plugin.PluginInfo.Name);
-				            if (Directory.Exists(dirPath))
-				                Directory.Delete(dirPath, true);
-				            items.Remove(item);
-				        }
-				    }
-				    _labelMsg.Visible = true;
+                    var delItems = new List<PluginModel>();
+                    foreach (var item in items.Where(r => r.Checked))
+                    {
+                        var plugin = item.Plugin;
+                        //删除插件所在文件夹
+                        var dirPath = Path.Combine(_host.App.AppPluginDir, plugin.PluginInfo.Name);
+                        if (Directory.Exists(dirPath))
+                            Directory.Delete(dirPath, true);
+                        delItems.Add(item);
+                    }
+                    foreach (var item in delItems)
+                    {
+                        items.Remove(item);
+                    }
+                    _gridViewInstalled.DataStore = items;
+                    _labelMsg.Visible = true;
 				}
 			}
 		}
