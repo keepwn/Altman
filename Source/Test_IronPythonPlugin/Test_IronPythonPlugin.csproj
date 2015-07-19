@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Plugin_IronPythonPluginTest</RootNamespace>
-    <AssemblyName>Plugin_IronPythonPluginTest</AssemblyName>
+    <AssemblyName>IronPythonPluginTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -84,8 +84,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\Test
-copy IronPythonPluginTest.py $(SolutionDir)..\Build\Plugins\Test\IronPythonPluginTest.py</PostBuildEvent>
+    <PostBuildEvent>call $(SolutionDir)..\Resources\PostBuild\build-on-windows.bat $(ConfigurationName) $(SolutionDir) $(TargetDir) $(TargetName) .py</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

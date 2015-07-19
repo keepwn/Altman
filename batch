@@ -1,6 +1,0 @@
-#!/bin/sh
-mkdir ./Build/ ./Build/Bin ./Build/Plugins
-sed -i "s/^copy /cp /g" `grep --include "*.csproj" -rl '^copy ' ./`
-cp -Rv ./Resources/RunNeed/* ./Build/
-cp -Rv ./Libraries/IronPython/* ./Build/
-cp -Rv ./Libraries/Sqlite3/* ./Build/

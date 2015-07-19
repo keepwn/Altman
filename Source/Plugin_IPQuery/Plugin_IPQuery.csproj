@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Plugin_IPQuery</RootNamespace>
-    <AssemblyName>Plugin_IPQuery</AssemblyName>
+    <AssemblyName>IPQuery</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -72,8 +72,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\$(TargetName)
-copy $(TargetPath) $(SolutionDir)..\Build\Plugins\$(TargetName)
+    <PostBuildEvent>call $(SolutionDir)..\Resources\PostBuild\build-on-windows.bat $(ConfigurationName) $(SolutionDir) $(TargetDir) $(TargetName) $(TargetExt)
 copy $(TargetDir)Newtonsoft.Json.dll $(SolutionDir)..\Build\Plugins\$(TargetName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

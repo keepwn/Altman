@@ -84,8 +84,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)..\Build\Services
-copy Encode.py $(SolutionDir)..\Build\Services\Encode.py</PostBuildEvent>
+    <PostBuildEvent>call $(SolutionDir)..\Resources\PostBuild\build-pyservice-on-windows.bat $(SolutionDir) $(TargetDir) Encode.py</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

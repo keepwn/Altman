@@ -21,14 +21,14 @@
 - 插件服务机制：插件可以调用其它插件提供的服务
 
 ### 编译
-1. 新建`Build`,  `Build\Bin`,  `Build\Plugins` 目录
+1. 新建`Build`,  `Build\Bin`,  `Build\Plugins`, `Build\Services`目录
 2. 复制`Resources\RunNeed`目录下的所有文件到`Build`目录
 3. 复制`Libraries\IronPython`目录下所有文件到`Build\Bin`目录（如果本机已经安装IronPython，则跳过此步骤）
 4. 复制`Libraries\Sqlite3`目录下所有文件到`Build`目录
 5. 使用VS2012（或以上版本）或者MonoDevelop进行编译
 6. **如果本机是Linux或者Mac**，则在编译插件的时候可能会报错
-  由于linux或者mac下不支持`copy`命令，所以
-  - 你可以将*.csproj文件中的`copy`改为`cp`，然后重新再编译
+  由于linux或者mac下不兼容windows命令，所以
+  - 你可以将*.csproj文件中的`copy`改为`cp`，`call`改为`sh`，然后重新编译
   - 或者你也可以忽略这个错误，手动将编译好的插件dll复制到`Plugins`目录下，路径务必类似于`Plugins\ShellCmder\ShellCmder.dll`
 7. **如果需要编译成Mac版本**，则在Debug或运行前，需要手动将`Build`目录下所有文件（除Altman.Mac文件）复制到`Build\Altman.Mac\Contents\MonoBundle`目录下
 
@@ -40,7 +40,7 @@
 ```sh
 git clone https://github.com/keepwn/Altman.git
 cd Altman/
-# run  batch.bat
+# run  batch-on-windows.bat
 # Using VS2012 (or the latest version) Open [Source / SecurityTools.sln] compiler
 ```
 
@@ -56,15 +56,26 @@ cd Altman/
 ```sh
 git clone https://github.com/keepwn/Altman.git
 cd Altman/
-./batch
+./batch-on-linux.sh
 monodevelop Source/SecurityTools.sln  
 # Use monodevelop compile Altman
+```
+
+##### Mac
+
+```sh
+git clone https://github.com/keepwn/Altman.git
+cd Altman/
+./batch-on-mac-beforeBuild.sh
+# Use monodevelop compile Altman
+# After build success
+./batch-on-mac-afterBuild.sh
 ```
 
 **Compiled output:**
 - Altman/Build/Altman.Gtk.exe (gtk)
 - Altman/Build/Altman.WinForm.exe (windows)
-
+- Altman/Build/Altman.Mac (mac)
 
 
 

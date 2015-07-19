@@ -121,8 +121,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)..\Build\Plugins\$(TargetName)
-copy $(TargetPath) $(SolutionDir)..\Build\Plugins\$(TargetName)</PostBuildEvent>
+    <PostBuildEvent>call $(SolutionDir)..\Resources\PostBuild\build-on-windows.bat $(ConfigurationName) $(SolutionDir) $(TargetDir) $(TargetName) $(TargetExt)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
