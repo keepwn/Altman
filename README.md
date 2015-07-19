@@ -3,6 +3,11 @@
 > Users shall comply with relevant laws and regulations of the state!
 > I shall not have any legal liability for improper use!  
 
+> 免责申明：本程序仅供学习和研究！
+> 请使用者遵守国家相关法律法规！
+> 由于使用不当造成的后果本人不承担任何责任
+
+
 ### Introduction
 **Altman3** is a penetration testing software, which is web-hosted on Github Pages; [click here to visit the official website](http://altman.keepwn.com).
 
