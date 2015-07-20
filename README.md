@@ -99,7 +99,7 @@ cd Altman/
 - For common errors, please visit [FAQ][faq-url]
 
 ### Plugins
-**Altman3** uses the MEF plugin architecture and also supports ``IronPython`.
+**Altman3** uses the MEF plugin architecture and also supports `IronPython`.
 
 - Adopt `C#` to compile plugins/services
 - Adopt `IronPython` to compile plugins/services
