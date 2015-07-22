@@ -211,7 +211,7 @@ namespace Plugin_ShellCmder.Controls
                 this.AddText(text);
             else
             {
-                this.Selection = new Range<int>(this.Text.Length - charactersAfterPrompt, charactersAfterPrompt);
+                this.Selection = new Range<int>(this.Text.Length - charactersAfterPrompt, this.Text.Length);
                 this.SelectedText = text;
             }
         }
