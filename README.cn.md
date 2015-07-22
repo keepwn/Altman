@@ -5,7 +5,7 @@
 [![mono required version][mono-image]][mono-url]
 [![gtksharp required version][gtksharp-image]][gtksharp-url]
 
-[Official Website][altman-website-url] | [Readme in English ][readme-en-url]
+[加入讨论][altman-forums-url] | [官方主页][altman-website-url] | [Readme in English ][readme-en-url]
 
 > 免责申明：本程序仅供学习和研究！
 > 请使用者遵守国家相关法律法规！
@@ -124,6 +124,7 @@ cd Altman/
 [mono-url]: http://www.mono-project.com/
 [gtksharp-image]: https://img.shields.io/badge/Gtksharp-v2.0+-blue.svg
 [gtksharp-url]: https://github.com/mono/gtk-sharp/
+[altman-forums-url]: https://groups.google.com/forum/#!forum/altman-tool
 [altman-website-url]: http://altman.keepwn.com
 [readme-en-url]: README.md
 [eto-url]: https://github.com/picoe/Eto
