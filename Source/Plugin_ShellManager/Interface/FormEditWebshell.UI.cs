@@ -30,16 +30,26 @@ namespace Plugin_ShellManager.Interface
 			_buttonAdvanced = new Button { Text = StrRes.GetString("StrAdvanced","Advanced") };
 			_buttonAdvanced.Click += _buttonAdvanced_Click;
 
-			var codeList = new List<IListItem>
+			var codeList1 = new List<IListItem>
 			{
 				new ListItem {Text = "UTF-8"},
 				new ListItem {Text = "GB2312"}
 			};
+            var codeList2 = new List<IListItem>
+			{
+				new ListItem {Text = "UTF-8"},
+				new ListItem {Text = "GB2312"},
+                new ListItem {Text = "Big5"},
+                new ListItem {Text = "Shift-JIS"},
+                new ListItem {Text = "EUC-JP"},
+                new ListItem {Text = "EUC-KR"},
+                new ListItem {Text = "ISO-8859-1"}
+			};
 			_dropDownServerCoding = new DropDown();
-			_dropDownServerCoding.Items.AddRange(codeList);
+			_dropDownServerCoding.Items.AddRange(codeList1);
 			_dropDownServerCoding.SelectedIndex = 0;
 			_dropDownWebCoding = new DropDown();
-			_dropDownWebCoding.Items.AddRange(codeList);
+			_dropDownWebCoding.Items.AddRange(codeList2);
 			_dropDownWebCoding.SelectedIndex = 0;
 
 			// _buttonDefault
