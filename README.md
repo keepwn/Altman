@@ -5,7 +5,7 @@
 [![mono required version][mono-image]][mono-url]
 [![gtksharp required version][gtksharp-image]][gtksharp-url]
 
-[Official Website][altman-website-url] | [中文版Readme ][readme-cn-url]
+[Join The Forums][altman-forums-url] | [Official Website][altman-website-url] | [中文版Readme ][readme-cn-url]
 
 > Disclaimer: This program is only for learning and research!
 > Users shall comply with relevant laws and regulations of the state!
@@ -121,6 +121,7 @@ This program is subject to the GPLv2 protocol; please refer to the [LICENSE](LIC
 [mono-url]: http://www.mono-project.com/
 [gtksharp-image]: https://img.shields.io/badge/Gtksharp-v2.0+-blue.svg
 [gtksharp-url]: https://github.com/mono/gtk-sharp/
+[altman-forums-url]: https://groups.google.com/forum/#!forum/altman-tool
 [altman-website-url]: http://altman.keepwn.com
 [readme-cn-url]: README.cn.md
 [eto-url]: https://github.com/picoe/Eto
