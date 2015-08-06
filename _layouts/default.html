@@ -80,6 +80,7 @@
     }
 
 Platform = "windows";
+CurrentVersion = "";
 WindowsDownloadUrl = "https://github.com/keepwn/Altman/releases/latest";
 OsxDownloadUrl = "https://github.com/keepwn/Altman/releases/latest";
 LinuxDownloadUrl = "https://github.com/keepwn/Altman/releases/latest";
@@ -151,7 +152,20 @@ function ShowUpdateMsg(){
 
         $('#update-message').html(tmp);
         $('#update-message').show();
+        CurrentVersion = version;
+
+        SetReport();
     });
+}
+
+function SetReport(){
+    var click = "Report('download','{0}','{1}')";
+
+    $("#download-platform").attr("onclick", click.format(Platform, CurrentVersion));
+
+    $("#download-windows").attr("onclick", click.format('windows', CurrentVersion));
+    $("#download-osx").attr("onclick", click.format('osx', CurrentVersion));
+    $("#download-linux").attr("onclick", click.format('linux', CurrentVersion));
 }
 
 function SetDownloadUrl(){
@@ -189,6 +203,12 @@ function SetDownloadUrl(){
     });
 }
 
+function Report(action, platform, version){
+    //var reportUrl = "http://127.0.0.1:8080/report";
+    var img = '<img src="http://leafy-1024.appspot.com/report?action={0}&platform={1}&version={2}" style="display:none"/>'
+    $("#report").html(img.format(action,platform,version));
+}
+
 // init
 $(function(){
     var screenshot = $("#screenshot-platform");
@@ -204,8 +224,6 @@ $(function(){
     SetDownloadUrl();
     ShowUpdateMsg();
 })
-
-
 
 </script>
 
