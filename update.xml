@@ -8,45 +8,45 @@
 	<plugins>
 		<plugin name="ShellManager">
 			<author>keepwn</author>
-			<description>This plugin is shell manager</description>
-			<version number="1.4.2.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/ShellManager/ShellManager_1.4.2.zip</download>
+			<description>This plugin is ShellManager</description>
+			<version number="1.4.3.1" required="3.0.1.0" md5="" />
+			<download>http://altman.keepwn.com/files/plugins/ShellManager_1.4.3.1.zip</download>
 		</plugin>
 		<plugin name="ShellCmder">
 			<author>keepwn</author>
-			<description>This plugin is shell cmder</description>
-			<version number="1.4.0.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/ShellCmder/ShellCmder_1.4.0.zip</download>
+			<description>This plugin is ShellCmder</description>
+			<version number="1.4.0.1" required="3.0.1.0" md5="" />
+			<download>http://altman.keepwn.com/files/plugins/ShellCmder_1.4.0.1.zip</download>
 		</plugin>
 		<plugin name="FileManager">
 			<author>keepwn</author>
-			<description>This plugin is file manager</description>
-			<version number="1.4.1.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/FileManager/FileManager_1.4.1.zip</download>
+			<description>This plugin is FileManager</description>
+			<version number="1.4.4.4" required="3.0.1.0" md5="" />
+			<download>http://altman.keepwn.com/files/plugins/FileManager_1.4.4.4.zip</download>
 		</plugin>
 		<plugin name="DbManager">
 			<author>keepwn</author>
-			<description>This plugin is database manager</description>
-			<version number="1.4.1.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/DbManager/DbManager_1.4.1.zip</download>
+			<description>This plugin is DbManager</description>
+			<version number="1.4.2.0" required="3.0.1.0" md5="" />
+			<download>http://altman.keepwn.com/files/plugins/DbManager_1.4.2.0.zip</download>
 		</plugin>
 		<plugin name="PluginManager">
 			<author>keepwn</author>
-			<description>This plugin is plugin manager</description>
-			<version number="1.4.0.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/PluginManager/PluginManager_1.4.0.zip</download>
+			<description>This plugin is PluginManager</description>
+			<version number="1.4.2.1" required="3.0.1.0" md5="" />
+			<download>http://altman.keepwn.com/files/plugins/PluginManager_1.4.2.1.zip</download>
 		</plugin>
 		<plugin name="Encoder">
 			<author>keepwn</author>
 			<description>This plugin is en/decoder</description>
 			<version number="1.4.0.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/Encoder/Encoder_1.4.0.zip</download>
+			<download>http://altman.keepwn.com/files/plugins/Encoder_1.4.0.0.zip</download>
 		</plugin>
 		<plugin name="IPQuery">
 			<author>keepwn</author>
 			<description>This plugin is ip location queryer</description>
 			<version number="1.4.1.0" required="3.0.1.0" md5="" />
-			<download>http://www.keepwn.com/files/altman/plugins/IPQuery/IPQuery_1.4.1.zip</download>
+			<download>http://altman.keepwn.com/files/plugins/IPQuery_1.4.1.0.zip</download>
 		</plugin>
 	</plugins>
 </update>
