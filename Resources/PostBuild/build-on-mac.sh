@@ -12,10 +12,7 @@ if [ ! -d $PluginsDir ]; then
 	mkdir $PluginsDir
 fi
 
-if [ -d $OutDir ]; then
-	rm -f $OutDir/*
-else
-	mkdir $OutDir
+if [ ! -d $OutDir ]; then
 fi
 
 if [ $ConfigurationName = "Release" ]; then

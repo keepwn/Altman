@@ -12,9 +12,7 @@ if [ ! -d $PluginsDir ]; then
 	mkdir $PluginsDir
 fi
 
-if [ -d $OutDir ]; then
-	rm -f $OutDir/*
-else
+if [ ! -d $OutDir ]; then
 	mkdir $OutDir
 fi
 

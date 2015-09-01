@@ -10,9 +10,7 @@ IF Not EXIST %PluginsDir% (
   mkdir %PluginsDir%
 )
 
-IF EXIST %OutDir% (
-  del /S /Q %OutDir%
-) ELSE (
+IF Not EXIST %OutDir% (
   mkdir %OutDir%
 )
 
@@ -24,4 +22,4 @@ IF "%ConfigurationName%" == "Release" (
   copy %TargetDir%%TargetName%.pdb %OutDir%
   copy %TargetDir%*.lng %OutDir%
 )
-@exit 0
+exit 0
