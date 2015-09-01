@@ -33,8 +33,8 @@
 		<plugin name="PluginManager">
 			<author>keepwn</author>
 			<description>This plugin is PluginManager</description>
-			<version number="1.4.2.1" required="3.0.1.0" md5="" />
-			<download>http://altman.keepwn.com/files/plugins/PluginManager_1.4.2.1.zip</download>
+			<version number="1.4.2.2" required="3.0.1.0" md5="" />
+			<download>http://altman.keepwn.com/files/plugins/PluginManager_1.4.2.2.zip</download>
 		</plugin>
 		<plugin name="Encoder">
 			<author>keepwn</author>
