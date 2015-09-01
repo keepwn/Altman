@@ -11,7 +11,7 @@ using Plugin_PluginManager.Model;
 
 namespace Plugin_PluginManager.Interface
 {
-    public partial class InstallDialog : Form
+    public partial class InstallForm : Form
     {
         private string _unzipBaseDir;
         private bool _isOffline;
@@ -20,7 +20,7 @@ namespace Plugin_PluginManager.Interface
         private List<string> _pluginZipPaths;
 
         public EventHandler InstallPluginCompletedToDo;
-        public InstallDialog(IHost host)
+        public InstallForm(IHost host)
         {
             Init();
 

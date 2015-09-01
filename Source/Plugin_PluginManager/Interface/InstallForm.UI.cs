@@ -3,7 +3,7 @@ using Eto.Forms;
 
 namespace Plugin_PluginManager.Interface
 {
-	partial class InstallDialog
+	partial class InstallForm
 	{
 		void Init()
 		{

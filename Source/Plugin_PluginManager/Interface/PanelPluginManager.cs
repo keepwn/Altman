@@ -57,7 +57,7 @@ namespace Plugin_PluginManager.Interface
             {
                 var srcfiles = openFileDialog.Filenames;
 
-                var install = new InstallDialog(_host);
+                var install = new InstallForm(_host);
                 install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);               
                 install.Show();
                 install.InstallOffline(srcfiles);
@@ -274,7 +274,7 @@ namespace Plugin_PluginManager.Interface
 	        {
 				var infos = items.Select(r => (r.Tag as UpdateInfo)).Where(r => r.CanUpdate).ToArray();
 				if (infos.Length <= 0) return;
-	            var install = new InstallDialog(_host);
+	            var install = new InstallForm(_host);
 				install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
 		        install.Show();
                 install.InstallOnline(infos.Select(r => r.DownloadUrl));
@@ -340,7 +340,7 @@ namespace Plugin_PluginManager.Interface
 			{
 				var infos = items.Select(r => (r.Tag as UpdateInfo)).Where(r => r.CanUpdate).ToArray();
 				if (infos.Length <= 0) return;
-				var install = new InstallDialog(_host);
+				var install = new InstallForm(_host);
 				install.InstallPluginCompletedToDo += new EventHandler(install_InstallPluginCompletedToDo);
 				install.Show();
                 install.InstallOnline(infos.Select(r => r.DownloadUrl));

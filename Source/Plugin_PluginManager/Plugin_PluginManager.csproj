@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\InstallDialog.cs">
+    <Compile Include="Interface\InstallForm.cs">
       <SubType>Eto.Forms</SubType>
     </Compile>
     <Compile Include="Interface\InstallForm.UI.cs">
