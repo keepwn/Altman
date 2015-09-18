@@ -18,28 +18,12 @@ namespace Altman.Forms
 		public PanelProxySetting()
 		{
 			Init();
-
-			_radioButtonNoProxy.Checked = true;
 		}
 
 		private void GetProxySetting()
-        {
-            if (_radioButtonNoProxy.Checked)
-            {
-                _isProxy = 0;
-            }
-            else if (_radioButtonIeProxy.Checked)
-            {
-                _isProxy = 1;
-            }
-            else if (_radioButtonCustomProxy.Checked)
-            {
-                _isProxy = 2;
-            }
-            else
-            {
-                _isProxy = 0;
-            }
+		{
+            _isProxy = _radioButtonList.SelectedIndex;
+
             _proxyAddr = _textBoxProxyAddr.Text.Trim();
             _proxyPort = _textBoxProxyPort.Text.Trim();
             _proxyUser = _textBoxProxyUser.Text.Trim();
@@ -53,18 +37,15 @@ namespace Altman.Forms
 			switch (proxy.IsNoOrIeOrCustomProxy)
 			{
 				case 0:
-					_radioButtonNoProxy.Checked = true;
-					break;
 				case 1:
-					_radioButtonIeProxy.Checked = true;
-					break;
 				case 2:
-					_radioButtonCustomProxy.Checked = true;
+                    _radioButtonList.SelectedIndex = proxy.IsNoOrIeOrCustomProxy;
 					break;
 				default:
-					_radioButtonNoProxy.Checked = true;
+			        _radioButtonList.SelectedIndex = 0;
 					break;
 			}
+            _groupBoxSetting.Enabled = _radioButtonList.SelectedIndex == 2;
 			_textBoxProxyAddr.Text = proxy.ProxyAddr;
 			_textBoxProxyPort.Text = proxy.ProxyPort;
 			_textBoxProxyUser.Text = proxy.ProxyUser;

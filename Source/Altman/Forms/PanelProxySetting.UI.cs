@@ -12,35 +12,16 @@ namespace Altman.Forms
 	{
 		void Init()
 		{
-			// radioButton_noProxy
-			_radioButtonNoProxy = new RadioButton() { Text = AltStrRes.NotUseProxy };
-			_radioButtonNoProxy.CheckedChanged += delegate
-			{
-				if (_radioButtonNoProxy.Checked)
-				{
-					_groupBoxSetting.Enabled = false;
-				}
-			};
-
-			// radioButton_ieProxy
-			_radioButtonIeProxy = new RadioButton(_radioButtonNoProxy) { Text = AltStrRes.UseSystemProxySetting };
-			_radioButtonIeProxy.CheckedChanged += delegate
-			{
-				if (_radioButtonIeProxy.Checked)
-				{
-					_groupBoxSetting.Enabled = false;
-				}
-			};
-
-			// radioButton_customProxy
-			_radioButtonCustomProxy = new RadioButton(_radioButtonNoProxy) { Text = AltStrRes.UseCustomProxySetting };
-			_radioButtonCustomProxy.CheckedChanged += delegate
-			{
-				if (_radioButtonCustomProxy.Checked)
-				{
-					_groupBoxSetting.Enabled = true;
-				}
-			};
+            // radioButtonList with proxy
+		    _radioButtonList = new RadioButtonList {Orientation = Orientation.Vertical};
+		    _radioButtonList.Items.Add(new ListItem { Text = AltStrRes.NotUseProxy });
+            _radioButtonList.Items.Add(new ListItem { Text = AltStrRes.UseSystemProxySetting });
+            _radioButtonList.Items.Add(new ListItem { Text = AltStrRes.UseCustomProxySetting });
+		    _radioButtonList.SelectedIndex = 0;
+		    _radioButtonList.SelectedKeyChanged += delegate
+		    {
+		        _groupBoxSetting.Enabled = _radioButtonList.SelectedIndex == 2;
+		    };
 
 			// textBox
 			_textBoxProxyAddr = new TextBox();
@@ -59,18 +40,14 @@ namespace Altman.Forms
 			_groupBoxSetting = new GroupBox {Text = AltStrRes.Setting, Content = proxysetting};
 
 			var layout = new DynamicLayout { Padding = new Padding(20, 20), Spacing = new Size(10, 10) };
-			layout.AddRow(_radioButtonNoProxy);
-			layout.AddRow(_radioButtonIeProxy);
-			layout.AddRow(_radioButtonCustomProxy);
-			layout.AddRow(_groupBoxSetting);
+		    layout.AddRow(_radioButtonList);
+            layout.AddRow(_groupBoxSetting);
 			layout.AddRow(null);
 
 			this.Content = layout;
 		}
 
-		private RadioButton _radioButtonNoProxy;
-		private RadioButton _radioButtonIeProxy;
-		private RadioButton _radioButtonCustomProxy;
+	    private RadioButtonList _radioButtonList;
 		private TextBox _textBoxProxyAddr;
 		private TextBox _textBoxProxyPort;
 		private TextBox _textBoxProxyUser;
