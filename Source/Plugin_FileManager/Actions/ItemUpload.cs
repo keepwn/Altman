@@ -74,6 +74,7 @@ namespace Plugin_FileManager.Actions
 		}
 		private void upload_UploadFileCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _status.Host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				//ShowResultInProgressBar(false, e);

@@ -59,9 +59,11 @@ namespace Plugin_FileManager.Actions
 		}
 		private void download_DownloadFileCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+             _status.Host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				//ShowResultInProgressBar(false, e);
+                _status.Host.Ui.ShowMsgInStatusBar(e.Error.Message);
 				MessageBox.Show(e.Error.Message);
 			}
 			else

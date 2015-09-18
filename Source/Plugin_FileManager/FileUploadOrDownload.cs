@@ -122,6 +122,7 @@ namespace Plugin_FileManager
         #region 下载文件到本地
         public void DownloadFile(string filePath,string savePath)
         {
+            _host.Ui.ShowMsgInStatusBar("Downloading...", true);
             DownloadFileBackground(filePath, savePath);
         }
         private void DownloadFileBackground(string filePath, string savePath)
@@ -167,6 +168,7 @@ namespace Plugin_FileManager
         #region 上传文件到服务器
         public void UploadFile(string saveFilePath, string fileHexData)
         {
+            _host.Ui.ShowMsgInStatusBar("Uploading...", true);
             UploadFileBackground(saveFilePath, fileHexData);
         }
         private void UploadFileBackground(string saveFilePath, string fileHexData)

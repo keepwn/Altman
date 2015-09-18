@@ -91,16 +91,28 @@ namespace Plugin_FileManager.Interface
         /// </summary>
         void fileManager_LoadFileContentCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
+            _host.Ui.ShowMsgInStatusBar("", false);
             if (e.Error != null)
             {
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
-            else if (e.Result is string)
+            else
             {
-                var content = e.Result as string;
-				Body = content;
-                _textAreaBody.Focus();
-				_host.Ui.ShowMsgInStatusBar("load file success");
+                string msg;
+                if (e.Result is string)
+                {
+                    msg = "Load file success";
+
+                    var content = e.Result as string;
+                    Body = content;
+                    _textAreaBody.Focus();                  
+                }
+                else
+                {
+                    msg = "Load file success";
+                }
+
+				_host.Ui.ShowMsgInStatusBar(msg);
             }
         }
 
@@ -111,17 +123,25 @@ namespace Plugin_FileManager.Interface
         /// <param name="e"></param>
         void fileManager_SaveFileCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
         {
+            _host.Ui.ShowMsgInStatusBar("", false);
             if (e.Error != null)
             {
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
             }
-            else if ((bool) e.Result)
-            {
-				_host.Ui.ShowMsgInAppDialog("save file success");
-            }
             else
             {
-				_host.Ui.ShowMsgInAppDialog("save file failed");
+                string msg;
+                if ((bool) e.Result)
+                {
+                    msg = "Save file success";
+                }
+                else
+                {
+                    msg = "Save file failed";
+                }
+                
+				_host.Ui.ShowMsgInAppDialog(msg);
+                _host.Ui.ShowMsgInStatusBar(msg);
             }
         }
 

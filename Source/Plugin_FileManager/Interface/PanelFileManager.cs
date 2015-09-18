@@ -70,6 +70,7 @@ namespace Plugin_FileManager.Interface
 		#region Event
 		private void fileManager_GetWwwRootPathCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -92,7 +93,7 @@ namespace Plugin_FileManager.Interface
 				//设置路径分隔符
 				SetPathSeparator(_isWin);
 				SetCurrentDirPath(shellDir);
-				_host.Ui.ShowMsgInStatusBar("Connect succeed");
+				_host.Ui.ShowMsgInStatusBar("Connect success");
 
 				ShowWwwRootDir(_treeViewDirs, drives, shellDir, _isWin);			
 			}
@@ -100,6 +101,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_GetFileTreeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -124,6 +126,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_DeleteFileOrDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -133,7 +136,7 @@ namespace Plugin_FileManager.Interface
 				if (!(bool)e.Result)
 				{
 					var msg = "Failed to delete";
-					_host.Ui.ShowMsgInStatusBar(msg);
+				    _host.Ui.ShowMsgInStatusBar(msg);
 					_host.Ui.ShowMsgInAppDialog(msg);
 				}
 				_fileManager.GetFileTree(GetCurrentDirPath());
@@ -142,6 +145,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_RenameFileOrDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -162,6 +166,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_CopyFileOrDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -180,6 +185,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_CreateDirCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -198,6 +204,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_ModifyFileOrDirTimeCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);
@@ -216,6 +223,7 @@ namespace Plugin_FileManager.Interface
 
 		private void fileManager_WgetCompletedToDo(object sender, RunWorkerCompletedEventArgs e)
 		{
+            _host.Ui.ShowMsgInStatusBar("", false);
 			if (e.Error != null)
 			{
 				_host.Ui.ShowMsgInStatusBar(e.Error.Message);

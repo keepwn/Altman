@@ -6,7 +6,6 @@ using Altman.Plugin;
 using Altman.Plugin.Interface;
 using Altman.Util.Common.AltData;
 using Altman.Webshell.Model;
-using Eto.Forms;
 
 namespace Plugin_FileManager
 {
@@ -40,6 +39,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> GetWwwRootPathCompletedToDo;
         public void GetWwwRootPath()
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(getWwwRootPath_DoWork, null, getWwwRootPath_RunWorkerCompleted);
         }
         private void getWwwRootPath_DoWork(object sender, DoWorkEventArgs e)
@@ -61,6 +61,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> GetFileTreeCompletedToDo;
         public void GetFileTree(string dirPath)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(getFileTree_DoWork, new string[]{ dirPath }, getFileTree_RunWorkerCompleted);
         }
         private void getFileTree_DoWork(object sender, DoWorkEventArgs e)
@@ -71,13 +72,10 @@ namespace Plugin_FileManager
         }
         private void getFileTree_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-			Application.Instance.Invoke(() =>
-			{
-				if (GetFileTreeCompletedToDo != null)
-				{
-					GetFileTreeCompletedToDo(null, e);
-				}
-			});     
+            if (GetFileTreeCompletedToDo != null)
+            {
+                GetFileTreeCompletedToDo(null, e);
+            }
         }
 
         #endregion
@@ -87,6 +85,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> ReadFileCompletedToDo;
         public void ReadFile(string filePath)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(readFile_DoWork, new string[] { filePath }, readFile_RunWorkerCompleted);
         }
         private void readFile_DoWork(object sender, DoWorkEventArgs e)
@@ -109,6 +108,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> WriteFileCompletedToDo;
         public void WriteFile(string filePath, string fileData)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(writeFile_DoWork, new string[] { filePath, fileData }, writeFile_RunWorkerCompleted);
         }
         private void writeFile_DoWork(object sender, DoWorkEventArgs e)
@@ -130,6 +130,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> DeleteFileOrDirCompletedToDo;
         public void DeleteFileOrDir(string fileOrDirPath)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(deleteFileOrDir_DoWork, new string[] { fileOrDirPath }, deleteFileOrDir_RunWorkerCompleted);
         }
         private void deleteFileOrDir_DoWork(object sender, DoWorkEventArgs e)
@@ -141,7 +142,9 @@ namespace Plugin_FileManager
         private void deleteFileOrDir_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (DeleteFileOrDirCompletedToDo != null)
+            {
                 DeleteFileOrDirCompletedToDo(null, e);
+            }
         }
 
         #endregion
@@ -150,6 +153,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> CopyFileOrDirCompletedToDo;
         public void CopyFileOrDir(string sourceFilePath, string targetFilePath)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(copyFileOrDir_DoWork, new string[] { sourceFilePath, targetFilePath }, copyFileOrDir_RunWorkerCompleted);
         }
         private void copyFileOrDir_DoWork(object sender, DoWorkEventArgs e)
@@ -171,6 +175,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> RenameFileOrDirCompletedToDo;
         public void RenameFileOrDir(string oldName, string newName)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(renameFileOrDir_DoWork, new string[] { oldName, newName }, renameFileOrDir_RunWorkerCompleted);
         }
         private void renameFileOrDir_DoWork(object sender, DoWorkEventArgs e)
@@ -192,6 +197,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> CreateDirCompletedToDo;
         public void CreateDir(string dirPath)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(createDir_DoWork, new string[] { dirPath }, createDir_RunWorkerCompleted);
         }
         private void createDir_DoWork(object sender, DoWorkEventArgs e)
@@ -214,6 +220,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> ModifyFileOrDirTimeCompletedToDo;
         public void ModifyFileOrDirTime(string filePath, string aTime)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(modifyFileOrDirTime_DoWork, new string[] { filePath, aTime }, modifyFileOrDirTime_RunWorkerCompleted);
         }
         private void modifyFileOrDirTime_DoWork(object sender, DoWorkEventArgs e)
@@ -235,6 +242,7 @@ namespace Plugin_FileManager
         public event EventHandler<RunWorkerCompletedEventArgs> WgetCompletedToDo;
         public void Wget(string urlPath, string savePath)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(wget_DoWork, new string[] { urlPath, savePath }, wget_RunWorkerCompleted);
         }
         private void wget_DoWork(object sender, DoWorkEventArgs e)
