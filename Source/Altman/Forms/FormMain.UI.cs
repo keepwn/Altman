@@ -105,12 +105,13 @@ namespace Altman.Forms
 		Control StatusBar()
 		{
 			var font = new Font(SystemFont.StatusBar);
-			var layout = new TableLayout(3, 1) { Size = new Size(Size.Width, 18), Spacing = new Size(5, 5), Padding = new Padding(5, 0) };
-			layout.Add(_showMsgLabel = new Label { Text = "Ready", Font = font }, 0, 0);
-			layout.Add(null, 1, 0);
+			var layout = new TableLayout(4, 1) { Size = new Size(Size.Width, 18), Spacing = new Size(5, 5), Padding = new Padding(5, 0) };
+		    layout.Add(_lodingSpinner = new Spinner { Visible = false }, 0, 0);
+            layout.Add(_showMsgLabel = new Label { Text = "Ready", Font = font }, 1, 0);
+			layout.Add(null, 2, 0);
 
 			var version = string.Format("Version: {0}@KeePwn", Assembly.GetExecutingAssembly().GetName().Version);
-			layout.Add(new Label { Text = version, Font = font, HorizontalAlign = HorizontalAlign.Right }, 2, 0);
+			layout.Add(new Label { Text = version, Font = font, HorizontalAlign = HorizontalAlign.Right }, 3, 0);
 			return layout;
 		}
 
@@ -118,5 +119,6 @@ namespace Altman.Forms
 		private ButtonMenuItem _servicesMenuItem;
 		private Control _tabControl;
 		private Label _showMsgLabel;
+	    private Spinner _lodingSpinner;
 	}
 }

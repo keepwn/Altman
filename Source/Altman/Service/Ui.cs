@@ -17,12 +17,32 @@ namespace Altman.Service
 
 		public void ShowMsgInAppDialog(string msg)
 		{
-			MessageBox.Show(_mainForm, msg, "Message");
+		    Application.Instance.Invoke(() =>
+		    {
+		        MessageBox.Show(_mainForm, msg, "Message");
+		    });
 		}
+
 		public void ShowMsgInStatusBar(string msg)
 		{
-			_mainForm.MsgInStatusBar = msg;
+            Application.Instance.Invoke(() =>
+            {
+                _mainForm.MsgInStatusBar = msg;
+            });			
 		}
+
+        public void ShowMsgInStatusBar(string msg, bool isShowLoadingIcon)
+        {
+            Application.Instance.Invoke(() =>
+            {
+                _mainForm.MsgInStatusBar = msg;
+                if (isShowLoadingIcon)
+                    _mainForm.ShowLoadingInStatusBar();
+                else
+                    _mainForm.HideLoadingInStatusBar();
+            });
+        }
+
 		public void OpenTabPage(string tabPageName, object control)
 		{
 			_mainForm.CreateTabPage(tabPageName, control);

@@ -283,8 +283,37 @@ namespace Altman.Forms
 		public string MsgInStatusBar
 		{
 			get { return _showMsgLabel.Text; }
-			set { _showMsgLabel.Text = value; }
+		    set { _showMsgLabel.Text = value; }
 		}
+        
+        #region ShowOrHideLoadingInStatusBar
+        private int _loadingCount = 0;
+        private void ShowOrHideLoadingIcon()
+        {
+            if (_loadingCount > 0)
+            {
+                this._lodingSpinner.Visible = true;
+                this._lodingSpinner.Enabled = true;
+            }
+            else
+            {
+                this._lodingSpinner.Enabled = false;
+                this._lodingSpinner.Visible = false;
+            }
+        }
+
+        public void ShowLoadingInStatusBar()
+        {
+            _loadingCount += 1;
+            ShowOrHideLoadingIcon();
+        }
+
+        public void HideLoadingInStatusBar()
+        {
+            _loadingCount -= 1;
+            ShowOrHideLoadingIcon();
+        }
+        #endregion
 
 		public ContextMenu RightMenu
 		{
@@ -345,6 +374,7 @@ namespace Altman.Forms
 				}
 			}
 		}
+
 		#endregion
 	}
 }

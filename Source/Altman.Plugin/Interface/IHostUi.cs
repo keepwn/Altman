@@ -11,6 +11,13 @@ namespace Altman.Plugin.Interface
 		/// <param name="msg"></param>
         void ShowMsgInStatusBar(string msg);
 
+        /// <summary>
+        /// 在状态栏显示消息，并显示加载图标
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="isShowLoadingIcon">是否显示加载图标</param>
+        void ShowMsgInStatusBar(string msg, bool isShowLoadingIcon);
+
 		/// <summary>
 		/// 在窗体中显示弹窗消息
 		/// </summary>
