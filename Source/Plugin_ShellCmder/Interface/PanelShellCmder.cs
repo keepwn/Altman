@@ -48,33 +48,35 @@ namespace Plugin_ShellCmder.Interface
         /// </summary>
         private void ConnectOneShell()
         {
-            try
-            {
-                //初始化ShellCmder
-                _shellCmder = new ShellCmder(_host,_shellData);
-                //初始化内部命令
-                _internalCommand = new InternalCommand(_consoleBoxCmder, _shellCmder);
-                //获取系统信息
-                var info = _shellCmder.GetSysInfo();
-	            var str = string.Format("{0}: {1}\n{2}: {3}",
+		    try
+		    {
+		        //初始化ShellCmder
+		        _shellCmder = new ShellCmder(_host, _shellData);
+		        //初始化内部命令
+		        _internalCommand = new InternalCommand(_consoleBoxCmder, _shellCmder);
+		        //获取系统信息
+		        var info = _shellCmder.GetSysInfo();
+		        var str = string.Format("{0}: {1}\n{2}: {3}",
 		            _host.Ui.GetTranslatedText("StrPlatform", "Platform"),
 		            info.Platform,
-					_host.Ui.GetTranslatedText("StrCurrentUser", "CurrentUser"),
+		            _host.Ui.GetTranslatedText("StrCurrentUser", "CurrentUser"),
 		            info.CurrentUser);
-                //设置系统平台
-                _isWin = info.DirSeparators == @"\";
-                //设置当前目录
-                _currentDir = info.ShellDir;
-                //cmder的系统平台
-                _consoleBoxCmder.IsWin = _isWin;
-                //设置提示信息
-                _consoleBoxCmder.Prompt = _currentDir;
-                _consoleBoxCmder.PrintCommandResult(str);        
-            }
-            catch(Exception ex)
-            {
-                _consoleBoxCmder.PrintCommandResult(ex.Message);
-            }       
+		        //设置系统平台
+		        _isWin = info.DirSeparators == @"\";
+		        //设置当前目录
+		        _currentDir = info.ShellDir;
+		        //cmder的系统平台
+		        _consoleBoxCmder.IsWin = _isWin;
+		        //设置提示信息
+		        _consoleBoxCmder.Prompt = _currentDir;
+		        _consoleBoxCmder.PrintCommandResult(str);
+                _host.Ui.ShowMsgInStatusBar("Connect success");
+		    }
+		    catch (Exception ex)
+		    {
+		        _consoleBoxCmder.PrintCommandResult(ex.Message);
+                _host.Ui.ShowMsgInStatusBar("Connect failed");
+		    }
         }
 
         /// <summary>
@@ -86,6 +88,8 @@ namespace Plugin_ShellCmder.Interface
             {
                 try
                 {
+                    _host.Ui.ShowMsgInStatusBar("Executing...", true);
+
                     if (_shellCmder != null)
                     {
                         CmdResult cmdResult = _shellCmder.ExecuteCmd("", command, _currentDir, _isWin);
@@ -94,11 +98,13 @@ namespace Plugin_ShellCmder.Interface
                         //设置提示信息
                         _consoleBoxCmder.Prompt = _currentDir;
                         _consoleBoxCmder.PrintCommandResult(cmdResult.Result);
+                        _host.Ui.ShowMsgInStatusBar("Execute success", false);
                     }
                 }
                 catch (Exception ex)
                 {
                     _consoleBoxCmder.PrintCommandResult("[Error]:"+ex.Message);
+                    _host.Ui.ShowMsgInStatusBar("Execute failed", false);
                 }
             }
         }
