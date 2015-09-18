@@ -71,6 +71,7 @@ namespace Plugin_DbManager
         public event EventHandler<RunWorkerCompletedEventArgs> ConnectDbCompletedToDo;
         public void ConnectDb(string connStr)
         {
+            _host.Ui.ShowMsgInStatusBar("Connecting...", true);
             RunBackground(connectDb_DoWork, connStr, connectDb_RunWorkerCompleted);
         }
         private void connectDb_DoWork(object sender, DoWorkEventArgs e)
@@ -84,6 +85,7 @@ namespace Plugin_DbManager
         {
             if (ConnectDbCompletedToDo != null)
             {
+                _host.Ui.ShowMsgInStatusBar("", false);
                 ConnectDbCompletedToDo(null, e);
             }
         }
@@ -93,6 +95,7 @@ namespace Plugin_DbManager
         public event EventHandler<RunWorkerCompletedEventArgs> GetDbNameCompletedToDo;
         public void GetDbName(string connStr)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(getDdName_DoWork, connStr, getDbName_RunWorkerCompleted);
         }
         private void getDdName_DoWork(object sender, DoWorkEventArgs e)
@@ -108,6 +111,7 @@ namespace Plugin_DbManager
         {
             if (GetDbNameCompletedToDo != null)
             {
+                _host.Ui.ShowMsgInStatusBar("", false);
                 GetDbNameCompletedToDo(null, e);
             }
         }
@@ -118,6 +122,7 @@ namespace Plugin_DbManager
 
         public void GetTableName(string connStr,string dbName)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(getDdTableName_DoWork, new string[] { connStr, dbName }, getBdTableName_RunWorkerCompleted);
         }
         private void getDdTableName_DoWork(object sender, DoWorkEventArgs e)
@@ -133,6 +138,7 @@ namespace Plugin_DbManager
         {
             if (GetDbTableNameCompletedToDo != null)
             {
+                _host.Ui.ShowMsgInStatusBar("", false);
                 GetDbTableNameCompletedToDo(null, e);
             }
         }
@@ -143,6 +149,7 @@ namespace Plugin_DbManager
 
         public void GetColumnType(string connStr, string dbName,string columnName)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(getColumnType_DoWork, new string[] { connStr, dbName, columnName }, getColumnType_RunWorkerCompleted);
         }
         private void getColumnType_DoWork(object sender, DoWorkEventArgs e)
@@ -158,6 +165,7 @@ namespace Plugin_DbManager
         {
             if (GetColumnTypeCompletedToDo != null)
             {
+                _host.Ui.ShowMsgInStatusBar("", false);
                 GetColumnTypeCompletedToDo(null, e);
             }
         }
@@ -168,6 +176,7 @@ namespace Plugin_DbManager
 
         public void ExecuteReader(string connStr, string dbName, string sqlStr)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(executeReader_DoWork, new string[] { connStr, dbName, sqlStr }, executeReader_RunWorkerCompleted);
         }
         private void executeReader_DoWork(object sender, DoWorkEventArgs e)
@@ -182,6 +191,7 @@ namespace Plugin_DbManager
         {
             if (ExecuteReaderCompletedToDo != null)
             {
+                _host.Ui.ShowMsgInStatusBar("", false);
                 ExecuteReaderCompletedToDo(null, e);
             }
         }
@@ -192,6 +202,7 @@ namespace Plugin_DbManager
 
         public void ExecuteNonQuery(string connStr, string dbName, string sqlStr)
         {
+            _host.Ui.ShowMsgInStatusBar("Loading...", true);
             RunBackground(executeNonQuery_DoWork, new string[] { connStr, dbName, sqlStr }, executeNonQuery_RunWorkerCompleted);
         }
         private void executeNonQuery_DoWork(object sender, DoWorkEventArgs e)
@@ -206,6 +217,7 @@ namespace Plugin_DbManager
         {
             if (ExecuteNonQueryCompletedToDo != null)
             {
+                _host.Ui.ShowMsgInStatusBar("", false);
                 ExecuteNonQueryCompletedToDo(null, e);
             }
         }
