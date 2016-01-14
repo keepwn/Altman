@@ -59,7 +59,7 @@ cd Altman/
 
 ```sh
 git clone https://github.com/keepwn/Altman.git
-cd Altman/
+cd Altman/ && chmod +x batch-on-linux.sh
 ./batch-on-linux.sh
 monodevelop Source/SecurityTools.sln  
 # Use monodevelop to compile Altman
