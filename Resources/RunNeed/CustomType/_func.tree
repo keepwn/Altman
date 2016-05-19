@@ -59,5 +59,12 @@ conn=127.0.0.1;root;password;utf-8;]]></info>
 		<info><![CDATA[type=mssql_sqlsrv
 conn=127.0.0.1;root;password;utf-8;]]></info>
 	</node>
+	<node>
+		<path>/DbManager/postgresql</path>
+		<type>phpEval,phpEval_Cookie,phpAssert,phpEval_Base64,phpAssert_Base64</type>
+		<info><![CDATA[type=postgresql
+conn=127.0.0.1;root;password;utf-8;]]></info>
+	</node>
+
   </funcTreeInfo>
 </customShellType>
